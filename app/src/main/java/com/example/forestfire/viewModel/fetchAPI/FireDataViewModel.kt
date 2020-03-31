@@ -28,11 +28,15 @@ class FireDataViewModel(private val fireService : FireApiService) : ViewModel() 
         viewModelScope.launch {
             val service : List<FireModel.Dag> = fireService.fetchFireData()
             val locs : List<FireModel.Location> = service[dag].locations
+            var inne = 0
             for(loc in locs){
                 if(loc.id == stasjonsID){
+                    inne  = 1
                     liveFireStation.postValue(loc)
-                    //TODO gi passende feilmelding til bruker dersom liveFireStation ikke blir oppdatert
                 }
+            }
+            if(inne == 0){
+                //TODO gi passende feilmelding til programmerer dersom liveFireStation ikke blir oppdatert
             }
         }
 
