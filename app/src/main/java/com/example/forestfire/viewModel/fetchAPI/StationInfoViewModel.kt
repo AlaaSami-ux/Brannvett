@@ -5,6 +5,7 @@ import androidx.lifecycle.*
 import com.example.forestfire.model.FireModel
 import com.example.forestfire.model.StationInfoModel
 import com.example.forestfire.repository.StationService
+import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -42,8 +43,8 @@ class StationInfoViewModel(private val stationService : StationService) : ViewMo
             exitProcess(1)  // Dersom hashmappet ikke er fylt stopper vi prosessen
         }
 
-        userLon = latlonObjekt.getLon()
-        userLat = latlonObjekt.getLat()
+        val userLng = latlonObjekt.longitude
+        val userLat = latlonObjekt.latitude
 
         var currentBestLoc : FireModel.Location = locCoorMap.keys.elementAt(0)
         var currentLength = 1000F
@@ -53,8 +54,8 @@ class StationInfoViewModel(private val stationService : StationService) : ViewMo
         var lonLat : Float
 
         for((loc,geo) in locCoorMap){
-            lon = abs(geo.coordinates[0] - userLon)
-            lat = abs(geo.coordinates[1] - userLat)
+            lon = abs(geo.coordinates[0] - userLng.toFloat())
+            lat = abs(geo.coordinates[1] - userLat.toFloat())
 
             lonLat = abs(lon - lat)
 
