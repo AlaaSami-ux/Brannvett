@@ -15,7 +15,7 @@ import kotlin.system.exitProcess
 
 class StationInfoViewModel(private val stationService : StationService) : ViewModel() {
     /*
-    Hent Alle stasjoner gitt en dag fra FireDataViewModel
+    Hent alle stasjoner gitt en dag fra FireDataViewModel
     Plasser i Hashmap med sine koordinater fra StationInfoModel
     */
 
