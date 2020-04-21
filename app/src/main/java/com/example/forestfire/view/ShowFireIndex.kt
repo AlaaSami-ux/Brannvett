@@ -5,17 +5,17 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.view.Window
-import android.widget.Button
 import android.widget.ImageButton
+import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.view.MotionEventCompat
 import com.example.forestfire.R
 import com.example.forestfire.viewModel.FavoriteViewModel
-import com.google.android.gms.maps.model.LatLng
+
 
 class ShowFireIndex() : AppCompatActivity(), View.OnTouchListener {
     val TAG = "ShowFireIndexActivity"
@@ -45,7 +45,19 @@ class ShowFireIndex() : AppCompatActivity(), View.OnTouchListener {
         //favoriteBtn = findViewById(R.id.favoriteBtnOnMap)
         //slideDown.addView(favoriteBtn)
 
-        favoriteBtn = findViewById(R.id.favoriteBtnOnFireIndex)
+        // prøver å sjekke om knappen ble satt til favoritt i
+        // mapsActivity, men har ikke fått det til å funke
+        val mapsView: View = layoutInflater.inflate(R.layout.activity_maps, null)
+        var favoriteOrNot = mapsView.findViewById<ImageButton>(R.id.favoriteBtn)
+        favoriteBtn = findViewById(R.id.favoriteBtn)
+        if (favoriteOrNot.tag == "favorite"){
+            Toast.makeText(this, "favoritt", Toast.LENGTH_LONG).show()
+            Log.d(TAG, "favorite btn on map favorite tag")
+            favoriteViewModel.buttonClick(favoriteBtn)
+        } else if (favoriteOrNot.tag == "ikke favoritt"){
+            Log.d(TAG, "favorite brn on map not favorite tag")
+            Toast.makeText(this, "ikke favoritt", Toast.LENGTH_SHORT).show()
+        }
         favoriteBtn.setOnClickListener(View.OnClickListener {
             Log.d(TAG, "favorite button clicked")
             favoriteViewModel.buttonClick(favoriteBtn)

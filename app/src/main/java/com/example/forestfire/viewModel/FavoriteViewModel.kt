@@ -9,6 +9,7 @@ import com.google.android.gms.maps.model.LatLng
 class FavoriteViewModel : ViewModel(){
     fun buttonClick(btn: ImageButton){
         btn.setBackgroundResource(R.drawable.ic_favorite_black_24dp)
+        btn.tag = "favorite"
     }
 
     fun addedFavorite(latLng: LatLng?){

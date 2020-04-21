@@ -67,7 +67,7 @@ class MapsActivity : AppCompatActivity(),
         slideUp = findViewById(R.id.slideUp)
         // set on touch listener for only this view
         slideUp.setOnTouchListener(this)
-        favoriteBtn = findViewById(R.id.favoriteBtnOnMap)
+        favoriteBtn = findViewById(R.id.favoriteBtn)
         favoriteBtn.setOnClickListener(View.OnClickListener {
             Log.d(TAG, "favorite button clicked")
             favoriteViewModel.buttonClick(favoriteBtn)
