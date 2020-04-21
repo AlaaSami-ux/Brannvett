@@ -8,24 +8,22 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.view.MotionEventCompat
 import com.example.forestfire.R
+import com.example.forestfire.viewModel.FavoriteViewModel
 import com.example.forestfire.viewModel.MapsViewModel
 import com.google.android.gms.common.api.Status
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
-import com.google.android.gms.maps.model.Marker
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.model.RectangularBounds
@@ -44,29 +42,36 @@ class MapsActivity : AppCompatActivity(),
     private var MIN_DISTANCE = 100
 
     private lateinit var mMap: GoogleMap
-    private lateinit var marker: Marker
+
+    // the location of the device
     private var deviceloc: LatLng? = null
-    private var chosenLoc: LatLng? = null
+    // Autocomplete fragment
     private lateinit var autocompleteFragment: AutocompleteSupportFragment
     //private var previousX: Float = 0F
-    private var previousY: Float = 0F
+    private var previousY: Float = 0F // used for checking if there has been a swipe upward
 
-    private lateinit var slideUp: CardView
-    private var mLocationPermissionGranted = false
-    private lateinit var mFusedLocationProviderClient: FusedLocationProviderClient
+    private lateinit var favoriteBtn: ImageButton // button for adding as favorite
+    private lateinit var slideUp: CardView // the cardview that opens a new activity upon swipe up
+    private var mLocationPermissionGranted = false // assume location permission is not granted
 
+    // the ViewModel for the map
     val mapsViewModel: MapsViewModel by viewModels()
-    //private val mapsViewModel: AndroidViewModel
-    //private val mapsViewModel: AndroidViewModel = ViewModelProvider(this@MapsActivity).get(MapsViewModel::class.java)
-
+    val favoriteViewModel: FavoriteViewModel by viewModels()
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
 
-        slideUp = findViewById<CardView>(R.id.slideUp)
+        // initialize the cardView that slides up/opens a new activity
+        slideUp = findViewById(R.id.slideUp)
+        // set on touch listener for only this view
         slideUp.setOnTouchListener(this)
+        favoriteBtn = findViewById(R.id.favoriteBtnOnMap)
+        favoriteBtn.setOnClickListener(View.OnClickListener {
+            Log.d(TAG, "favorite button clicked")
+            favoriteViewModel.buttonClick(favoriteBtn)
+        })
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
@@ -117,7 +122,12 @@ class MapsActivity : AppCompatActivity(),
         getLocationPermission()
     }
 
+    private fun buttonClick(){
+
+    }
+
     private fun getLocationPermission() {
+        // get permission to get current location
         Log.d(TAG, "getLocationPermission called")
         if (ContextCompat.checkSelfPermission(
                 this,
@@ -149,56 +159,6 @@ class MapsActivity : AppCompatActivity(),
         }
     }
 
-    /*
-    // denne er lagt til i MapsViewModel
-    private fun getDeviceLocation(): LatLng? {
-        mFusedLocationProviderClient =
-            LocationServices.getFusedLocationProviderClient(applicationContext)
-        mFusedLocationProviderClient.lastLocation.addOnSuccessListener { location: Location? ->
-            if (location != null) {
-                deviceloc = LatLng(location.latitude, location.longitude)
-                moveCam(LatLng(location.latitude, location.longitude), DEFAULT_ZOOM)
-            } else {
-                Toast.makeText(applicationContext, "could not get location", Toast.LENGTH_SHORT)
-                    .show()
-            }
-        }
-        return deviceloc
-    }
-
-    // Denne er lagt til i MapsViewModel
-    private fun moveCam(ll: LatLng?, zoom: Float) {
-        if (ll == null) {
-            Toast.makeText(applicationContext, "kan ikke flytte kamera", Toast.LENGTH_SHORT).show()
-        } else {
-            chosenLoc = ll
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ll, zoom))
-        }
-    }
-
-    // Denne er lagt til i MapsViewModel
-    private fun addMarker(ll: LatLng?) {
-        if (ll != null) {
-            if (::marker.isInitialized) {
-                marker.remove()
-            }
-            marker = mMap.addMarker(MarkerOptions().position(ll).title("markør plassering"))
-        }
-    }
-    // Denne er lagt til i MapsViewModel
-    fun getChosenLocation(): LatLng? {
-        return chosenLoc
-    }
-     */
-
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
     override fun onMapReady(googleMap: GoogleMap) {
         Log.d(TAG, "onMapReady: map is ready")
         mMap = googleMap
@@ -212,23 +172,18 @@ class MapsActivity : AppCompatActivity(),
         }
 
         // Create a LatLngBounds that includes the country Norway
-        val NORGE = LatLngBounds(
+        val norge = LatLngBounds(
             LatLng(58.019156, 2.141567), LatLng(71.399348, 33.442113)
         )
         // Constrain the camera target to the Norway bounds.
-        mMap.setLatLngBoundsForCameraTarget(NORGE)
-
-        if (deviceloc == null) {
-            val oslo = LatLng(59.911491, 10.757933)
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(oslo, DEFAULT_ZOOM))
-        }
+        mMap.setLatLngBoundsForCameraTarget(norge)
     }
 
     override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-        //
+        // Jeg tror dette egentlig skal være i viewmodel men jeg vet ikke hvordan
+        // må ha performclick for de med nedsatt syn
         if (event != null) {
-
-            return when (MotionEventCompat.getActionMasked(event)) {
+            return when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
                     Log.d(TAG, "Action was DOWN")
                     previousY = event.y

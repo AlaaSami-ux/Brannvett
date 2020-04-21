@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--I cardView skal vi plassere alt som har med å vise skogbrannfare for det
+stedet man har valgt-->
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -13,10 +15,20 @@
     android:layout_marginStart="30dp"
     android:layout_marginEnd="30dp"
     tools:context="view.ShowFireIndex">
+    <!--Bildet av pil ned som symboliserer at man kan sveipe ned for å lukke activity-->
     <ImageView
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:src="@drawable/ic_keyboard_arrow_down_black_24dp"
         android:layout_gravity="top|center_horizontal"
         />
+    <ImageButton
+        android:id="@+id/favoriteBtnOnFireIndex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_favorite_border_black_24dp"
+        android:layout_gravity="top|right"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="5dp"
+        android:background="@null"/>
 </androidx.cardview.widget.CardView>

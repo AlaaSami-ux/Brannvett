@@ -11,7 +11,8 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MapsActivity">
+        tools:context=".MapsActivity"
+        android:layout_weight="5">
 
         <!--værmelding -->
         <androidx.cardview.widget.CardView
@@ -23,7 +24,8 @@
             android:layout_marginEnd="10dp"
             app:cardCornerRadius="12dp"
             app:cardElevation="10dp">
-
+            <!-- bare et textview for å fylle cardviewet for værmeldingen.
+            Fjernes når vi legger inn værmeldingen -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -39,7 +41,7 @@
             android:layout_marginTop="175dp"
             app:cardBackgroundColor="#B3FFFFFF"
             app:cardCornerRadius="12dp">
-
+            <!-- Fragment som har med autocomplete å gjøre-->
             <fragment
                 android:id="@+id/autocomplete_fragment"
                 android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
@@ -49,7 +51,7 @@
                 android:focusable="true"/>
         </androidx.cardview.widget.CardView>
 
-        <!--sveip opp mer info -->
+        <!--sveip opp for mer info -->
         <androidx.cardview.widget.CardView
             android:id="@+id/slideUp"
             android:layout_width="match_parent"
@@ -60,12 +62,29 @@
             android:layout_marginBottom="-40dp"
             app:cardCornerRadius="40dp"
             app:cardElevation="10dp">
-
+            <!-- dette er den lille pilen som peker oppover for å
+            symbolisere at man skal sveipe opp-->
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top|center_horizontal"
                 android:src="@drawable/ic_keyboard_arrow_up_black_24dp" />
+            <ImageButton
+                android:id="@+id/favoriteBtnOnMap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_favorite_border_black_24dp"
+                android:layout_gravity="top|right"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="5dp"
+                android:background="@null"/>
         </androidx.cardview.widget.CardView>
     </fragment>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+    </LinearLayout>
 </LinearLayout>
