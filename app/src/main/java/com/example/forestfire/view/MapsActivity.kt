@@ -122,10 +122,6 @@ class MapsActivity : AppCompatActivity(),
         getLocationPermission()
     }
 
-    private fun buttonClick(){
-
-    }
-
     private fun getLocationPermission() {
         // get permission to get current location
         Log.d(TAG, "getLocationPermission called")

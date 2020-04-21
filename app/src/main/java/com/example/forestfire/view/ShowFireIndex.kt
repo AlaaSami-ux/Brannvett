@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.view.Window
 import android.widget.Button
 import android.widget.ImageButton
@@ -37,15 +38,18 @@ class ShowFireIndex() : AppCompatActivity(), View.OnTouchListener {
         // gjør bakgrunnen gjennomsiktig så kun cardview synes
         window.setBackgroundDrawableResource(android.R.color.transparent)
 
+        //slideDown = View.inflate(this, R.layout.activity_show_fire_index, null) as CardView
         slideDown = findViewById(R.id.slideDown)
         slideDown.setOnTouchListener(this)
+
+        //favoriteBtn = findViewById(R.id.favoriteBtnOnMap)
+        //slideDown.addView(favoriteBtn)
 
         favoriteBtn = findViewById(R.id.favoriteBtnOnFireIndex)
         favoriteBtn.setOnClickListener(View.OnClickListener {
             Log.d(TAG, "favorite button clicked")
             favoriteViewModel.buttonClick(favoriteBtn)
         })
-
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
