@@ -2,8 +2,13 @@ package com.example.forestfire.view
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.MotionEvent
@@ -14,10 +19,12 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import com.example.forestfire.R
 import com.example.forestfire.viewModel.FavoriteViewModel
 import com.example.forestfire.viewModel.MapsViewModel
+import com.example.forestfire.viewModel.Varsling
 import com.google.android.gms.common.api.Status
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -30,10 +37,15 @@ import com.google.android.libraries.places.api.model.RectangularBounds
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
+import kotlinx.android.synthetic.main.activity_maps.*
+
+
+val CHANNEL_ID = "com.example.forestfire.view.channel1"
+var notificationManager : NotificationManager? = null
 
 class MapsActivity : AppCompatActivity(),
     OnMapReadyCallback,
-    View.OnTouchListener{
+    View.OnTouchListener {
 
     val TAG = "MapsActivity"
     private var DEFAULT_ZOOM = 15f
@@ -45,8 +57,10 @@ class MapsActivity : AppCompatActivity(),
 
     // the location of the device
     private var deviceloc: LatLng? = null
+
     // Autocomplete fragment
     private lateinit var autocompleteFragment: AutocompleteSupportFragment
+
     //private var previousX: Float = 0F
     private var previousY: Float = 0F // used for checking if there has been a swipe upward
 
@@ -120,6 +134,21 @@ class MapsActivity : AppCompatActivity(),
         })
 
         getLocationPermission()
+
+        goTilInfoActivity()
+        goTilFavorittActivity()
+        goTilSettingActivity()
+        // --------------------------------- Varsling ---------------------------------------------
+      //  var varsling : Varsling = Varsling(this, CHANNEL_ID)
+        //------hentilg varsling systemet-----
+        notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        // -----henting av varsling kanal -----
+        createNotificationChannel(CHANNEL_ID, "Skogbrann", "NB: BRANNFARE")
+
+            Toast.makeText(applicationContext, "INFO", Toast.LENGTH_SHORT)
+                .show()
+            vis_Varsel()
+        //----------------------------------------------------------------------------------------
     }
 
     private fun getLocationPermission() {
@@ -188,7 +217,7 @@ class MapsActivity : AppCompatActivity(),
                 MotionEvent.ACTION_UP -> {
                     Log.d(TAG, "Action was UP")
                     // swipe up
-                    if (previousY > event.y && previousY-event.y > MIN_DISTANCE) {
+                    if (previousY > event.y && previousY - event.y > MIN_DISTANCE) {
                         if (v != null && v.id == R.id.slideUp) {
                             val intent = Intent(this, ShowFireIndex::class.java)
                             startActivity(intent)
@@ -201,5 +230,53 @@ class MapsActivity : AppCompatActivity(),
             }
         }
         return false
+    }
+
+    // --------------------------------------- Notification ---------------------------------------
+    fun vis_Varsel() {//lage varsligs metode
+        val notificationId: Int = 55
+        val draTilResutat = Intent(this, InfoActivity::class.java) // gå til aktivitet etter å trykke på varsling
+        val pendingIntent = PendingIntent
+            .getActivity(this, 0, draTilResutat, PendingIntent.FLAG_UPDATE_CURRENT)
+            .apply { Intent.FLAG_ACTIVITY_CLEAR_TASK }
+        val notification = NotificationCompat.Builder(this, CHANNEL_ID)
+            .setContentTitle("Fare")
+            .setContentText("Skogbrannfare på ditt favoritt sted")
+            .setSmallIcon(android.R.drawable.ic_dialog_info)
+            .setAutoCancel(true)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setContentIntent(pendingIntent)
+            .build()
+
+        notificationManager?.notify(notificationId, notification)
+    }
+
+    fun createNotificationChannel(id: String, name: String, channelDiscription: String) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val importance = NotificationManager.IMPORTANCE_HIGH
+            val channel: NotificationChannel =
+                NotificationChannel(id, name, importance).apply { description = channelDiscription }
+            notificationManager?.createNotificationChannel(channel)
+        }
+    }
+    //---------------------------------------------------------------------------------------------
+
+    fun goTilInfoActivity(){
+        info2.setOnClickListener{
+           val intent =  Intent(this, InfoActivity::class.java)
+            startActivity(intent)
+        }
+    }
+    fun goTilFavorittActivity() {
+        favoritt.setOnClickListener {
+            val intent = Intent(this, FavorittActivity::class.java)
+            startActivity(intent)
+        }
+    }
+    fun goTilSettingActivity() {
+        setting.setOnClickListener {
+            val intent = Intent(this, SettingActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
