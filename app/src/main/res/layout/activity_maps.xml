@@ -94,31 +94,36 @@
         android:background="@drawable/customborder">
         <!-- Hjemknapp -->
         <ImageButton
+            android:id="@+id/startSide"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:src="@drawable/ic_home_black_24dp"
-            android:background="@null"/>
+            android:background="@null"
+            android:src="@drawable/ic_home_black_24dp" />
         <!-- Favoritterknapp -->
         <ImageButton
+            android:id="@+id/favoritt"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:src="@drawable/ic_favorite_border_black_24dp"
-            android:background="@null"/>
+            android:background="@null"
+            android:src="@drawable/ic_favorite_border_black_24dp" />
         <!-- Infoknapp -->
         <ImageButton
+            android:id="@+id/info2"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:src="@drawable/ic_info_outline_black_24dp"
-            android:background="@null"/>
+            android:background="@null"
+            android:src="@drawable/ic_info_outline_black_24dp" />
         <!-- Innstillingerknapp -->
         <ImageButton
+            android:id="@+id/setting"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:src="@drawable/ic_settings_black_24dp"
-            android:background="@null"/>
+            android:background="@null"
+            android:src="@drawable/ic_settings_black_24dp" />
+
     </LinearLayout>
 </LinearLayout>
