@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.InfoActivity">
+    tools:context=".view.InfoActivity"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/textView"
@@ -18,50 +19,14 @@
 
 
     <!-- Meny -->
-    <LinearLayout
-        android:layout_width="421dp"
-        android:layout_height="67dp"
-        android:layout_weight="1"
-        android:background="@drawable/customborder"
-        android:orientation="horizontal"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:itemBackground="@color/whiteColor"
+        android:background="@color/whiteColor"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
-        <!-- Hjemknapp -->
-        <ImageButton
-            android:id="@+id/startSide3"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@null"
-            android:src="@drawable/ic_home_black_24dp" />
-        <!-- Favoritterknapp -->
-        <ImageButton
-            android:id="@+id/favoritt3"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@null"
-            android:src="@drawable/ic_favorite_border_black_24dp" />
-        <!-- Infoknapp -->
-        <ImageButton
-            android:id="@+id/info2"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@null"
-            android:src="@drawable/ic_info_outline_black_24dp" />
-        <!-- Innstillingerknapp -->
-        <ImageButton
-            android:id="@+id/setting3"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@null"
-            android:src="@drawable/ic_settings_black_24dp" />
-
-    </LinearLayout>
+        app:menu="@menu/bottom_nav"
+        android:layout_alignParentBottom="true"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

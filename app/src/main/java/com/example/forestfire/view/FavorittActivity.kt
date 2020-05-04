@@ -6,18 +6,21 @@ import android.os.Bundle
 import com.example.forestfire.R
 import kotlinx.android.synthetic.main.activity_favoritt.*
 import kotlinx.android.synthetic.main.activity_info.*
-import kotlinx.android.synthetic.main.activity_info.info2
+//import kotlinx.android.synthetic.main.activity_info.info2
 
 class FavorittActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_favoritt)
-
+        /*
         goTilSettingActivity()
         goTilInfoActivity()
         goTilStartSidegActivity()
+
+         */
     }
+    /*
     fun goTilSettingActivity(){
         setting4.setOnClickListener{
             val intent =  Intent(this, SettingActivity::class.java)
@@ -36,4 +39,6 @@ class FavorittActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
+     */
 }

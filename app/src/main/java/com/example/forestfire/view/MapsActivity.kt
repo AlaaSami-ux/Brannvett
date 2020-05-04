@@ -14,6 +14,7 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageButton
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -21,12 +22,14 @@ import androidx.cardview.widget.CardView
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentTransaction
 import com.example.forestfire.R
 import com.example.forestfire.viewModel.FavoriteViewModel
 import com.example.forestfire.viewModel.MapsViewModel
 import com.example.forestfire.viewModel.Varsling
 import com.google.android.gms.common.api.Status
 import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.MapFragment
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
@@ -37,6 +40,7 @@ import com.google.android.libraries.places.api.model.RectangularBounds
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_maps.*
 
 
@@ -55,6 +59,12 @@ class MapsActivity : AppCompatActivity(),
 
     private lateinit var mMap: GoogleMap
 
+    // objekter til fragments
+    lateinit var homeFragment: MapFragment
+    lateinit var favoriteFragment: FavoritesFragment
+    lateinit var infoFragment: InfoFragment
+    lateinit var settingsFragment: SettingsFragment
+
     // the location of the device
     private var deviceloc: LatLng? = null
 
@@ -64,6 +74,7 @@ class MapsActivity : AppCompatActivity(),
     //private var previousX: Float = 0F
     private var previousY: Float = 0F // used for checking if there has been a swipe upward
 
+    private lateinit var valgtSted: TextView
     private lateinit var favoriteBtn: ImageButton // button for adding as favorite
     private lateinit var slideUp: CardView // the cardview that opens a new activity upon swipe up
     private var mLocationPermissionGranted = false // assume location permission is not granted
@@ -77,6 +88,46 @@ class MapsActivity : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
 
+        // bottom navigation bar
+        val nav: BottomNavigationView = findViewById(R.id.menu)
+        // når vi trykker på noe i menyen blir dette kalt
+        nav.setOnNavigationItemSelectedListener { item ->
+            when(item.itemId){
+                R.id.home ->{
+                    val intent = Intent(this, MapsActivity::class.java)
+                    startActivity(intent)
+                }
+                R.id.favorites ->{
+                    favoriteFragment = FavoritesFragment()
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.mapslayout, favoriteFragment)
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .commit()
+                }
+
+                R.id.info ->{
+                    infoFragment = InfoFragment()
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.mapslayout, infoFragment)
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .commit()
+                }
+                R.id.settings ->{
+                    settingsFragment = SettingsFragment()
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.mapslayout, settingsFragment)
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .commit()
+                }
+
+            }
+            true
+        }
+
+        valgtSted = findViewById(R.id.valgtSted)
         // initialize the cardView that slides up/opens a new activity
         slideUp = findViewById(R.id.slideUp)
         // set on touch listener for only this view
@@ -124,6 +175,7 @@ class MapsActivity : AppCompatActivity(),
                 Log.i(TAG, "Place: " + place.name + ", " + place.id)
                 mapsViewModel.moveCam(mMap, applicationContext, place.latLng, DEFAULT_ZOOM)
                 mapsViewModel.addMarker(mMap, place.latLng)
+                valgtSted.text=place.name
             }
 
             override fun onError(status: Status) {
@@ -134,10 +186,12 @@ class MapsActivity : AppCompatActivity(),
         })
 
         getLocationPermission()
-
+        /*
         goTilInfoActivity()
         goTilFavorittActivity()
         goTilSettingActivity()
+
+         */
         // --------------------------------- Varsling ---------------------------------------------
       //  var varsling : Varsling = Varsling(this, CHANNEL_ID)
         //------hentilg varsling systemet-----
@@ -145,8 +199,8 @@ class MapsActivity : AppCompatActivity(),
         // -----henting av varsling kanal -----
         createNotificationChannel(CHANNEL_ID, "Skogbrann", "NB: BRANNFARE")
 
-            Toast.makeText(applicationContext, "INFO", Toast.LENGTH_SHORT)
-                .show()
+            //Toast.makeText(applicationContext, "INFO", Toast.LENGTH_SHORT)
+            //   .show()
             vis_Varsel()
         //----------------------------------------------------------------------------------------
     }
@@ -194,6 +248,7 @@ class MapsActivity : AppCompatActivity(),
         mMap.isMyLocationEnabled = true
         if (mLocationPermissionGranted) {
             mapsViewModel.getDeviceLocation(mMap, applicationContext)
+            valgtSted.text="Din posisjon"
         }
 
         // Create a LatLngBounds that includes the country Norway
@@ -259,6 +314,7 @@ class MapsActivity : AppCompatActivity(),
             notificationManager?.createNotificationChannel(channel)
         }
     }
+    /*
     //---------------------------------------------------------------------------------------------
 
     fun goTilInfoActivity(){
@@ -279,4 +335,5 @@ class MapsActivity : AppCompatActivity(),
             startActivity(intent)
         }
     }
+     */
 }
