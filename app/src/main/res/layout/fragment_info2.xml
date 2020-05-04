@@ -13,16 +13,32 @@
         android:orientation="vertical"
         android:weightSum="6">
 
-        <ImageView
-            android:id="@+id/imageView"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="2"
-            android:background="#FFFFFF"
-            android:backgroundTint="#D6C4A4"
-            app:srcCompat="@drawable/hot_blond_lady_" />
+            android:layout_weight="2">
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF"
+                android:backgroundTint="#D6C4A4"
+                app:srcCompat="@drawable/hot_blond_lady_"/>
+            <TextView
+                android:id="@+id/branntw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#A795C6"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:layout_below="@id/imageView"
+                android:text="Ved brann - ring 110"
+                android:layout_centerHorizontal="true"
+                android:textColor="#700000"
+                android:textSize="24sp"/>
+        </RelativeLayout>
         <!--
-        Lager et linear layout med tre linear layouts inni
+        Lager et linear layout med tre linear layouts inni.
         Det ytterste layoutet plasserer de tre neste under hveandre.
         De tre som er under hverandre inneholder to knapper hver
         -->
@@ -52,7 +68,7 @@
                         android:layout_centerInParent="true"
                         android:background="#00FFFFFF"
                         android:backgroundTint="#FFFFFF"
-                        android:src="@drawable/ic_baal" />
+                        android:src="@drawable/ic_baal"/>
 
                     <TextView
                         android:id="@+id/baaltw"
@@ -215,7 +231,7 @@
     </LinearLayout>
 
 
-    <ImageButton
+    <!--<ImageButton
         android:id="@+id/infoBilde"
         android:layout_width="59dp"
         android:layout_height="60dp"
@@ -225,26 +241,7 @@
         android:src="@drawable/ic_info"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView" />
-
-
-    <!--<TextView
-        android:id="@+id/branntw"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#A795C6"
-        android:gravity="center"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:text="Ved brann - ring 110"
-        android:textColor="#700000"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout7"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/infoBilde"
-        app:layout_constraintVertical_bias="0.022" />-->
+        app:layout_constraintTop_toTopOf="@+id/imageView" />-->
 
 
 </FrameLayout>

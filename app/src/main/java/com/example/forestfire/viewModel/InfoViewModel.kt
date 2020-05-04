@@ -84,7 +84,7 @@ class InfoViewModel : ViewModel() {
         dialog.show()
         dialog.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FFCCD1EF")))
     }
-    fun verktøyDialog(context: Context){
+    fun verktoyDialog(context: Context){
         val builder = AlertDialog.Builder(context)
         builder.setIcon(android.R.drawable.ic_dialog_info)
         builder.setTitle("Verktøy!!")
