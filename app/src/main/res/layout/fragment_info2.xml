@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/whiteColor"
+    tools:context=".view.FavoritesFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="6">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:layout_weight="2"
+            android:weightSum="2">
+            <ImageView
+                android:layout_weight="2"
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF"
+                android:backgroundTint="#D6C4A4"
+                app:srcCompat="@drawable/hot_blond_lady_"/>
+
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/branntw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/imageView"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:textAlignment="center"
+                android:background="#A795C6"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="Ved brann - ring 110"
+                android:textColor="#700000"
+                android:textSize="24sp" />
+        </LinearLayout>
+        <!--
+        Lager et linear layout med tre linear layouts inni.
+        Det ytterste layoutet plasserer de tre neste under hveandre.
+        De tre som er under hverandre inneholder to knapper hver
+        -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            android:orientation="vertical"
+            android:weightSum="3">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <ImageButton
+                        android:id="@+id/baal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:background="#00FFFFFF"
+                        android:backgroundTint="#FFFFFF"
+                        android:src="@drawable/ic_baal"/>
+
+                    <TextView
+                        android:id="@+id/baaltw"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/baal"
+                        android:paddingTop="20dp"
+                        android:layout_centerHorizontal="true"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:text="Bål"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <ImageButton
+                        android:id="@+id/engangsgrill"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:background="#00FFFFFF"
+                        android:src="@drawable/ic_engangsgrill" />
+
+                    <TextView
+                        android:id="@+id/engangsgrilltw"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/engangsgrill"
+                        android:paddingTop="20dp"
+                        android:layout_centerHorizontal="true"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:text="Engangsgrill " />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:weightSum="2">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <ImageButton
+                        android:id="@+id/glass"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_centerInParent="true"
+                        android:background="#00FF80AB"
+                        android:src="@drawable/ic_glassflasker" />
+
+                    <TextView
+                        android:id="@+id/glasstw"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Glassflasker"
+                        android:paddingTop="20dp"
+                        android:layout_centerHorizontal="true"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:layout_below="@id/glass" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <ImageButton
+                        android:id="@+id/lyn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_centerInParent="true"
+                        android:background="#00FFFFFF"
+                        android:src="@drawable/ic_lyn" />
+
+                    <TextView
+                        android:id="@+id/lyntw"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Lyn"
+                        android:layout_below="@id/lyn"
+                        android:paddingTop="20dp"
+                        android:layout_centerHorizontal="true"
+                        android:textSize="16sp"
+                        android:textStyle="bold"/>
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:weightSum="2">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <ImageButton
+                        android:id="@+id/soppel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_centerInParent="true"
+                        android:background="#00FFFFFF"
+                        android:src="@drawable/ic_soppelcontainer" />
+
+                    <TextView
+                        android:id="@+id/soppeltw"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Avfallscontainer"
+                        android:layout_below="@id/soppel"
+                        android:paddingTop="20dp"
+                        android:layout_centerHorizontal="true"
+                        android:textSize="16sp"
+                        android:textStyle="bold"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <ImageButton
+                        android:id="@+id/verktoy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_centerInParent="true"
+                        android:background="#00FFFFFF"
+                        android:src="@drawable/ic_verktoy" />
+
+                    <TextView
+                        android:id="@+id/verktoytw"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="20dp"
+                        android:layout_centerHorizontal="true"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:layout_below="@id/verktoy"
+                        android:text="Verktøy" />
+                </RelativeLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <!--<ImageButton
+        android:id="@+id/infoBilde"
+        android:layout_width="59dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="144dp"
+        android:background="#00FFFFFF"
+        android:src="@drawable/ic_info"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView" />-->
+
+
+</FrameLayout>
