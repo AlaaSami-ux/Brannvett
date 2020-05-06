@@ -5,7 +5,6 @@ import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
@@ -15,7 +14,6 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageButton
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
@@ -26,30 +24,18 @@ import androidx.fragment.app.FragmentTransaction
 import com.example.forestfire.R
 import com.example.forestfire.viewModel.FavoriteViewModel
 import com.example.forestfire.viewModel.MapsViewModel
-import com.example.forestfire.viewModel.Varsling
-import com.google.android.gms.common.api.Status
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.MapFragment
 import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
-import com.google.android.libraries.places.api.Places
-import com.google.android.libraries.places.api.model.Place
-import com.google.android.libraries.places.api.model.RectangularBounds
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
-import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
-import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.android.synthetic.main.activity_maps.*
 
 
 val CHANNEL_ID = "com.example.forestfire.view.channel1"
 var notificationManager : NotificationManager? = null
 
-class MapsActivity : AppCompatActivity(),
-    OnMapReadyCallback,
-    View.OnTouchListener {
+class MapsActivity : AppCompatActivity(){
 
     val TAG = "MapsActivity"
     private var DEFAULT_ZOOM = 15f
@@ -60,7 +46,7 @@ class MapsActivity : AppCompatActivity(),
     private lateinit var mMap: GoogleMap
 
     // objekter til fragments
-    lateinit var homeFragment: MapFragment
+    lateinit var homeFragment: MapsFragment
     lateinit var favoriteFragment: FavoritesFragment
     lateinit var infoFragment: InfoFragment
     lateinit var settingsFragment: SettingsFragment
@@ -90,18 +76,30 @@ class MapsActivity : AppCompatActivity(),
 
         // bottom navigation bar
         val nav: BottomNavigationView = findViewById(R.id.menu)
+
+        homeFragment = MapsFragment()
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.frame_layout, homeFragment)
+            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+            .commit()
+
         // når vi trykker på noe i menyen blir dette kalt
         nav.setOnNavigationItemSelectedListener { item ->
             when(item.itemId){
                 R.id.home ->{
-                    val intent = Intent(this, MapsActivity::class.java)
-                    startActivity(intent)
+                    homeFragment = MapsFragment()
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.frame_layout, homeFragment)
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .commit()
                 }
                 R.id.favorites ->{
                     favoriteFragment = FavoritesFragment()
                     supportFragmentManager
                         .beginTransaction()
-                        .replace(R.id.mapslayout, favoriteFragment)
+                        .replace(R.id.frame_layout, favoriteFragment)
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         .commit()
                 }
@@ -110,7 +108,7 @@ class MapsActivity : AppCompatActivity(),
                     infoFragment = InfoFragment()
                     supportFragmentManager
                         .beginTransaction()
-                        .replace(R.id.mapslayout, infoFragment)
+                        .replace(R.id.frame_layout, infoFragment)
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         .commit()
                 }
@@ -118,7 +116,7 @@ class MapsActivity : AppCompatActivity(),
                     settingsFragment = SettingsFragment()
                     supportFragmentManager
                         .beginTransaction()
-                        .replace(R.id.mapslayout, settingsFragment)
+                        .replace(R.id.frame_layout, settingsFragment)
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         .commit()
                 }
@@ -127,6 +125,7 @@ class MapsActivity : AppCompatActivity(),
             true
         }
 
+        /*
         valgtSted = findViewById(R.id.valgtSted)
         // initialize the cardView that slides up/opens a new activity
         slideUp = findViewById(R.id.slideUp)
@@ -186,14 +185,15 @@ class MapsActivity : AppCompatActivity(),
         })
 
         getLocationPermission()
+         */
         /*
         goTilInfoActivity()
         goTilFavorittActivity()
         goTilSettingActivity()
 
-         */
+
         // --------------------------------- Varsling ---------------------------------------------
-      //  var varsling : Varsling = Varsling(this, CHANNEL_ID)
+        //  var varsling : Varsling = Varsling(this, CHANNEL_ID)
         //------hentilg varsling systemet-----
         notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         // -----henting av varsling kanal -----
@@ -203,6 +203,7 @@ class MapsActivity : AppCompatActivity(),
             //   .show()
             vis_Varsel()
         //----------------------------------------------------------------------------------------
+        */
     }
 
     private fun getLocationPermission() {
@@ -237,7 +238,7 @@ class MapsActivity : AppCompatActivity(),
             )
         }
     }
-
+    /*
     override fun onMapReady(googleMap: GoogleMap) {
         Log.d(TAG, "onMapReady: map is ready")
         mMap = googleMap
@@ -286,6 +287,7 @@ class MapsActivity : AppCompatActivity(),
         }
         return false
     }
+     */
 
     // --------------------------------------- Notification ---------------------------------------
     fun vis_Varsel() {//lage varsligs metode
@@ -314,26 +316,4 @@ class MapsActivity : AppCompatActivity(),
             notificationManager?.createNotificationChannel(channel)
         }
     }
-    /*
-    //---------------------------------------------------------------------------------------------
-
-    fun goTilInfoActivity(){
-        info2.setOnClickListener{
-           val intent =  Intent(this, InfoActivity::class.java)
-            startActivity(intent)
-        }
-    }
-    fun goTilFavorittActivity() {
-        favoritt.setOnClickListener {
-            val intent = Intent(this, FavorittActivity::class.java)
-            startActivity(intent)
-        }
-    }
-    fun goTilSettingActivity() {
-        setting.setOnClickListener {
-            val intent = Intent(this, SettingActivity::class.java)
-            startActivity(intent)
-        }
-    }
-     */
 }

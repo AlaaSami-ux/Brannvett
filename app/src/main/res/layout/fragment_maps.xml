@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.MapsFragment">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/mapslayout">
+
+        <!--kart -->
+        <fragment
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/map"
+            tools:context=".MapsActivity">
+
+            <!--værmelding -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/weather"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_gravity="top|center_horizontal"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="10dp">
+                <!-- bare et textview for å fylle cardviewet for værmeldingen.
+                Fjernes når vi legger inn værmeldingen -->
+                <TextView
+                    android:id="@+id/wtext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|center_horizontal"
+                    android:text="Her skal været være" />
+            </androidx.cardview.widget.CardView>
+
+            <!--sveip opp for mer info -->
+            <!--<androidx.cardview.widget.CardView
+                android:id="@+id/slideUp"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="-40dp"
+                app:cardCornerRadius="40dp"
+                app:cardElevation="10dp">
+                dette er den lille pilen som peker oppover for å
+                symbolisere at man skal sveipe opp
+                <TextView
+                    android:id="@+id/valgtSted"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top|left"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@null"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top|center_horizontal"
+                    android:src="@drawable/ic_keyboard_arrow_up_black_24dp" />
+
+                <ImageButton
+                    android:id="@+id/favoriteBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top|right"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@null"
+                    android:src="@drawable/ic_favorite_border_black_24dp" />
+            </androidx.cardview.widget.CardView>-->
+
+            <!--søkeboks -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="120dp"
+                android:layout_marginStart="70dp"
+                android:layout_marginEnd="70dp"
+                app:cardBackgroundColor="#B3FFFFFF"
+                app:cardCornerRadius="12dp">
+                <!-- Fragment som har med autocomplete å gjøre-->
+                <fragment
+                    android:id="@+id/autocomplete_fragment"
+                    android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true" />
+            </androidx.cardview.widget.CardView>
+
+
+        </fragment>
+    </FrameLayout>
+
+</RelativeLayout>
