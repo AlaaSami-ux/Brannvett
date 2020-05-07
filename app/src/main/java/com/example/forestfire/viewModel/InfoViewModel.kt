@@ -6,12 +6,13 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModel
+import com.example.forestfire.R
 
 class InfoViewModel : ViewModel() {
 
     fun baalDialog(context: Context){
-        val builder = AlertDialog.Builder(context)
-        builder.setIcon(android.R.drawable.ic_dialog_info)
+        val builder = AlertDialog.Builder(context, R.style.CustomAlertDialog)
+        builder.setIcon(R.drawable.ic_baal)
         builder.setTitle("Bål")
         builder.setMessage("I perioden 15. april til 15. " +
                 "september er forbud mot å tenne bål, " +
@@ -25,12 +26,12 @@ class InfoViewModel : ViewModel() {
         builder.setPositiveButton("OK",{ dialogInterface: DialogInterface, i: Int -> })
         val dialog =builder.create()
         dialog.show()
-        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FFCCD1EF")))
+       //dialog.window?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FFCCD1EF")))
     }
 
     fun glassDialog(context: Context){
-        val builder = AlertDialog.Builder(context)
-        builder.setIcon(android.R.drawable.ic_dialog_info)
+        val builder = AlertDialog.Builder(context, R.style.CustomAlertDialog)
+        builder.setIcon(R.drawable.ic_glassflasker)
         builder.setTitle("Glassflasker")
         builder.setMessage("Ikke bare er du et miljøsvin hvis du legger igjen søppel i naturen, " +
                 "det kan også ha store konsekvenser. " +
@@ -39,11 +40,11 @@ class InfoViewModel : ViewModel() {
         builder.setPositiveButton("OK",{ dialogInterface: DialogInterface, i: Int -> })
         val dialog =builder.create()
         dialog.show()
-        dialog.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FFCCD1EF")))
+      //  dialog.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FFCCD1EF")))
     }
     fun engangsgrillDialog(context: Context){
-        val builder = AlertDialog.Builder(context)
-        builder.setIcon(android.R.drawable.ic_dialog_info)
+        val builder = AlertDialog.Builder(context, R.style.CustomAlertDialog)
+        builder.setIcon(R.drawable.ic_engangsgrill)
         builder.setTitle("Engangsgrill")
         builder.setMessage("Når du bruker engangsgrill er det første du må tenke på underlaget. " +
                 "Grillen skal stå stødig på et underlag som ikke er brennbart. " +
@@ -54,11 +55,11 @@ class InfoViewModel : ViewModel() {
         builder.setPositiveButton("OK",{ dialogInterface: DialogInterface, i: Int -> })
         val dialog =builder.create()
         dialog.show()
-        dialog.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FFCCD1EF")))
+       // dialog.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FFCCD1EF")))
     }
     fun lynDialog(context: Context){
-        val builder = AlertDialog.Builder(context)
-        builder.setIcon(android.R.drawable.ic_dialog_info)
+        val builder = AlertDialog.Builder(context, R.style.CustomAlertDialog)
+        builder.setIcon(R.drawable.ic_lyn)
         builder.setTitle("Lyn")
         builder.setMessage("Tordenvær kan være ganske guffent. " +
                 "Visste du at lynnedslag starter mange branner i skog i Norge i løpet av året? " +
@@ -69,11 +70,11 @@ class InfoViewModel : ViewModel() {
         builder.setPositiveButton("OK",{ dialogInterface: DialogInterface, i: Int -> })
         val dialog =builder.create()
         dialog.show()
-        dialog.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FFCCD1EF")))
+        //dialog.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FFCCD1EF")))
     }
     fun soppelDialog(context: Context){
-        val builder = AlertDialog.Builder(context)
-        builder.setIcon(android.R.drawable.ic_dialog_info)
+        val builder = AlertDialog.Builder(context,R.style.CustomAlertDialog)
+        builder.setIcon(R.drawable.ic_soppelcontainer)
         builder.setTitle("Avfallscontainere")
         builder.setMessage("Bruk alltid en avfallscontainer som er for engangsgrill etter du er ferdig å bruke den. " +
                 "Ofte finnes det en oversikt over hvilke parker eller området som har disse på kommunen sine nettsider. " +
@@ -82,11 +83,11 @@ class InfoViewModel : ViewModel() {
         builder.setPositiveButton("OK",{ dialogInterface: DialogInterface, i: Int -> })
         val dialog =builder.create()
         dialog.show()
-        dialog.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FFCCD1EF")))
+       // dialog.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FFCCD1EF")))
     }
     fun verktoyDialog(context: Context){
-        val builder = AlertDialog.Builder(context)
-        builder.setIcon(android.R.drawable.ic_dialog_info)
+        val builder = AlertDialog.Builder(context, R.style.CustomAlertDialog)
+        builder.setIcon(R.drawable.ic_verktoy)
         builder.setTitle("Verktøy")
         builder.setMessage("Bruk av verktøy som har åpen flamme, " +
                 "eller som slår gnister kan være svært brannfarlig. Det er viktig å være obs på dette, " +
@@ -96,6 +97,6 @@ class InfoViewModel : ViewModel() {
         builder.setPositiveButton("OK",{ dialogInterface: DialogInterface, i: Int -> })
         val dialog =builder.create()
         dialog.show()
-        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FFCCD1EF")))
+        //dialog.window?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FFCCD1EF")))
     }
 }
