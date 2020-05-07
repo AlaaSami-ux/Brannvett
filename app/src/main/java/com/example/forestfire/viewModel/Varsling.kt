@@ -8,14 +8,13 @@ import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.example.forestfire.R
-import com.example.forestfire.view.InfoActivity
 
 data class Varsling(val context: Context, val CHANNEL_ID: String) {
     var notificationManager : NotificationManager? = null
 
     fun vis_Varsel() {
         val notificationId:Int = 54
-        val draTilResutat = Intent(context, InfoActivity::class.java)
+        val draTilResutat = Intent(context, context::class.java)
         val pendingIntent =  PendingIntent
             .getActivity(context,0,draTilResutat, PendingIntent.FLAG_UPDATE_CURRENT)
             .apply { Intent.FLAG_ACTIVITY_CLEAR_TASK }
