@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
+import com.example.forestfire.R
 import com.example.forestfire.view.InfoActivity
 
 data class Varsling(val context: Context, val CHANNEL_ID: String) {
@@ -21,7 +22,7 @@ data class Varsling(val context: Context, val CHANNEL_ID: String) {
         val notification= NotificationCompat.Builder(context,CHANNEL_ID)
             .setContentTitle("Fare")
             .setContentText("Skogbrannfare på ditt favoritt sted")
-            .setSmallIcon(android.R.drawable.ic_dialog_info)
+            .setSmallIcon(R.drawable.ic_hot_blond_lady_24dp)
             .setAutoCancel(true)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setContentIntent(pendingIntent)

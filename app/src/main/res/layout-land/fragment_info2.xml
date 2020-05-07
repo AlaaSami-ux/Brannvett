@@ -11,36 +11,39 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:weightSum="6">
+        android:weightSum="4">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="vertical"
-            android:layout_weight="2"
-            android:weightSum="2">
-            <ImageView
-                android:layout_weight="2"
+            android:layout_weight="0.7"
+            android:weightSum="1">
+
+        <!--    <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="2"
                 android:background="#FFFFFF"
                 android:backgroundTint="#D6C4A4"
-                app:srcCompat="@drawable/hot_blond_lady_"/>
+                app:srcCompat="@drawable/hot_blond_lady_" />
+             -->
 
             <TextView
-                android:layout_weight="1"
                 android:id="@+id/branntw"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/imageView"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:textAlignment="center"
-                android:background="#7F74AF"
+                android:layout_weight="1"
+                android:background="#A795C6"
+                android:gravity="center"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
                 android:text="Ved brann - ring 110"
+                android:textAlignment="center"
                 android:textColor="#700000"
                 android:textSize="24sp" />
         </LinearLayout>
@@ -52,16 +55,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="4"
+            android:layout_weight="3"
             android:orientation="vertical"
-            android:weightSum="3">
+            android:weightSum="2">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:orientation="horizontal"
-                android:weightSum="2">
+                android:weightSum="3">
 
                 <RelativeLayout
                     android:layout_width="0dp"
@@ -113,13 +116,6 @@
                         android:textStyle="bold"
                         android:text="Engangsgrill " />
                 </RelativeLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:weightSum="2">
 
                 <RelativeLayout
                     android:layout_width="0dp"
@@ -146,7 +142,13 @@
                         android:textStyle="bold"
                         android:layout_below="@id/glass" />
                 </RelativeLayout>
+            </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:weightSum="3">
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -172,14 +174,6 @@
                         android:textSize="16sp"
                         android:textStyle="bold"/>
                 </RelativeLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:weightSum="2">
 
                 <RelativeLayout
                     android:layout_width="0dp"

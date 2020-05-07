@@ -290,14 +290,14 @@ class MapsActivity : AppCompatActivity(),
     // --------------------------------------- Notification ---------------------------------------
     fun vis_Varsel() {//lage varsligs metode
         val notificationId: Int = 55
-        val draTilResutat = Intent(this, InfoActivity::class.java) // gå til aktivitet etter å trykke på varsling
+        val draTilResutat = Intent(this, this::class.java) // gå til aktivitet etter å trykke på varsling
         val pendingIntent = PendingIntent
             .getActivity(this, 0, draTilResutat, PendingIntent.FLAG_UPDATE_CURRENT)
             .apply { Intent.FLAG_ACTIVITY_CLEAR_TASK }
         val notification = NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle("Fare")
             .setContentText("Skogbrannfare på ditt favoritt sted")
-            .setSmallIcon(android.R.drawable.ic_dialog_info)
+            .setSmallIcon(R.drawable.ic_hot_blond_lady_24dp)
             .setAutoCancel(true)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setContentIntent(pendingIntent)
