@@ -46,7 +46,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
     private lateinit var mMap: GoogleMap
     private lateinit var weather: CardView
     private lateinit var valgtSted: TextView
-    //private lateinit var slideUp: CardView // the cardview that opens a new activity upon swipe up
+    private lateinit var slideUp: CardView // the cardview that opens a new activity upon swipe up
     private lateinit var favoriteBtn: ImageButton // button for adding as favorite
 
     private var mLocationPermissionGranted = false // assume location permission is not granted
@@ -80,10 +80,10 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         weather = root.findViewById(R.id.weather)
 
 
-        //valgtSted = root.findViewById(R.id.valgtSted)
-        //slideUp = rootView.findViewById(R.id.slideUp)
+        valgtSted = root.findViewById(R.id.valgtSted)
+        slideUp = root.findViewById(R.id.slideUp)
         //slideUp.setOnTouchListener(this)
-        //favoriteBtn = root.findViewById(R.id.favoriteBtn)
+        favoriteBtn = root.findViewById(R.id.favoriteBtn)
         /*favoriteBtn.setOnClickListener(View.OnClickListener {
             Log.d(TAG, "favorite button clicked")
             favoriteViewModel.buttonClick(favoriteBtn)

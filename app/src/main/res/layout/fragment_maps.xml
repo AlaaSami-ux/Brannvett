@@ -25,6 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_gravity="top|center_horizontal"
+                app:cardBackgroundColor="#7F74AF"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
@@ -41,7 +42,7 @@
             </androidx.cardview.widget.CardView>
 
             <!--sveip opp for mer info -->
-            <!--<androidx.cardview.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/slideUp"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
@@ -51,8 +52,8 @@
                 android:layout_marginBottom="-40dp"
                 app:cardCornerRadius="40dp"
                 app:cardElevation="10dp">
-                dette er den lille pilen som peker oppover for å
-                symbolisere at man skal sveipe opp
+                <!--dette er den lille pilen som peker oppover for å
+                symbolisere at man skal sveipe opp-->
                 <TextView
                     android:id="@+id/valgtSted"
                     android:layout_width="wrap_content"
@@ -65,11 +66,17 @@
                     android:textSize="16sp" />
 
                 <ImageView
+                    android:id="@+id/up"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="top|center_horizontal"
                     android:src="@drawable/ic_keyboard_arrow_up_black_24dp" />
-
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="sveip opp"
+                    android:layout_below="@id/up"
+                    android:layout_centerHorizontal="true"/>
                 <ImageButton
                     android:id="@+id/favoriteBtn"
                     android:layout_width="wrap_content"
@@ -79,7 +86,7 @@
                     android:layout_marginEnd="20dp"
                     android:background="@null"
                     android:src="@drawable/ic_favorite_border_black_24dp" />
-            </androidx.cardview.widget.CardView>-->
+            </androidx.cardview.widget.CardView>
 
             <!--søkeboks -->
             <androidx.cardview.widget.CardView
@@ -100,8 +107,6 @@
                     android:clickable="true"
                     android:focusable="true" />
             </androidx.cardview.widget.CardView>
-
-
         </fragment>
     </FrameLayout>
 
