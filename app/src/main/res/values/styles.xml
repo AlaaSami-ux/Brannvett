@@ -10,5 +10,8 @@
     <style name="CustomAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:windowBackground">@drawable/popup_background</item>
     </style>
-
+    <style name="BottomNavigationTheme" parent="Theme.AppCompat.Light">
+        <item name="colorPrimary">@color/purpleColor</item>
+        <item name="android:textColorSecondary">@color/quantum_grey</item>
+    </style>
 </resources>

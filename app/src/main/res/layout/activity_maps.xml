@@ -19,6 +19,7 @@
         app:itemBackground="@color/whiteColor"
         android:background="@color/whiteColor"
         app:menu="@menu/bottom_nav"
+        android:theme="@style/BottomNavigationTheme"
         android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>
