@@ -100,7 +100,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:background="#00FFFFFF"
-                        android:src="@drawable/ic_engangsgrill" />
+                        android:src="@drawable/ic_engangsgrill_ny_boks" />
 
                     <TextView
                         android:id="@+id/engangsgrilltw"
