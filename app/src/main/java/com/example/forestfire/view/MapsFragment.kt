@@ -1,11 +1,14 @@
 package com.example.forestfire.view
 
 import android.Manifest
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
@@ -34,7 +37,9 @@ import com.google.android.libraries.places.widget.listener.PlaceSelectionListene
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 
 
-class MapsFragment : Fragment(), OnMapReadyCallback {
+class MapsFragment : Fragment(),
+    OnMapReadyCallback,
+    View.OnTouchListener{
 
     val TAG = "MapsActivity"
     private var DEFAULT_ZOOM = 15f
@@ -42,12 +47,18 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
     private var MY_PERMISSIONS_REQUEST_COARSE_LOCATION = 1
     private var MIN_DISTANCE = 100
 
+    private lateinit var chosenLoc: LatLng
+
     private lateinit var root: View
     private lateinit var mMap: GoogleMap
     private lateinit var weather: CardView
+    private lateinit var wtext: TextView
     private lateinit var valgtSted: TextView
+    private lateinit var stedinfo: View
     private lateinit var slideUp: CardView // the cardview that opens a new activity upon swipe up
+    private lateinit var swipeUp: View
     private lateinit var favoriteBtn: ImageButton // button for adding as favorite
+    private lateinit var favoriteBtn2: ImageButton // button for adding as favorite
 
     private var mLocationPermissionGranted = false // assume location permission is not granted
 
@@ -76,18 +87,57 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
             ViewModelProviders.of(this)[MapsViewModel::class.java]
         } ?: throw Exception("Invalid Activity")
 
+        // tilgang til favoriteViewModel
+        favoriteViewModel = activity?.run {
+            ViewModelProviders.of(this)[FavoriteViewModel::class.java]
+        } ?: throw Exception("Invalid Activity")
+
 
         weather = root.findViewById(R.id.weather)
-
+        wtext = root.findViewById(R.id.wtext)
 
         valgtSted = root.findViewById(R.id.valgtSted)
         slideUp = root.findViewById(R.id.slideUp)
-        //slideUp.setOnTouchListener(this)
-        favoriteBtn = root.findViewById(R.id.favoriteBtn)
-        /*favoriteBtn.setOnClickListener(View.OnClickListener {
+        slideUp.setOnTouchListener(this)
+        swipeUp = root.findViewById(R.id.swipeUp)
+        swipeUp.setOnTouchListener(this)
+
+        // gjør at de to favoritt-knappene samarbeider/er like
+        favoriteBtn = root.findViewById(R.id.favoritt)
+        stedinfo = root.findViewById<View>(R.id.swipeUp)
+        favoriteBtn2 = stedinfo.findViewById(R.id.favoritt)
+        //favoriteBtn = root.findViewById(R.id.favoriteBtn)
+        favoriteBtn.setOnClickListener(View.OnClickListener {
             Log.d(TAG, "favorite button clicked")
-            favoriteViewModel.buttonClick(favoriteBtn)
-        })*/
+            //favoriteViewModel.buttonClick(favoriteBtn)
+            //favoriteViewModel.buttonClick(favoriteBtn2)
+            favoriteViewModel.changeFavoriteBoolean()
+            if (favoriteViewModel.isBtnClicked()){ // hvis knappen er fylt med farge
+                favoriteViewModel.addFavorite(chosenLoc)
+                favoriteViewModel.setBtnClicked(favoriteBtn)
+                favoriteViewModel.setBtnClicked(favoriteBtn2)
+            } else { // hvis knappen ikke er fylt med farge
+                favoriteViewModel.removeFavorite(chosenLoc)
+                favoriteViewModel.setBtnUnClicked(favoriteBtn)
+                favoriteViewModel.setBtnUnClicked(favoriteBtn2)
+            }
+        })
+
+        favoriteBtn2.setOnClickListener(View.OnClickListener {
+            Log.d(TAG, "favorite button 2 clicked")
+            //favoriteViewModel.buttonClick(favoriteBtn)
+            //favoriteViewModel.buttonClick(favoriteBtn2)
+            favoriteViewModel.changeFavoriteBoolean()
+            if (favoriteViewModel.isBtnClicked()){ // hvis knappen er fylt med farge
+                favoriteViewModel.setBtnClicked(favoriteBtn)
+                favoriteViewModel.setBtnClicked(favoriteBtn2)
+                favoriteViewModel.addFavorite(chosenLoc)
+            } else { // hvis knappen ikke er fylt med farge
+                favoriteViewModel.removeFavorite(chosenLoc)
+                favoriteViewModel.setBtnUnClicked(favoriteBtn)
+                favoriteViewModel.setBtnUnClicked(favoriteBtn2)
+            }
+        })
 
         // Try to obtain the map from the SupportMapFragment.
         val mapFragment = SupportMapFragment.newInstance()
@@ -122,15 +172,26 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
             PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
                 Log.i(TAG, "Place: " + place.name + ", " + place.id)
+                // vil gjerne sjekke i favorittlisten om dette stedet
+                // allerede er en favoritt. I så fall skal knappen være
+                // fylt med farge!
+
+                if (favoriteViewModel.isFavorite(place.latLng!!)){
+                    favoriteViewModel.setBtnClicked(favoriteBtn)
+                    favoriteViewModel.setBtnClicked(favoriteBtn2)
+                } else {
+                    favoriteViewModel.setBtnUnClicked(favoriteBtn)
+                    favoriteViewModel.setBtnUnClicked(favoriteBtn2)
+                }
                 mapsViewModel.moveCam(mMap, activity!!.applicationContext, place.latLng, DEFAULT_ZOOM)
                 mapsViewModel.addMarker(mMap, place.latLng)
-                //valgtSted.text=place.name
+                valgtSted.text = place.name
+                swipeUp.findViewById<TextView>(R.id.valgtSted).text = place.name
+                chosenLoc = place.latLng!!
             }
 
             override fun onError(status: Status) {
                 Log.i(TAG, "An error occurred: $status")
-                Toast.makeText(activity!!.applicationContext, "Det har skjedd en feil", Toast.LENGTH_SHORT)
-                    .show()
             }
         })
 
@@ -144,15 +205,21 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         mMap = googleMap
 
         // Converts 120 dip into its equivalent px
-        val dip = 110f
+        var dip = 110f
         val r = resources
         val top = TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP,
             dip,
             r.displayMetrics
         )
+        dip = 90f
+        val bot = TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            dip,
+            r.displayMetrics
+        )
 
-        mMap.setPadding(0, top.toInt(), 0, 0) // padding (left, top, right, bottom)
+        mMap.setPadding(0, top.toInt(), 0, bot.toInt()) // padding (left, top, right, bottom)
         mMap.setMinZoomPreference(10f) // jo lavere tall, jo lenger ut fra kartet kan man gå
         mMap.setMaxZoomPreference(20.0f) // hvor langt inn man kan zoome
         mMap.uiSettings.isZoomControlsEnabled = true
@@ -160,7 +227,9 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
 
         if (mLocationPermissionGranted) {
             mapsViewModel.getDeviceLocation(mMap, activity!!.applicationContext)
-            //valgtSted.text="Din posisjon"
+            valgtSted.text="Din posisjon"
+            //chosenLoc = mapsViewModel.getDeviceLocation(mMap, activity!!.applicationContext)!!
+            swipeUp.findViewById<TextView>(R.id.valgtSted).text = "Din posisjon"
         }
         // Create a LatLngBounds that includes the country Norway
         val norge = LatLngBounds(
@@ -204,4 +273,84 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
+    override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+        // Jeg tror dette egentlig skal være i viewmodel men jeg vet ikke hvordan
+        // må ha performclick for de med nedsatt syn
+        if (event != null) {
+            return when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    Log.d(TAG, "Action was DOWN")
+                    previousY = event.y
+                    true
+                }
+                MotionEvent.ACTION_UP -> {
+                    Log.d(TAG, "Action was UP")
+                    // swipe up
+                    var shortAnimationDuration = resources.getInteger(android.R.integer.config_mediumAnimTime)
+                    if (previousY > event.y && previousY - event.y > MIN_DISTANCE) {
+                        if (v != null && v.id == R.id.slideUp) {
+                            // fade INN det store kortet og bort været
+                            swipeUp.apply{
+                                alpha = 0f
+                                visibility = View.VISIBLE
+                                animate()
+                                    .alpha(1f)
+                                    .setListener(null)
+                                    .duration = (shortAnimationDuration.toLong())
+                            }
+                            slideUp.animate() // fade UT det lille kortet
+                                .alpha(0f)
+                                .setListener(object: AnimatorListenerAdapter(){
+                                    override fun onAnimationEnd(animation: Animator) {
+                                        slideUp.visibility = View.GONE
+                                    }
+                                })
+                                .duration = (shortAnimationDuration.toLong())
+                            weather.animate()
+                                .alpha(0f)
+                                .setListener(object: AnimatorListenerAdapter(){
+                                override fun onAnimationEnd(animation: Animator) {
+                                    slideUp.visibility = View.GONE
+                                }
+                                })
+                                .duration = (shortAnimationDuration.toLong())
+                        }
+                    } else if(previousY < event.y && event.y - previousY > MIN_DISTANCE){
+                        if (v != null && v.id == R.id.swipeUp){
+                            weather.visibility = View.VISIBLE
+                            // fade INN det lille kortet og været
+                            slideUp.apply{
+                                alpha = 0f
+                                visibility = View.VISIBLE
+                                animate()
+                                    .alpha(1f)
+                                    .setListener(null)
+                                    .duration = (shortAnimationDuration.toLong())
+                            }
+                            weather.apply{
+                                alpha = 0f
+                                visibility = View.VISIBLE
+                                animate()
+                                    .alpha(1f)
+                                    .setListener(null)
+                                    .duration = (shortAnimationDuration.toLong())
+                            }
+                            swipeUp.animate() // fade UT det lille kortet
+                                .alpha(0f)
+                                .setListener(object: AnimatorListenerAdapter(){
+                                    override fun onAnimationEnd(animation: Animator) {
+                                        swipeUp.visibility = View.GONE
+                                    }
+                                })
+                                .duration = (shortAnimationDuration.toLong())
+                        }
+
+                    }
+                    return false
+                }
+                else -> return false
+            }
+        }
+        return false
+    }
 }

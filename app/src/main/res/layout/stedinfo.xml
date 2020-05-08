@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@null"
+    tools:showIn="@layout/activity_main">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="-40dp"
+        app:cardCornerRadius="40dp"
+        app:cardBackgroundColor="#DEFFFFFF">
+
+        <include layout="@layout/favorittknapp"
+            android:id="@+id/favoritt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"/>
+
+        <TextView
+            android:id="@+id/valgtSted"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|start"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@null"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <!--dette er den lille pilen som peker oppover for å
+        symbolisere at man skal sveipe opp-->
+        <ImageView
+            android:id="@+id/down"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|top"
+            android:textStyle="bold"
+            android:src="@drawable/ic_keyboard_arrow_down_black_24dp" />
+
+        <!--<TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/up"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:text="sveip ned" />-->
+
+    </androidx.cardview.widget.CardView>
+</FrameLayout>
