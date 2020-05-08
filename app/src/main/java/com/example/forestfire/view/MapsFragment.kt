@@ -1,6 +1,8 @@
 package com.example.forestfire.view
 
 import android.Manifest
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
@@ -35,7 +37,9 @@ import com.google.android.libraries.places.widget.listener.PlaceSelectionListene
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 
 
-class MapsFragment : Fragment(), OnMapReadyCallback, View.OnTouchListener {
+class MapsFragment : Fragment(),
+    OnMapReadyCallback,
+    View.OnTouchListener{
 
     val TAG = "MapsActivity"
     private var DEFAULT_ZOOM = 15f
@@ -43,11 +47,14 @@ class MapsFragment : Fragment(), OnMapReadyCallback, View.OnTouchListener {
     private var MY_PERMISSIONS_REQUEST_COARSE_LOCATION = 1
     private var MIN_DISTANCE = 100
 
+    private lateinit var chosenLoc: LatLng
+
     private lateinit var root: View
     private lateinit var mMap: GoogleMap
     private lateinit var weather: CardView
     private lateinit var wtext: TextView
     private lateinit var valgtSted: TextView
+    private lateinit var stedinfo: View
     private lateinit var slideUp: CardView // the cardview that opens a new activity upon swipe up
     private lateinit var swipeUp: View
     private lateinit var favoriteBtn: ImageButton // button for adding as favorite
@@ -97,21 +104,39 @@ class MapsFragment : Fragment(), OnMapReadyCallback, View.OnTouchListener {
 
         // gjør at de to favoritt-knappene samarbeider/er like
         favoriteBtn = root.findViewById(R.id.favoritt)
-        var stedinfo = root.findViewById<View>(R.id.swipeUp)
+        stedinfo = root.findViewById<View>(R.id.swipeUp)
         favoriteBtn2 = stedinfo.findViewById(R.id.favoritt)
         //favoriteBtn = root.findViewById(R.id.favoriteBtn)
         favoriteBtn.setOnClickListener(View.OnClickListener {
             Log.d(TAG, "favorite button clicked")
-            favoriteViewModel.buttonClick(favoriteBtn)
-            favoriteViewModel.buttonClick(favoriteBtn2)
+            //favoriteViewModel.buttonClick(favoriteBtn)
+            //favoriteViewModel.buttonClick(favoriteBtn2)
             favoriteViewModel.changeFavoriteBoolean()
+            if (favoriteViewModel.isBtnClicked()){ // hvis knappen er fylt med farge
+                favoriteViewModel.addFavorite(chosenLoc)
+                favoriteViewModel.setBtnClicked(favoriteBtn)
+                favoriteViewModel.setBtnClicked(favoriteBtn2)
+            } else { // hvis knappen ikke er fylt med farge
+                favoriteViewModel.removeFavorite(chosenLoc)
+                favoriteViewModel.setBtnUnClicked(favoriteBtn)
+                favoriteViewModel.setBtnUnClicked(favoriteBtn2)
+            }
         })
 
         favoriteBtn2.setOnClickListener(View.OnClickListener {
             Log.d(TAG, "favorite button 2 clicked")
-            favoriteViewModel.buttonClick(favoriteBtn)
-            favoriteViewModel.buttonClick(favoriteBtn2)
+            //favoriteViewModel.buttonClick(favoriteBtn)
+            //favoriteViewModel.buttonClick(favoriteBtn2)
             favoriteViewModel.changeFavoriteBoolean()
+            if (favoriteViewModel.isBtnClicked()){ // hvis knappen er fylt med farge
+                favoriteViewModel.setBtnClicked(favoriteBtn)
+                favoriteViewModel.setBtnClicked(favoriteBtn2)
+                favoriteViewModel.addFavorite(chosenLoc)
+            } else { // hvis knappen ikke er fylt med farge
+                favoriteViewModel.removeFavorite(chosenLoc)
+                favoriteViewModel.setBtnUnClicked(favoriteBtn)
+                favoriteViewModel.setBtnUnClicked(favoriteBtn2)
+            }
         })
 
         // Try to obtain the map from the SupportMapFragment.
@@ -147,15 +172,26 @@ class MapsFragment : Fragment(), OnMapReadyCallback, View.OnTouchListener {
             PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
                 Log.i(TAG, "Place: " + place.name + ", " + place.id)
+                // vil gjerne sjekke i favorittlisten om dette stedet
+                // allerede er en favoritt. I så fall skal knappen være
+                // fylt med farge!
+
+                if (favoriteViewModel.isFavorite(place.latLng!!)){
+                    favoriteViewModel.setBtnClicked(favoriteBtn)
+                    favoriteViewModel.setBtnClicked(favoriteBtn2)
+                } else {
+                    favoriteViewModel.setBtnUnClicked(favoriteBtn)
+                    favoriteViewModel.setBtnUnClicked(favoriteBtn2)
+                }
                 mapsViewModel.moveCam(mMap, activity!!.applicationContext, place.latLng, DEFAULT_ZOOM)
                 mapsViewModel.addMarker(mMap, place.latLng)
-                valgtSted.text=place.name
+                valgtSted.text = place.name
+                swipeUp.findViewById<TextView>(R.id.valgtSted).text = place.name
+                chosenLoc = place.latLng!!
             }
 
             override fun onError(status: Status) {
                 Log.i(TAG, "An error occurred: $status")
-                Toast.makeText(activity!!.applicationContext, "Det har skjedd en feil", Toast.LENGTH_SHORT)
-                    .show()
             }
         })
 
@@ -176,7 +212,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, View.OnTouchListener {
             dip,
             r.displayMetrics
         )
-        dip = 80f
+        dip = 90f
         val bot = TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP,
             dip,
@@ -192,6 +228,8 @@ class MapsFragment : Fragment(), OnMapReadyCallback, View.OnTouchListener {
         if (mLocationPermissionGranted) {
             mapsViewModel.getDeviceLocation(mMap, activity!!.applicationContext)
             valgtSted.text="Din posisjon"
+            //chosenLoc = mapsViewModel.getDeviceLocation(mMap, activity!!.applicationContext)!!
+            swipeUp.findViewById<TextView>(R.id.valgtSted).text = "Din posisjon"
         }
         // Create a LatLngBounds that includes the country Norway
         val norge = LatLngBounds(
@@ -248,14 +286,65 @@ class MapsFragment : Fragment(), OnMapReadyCallback, View.OnTouchListener {
                 MotionEvent.ACTION_UP -> {
                     Log.d(TAG, "Action was UP")
                     // swipe up
+                    var shortAnimationDuration = resources.getInteger(android.R.integer.config_mediumAnimTime)
                     if (previousY > event.y && previousY - event.y > MIN_DISTANCE) {
                         if (v != null && v.id == R.id.slideUp) {
-                            swipeUp.visibility=View.VISIBLE
+                            // fade INN det store kortet og bort været
+                            swipeUp.apply{
+                                alpha = 0f
+                                visibility = View.VISIBLE
+                                animate()
+                                    .alpha(1f)
+                                    .setListener(null)
+                                    .duration = (shortAnimationDuration.toLong())
+                            }
+                            slideUp.animate() // fade UT det lille kortet
+                                .alpha(0f)
+                                .setListener(object: AnimatorListenerAdapter(){
+                                    override fun onAnimationEnd(animation: Animator) {
+                                        slideUp.visibility = View.GONE
+                                    }
+                                })
+                                .duration = (shortAnimationDuration.toLong())
+                            weather.animate()
+                                .alpha(0f)
+                                .setListener(object: AnimatorListenerAdapter(){
+                                override fun onAnimationEnd(animation: Animator) {
+                                    slideUp.visibility = View.GONE
+                                }
+                                })
+                                .duration = (shortAnimationDuration.toLong())
                         }
                     } else if(previousY < event.y && event.y - previousY > MIN_DISTANCE){
                         if (v != null && v.id == R.id.swipeUp){
-                            swipeUp.visibility=View.GONE
+                            weather.visibility = View.VISIBLE
+                            // fade INN det lille kortet og været
+                            slideUp.apply{
+                                alpha = 0f
+                                visibility = View.VISIBLE
+                                animate()
+                                    .alpha(1f)
+                                    .setListener(null)
+                                    .duration = (shortAnimationDuration.toLong())
+                            }
+                            weather.apply{
+                                alpha = 0f
+                                visibility = View.VISIBLE
+                                animate()
+                                    .alpha(1f)
+                                    .setListener(null)
+                                    .duration = (shortAnimationDuration.toLong())
+                            }
+                            swipeUp.animate() // fade UT det lille kortet
+                                .alpha(0f)
+                                .setListener(object: AnimatorListenerAdapter(){
+                                    override fun onAnimationEnd(animation: Animator) {
+                                        swipeUp.visibility = View.GONE
+                                    }
+                                })
+                                .duration = (shortAnimationDuration.toLong())
                         }
+
                     }
                     return false
                 }
