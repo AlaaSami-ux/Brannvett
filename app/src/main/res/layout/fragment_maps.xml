@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.MapsFragment">
 
     <FrameLayout
+        android:id="@+id/mapslayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/mapslayout">
+        android:layout_height="match_parent">
 
         <!--kart -->
         <fragment
+            android:id="@+id/map"
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/map"
             tools:context=".MapsActivity">
 
             <!--værmelding -->
@@ -25,10 +25,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_gravity="top|center_horizontal"
-                app:cardBackgroundColor="#edecf4"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
+                app:cardBackgroundColor="#edecf4"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="10dp">
                 <!-- bare et textview for å fylle cardviewet for værmeldingen.
@@ -45,47 +45,51 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/slideUp"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
+                android:layout_height="140dp"
                 android:layout_gravity="bottom|center_horizontal"
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"
                 android:layout_marginBottom="-40dp"
                 app:cardCornerRadius="40dp"
                 app:cardElevation="10dp">
-                <!--dette er den lille pilen som peker oppover for å
-                symbolisere at man skal sveipe opp-->
+
                 <TextView
                     android:id="@+id/valgtSted"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="top|left"
+                    android:layout_gravity="top|start"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="5dp"
                     android:background="@null"
-                    android:textColor="#000000"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
+                <!--dette er den lille pilen som peker oppover for å
+                symbolisere at man skal sveipe opp-->
                 <ImageView
                     android:id="@+id/up"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="top|center_horizontal"
+                    android:layout_gravity="center|top"
+                    android:textStyle="bold"
                     android:src="@drawable/ic_keyboard_arrow_up_black_24dp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="sveip opp"
                     android:layout_below="@id/up"
-                    android:layout_centerHorizontal="true"/>
-                <ImageButton
-                    android:id="@+id/favoriteBtn"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:text="sveip opp" />
+
+                <include layout="@layout/favorittknapp"
+                    android:id="@+id/favoritt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="top|right"
+                    android:layout_gravity="end"
                     android:layout_marginTop="5dp"
-                    android:layout_marginEnd="20dp"
-                    android:background="@null"
-                    android:src="@drawable/ic_favorite_border_black_24dp" />
+                    android:layout_marginEnd="20dp"/>
+
             </androidx.cardview.widget.CardView>
 
             <!--søkeboks -->
@@ -93,8 +97,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="120dp"
                 android:layout_marginStart="70dp"
+                android:layout_marginTop="120dp"
                 android:layout_marginEnd="70dp"
                 app:cardBackgroundColor="#B3FFFFFF"
                 app:cardCornerRadius="12dp">
@@ -109,5 +113,8 @@
             </androidx.cardview.widget.CardView>
         </fragment>
     </FrameLayout>
+    <include layout="@layout/stedinfo"
+        android:id="@+id/swipeUp"
+        android:visibility="gone"/>
 
 </RelativeLayout>
