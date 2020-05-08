@@ -7,9 +7,9 @@
     android:background="@color/whiteColor"
     tools:context=".view.FavoritesFragment">
 
-    <!--<LinearLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:weightSum="6">
 
@@ -26,11 +26,12 @@
                 android:background="#FFFFFF"
                 android:backgroundTint="#D6C4A4"
                 app:srcCompat="@drawable/hot_blond_lady_" />
-        </LinearLayout>-->
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+            android:layout_weight="4">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/my_recycler_view"
@@ -38,6 +39,6 @@
                 android:layout_height="match_parent"
                 android:scrollbars="vertical" />
         </LinearLayout>
-    <!--</LinearLayout>-->
+    </LinearLayout>
 
 </FrameLayout>
