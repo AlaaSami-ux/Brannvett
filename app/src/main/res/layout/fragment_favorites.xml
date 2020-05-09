@@ -31,7 +31,18 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="4">
+            android:layout_weight="4"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/no_favorites"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textColor="@color/purpleColor"
+                android:text="Du har ingen favoritter enda"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/my_recycler_view"

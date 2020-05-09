@@ -4,6 +4,8 @@ import android.Manifest
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.content.pm.PackageManager
+import android.location.Address
+import android.location.Geocoder
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
@@ -35,6 +37,8 @@ import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
+import java.io.IOException
+import java.util.*
 
 
 class MapsFragment : Fragment(),
@@ -102,10 +106,12 @@ class MapsFragment : Fragment(),
         swipeUp = root.findViewById(R.id.swipeUp)
         swipeUp.setOnTouchListener(this)
 
+        stedinfo = root.findViewById<View>(R.id.swipeUp)
         // gjør at de to favoritt-knappene samarbeider/er like
         favoriteBtn = root.findViewById(R.id.favoritt)
-        stedinfo = root.findViewById<View>(R.id.swipeUp)
         favoriteBtn2 = stedinfo.findViewById(R.id.favoritt)
+        favoriteBtn.visibility = View.GONE
+        favoriteBtn2.visibility = View.GONE
         //favoriteBtn = root.findViewById(R.id.favoriteBtn)
         favoriteBtn.setOnClickListener(View.OnClickListener {
             Log.d(TAG, "favorite button clicked")
@@ -144,6 +150,7 @@ class MapsFragment : Fragment(),
         childFragmentManager.beginTransaction().replace(R.id.map, mapFragment).commit()
         mapFragment.getMapAsync(this)
 
+
         // Initialize google places
         Places.initialize(context!!, "AIzaSyD10fJ7iHSaVhairAHZnpuFcrm5fU4SFM4")
         // Create a new Places client instance
@@ -175,19 +182,9 @@ class MapsFragment : Fragment(),
                 // vil gjerne sjekke i favorittlisten om dette stedet
                 // allerede er en favoritt. I så fall skal knappen være
                 // fylt med farge!
-
-                if (favoriteViewModel.isFavorite(place.latLng!!)){
-                    favoriteViewModel.setBtnClicked(favoriteBtn)
-                    favoriteViewModel.setBtnClicked(favoriteBtn2)
-                } else {
-                    favoriteViewModel.setBtnUnClicked(favoriteBtn)
-                    favoriteViewModel.setBtnUnClicked(favoriteBtn2)
-                }
-                mapsViewModel.moveCam(mMap, activity!!.applicationContext, place.latLng, DEFAULT_ZOOM)
-                mapsViewModel.addMarker(mMap, place.latLng)
+                chosenNewPlace(place.latLng!!)
                 valgtSted.text = place.name
                 swipeUp.findViewById<TextView>(R.id.valgtSted).text = place.name
-                chosenLoc = place.latLng!!
             }
 
             override fun onError(status: Status) {
@@ -224,11 +221,14 @@ class MapsFragment : Fragment(),
         mMap.setMaxZoomPreference(20.0f) // hvor langt inn man kan zoome
         mMap.uiSettings.isZoomControlsEnabled = true
         mMap.isMyLocationEnabled = true
+        mMap.setOnMapLongClickListener {
+            chosenNewPlace(it)
+            getAddressFromLocation(it.latitude, it.longitude)
+        }
 
         if (mLocationPermissionGranted) {
             mapsViewModel.getDeviceLocation(mMap, activity!!.applicationContext)
             valgtSted.text="Din posisjon"
-            //chosenLoc = mapsViewModel.getDeviceLocation(mMap, activity!!.applicationContext)!!
             swipeUp.findViewById<TextView>(R.id.valgtSted).text = "Din posisjon"
         }
         // Create a LatLngBounds that includes the country Norway
@@ -238,6 +238,22 @@ class MapsFragment : Fragment(),
         // Constrain the camera target to the Norway bounds.
         mMap.setLatLngBoundsForCameraTarget(norge)
     }
+
+    private fun chosenNewPlace(latlng: LatLng){
+        chosenLoc = latlng
+        favoriteBtn.visibility = View.VISIBLE
+        favoriteBtn2.visibility = View.VISIBLE
+        if (favoriteViewModel.isFavorite(latlng)){
+            favoriteViewModel.setBtnClicked(favoriteBtn)
+            favoriteViewModel.setBtnClicked(favoriteBtn2)
+        } else {
+            favoriteViewModel.setBtnUnClicked(favoriteBtn)
+            favoriteViewModel.setBtnUnClicked(favoriteBtn2)
+        }
+        mapsViewModel.moveCam(mMap, activity!!.applicationContext, latlng, DEFAULT_ZOOM)
+        mapsViewModel.addMarker(mMap, latlng)
+    }
+
 
 
     private fun getLocationPermission() {
@@ -270,6 +286,26 @@ class MapsFragment : Fragment(),
                 arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
                 MY_PERMISSIONS_REQUEST_FINE_LOCATION
             )
+        }
+    }
+
+    private fun getAddressFromLocation(latitude: Double, longitude: Double) {
+        Log.d(TAG, "getAddressFromLocation")
+        val geocoder = Geocoder(activity!!, Locale.ENGLISH)
+        try {
+            val addresses: List<Address> = geocoder.getFromLocation(latitude, longitude, 1)
+            if (addresses.isNotEmpty()) {
+                val fetchedAddress: Address = addresses[0]
+                val strAddress: String = fetchedAddress.getAddressLine(0)
+                val sted: String = strAddress.split(",", ignoreCase=true, limit=0).first()
+                valgtSted.text = sted
+                Log.d(TAG, "adresse:$sted")
+            } else {
+                valgtSted.text = "Valgt posisjon"
+            }
+        } catch (e: IOException) {
+            e.printStackTrace()
+            valgtSted.text = "Valgt posisjon"
         }
     }
 

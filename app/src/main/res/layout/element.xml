@@ -26,11 +26,13 @@
                 android:id="@+id/valgtSted"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Sted"
                 android:textSize="20sp"
                 app:layout_constraintRight_toLeftOf="parent"
                 android:gravity="center_vertical"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
+
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

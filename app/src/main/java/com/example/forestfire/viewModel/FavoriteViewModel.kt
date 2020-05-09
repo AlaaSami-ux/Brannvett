@@ -62,4 +62,5 @@ class FavoriteViewModel : ViewModel(){
             Log.d(TAG, "removed favorite. Size of favorites list: " + favoriteList.size)
         }
     }
+
 }

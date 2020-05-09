@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +20,7 @@ class FavoritesFragment : Fragment() {
     private lateinit var viewAdapter: ListAdapter
     private lateinit var my_recycler_view: RecyclerView
     private lateinit var root: View
+    private lateinit var noFavoritesTextBox: TextView
 
     private lateinit var favoriteViewModel: FavoriteViewModel
     private lateinit var favoriteList: MutableList<LatLng>
@@ -35,9 +37,10 @@ class FavoritesFragment : Fragment() {
             ViewModelProviders.of(this)[FavoriteViewModel::class.java]
         } ?: throw Exception("Invalid Activity")
 
+        noFavoritesTextBox = root.findViewById(R.id.no_favorites)
         favoriteList = favoriteViewModel.favoriteList
 
-            my_recycler_view = root.findViewById(R.id.my_recycler_view)
+        my_recycler_view = root.findViewById(R.id.my_recycler_view)
         initRecyclerView()
 
 
@@ -48,7 +51,11 @@ class FavoritesFragment : Fragment() {
         my_recycler_view.apply{
             layoutManager = LinearLayoutManager(activity!!)
             viewAdapter = ListAdapter(favoriteList)
+            if(favoriteList.size >0){
+                noFavoritesTextBox.visibility = View.GONE
+            }
             adapter = viewAdapter
+
         }
     }
 }
