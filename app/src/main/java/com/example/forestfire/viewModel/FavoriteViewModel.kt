@@ -6,7 +6,6 @@ import android.widget.ImageButton
 import androidx.lifecycle.ViewModel
 import com.example.forestfire.R
 import com.google.android.gms.maps.model.LatLng
-import kotlin.properties.Delegates
 
 class FavoriteViewModel : ViewModel(){
 
@@ -14,6 +13,7 @@ class FavoriteViewModel : ViewModel(){
     var btnclicked = false
 
     var favoriteList: MutableList<LatLng> = ArrayList()
+
 
     fun buttonClick(btn: ImageButton){
         Log.d(TAG, "favorite button clicked")
@@ -61,6 +61,5 @@ class FavoriteViewModel : ViewModel(){
             btnclicked = false
             Log.d(TAG, "removed favorite. Size of favorites list: " + favoriteList.size)
         }
-
     }
 }
