@@ -15,7 +15,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
-import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -26,6 +25,7 @@ import com.example.forestfire.viewModel.FavoriteViewModel
 import com.example.forestfire.viewModel.MapsViewModel
 import com.google.android.gms.common.api.Status
 import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
@@ -58,6 +58,7 @@ class MapsFragment : Fragment(),
     private lateinit var weather: CardView
     private lateinit var wtext: TextView
     private lateinit var valgtSted: TextView
+    private lateinit var valgtSted2: TextView
     private lateinit var stedinfo: View
     private lateinit var slideUp: CardView // the cardview that opens a new activity upon swipe up
     private lateinit var swipeUp: View
@@ -105,6 +106,7 @@ class MapsFragment : Fragment(),
         slideUp.setOnTouchListener(this)
         swipeUp = root.findViewById(R.id.swipeUp)
         swipeUp.setOnTouchListener(this)
+        valgtSted2 = swipeUp.findViewById<TextView>(R.id.valgtSted)
 
         stedinfo = root.findViewById<View>(R.id.swipeUp)
         // gjør at de to favoritt-knappene samarbeider/er like
@@ -119,11 +121,11 @@ class MapsFragment : Fragment(),
             //favoriteViewModel.buttonClick(favoriteBtn2)
             favoriteViewModel.changeFavoriteBoolean()
             if (favoriteViewModel.isBtnClicked()){ // hvis knappen er fylt med farge
-                favoriteViewModel.addFavorite(chosenLoc)
+                favoriteViewModel.addFavorite(chosenLoc, valgtSted.text.toString())
                 favoriteViewModel.setBtnClicked(favoriteBtn)
                 favoriteViewModel.setBtnClicked(favoriteBtn2)
             } else { // hvis knappen ikke er fylt med farge
-                favoriteViewModel.removeFavorite(chosenLoc)
+                favoriteViewModel.removeFavorite(chosenLoc, valgtSted.text.toString())
                 favoriteViewModel.setBtnUnClicked(favoriteBtn)
                 favoriteViewModel.setBtnUnClicked(favoriteBtn2)
             }
@@ -137,9 +139,9 @@ class MapsFragment : Fragment(),
             if (favoriteViewModel.isBtnClicked()){ // hvis knappen er fylt med farge
                 favoriteViewModel.setBtnClicked(favoriteBtn)
                 favoriteViewModel.setBtnClicked(favoriteBtn2)
-                favoriteViewModel.addFavorite(chosenLoc)
+                favoriteViewModel.addFavorite(chosenLoc, valgtSted.text.toString())
             } else { // hvis knappen ikke er fylt med farge
-                favoriteViewModel.removeFavorite(chosenLoc)
+                favoriteViewModel.removeFavorite(chosenLoc, valgtSted.text.toString())
                 favoriteViewModel.setBtnUnClicked(favoriteBtn)
                 favoriteViewModel.setBtnUnClicked(favoriteBtn2)
             }
@@ -179,12 +181,10 @@ class MapsFragment : Fragment(),
             PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
                 Log.i(TAG, "Place: " + place.name + ", " + place.id)
-                // vil gjerne sjekke i favorittlisten om dette stedet
-                // allerede er en favoritt. I så fall skal knappen være
-                // fylt med farge!
                 chosenNewPlace(place.latLng!!)
+                mapsViewModel.moveCam(mMap, activity!!.applicationContext, place.latLng, DEFAULT_ZOOM)
                 valgtSted.text = place.name
-                swipeUp.findViewById<TextView>(R.id.valgtSted).text = place.name
+                valgtSted2.text = place.name
             }
 
             override fun onError(status: Status) {
@@ -225,11 +225,32 @@ class MapsFragment : Fragment(),
             chosenNewPlace(it)
             getAddressFromLocation(it.latitude, it.longitude)
         }
+        mMap.setOnMyLocationButtonClickListener {
+            val myLoc = mapsViewModel.getDeviceLocation(mMap, activity!!.applicationContext)
+            if (myLoc != null) {
+                Log.d(TAG, "myLoc != null")
+                getAddressFromLocation(myLoc.latitude, myLoc.longitude)
+                chosenLoc = myLoc
+                favoriteBtn.visibility = View.VISIBLE
+                favoriteBtn2.visibility = View.VISIBLE
+            } else {
+                valgtSted.text = "Din posisjon"
+                valgtSted2.text = valgtSted.text
+                favoriteBtn.visibility = View.GONE
+                favoriteBtn2.visibility = View.GONE
+            }
+            false
+        }
 
         if (mLocationPermissionGranted) {
-            mapsViewModel.getDeviceLocation(mMap, activity!!.applicationContext)
-            valgtSted.text="Din posisjon"
-            swipeUp.findViewById<TextView>(R.id.valgtSted).text = "Din posisjon"
+            val myLoc = mapsViewModel.getDeviceLocation(mMap, activity!!.applicationContext)
+            if (myLoc != null) {
+                Log.d(TAG, "myLoc != null")
+                chosenLoc = myLoc
+                favoriteBtn.visibility = View.VISIBLE
+                favoriteBtn2.visibility = View.VISIBLE
+                getAddressFromLocation(myLoc.latitude, myLoc.longitude)
+            } else {valgtSted.text = "Din posisjon"; valgtSted2.text = valgtSted.text}
         }
         // Create a LatLngBounds that includes the country Norway
         val norge = LatLngBounds(
@@ -250,7 +271,6 @@ class MapsFragment : Fragment(),
             favoriteViewModel.setBtnUnClicked(favoriteBtn)
             favoriteViewModel.setBtnUnClicked(favoriteBtn2)
         }
-        mapsViewModel.moveCam(mMap, activity!!.applicationContext, latlng, DEFAULT_ZOOM)
         mapsViewModel.addMarker(mMap, latlng)
     }
 
@@ -299,9 +319,10 @@ class MapsFragment : Fragment(),
                 val strAddress: String = fetchedAddress.getAddressLine(0)
                 val sted: String = strAddress.split(",", ignoreCase=true, limit=0).first()
                 valgtSted.text = sted
-                Log.d(TAG, "adresse:$sted")
+                valgtSted2.text = sted
             } else {
                 valgtSted.text = "Valgt posisjon"
+                valgtSted2.text = "Valgt posisjon"
             }
         } catch (e: IOException) {
             e.printStackTrace()

@@ -23,7 +23,7 @@ class FavoritesFragment : Fragment() {
     private lateinit var noFavoritesTextBox: TextView
 
     private lateinit var favoriteViewModel: FavoriteViewModel
-    private lateinit var favoriteList: MutableList<LatLng>
+    private lateinit var favorites: MutableMap<LatLng, String>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,7 +38,7 @@ class FavoritesFragment : Fragment() {
         } ?: throw Exception("Invalid Activity")
 
         noFavoritesTextBox = root.findViewById(R.id.no_favorites)
-        favoriteList = favoriteViewModel.favoriteList
+        favorites= favoriteViewModel.favorites
 
         my_recycler_view = root.findViewById(R.id.my_recycler_view)
         initRecyclerView()
@@ -50,8 +50,8 @@ class FavoritesFragment : Fragment() {
     private fun initRecyclerView(){
         my_recycler_view.apply{
             layoutManager = LinearLayoutManager(activity!!)
-            viewAdapter = ListAdapter(favoriteList)
-            if(favoriteList.size >0){
+            viewAdapter = ListAdapter(favorites)
+            if(favorites.count() >0){
                 noFavoritesTextBox.visibility = View.GONE
             }
             adapter = viewAdapter

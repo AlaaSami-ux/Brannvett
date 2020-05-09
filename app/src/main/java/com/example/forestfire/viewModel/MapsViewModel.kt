@@ -41,6 +41,7 @@ class MapsViewModel(): ViewModel(){ //AndroidViewModel(app)
                         LatLng(location.latitude, location.longitude),
                         DEFAULT_ZOOM
                     )
+                    deviceLoc = LatLng(location.latitude, location.longitude)
                 }
             } else {
                 moveCam(mMap, applicationContext, oslo, DEFAULT_ZOOM)
