@@ -13,6 +13,7 @@ class FavoriteViewModel : ViewModel(){
     var btnclicked = false
 
     var favoriteList: MutableList<LatLng> = ArrayList()
+    var favorites: MutableMap<LatLng, String> = mutableMapOf()
 
 
     fun buttonClick(btn: ImageButton){
@@ -43,23 +44,37 @@ class FavoriteViewModel : ViewModel(){
     }
 
     fun isFavorite(latlng: LatLng) : Boolean{
-        return favoriteList.contains(latlng)
+        return favorites.containsKey(latlng)
     }
 
-    fun addFavorite(latlng: LatLng){
+    fun addFavorite(latlng: LatLng, place: String){
         // Her vil jeg legge inn LatLng som favoritt i en slags liste eller noe
-        if (!favoriteList.contains(latlng)){ // sjekker om det allerede er favoritt
+        if(!favorites.containsKey(latlng)){
+            favorites.put(latlng, place)
+            btnclicked = true
+            Log.d(TAG, "added favorite. Size of favorites list: " + favorites.count())
+        }
+
+        /*if (!favoriteList.contains(latlng)){ // sjekker om det allerede er favoritt
             favoriteList.add(latlng)
             btnclicked = true
             Log.d(TAG, "added favorite. Size of favorites list: " + favoriteList.size)
         }
+         */
     }
 
-    fun removeFavorite(latlng: LatLng){
-        if (favoriteList.contains(latlng)){ // sjekker om det allerede er favoritt
+    fun removeFavorite(latlng: LatLng, place: String){
+        if (favorites.containsKey(latlng)){
+            favorites.remove(latlng)
+            btnclicked = false
+            Log.d(TAG, "removed favorite. Size of favorites list: " + favorites.count())
+        }
+        /*if (favoriteList.contains(latlng)){ // sjekker om det allerede er favoritt
             favoriteList.remove(latlng)
             btnclicked = false
             Log.d(TAG, "removed favorite. Size of favorites list: " + favoriteList.size)
         }
+         */
     }
+
 }
