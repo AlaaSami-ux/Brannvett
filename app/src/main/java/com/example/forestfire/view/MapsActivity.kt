@@ -126,72 +126,6 @@ class MapsActivity : AppCompatActivity(){
         }
 
         /*
-        valgtSted = findViewById(R.id.valgtSted)
-        // initialize the cardView that slides up/opens a new activity
-        slideUp = findViewById(R.id.slideUp)
-        // set on touch listener for only this view
-        slideUp.setOnTouchListener(this)
-        favoriteBtn = findViewById(R.id.favoriteBtn)
-        favoriteBtn.setOnClickListener(View.OnClickListener {
-            Log.d(TAG, "favorite button clicked")
-            favoriteViewModel.buttonClick(favoriteBtn)
-        })
-
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        val mapFragment = supportFragmentManager
-            .findFragmentById(R.id.map) as SupportMapFragment
-        mapFragment.getMapAsync(this)
-
-        // initialize Places
-        Places.initialize(applicationContext, "AIzaSyD10fJ7iHSaVhairAHZnpuFcrm5fU4SFM4")
-        // create a Places client instance
-        var placesClient = Places.createClient(this)
-        // Initialize the AutocompleteSupportFragment
-        autocompleteFragment =
-            supportFragmentManager.findFragmentById(R.id.autocomplete_fragment) as AutocompleteSupportFragment
-        // Specify the types of place data to return.
-        autocompleteFragment.setPlaceFields(
-            listOf(
-                Place.Field.ID,
-                Place.Field.NAME,
-                Place.Field.LAT_LNG
-            )
-        )
-        // set bounds for the results
-        autocompleteFragment.setLocationBias(
-            RectangularBounds.newInstance(
-                LatLngBounds(
-                    LatLng(58.019156, 2.141567), LatLng(71.399348, 33.442113)
-                )
-            )
-        )
-        autocompleteFragment.setCountries("NO")
-        autocompleteFragment.setActivityMode(AutocompleteActivityMode.OVERLAY)
-        // Set up a PlaceSelectionListener to handle the response.
-        autocompleteFragment.setOnPlaceSelectedListener(object :
-            PlaceSelectionListener {
-            override fun onPlaceSelected(place: Place) {
-                Log.i(TAG, "Place: " + place.name + ", " + place.id)
-                mapsViewModel.moveCam(mMap, applicationContext, place.latLng, DEFAULT_ZOOM)
-                mapsViewModel.addMarker(mMap, place.latLng)
-                valgtSted.text=place.name
-            }
-
-            override fun onError(status: Status) {
-                Log.i(TAG, "An error occurred: $status")
-                Toast.makeText(applicationContext, "Det har skjedd en feil", Toast.LENGTH_SHORT)
-                    .show()
-            }
-        })
-
-        getLocationPermission()
-         */
-        /*
-        goTilInfoActivity()
-        goTilFavorittActivity()
-        goTilSettingActivity()
-
-
         // --------------------------------- Varsling ---------------------------------------------
         //  var varsling : Varsling = Varsling(this, CHANNEL_ID)
         //------hentilg varsling systemet-----
@@ -238,56 +172,6 @@ class MapsActivity : AppCompatActivity(){
             )
         }
     }
-    /*
-    override fun onMapReady(googleMap: GoogleMap) {
-        Log.d(TAG, "onMapReady: map is ready")
-        mMap = googleMap
-        mMap.setPadding(0, 430, 0, 240) // padding (left, top, right, bottom)
-        mMap.setMinZoomPreference(10f) // jo lavere tall, jo lenger ut fra kartet kan man gå
-        mMap.setMaxZoomPreference(20.0f) // hvor langt inn man kan zoome
-        mMap.uiSettings.isZoomControlsEnabled = true
-        mMap.isMyLocationEnabled = true
-        if (mLocationPermissionGranted) {
-            mapsViewModel.getDeviceLocation(mMap, applicationContext)
-            valgtSted.text="Din posisjon"
-        }
-
-        // Create a LatLngBounds that includes the country Norway
-        val norge = LatLngBounds(
-            LatLng(58.019156, 2.141567), LatLng(71.399348, 33.442113)
-        )
-        // Constrain the camera target to the Norway bounds.
-        mMap.setLatLngBoundsForCameraTarget(norge)
-    }
-
-    override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-        // Jeg tror dette egentlig skal være i viewmodel men jeg vet ikke hvordan
-        // må ha performclick for de med nedsatt syn
-        if (event != null) {
-            return when (event.action) {
-                MotionEvent.ACTION_DOWN -> {
-                    Log.d(TAG, "Action was DOWN")
-                    previousY = event.y
-                    true
-                }
-                MotionEvent.ACTION_UP -> {
-                    Log.d(TAG, "Action was UP")
-                    // swipe up
-                    if (previousY > event.y && previousY - event.y > MIN_DISTANCE) {
-                        if (v != null && v.id == R.id.slideUp) {
-                            val intent = Intent(this, ShowFireIndex::class.java)
-                            startActivity(intent)
-                            return true
-                        }
-                    }
-                    return false
-                }
-                else -> super.onTouchEvent(event)
-            }
-        }
-        return false
-    }
-     */
 
     // --------------------------------------- Notification ---------------------------------------
     fun vis_Varsel() {//lage varsligs metode
