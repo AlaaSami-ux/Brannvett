@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.ImageButton
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -47,7 +46,7 @@ class ShowFireIndex() : AppCompatActivity(), View.OnTouchListener {
 
         // prøver å sjekke om knappen ble satt til favoritt i
         // mapsActivity, men har ikke fått det til å funke
-        val mapsView: View = layoutInflater.inflate(R.layout.activity_maps, null)
+        val mapsView: View = layoutInflater.inflate(R.layout.activity_main, null)
         var favoriteOrNot = mapsView.findViewById<ImageButton>(R.id.favoriteBtn)
         favoriteBtn = findViewById(R.id.favoriteBtn)
         if (favoriteOrNot.tag == "favorite"){
