@@ -3,6 +3,8 @@
     <string name="title_activity_maps">Map</string>
     <string name="info">INFO</string>
 
+    <string name="dato">%1$s/%2$s</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="bilde">bilde</string>
@@ -20,4 +22,5 @@
         <item>Norsk</item>
         <item>English</item>
     </string-array>
+  
 </resources>
