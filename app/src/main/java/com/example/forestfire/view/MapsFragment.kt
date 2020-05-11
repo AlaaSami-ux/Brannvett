@@ -53,6 +53,7 @@ class MapsFragment : Fragment(),
     private var MIN_DISTANCE = 100
 
     private lateinit var chosenLoc: LatLng
+    val Oslo = LatLng(59.911491, 10.757933)
 
     private lateinit var root: View
     private lateinit var mMap: GoogleMap
@@ -115,7 +116,7 @@ class MapsFragment : Fragment(),
         favoriteBtn = root.findViewById(R.id.favoritt)
         favoriteBtn2 = stedinfo.findViewById(R.id.favoritt)
 
-        if (favoriteViewModel.isBtnClicked()){
+        if (favoriteViewModel.isFavorite(Oslo)){
             favoriteViewModel.setBtnClicked(favoriteBtn)
             favoriteViewModel.setBtnClicked(favoriteBtn2)
         }
@@ -196,26 +197,6 @@ class MapsFragment : Fragment(),
             }
         })
 
-        if (::mMap.isInitialized){
-            // OPPDATER TEKSTEN på cardview nede
-            mMap.setOnMyLocationButtonClickListener {
-                val myLoc = mapsViewModel.getDeviceLocation(mMap, activity!!.applicationContext)
-                if (myLoc != null) {
-                    Log.d(TAG, "myLoc != null")
-                    getAddressFromLocation(myLoc.latitude, myLoc.longitude)
-                    chosenLoc = myLoc
-                    favoriteBtn.visibility = View.VISIBLE
-                    favoriteBtn2.visibility = View.VISIBLE
-                } else {
-                    valgtSted.text = "Din posisjon"
-                    valgtSted2.text = valgtSted.text
-                    favoriteBtn.visibility = View.GONE
-                    favoriteBtn2.visibility = View.GONE
-                }
-                false
-            }
-        }
-
         getLocationPermission()
 
         return root
@@ -254,6 +235,22 @@ class MapsFragment : Fragment(),
             getAddressFromLocation(it.latitude, it.longitude)
         }
 
+        mMap.setOnMyLocationButtonClickListener {
+            val myLoc = mapsViewModel.getDeviceLocation(mMap, activity!!.applicationContext)
+            if (myLoc != null) {
+                Log.d(TAG, "myLoc != null")
+                getAddressFromLocation(myLoc.latitude, myLoc.longitude)
+                chosenLoc = myLoc
+                favoriteBtn.visibility = View.VISIBLE
+                favoriteBtn2.visibility = View.VISIBLE
+            } else {
+                valgtSted.text = "Din posisjon"
+                valgtSted2.text = valgtSted.text
+                favoriteBtn.visibility = View.GONE
+                favoriteBtn2.visibility = View.GONE
+            }
+            false
+        }
 
         /*if (mLocationPermissionGranted) {
             val myLoc = mapsViewModel.getDeviceLocation(mMap, activity!!.applicationContext)
@@ -273,7 +270,7 @@ class MapsFragment : Fragment(),
         val norge = LatLngBounds(
             LatLng(58.019156, 2.141567), LatLng(71.399348, 33.442113)
         )
-        val Oslo = LatLng(59.911491, 10.757933)
+
         chosenLoc = Oslo
         mapsViewModel.moveCam(mMap, activity!!.applicationContext, Oslo, DEFAULT_ZOOM)
         mapsViewModel.addMarker(mMap, Oslo)
@@ -341,6 +338,7 @@ class MapsFragment : Fragment(),
                 val sted: String = strAddress.split(",", ignoreCase=true, limit=0).first()
                 valgtSted.text = sted
                 valgtSted2.text = sted
+                Log.d(TAG, "sted:" + sted)
             } else {
                 valgtSted.text = "Valgt posisjon"
                 valgtSted2.text = "Valgt posisjon"
