@@ -80,7 +80,6 @@ class MapsFragment : Fragment(),
     private lateinit var favoriteViewModel: FavoriteViewModel
 
 
-
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -88,6 +87,7 @@ class MapsFragment : Fragment(),
     ): View? {
         // Inflate the layout for this fragment
         root =  inflater.inflate(R.layout.fragment_maps, container, false)
+
 
         // tilgang til mapsViewModel
         mapsViewModel = activity?.run {
@@ -98,6 +98,7 @@ class MapsFragment : Fragment(),
         favoriteViewModel = activity?.run {
             ViewModelProviders.of(this)[FavoriteViewModel::class.java]
         } ?: throw Exception("Invalid Activity")
+
 
         weather = root.findViewById(R.id.weather)
         wtext = root.findViewById(R.id.wtext)
@@ -113,10 +114,7 @@ class MapsFragment : Fragment(),
         // gjør at de to favoritt-knappene samarbeider/er like
         favoriteBtn = root.findViewById(R.id.favoritt)
         favoriteBtn2 = stedinfo.findViewById(R.id.favoritt)
-        if (!::chosenLoc.isInitialized){
-            favoriteBtn.visibility = View.GONE
-            favoriteBtn2.visibility = View.GONE
-        } else {Log.d(TAG, "chosenLoc: $chosenLoc")}
+
         if (favoriteViewModel.isBtnClicked()){
             favoriteViewModel.setBtnClicked(favoriteBtn)
             favoriteViewModel.setBtnClicked(favoriteBtn2)
@@ -257,7 +255,7 @@ class MapsFragment : Fragment(),
         }
 
 
-        if (mLocationPermissionGranted) {
+        /*if (mLocationPermissionGranted) {
             val myLoc = mapsViewModel.getDeviceLocation(mMap, activity!!.applicationContext)
             if (myLoc != null) {
                 Log.d(TAG, "myLoc != null")
@@ -265,12 +263,22 @@ class MapsFragment : Fragment(),
                 favoriteBtn.visibility = View.VISIBLE
                 favoriteBtn2.visibility = View.VISIBLE
                 getAddressFromLocation(myLoc.latitude, myLoc.longitude)
-            } else {valgtSted.text = "Din posisjon"; valgtSted2.text = valgtSted.text}
+            } else {
+                mapsViewModel.moveCam(mMap, activity!!.applicationContext, LatLng(59.911491, 10.757933), DEFAULT_ZOOM)
+                valgtSted.text = "Oslo";
+                valgtSted2.text = valgtSted.text}
         }
+         */
         // Create a LatLngBounds that includes the country Norway
         val norge = LatLngBounds(
             LatLng(58.019156, 2.141567), LatLng(71.399348, 33.442113)
         )
+        val Oslo = LatLng(59.911491, 10.757933)
+        chosenLoc = Oslo
+        mapsViewModel.moveCam(mMap, activity!!.applicationContext, Oslo, DEFAULT_ZOOM)
+        mapsViewModel.addMarker(mMap, Oslo)
+        valgtSted.text = "Oslo";
+        valgtSted2.text = valgtSted.text
         // Constrain the camera target to the Norway bounds.
         mMap.setLatLngBoundsForCameraTarget(norge)
     }
