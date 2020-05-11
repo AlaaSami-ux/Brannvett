@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ForestFire</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="info">INFO</string>
+    <string name="bilde">Image</string>
+    <string name="ved_brann_ring_110">"IF FIRE - CALL 110 "</string>
+    <string name="baal">campfire</string>
+    <string name="engangsgrill">Disposable Grill</string>
+    <string name="glassflasker">Glass Bottles</string>
+    <string name="lyn">Llghtning</string>
+    <string name="avfallscontainer">Waste Container</string>
+    <string name="verktoy">Tool</string>
+    <string name="instillinger">Settings</string>
+    <string name="spraak">Language</string>
+    <string name="morkModus">Dark Mode</string>
+</resources>

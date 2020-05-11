@@ -52,5 +52,4 @@ class MainActivity : AppCompatActivity() {
     private fun drawData(loc : FireModel.Location){
         findViewById<TextView>(R.id.name_text).text = loc.name
     }
-
 }
