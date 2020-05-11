@@ -54,5 +54,12 @@ class InfoFragment : Fragment() {
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
+        if (getFragmentManager() != null) {
+            getFragmentManager()
+                ?.beginTransaction()
+                ?.detach(this)
+                ?.attach(this)
+                ?.commit();
+        }
     }
 }
