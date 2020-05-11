@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.forestfire.model.LocationForecastModel
 import com.example.forestfire.repository.LocationForecastService
+import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -14,7 +15,9 @@ class LocationForecastViewModel(private val forecastService : LocationForecastSe
 
     val locationForecastLiveData = MutableLiveData<LocationForecastModel.LocationForecastMain>()
 
-    fun fetchLocationForecast(lat : Float, lon : Float){
+    fun fetchLocationForecast(latlon : LatLng?){
+        val lat = latlon?.latitude
+        val lon = latlon?.longitude
         viewModelScope.launch {
             val locService = forecastService.fetchLocationForecast(lat, lon)
             locationForecastLiveData.postValue(locService)
