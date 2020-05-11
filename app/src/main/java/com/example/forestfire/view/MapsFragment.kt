@@ -3,7 +3,9 @@ package com.example.forestfire.view
 import android.Manifest
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import android.annotation.SuppressLint
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.location.Address
 import android.location.Geocoder
 import android.os.Bundle
@@ -25,7 +27,6 @@ import com.example.forestfire.viewModel.FavoriteViewModel
 import com.example.forestfire.viewModel.MapsViewModel
 import com.google.android.gms.common.api.Status
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
@@ -45,7 +46,7 @@ class MapsFragment : Fragment(),
     OnMapReadyCallback,
     View.OnTouchListener{
 
-    val TAG = "MapsActivity"
+    val TAG = "MapsFragment"
     private var DEFAULT_ZOOM = 15f
     private var MY_PERMISSIONS_REQUEST_FINE_LOCATION = 1
     private var MY_PERMISSIONS_REQUEST_COARSE_LOCATION = 1
@@ -80,6 +81,7 @@ class MapsFragment : Fragment(),
 
 
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -97,7 +99,6 @@ class MapsFragment : Fragment(),
             ViewModelProviders.of(this)[FavoriteViewModel::class.java]
         } ?: throw Exception("Invalid Activity")
 
-
         weather = root.findViewById(R.id.weather)
         wtext = root.findViewById(R.id.wtext)
 
@@ -112,13 +113,18 @@ class MapsFragment : Fragment(),
         // gjør at de to favoritt-knappene samarbeider/er like
         favoriteBtn = root.findViewById(R.id.favoritt)
         favoriteBtn2 = stedinfo.findViewById(R.id.favoritt)
-        favoriteBtn.visibility = View.GONE
-        favoriteBtn2.visibility = View.GONE
+        if (!::chosenLoc.isInitialized){
+            favoriteBtn.visibility = View.GONE
+            favoriteBtn2.visibility = View.GONE
+        } else {Log.d(TAG, "chosenLoc: $chosenLoc")}
+        if (favoriteViewModel.isBtnClicked()){
+            favoriteViewModel.setBtnClicked(favoriteBtn)
+            favoriteViewModel.setBtnClicked(favoriteBtn2)
+        }
+
         //favoriteBtn = root.findViewById(R.id.favoriteBtn)
         favoriteBtn.setOnClickListener(View.OnClickListener {
             Log.d(TAG, "favorite button clicked")
-            //favoriteViewModel.buttonClick(favoriteBtn)
-            //favoriteViewModel.buttonClick(favoriteBtn2)
             favoriteViewModel.changeFavoriteBoolean()
             if (favoriteViewModel.isBtnClicked()){ // hvis knappen er fylt med farge
                 favoriteViewModel.addFavorite(chosenLoc, valgtSted.text.toString())
@@ -192,9 +198,32 @@ class MapsFragment : Fragment(),
             }
         })
 
+        if (::mMap.isInitialized){
+            mMap.setOnMyLocationButtonClickListener {
+                val myLoc = mapsViewModel.getDeviceLocation(mMap, activity!!.applicationContext)
+                if (myLoc != null) {
+                    Log.d(TAG, "myLoc != null")
+                    getAddressFromLocation(myLoc.latitude, myLoc.longitude)
+                    chosenLoc = myLoc
+                    favoriteBtn.visibility = View.VISIBLE
+                    favoriteBtn2.visibility = View.VISIBLE
+                } else {
+                    valgtSted.text = "Din posisjon"
+                    valgtSted2.text = valgtSted.text
+                    favoriteBtn.visibility = View.GONE
+                    favoriteBtn2.visibility = View.GONE
+                }
+                false
+            }
+        }
+
         getLocationPermission()
 
         return root
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -225,22 +254,7 @@ class MapsFragment : Fragment(),
             chosenNewPlace(it)
             getAddressFromLocation(it.latitude, it.longitude)
         }
-        mMap.setOnMyLocationButtonClickListener {
-            val myLoc = mapsViewModel.getDeviceLocation(mMap, activity!!.applicationContext)
-            if (myLoc != null) {
-                Log.d(TAG, "myLoc != null")
-                getAddressFromLocation(myLoc.latitude, myLoc.longitude)
-                chosenLoc = myLoc
-                favoriteBtn.visibility = View.VISIBLE
-                favoriteBtn2.visibility = View.VISIBLE
-            } else {
-                valgtSted.text = "Din posisjon"
-                valgtSted2.text = valgtSted.text
-                favoriteBtn.visibility = View.GONE
-                favoriteBtn2.visibility = View.GONE
-            }
-            false
-        }
+
 
         if (mLocationPermissionGranted) {
             val myLoc = mapsViewModel.getDeviceLocation(mMap, activity!!.applicationContext)
@@ -273,8 +287,6 @@ class MapsFragment : Fragment(),
         }
         mapsViewModel.addMarker(mMap, latlng)
     }
-
-
 
     private fun getLocationPermission() {
         // get permission to get current location

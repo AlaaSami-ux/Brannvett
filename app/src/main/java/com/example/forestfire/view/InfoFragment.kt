@@ -1,5 +1,6 @@
 package com.example.forestfire.view
 
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -51,4 +52,7 @@ class InfoFragment : Fragment() {
         return root
     }
 
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+    }
 }
