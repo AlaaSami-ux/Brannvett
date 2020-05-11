@@ -2,5 +2,4 @@
     <string name="app_name">ForestFire</string>
     <string name="title_activity_maps">Map</string>
     <string name="info">INFO</string>
-    <string name="dato">%1$s/%2$s</string>
 </resources>
