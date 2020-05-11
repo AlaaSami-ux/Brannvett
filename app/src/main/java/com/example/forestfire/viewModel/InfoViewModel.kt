@@ -14,7 +14,7 @@ class InfoViewModel : ViewModel() {
 
     fun baalDialog(context: Context){
         val builder = AlertDialog.Builder(context, R.style.CustomAlertDialog)
-        builder.setIcon(R.drawable.ic_baal)
+        builder.setIcon(R.drawable.ic_baalicon)
         builder.setTitle("Bål")
         builder.setMessage("\nI perioden 15.april til 15. september er det forbud mot å tenne bål," +
                 " grill og engangsgrill i skog eller i nærheten av skog. " +
@@ -30,7 +30,7 @@ class InfoViewModel : ViewModel() {
 
     fun glassDialog(context: Context){
         val builder = AlertDialog.Builder(context, R.style.CustomAlertDialog)
-        builder.setIcon(R.drawable.ic_glassflasker)
+        builder.setIcon(R.drawable.ic_glassflaskericon)
         builder.setTitle("Glassflasker")
         builder.setMessage("\nEn knust glassflaske kan med hjelp av solen potensielt starte en gressbrann, " +
                 "som kan utvikle seg til en skogbrann. \n\nTa alltid med deg søppelet ditt hjem igjen!\n")
@@ -44,7 +44,7 @@ class InfoViewModel : ViewModel() {
 
     fun engangsgrillDialog(context: Context){
         val builder = AlertDialog.Builder(context, R.style.CustomAlertDialog)
-        builder.setIcon(R.drawable.ic_engangsgrill)
+        builder.setIcon(R.drawable.ic_engangsgrill_ny_boks)
         builder.setTitle("Engangsgrill")
         builder.setMessage("\nEn engangsgrill skal alltid stå stødig på et underlag som ikke er brennbart, " +
                 "og husk alltid å bruke stativet som følger med. " +
@@ -61,7 +61,7 @@ class InfoViewModel : ViewModel() {
 
     fun lynDialog(context: Context){
         val builder = AlertDialog.Builder(context, R.style.CustomAlertDialog)
-        builder.setIcon(R.drawable.ic_lyn)
+        builder.setIcon(R.drawable.ic_lyn_ny)
         builder.setTitle("Lyn")
         builder.setMessage("\nVisste du at lynnedslag starter mange branner i skog i Norge i løpet av året? " +
                 "I tillegg kan det ligge og ulme i bakken i opptil tre dager før det antenner. " +
