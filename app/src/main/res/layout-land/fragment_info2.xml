@@ -86,8 +86,7 @@
                         android:layout_below="@id/baal"
                         android:paddingTop="20dp"
                         android:layout_centerHorizontal="true"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
+                        android:textSize="18sp"
                         android:text="@string/baal"/>
                 </RelativeLayout>
 
@@ -112,8 +111,7 @@
                         android:layout_below="@id/engangsgrill"
                         android:paddingTop="20dp"
                         android:layout_centerHorizontal="true"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
+                        android:textSize="18sp"
                         android:text="@string/engangsgrill" />
                 </RelativeLayout>
 
@@ -139,8 +137,7 @@
                         android:text="@string/glassflasker"
                         android:paddingTop="20dp"
                         android:layout_centerHorizontal="true"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
+                        android:textSize="18sp"
                         android:layout_below="@id/glass" />
                 </RelativeLayout>
             </LinearLayout>
@@ -174,8 +171,7 @@
                         android:layout_below="@id/lyn"
                         android:paddingTop="20dp"
                         android:layout_centerHorizontal="true"
-                        android:textSize="16sp"
-                        android:textStyle="bold"/>
+                        android:textSize="18sp" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -201,8 +197,7 @@
                         android:layout_below="@id/soppel"
                         android:paddingTop="20dp"
                         android:layout_centerHorizontal="true"
-                        android:textSize="16sp"
-                        android:textStyle="bold"/>
+                        android:textSize="18sp" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -226,8 +221,7 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="20dp"
                         android:layout_centerHorizontal="true"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
+                        android:textSize="18sp"
                         android:layout_below="@id/verktoy"
                         android:text="@string/verktoy" />
                 </RelativeLayout>
