@@ -13,7 +13,7 @@ import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 
-class MapsViewModel(): ViewModel(){ //AndroidViewModel(app)
+class MapsViewModel(): ViewModel(){ //AndromidViewModel(app)
     private var DEFAULT_ZOOM = 15f
 
     private lateinit var mFusedLocationProviderClient: FusedLocationProviderClient
