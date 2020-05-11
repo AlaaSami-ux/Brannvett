@@ -15,7 +15,6 @@ class FavoriteViewModel : ViewModel(){
     var favoriteList: MutableList<LatLng> = ArrayList()
     var favorites: MutableMap<LatLng, String> = mutableMapOf()
 
-
     fun buttonClick(btn: ImageButton){
         Log.d(TAG, "favorite button clicked")
         if (!btnclicked){

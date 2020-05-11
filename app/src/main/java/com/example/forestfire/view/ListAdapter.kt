@@ -21,9 +21,19 @@ class ListAdapter(private var favorites: MutableMap<LatLng, String>) :
         itemView: View
     ): RecyclerView.ViewHolder(itemView){
         val valgtSted: TextView = itemView.valgtSted
+        val dag1: TextView = itemView.dag1
+        val vær1: TextView = itemView.dag1
+        val brannfare1: TextView = itemView.dag1
+        val dag2: TextView = itemView.dag1
+        val vær2: TextView = itemView.dag1
+        val brannfare2: TextView = itemView.dag1
+        val dag3: TextView = itemView.dag1
+        val vær3: TextView = itemView.dag1
+        val brannfare3: TextView = itemView.dag1
         fun bind(place: String){
             valgtSted.text = place
-            Log.d("ListAdapter latlng", place)
+            dag1.text =
+            Log.d("ListAdapter Adresse:", place)
         }
     }
 
