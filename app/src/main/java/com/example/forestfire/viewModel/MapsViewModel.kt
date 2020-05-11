@@ -70,6 +70,8 @@ class MapsViewModel(): ViewModel(){ //AndroidViewModel(app)
         }
     }
 
+
+
     fun getChosenLocation(): LatLng? {
         return chosenLoc
     }

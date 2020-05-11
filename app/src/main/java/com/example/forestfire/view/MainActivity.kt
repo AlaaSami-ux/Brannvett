@@ -42,8 +42,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mMap: GoogleMap
 
     // objekter til fragments
-    lateinit var homeFragment: MapsFragment
-    lateinit var favoriteFragment: FavoritesFragment
+    private lateinit var homeFragment: MapsFragment
+    private lateinit var favoriteFragment: FavoritesFragment
     lateinit var infoFragment: InfoFragment
     lateinit var settingsFragment: SettingsFragment
 
@@ -150,45 +150,12 @@ class MainActivity : AppCompatActivity() {
         */
     }
 
-    private fun getLocationPermission() {
-        // get permission to get current location
-        Log.d(TAG, "getLocationPermission called")
-        if (ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            if (ContextCompat.checkSelfPermission(
-                    this.applicationContext,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                ) == PackageManager.PERMISSION_GRANTED
-            ) {
-                Log.d(TAG, "permission fine and coarse location granted")
-                mLocationPermissionGranted = true
-            } else {
-                Log.d(TAG, "permission COARSE_LOCATION not granted")
-                ActivityCompat.requestPermissions(
-                    this,
-                    arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
-                    MY_PERMISSIONS_REQUEST_COARSE_LOCATION
-                )
-            }
-        } else {
-            Log.d(TAG, "permission FINE_LOCATION not granted")
-            ActivityCompat.requestPermissions(
-                this,
-                arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
-                MY_PERMISSIONS_REQUEST_FINE_LOCATION
-            )
-        }
-    }
-
     // --------------------------------------- Notification ---------------------------------------
     fun vis_Varsel() {//lage varsligs metode
-        val notificationId: Int = 55
-        val draTilResutat = Intent(this, this::class.java) // gå til aktivitet etter å trykke på varsling
+        val notificationId = 55
+        val draTilResultat = Intent(this, this::class.java) // gå til aktivitet etter å trykke på varsling
         val pendingIntent = PendingIntent
-            .getActivity(this, 0, draTilResutat, PendingIntent.FLAG_UPDATE_CURRENT)
+            .getActivity(this, 0, draTilResultat, PendingIntent.FLAG_UPDATE_CURRENT)
             .apply { Intent.FLAG_ACTIVITY_CLEAR_TASK }
         val notification = NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle("Fare")
