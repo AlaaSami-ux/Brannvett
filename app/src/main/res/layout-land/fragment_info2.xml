@@ -41,7 +41,7 @@
                 android:paddingBottom="10dp"
                 android:text="@string/ved_brann_ring_110"
                 android:textAlignment="center"
-                android:textColor="#700000"
+                android:textColor="#FFFFFF"
                 android:textSize="24sp" />
         </LinearLayout>
         <!--
@@ -76,7 +76,7 @@
                         android:layout_centerInParent="true"
                         android:background="#00FFFFFF"
                         android:backgroundTint="#FFFFFF"
-                        android:src="@drawable/ic_baal"
+                        android:src="@drawable/ic_baalicon"
                         android:contentDescription="@string/bilde" />
 
                     <TextView
@@ -102,7 +102,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:background="#00FFFFFF"
-                        android:src="@drawable/ic_engangsgrill"
+                        android:src="@drawable/ic_engangsgrill_ny_boks"
                         android:contentDescription="@string/bilde" />
 
                     <TextView
@@ -129,7 +129,7 @@
                         android:layout_weight="1"
                         android:layout_centerInParent="true"
                         android:background="#00FF80AB"
-                        android:src="@drawable/ic_glassflasker"
+                        android:src="@drawable/ic_glassflaskericon"
                         android:contentDescription="@string/bilde" />
 
                     <TextView
@@ -163,7 +163,7 @@
                         android:layout_weight="1"
                         android:layout_centerInParent="true"
                         android:background="#00FFFFFF"
-                        android:src="@drawable/ic_lyn"
+                        android:src="@drawable/ic_lyn_ny"
                         android:contentDescription="@string/bilde" />
 
                     <TextView

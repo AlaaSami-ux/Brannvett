@@ -19,6 +19,7 @@ class MapsViewModel(): ViewModel(){ //AndroidViewModel(app)
     private lateinit var mFusedLocationProviderClient: FusedLocationProviderClient
     private var deviceLoc: LatLng? = null
     private var chosenLoc: LatLng? = null
+    private var lastUsedLocation: LatLng? = null
     private lateinit var marker: Marker
     val norge = LatLngBounds(
         LatLng(58.019156, 2.141567), LatLng(71.399348, 33.442113)
@@ -68,6 +69,14 @@ class MapsViewModel(): ViewModel(){ //AndroidViewModel(app)
             }
             marker = mMap.addMarker(MarkerOptions().position(ll).title("markør plassering"))
         }
+    }
+
+    fun setLastUsedLocation(latlng: LatLng){
+        lastUsedLocation = latlng
+    }
+
+    fun getLastUsedLocation(latlng: LatLng): LatLng?{
+        return lastUsedLocation
     }
 
     fun getChosenLocation(): LatLng? {

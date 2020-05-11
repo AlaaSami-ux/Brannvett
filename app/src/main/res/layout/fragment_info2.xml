@@ -24,10 +24,9 @@
                 android:layout_weight="2"
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#FFFFFF"
-                android:backgroundTint="#D6C4A4"
-                app:srcCompat="@drawable/hot_blond_lady_"
+                android:layout_height="match_parent"
+                android:src="@drawable/skogbilde"
+                android:scaleType="centerCrop"
                 android:contentDescription="@string/bilde" />
 
             <TextView
@@ -75,7 +74,7 @@
                         android:layout_centerInParent="true"
                         android:background="#00FFFFFF"
                         android:backgroundTint="#FFFFFF"
-                        android:src="@drawable/ic_baal"
+                        android:src="@drawable/ic_baalicon"
                         android:contentDescription="@string/bilde" />
 
                     <TextView
@@ -83,11 +82,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/baal"
-                        android:paddingTop="20dp"
                         android:layout_centerHorizontal="true"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:text="@string/baal"/>
+                        android:paddingTop="20dp"
+                        android:text="@string/baal"
+                        android:textSize="18sp"
+                        android:textStyle="normal" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -109,11 +108,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/engangsgrill"
-                        android:paddingTop="20dp"
                         android:layout_centerHorizontal="true"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:text="@string/engangsgrill" />
+                        android:paddingTop="20dp"
+                        android:textSize="18sp"
+                        android:text="@string/engangsgrill"
+                         />
                 </RelativeLayout>
             </LinearLayout>
 
@@ -136,19 +135,19 @@
                         android:layout_weight="1"
                         android:layout_centerInParent="true"
                         android:background="#00FF80AB"
-                        android:src="@drawable/ic_glassflasker"
+                        android:src="@drawable/ic_glassflaskericon"
                         android:contentDescription="@string/bilde" />
 
                     <TextView
                         android:id="@+id/glasstw"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/glassflasker"
-                        android:paddingTop="20dp"
+                        android:layout_below="@id/glass"
                         android:layout_centerHorizontal="true"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:layout_below="@id/glass" />
+                        android:paddingTop="20dp"
+                        android:text="@string/glassflasker"
+                        android:textSize="18sp"
+                        android:textStyle="normal" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -163,19 +162,19 @@
                         android:layout_weight="1"
                         android:layout_centerInParent="true"
                         android:background="#00FFFFFF"
-                        android:src="@drawable/ic_lyn"
+                        android:src="@drawable/ic_lyn_ny"
                         android:contentDescription="@string/bilde" />
 
                     <TextView
                         android:id="@+id/lyntw"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/lyn"
                         android:layout_below="@id/lyn"
-                        android:paddingTop="20dp"
                         android:layout_centerHorizontal="true"
-                        android:textSize="16sp"
-                        android:textStyle="bold"/>
+                        android:paddingTop="20dp"
+                        android:text="@string/lyn"
+                        android:textSize="18sp"
+                        android:textStyle="normal" />
                 </RelativeLayout>
 
             </LinearLayout>
@@ -206,12 +205,12 @@
                         android:id="@+id/soppeltw"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/avfallscontainer"
                         android:layout_below="@id/soppel"
-                        android:paddingTop="20dp"
                         android:layout_centerHorizontal="true"
-                        android:textSize="16sp"
-                        android:textStyle="bold"/>
+                        android:paddingTop="20dp"
+                        android:text="@string/avfallscontainer"
+                        android:textSize="18sp"
+                        android:textStyle="normal" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -233,12 +232,12 @@
                         android:id="@+id/verktoytw"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingTop="20dp"
-                        android:layout_centerHorizontal="true"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
                         android:layout_below="@id/verktoy"
-                        android:text="@string/verktoy" />
+                        android:layout_centerHorizontal="true"
+                        android:paddingTop="20dp"
+                        android:text="@string/verktoy"
+                        android:textSize="18sp"
+                        android:textStyle="normal" />
                 </RelativeLayout>
             </LinearLayout>
 
