@@ -199,6 +199,7 @@ class MapsFragment : Fragment(),
         })
 
         if (::mMap.isInitialized){
+            // OPPDATER TEKSTEN på cardview nede
             mMap.setOnMyLocationButtonClickListener {
                 val myLoc = mapsViewModel.getDeviceLocation(mMap, activity!!.applicationContext)
                 if (myLoc != null) {
