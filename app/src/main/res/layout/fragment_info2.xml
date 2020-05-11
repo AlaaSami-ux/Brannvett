@@ -40,8 +40,8 @@
                 android:background="#7F74AF"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:text="Ved brann - ring 110"
-                android:textColor="#700000"
+                android:text="VED BRANN - RING 110"
+                android:textColor="#FFFFFF"
                 android:textSize="24sp" />
         </LinearLayout>
         <!--
@@ -100,7 +100,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:background="#00FFFFFF"
-                        android:src="@drawable/ic_engangsgrill" />
+                        android:src="@drawable/ic_engangsgrill_ny_boks" />
 
                     <TextView
                         android:id="@+id/engangsgrilltw"

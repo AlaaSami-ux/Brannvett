@@ -75,4 +75,7 @@ dependencies {
 
     // bottom navigation bar
     implementation 'com.google.android.material:material:1.1.0-alpha10'
+
+    //Picasso - vise bilder fra nett
+    implementation 'com.squareup.picasso:picasso:2.5.2'
 }
