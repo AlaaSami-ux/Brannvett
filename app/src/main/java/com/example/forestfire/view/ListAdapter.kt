@@ -32,7 +32,7 @@ class ListAdapter(private var favorites: MutableMap<LatLng, String>) :
         val brannfare3: TextView = itemView.dag1
         fun bind(place: String){
             valgtSted.text = place
-            dag1.text =
+            dag1.text = "noe"
             Log.d("ListAdapter Adresse:", place)
         }
     }
