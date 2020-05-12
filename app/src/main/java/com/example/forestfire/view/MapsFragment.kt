@@ -204,8 +204,6 @@ class MapsFragment : Fragment(),
             }
         })
 
-
-
         getLocationPermission()
 
         return root
@@ -252,6 +250,7 @@ class MapsFragment : Fragment(),
                 chosenLoc = myLoc
                 favoriteBtn.visibility = View.VISIBLE
                 favoriteBtn2.visibility = View.VISIBLE
+                displayWeather(chosenLoc)
             } else {
                 valgtSted.text = "Din posisjon"
                 valgtSted2.text = valgtSted.text
@@ -288,6 +287,7 @@ class MapsFragment : Fragment(),
         mapsViewModel.addMarker(mMap, Oslo)
         valgtSted.text = "Oslo";
         valgtSted2.text = valgtSted.text
+        displayWeather(chosenLoc)
         // Constrain the camera target to the Norway bounds.
         mMap.setLatLngBoundsForCameraTarget(norge)
     }
@@ -448,31 +448,20 @@ class MapsFragment : Fragment(),
     private fun displayWeather(location : LatLng) {
         val tag = "displayWeather"
         Log.d(tag, location.toString())
-        if(location != null){
 
-            val latlng = LatLng(59.0, 11.0)
+        forecastModel.fetchLocationForecast(location)
+        forecastModel.locationForecastLiveData.observe(viewLifecycleOwner, Observer {
+            val temperature = it.product.time[0].location.temperature.value
+            requireView().findViewById<TextView>(R.id.w_deg).text = "${temperature} \u2103"
+            val id = it.product.time[1].location.symbol.number
+            val img = requireView().findViewById<ImageView>(R.id.weater_icon)
+            val url = "https://in2000-apiproxy.ifi.uio.no/weatherapi/weathericon/1.1?content_type=image%2Fpng&symbol=${id}"
 
-
-            forecastModel.fetchLocationForecast(location)
-            forecastModel.locationForecastLiveData.observe(viewLifecycleOwner, Observer {
-                val temperature = it.product.time[0].location.temperature.value
-                requireView().findViewById<TextView>(R.id.w_deg).text = "${temperature} \u2103"
-                val id = it.product.time[1].location.symbol.number
-                val img = requireView().findViewById<ImageView>(R.id.weater_icon)
-                val url = "https://in2000-apiproxy.ifi.uio.no/weatherapi/weathericon/1.1?content_type=image%2Fpng&symbol=${id}"
-
-                Picasso.with(activity)
-                    .load(url)
-                    .resize(100,100)
-                    .into(img)
-            })
-        }else{
-            Toast.makeText(activity, "Får ikke tak i mMap", Toast.LENGTH_SHORT).show()
-            Log.d("displayweather", "Could not fetch mMap")
-        }
-
-
-
+            Picasso.with(activity)
+                .load(url)
+                .resize(100,100)
+                .into(img)
+        })
     }
 
 }
