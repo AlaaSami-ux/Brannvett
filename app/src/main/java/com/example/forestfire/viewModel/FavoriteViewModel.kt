@@ -15,22 +15,26 @@ class FavoriteViewModel : ViewModel(){
     var favoriteList: MutableList<LatLng> = ArrayList()
     var favorites: MutableMap<LatLng, String> = mutableMapOf()
 
-    fun buttonClick(btn: ImageButton){
+    fun buttonClick(btn1: ImageButton, btn2: ImageButton){
         Log.d(TAG, "favorite button clicked")
         if (!btnclicked){
-            btn.setBackgroundResource(R.drawable.ic_favorite_black_24dp)
+            btn1.setBackgroundResource(R.drawable.ic_favorite_black_24dp)
+            btn2.setBackgroundResource(R.drawable.ic_favorite_black_24dp)
         } else {
-            btn.setBackgroundResource(R.drawable.ic_favorite_border_black_24dp)
+            btn1.setBackgroundResource(R.drawable.ic_favorite_border_black_24dp)
+            btn2.setBackgroundResource(R.drawable.ic_favorite_border_black_24dp)
         }
     }
 
-    fun setBtnUnClicked(btn: ImageButton){
-        btn.setBackgroundResource(R.drawable.ic_favorite_border_black_24dp)
+    fun setBtnUnClicked(btn1: ImageButton, btn2: ImageButton){
+        btn1.setBackgroundResource(R.drawable.ic_favorite_border_black_24dp)
+        btn2.setBackgroundResource(R.drawable.ic_favorite_border_black_24dp)
         btnclicked = false
     }
 
-    fun setBtnClicked(btn: ImageButton){
-        btn.setBackgroundResource(R.drawable.ic_favorite_black_24dp)
+    fun setBtnClicked(btn1: ImageButton, btn2: ImageButton){
+        btn1.setBackgroundResource(R.drawable.ic_favorite_black_24dp)
+        btn2.setBackgroundResource(R.drawable.ic_favorite_black_24dp)
         btnclicked = true
     }
 
@@ -53,13 +57,6 @@ class FavoriteViewModel : ViewModel(){
             btnclicked = true
             Log.d(TAG, "added favorite. Size of favorites list: " + favorites.count())
         }
-
-        /*if (!favoriteList.contains(latlng)){ // sjekker om det allerede er favoritt
-            favoriteList.add(latlng)
-            btnclicked = true
-            Log.d(TAG, "added favorite. Size of favorites list: " + favoriteList.size)
-        }
-         */
     }
 
     fun removeFavorite(latlng: LatLng, place: String){
@@ -68,12 +65,6 @@ class FavoriteViewModel : ViewModel(){
             btnclicked = false
             Log.d(TAG, "removed favorite. Size of favorites list: " + favorites.count())
         }
-        /*if (favoriteList.contains(latlng)){ // sjekker om det allerede er favoritt
-            favoriteList.remove(latlng)
-            btnclicked = false
-            Log.d(TAG, "removed favorite. Size of favorites list: " + favoriteList.size)
-        }
-         */
     }
 
 }

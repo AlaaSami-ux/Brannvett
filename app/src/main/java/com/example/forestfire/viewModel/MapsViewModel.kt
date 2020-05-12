@@ -1,8 +1,16 @@
 package com.example.forestfire.viewModel
 
+import android.Manifest
+import android.app.Activity
 import android.content.Context
+import android.content.pm.PackageManager
+import android.location.Address
+import android.location.Geocoder
 import android.location.Location
+import android.util.Log
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -12,54 +20,131 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import java.io.IOException
+import java.util.*
 
 class MapsViewModel(): ViewModel(){ //AndroidViewModel(app)
+    val TAG = "MapsViewModel"
     private var DEFAULT_ZOOM = 15f
+    private var MY_PERMISSIONS_REQUEST_FINE_LOCATION = 1
+    private var MY_PERMISSIONS_REQUEST_COARSE_LOCATION = 1
 
     private lateinit var mFusedLocationProviderClient: FusedLocationProviderClient
-    private var deviceLoc: LatLng? = null
-    private var chosenLoc: LatLng? = null
-    private var lastUsedLocation: LatLng? = null
+    private var mLocationPermissionGranted = false // assume location permission is not granted
+
     private lateinit var marker: Marker
     val norge = LatLngBounds(
         LatLng(58.019156, 2.141567), LatLng(71.399348, 33.442113)
     )
     val oslo = LatLng(59.911491, 10.757933)
+    private var lastUsedLocation: LatLng = oslo
+    private var deviceLoc: LatLng = oslo
 
-    fun getDeviceLocation(mMap: GoogleMap, applicationContext: Context): LatLng? {
+    private lateinit var activity: Activity
+    private lateinit var context: Context
+
+    fun setActivity(a: Activity){
+        activity = a
+    }
+
+    fun setContext(c: Context){
+        context = c
+    }
+
+    fun getDeviceLocation(mMap: GoogleMap, applicationContext: Context): LatLng {
+        Log.d(TAG, "getDeviceLocation called")
+        findDeviceLocation(mMap, applicationContext)
+        Log.d(TAG, "After findDeviceLocation called")
+        return deviceLoc
+    }
+
+    fun findDeviceLocation(mMap: GoogleMap, applicationContext: Context){
         mFusedLocationProviderClient =
             LocationServices.getFusedLocationProviderClient(applicationContext)
         mFusedLocationProviderClient.lastLocation.addOnSuccessListener { location: Location? ->
             if (location != null) {
+                Log.d(TAG, "found a location")
                 deviceLoc = LatLng(location.latitude, location.longitude)
                 if (!norge.contains(deviceLoc)){ // enheten befinner seg ikke i norge
+                    Log.d(TAG, "location outside of Norway")
                     Toast.makeText(applicationContext,
                         "Din posisjon er utenfor Norge. Søk på et sted i Norge",
                         Toast.LENGTH_LONG).show()
-                    moveCam(mMap, applicationContext, oslo, DEFAULT_ZOOM)
+                    moveCam(mMap, applicationContext, oslo)
                 } else {
+                    Log.d(TAG, "location in Norway")
                     moveCam(mMap, applicationContext,
-                        LatLng(location.latitude, location.longitude),
-                        DEFAULT_ZOOM
+                        LatLng(location.latitude, location.longitude)
                     )
                     deviceLoc = LatLng(location.latitude, location.longitude)
                 }
             } else {
-                moveCam(mMap, applicationContext, oslo, DEFAULT_ZOOM)
+                moveCam(mMap, applicationContext, oslo)
                 Toast.makeText(applicationContext, "kunne ikke finne posisjonen din", Toast.LENGTH_SHORT)
                     .show()
             }
         }
-        return deviceLoc
     }
 
-    fun moveCam(mMap: GoogleMap, applicationContext: Context, ll: LatLng?, zoom: Float) {
+    fun getLocationPermission(){
+        // get permission to get current location
+        Log.d(TAG, "getLocationPermission called")
+        if (ContextCompat.checkSelfPermission(
+                activity,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            if (ContextCompat.checkSelfPermission(
+                    context,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                ) == PackageManager.PERMISSION_GRANTED
+            ) {
+                Log.d(TAG, "permission fine and coarse location granted")
+                mLocationPermissionGranted = true
+            } else {
+                Log.d(TAG, "permission COARSE_LOCATION not granted")
+                ActivityCompat.requestPermissions(
+                    activity,
+                    arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
+                    MY_PERMISSIONS_REQUEST_COARSE_LOCATION
+                )
+            }
+        } else {
+            Log.d(TAG, "permission FINE_LOCATION not granted")
+            ActivityCompat.requestPermissions(
+                activity,
+                arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
+                MY_PERMISSIONS_REQUEST_FINE_LOCATION
+            )
+        }
+    }
+
+    fun moveCam(mMap: GoogleMap, applicationContext: Context, ll: LatLng?) {
         if (ll == null) {
             Toast.makeText(applicationContext, "kan ikke flytte kamera", Toast.LENGTH_SHORT).show()
         } else {
-            chosenLoc = ll
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ll, zoom))
+            lastUsedLocation = ll
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ll, DEFAULT_ZOOM))
         }
+    }
+
+    fun getAddressFromLocation(latitude: Double, longitude: Double) : String {
+        Log.d(TAG, "getAddressFromLocation")
+        var sted = "Valgt posisjon"
+        val geocoder = Geocoder(activity, Locale.ENGLISH)
+        try {
+            val addresses: List<Address> = geocoder.getFromLocation(latitude, longitude, 1)
+            if (addresses.isNotEmpty()) {
+                val fetchedAddress: Address = addresses[0]
+                val strAddress: String = fetchedAddress.getAddressLine(0)
+                sted = strAddress.split(",", ignoreCase=true, limit=0).first()
+                Log.d(TAG, "sted:" + sted)
+            } else {
+            }
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+        return sted
     }
 
     fun addMarker(mMap: GoogleMap, ll: LatLng?) {
@@ -71,15 +156,11 @@ class MapsViewModel(): ViewModel(){ //AndroidViewModel(app)
         }
     }
 
-    fun setLastUsedLocation(latlng: LatLng){
-        lastUsedLocation = latlng
+    fun setLastUsedLocation(ll: LatLng){
+        lastUsedLocation = ll
     }
 
-    fun getLastUsedLocation(latlng: LatLng): LatLng?{
+    fun getLastUsedLocation(): LatLng{
         return lastUsedLocation
-    }
-
-    fun getChosenLocation(): LatLng? {
-        return chosenLoc
     }
 }
