@@ -22,4 +22,5 @@
         <item>Norsk</item>
         <item>English</item>
     </string-array>
+    <string name="baalInfo">" perioden 15.april til 15. september er det forbud mot å tenne bål, grill og engangsgrill i skog eller i nærheten av skog. Når du tenner bål er det ALLTID viktig å slukke skikkelig, og forsikre seg om at det er helt slukket før du drar videre. Kilde: norskfriluftsliv.no"</string>
 </resources>
