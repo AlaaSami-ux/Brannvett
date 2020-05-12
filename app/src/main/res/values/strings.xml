@@ -3,8 +3,11 @@
     <string name="title_activity_maps">Map</string>
     <string name="info">INFO</string>
 
+    <string name="dato">%1$s/%2$s</string>
     <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+
     <string name="bilde">bilde</string>
     <string name="ved_brann_ring_110">VED BRANN - RING 110</string>
     <string name="baal">Bål</string>
@@ -22,5 +25,6 @@
         <item>Norsk</item>
         <item>English</item>
     </string-array>
-    <string name="baalInfo">" perioden 15.april til 15. september er det forbud mot å tenne bål, grill og engangsgrill i skog eller i nærheten av skog. Når du tenner bål er det ALLTID viktig å slukke skikkelig, og forsikre seg om at det er helt slukket før du drar videre. Kilde: norskfriluftsliv.no"</string>
+
+    
 </resources>

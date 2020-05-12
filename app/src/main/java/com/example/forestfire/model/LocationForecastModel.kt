@@ -80,8 +80,8 @@ object LocationForecastModel{
     )
 
     data class  Symbol(
-        @SerializedName("id") val name : String,    //Tekstlig beskrivelse av symbolet. F.eks "LightCloud"
-        @SerializedName("number") val id : String   //Tallet som representerer symbolet
+        val id : String,    //Tekstlig beskrivelse av symbolet. F.eks "LightCloud"
+        val number : String   //Tallet som representerer symbolet
     )
 
     data class Pressure(

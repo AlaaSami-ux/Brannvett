@@ -6,131 +6,126 @@
     android:paddingLeft="2dp"
     android:paddingRight="2dp">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        app:cardElevation="4dp"
-        app:cardUseCompatPadding="true"
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true">
 
-        <LinearLayout
+        <androidx.cardview.widget.CardView
+            android:id="@+id/favorittCard"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="horizontal"
-            android:weightSum="5">
-
-            <TextView
-                android:id="@+id/valgtSted"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:paddingStart="10dp"
-                android:textSize="16sp"
-                android:layout_gravity="center_vertical"/>
+            android:layout_height="100dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            app:cardElevation="4dp"
+            app:cardUseCompatPadding="true">
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"/>
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
                 android:orientation="horizontal"
-                android:weightSum="3">
+                android:weightSum="8">
 
-                <!-- dag 1-->
+                <TextView
+                    android:id="@+id/valgtSted"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="5"
+                    android:textSize="18sp" />
+
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
+                    android:layout_weight="3"
+                    android:orientation="horizontal"
                     android:weightSum="3">
 
-                    <TextView
-                        android:id="@+id/dag1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:text="Dag 1"
-                        android:layout_weight="1" />
+                    <!-- dag 1-->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:weightSum="2">
 
-                    <ImageView
-                        android:id="@+id/vær1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:src="@drawable/ic_wb_sunny_black_24dp"
-                        android:layout_weight="1" />
+                        <ImageView
+                            android:id="@+id/vær1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:src="@drawable/ic_wb_sunny_black_24dp" />
 
-                    <ImageView
-                        android:id="@+id/brannfare1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:src="@drawable/ic_whatshot_black_24dp"
-                        android:layout_weight="1" />
-                </LinearLayout>
+                        <ImageView
+                            android:id="@+id/brannfare1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:src="@drawable/ic_whatshot_black_24dp" />
+                    </LinearLayout>
 
-                <!-- dag 2-->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:weightSum="3">
+                    <!-- dag 2-->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:weightSum="2">
 
-                    <TextView
-                        android:id="@+id/dag2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:text="Dag 2"
-                        android:layout_weight="1" />
+                        <ImageView
+                            android:id="@+id/vær2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:src="@drawable/ic_wb_sunny_black_24dp" />
 
-                    <ImageView
-                        android:id="@+id/vær2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:src="@drawable/ic_wb_sunny_black_24dp"
-                        android:layout_weight="1" />
+                        <ImageView
+                            android:id="@+id/brannfare2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:src="@drawable/ic_whatshot_black_24dp" />
+                    </LinearLayout>
 
-                    <ImageView
-                        android:id="@+id/brannfare2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:src="@drawable/ic_whatshot_black_24dp"
-                        android:layout_weight="1" />
-                </LinearLayout>
+                    <!-- dag 3-->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:weightSum="2">
 
-                <!-- dag 3-->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:weightSum="3">
+                        <ImageView
+                            android:id="@+id/vær3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:src="@drawable/ic_wb_sunny_black_24dp" />
 
-                    <TextView
-                        android:id="@+id/dag3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:text="Dag 3"
-                        android:layout_weight="1" />
-
-                    <ImageView
-                        android:id="@+id/vær3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:src="@drawable/ic_wb_sunny_black_24dp"
-                        android:layout_weight="1" />
-
-                    <ImageView
-                        android:id="@+id/brannfare3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:src="@drawable/ic_whatshot_black_24dp"
-                        android:layout_weight="1" />
+                        <ImageView
+                            android:id="@+id/brannfare3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:src="@drawable/ic_whatshot_black_24dp" />
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>
+
+    <ImageButton
+        android:id="@+id/remove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:background="@null"
+        android:src="@drawable/ic_remove_circle_black_24dp" />
+
 </RelativeLayout>
