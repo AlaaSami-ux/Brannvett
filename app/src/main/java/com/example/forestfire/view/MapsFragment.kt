@@ -16,21 +16,27 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.forestfire.R
 import com.example.forestfire.viewModel.FavoriteViewModel
 import com.example.forestfire.viewModel.MapsViewModel
+import com.example.forestfire.viewModel.fetchAPI.LocationForecastViewModel
 import com.google.android.gms.common.api.Status
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
+import com.google.android.gms.tasks.Tasks.await
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.model.RectangularBounds
@@ -38,6 +44,7 @@ import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
+import com.squareup.picasso.Picasso
 import java.io.IOException
 import java.util.*
 
@@ -197,6 +204,8 @@ class MapsFragment : Fragment(),
             }
         })
 
+
+
         getLocationPermission()
 
         return root
@@ -260,10 +269,13 @@ class MapsFragment : Fragment(),
                 favoriteBtn.visibility = View.VISIBLE
                 favoriteBtn2.visibility = View.VISIBLE
                 getAddressFromLocation(myLoc.latitude, myLoc.longitude)
+ 
             } else {
                 mapsViewModel.moveCam(mMap, activity!!.applicationContext, LatLng(59.911491, 10.757933), DEFAULT_ZOOM)
                 valgtSted.text = "Oslo";
                 valgtSted2.text = valgtSted.text}
+
+
         }
          */
         // Create a LatLngBounds that includes the country Norway
@@ -291,7 +303,7 @@ class MapsFragment : Fragment(),
             favoriteViewModel.setBtnUnClicked(favoriteBtn)
             favoriteViewModel.setBtnUnClicked(favoriteBtn2)
         }
-        mapsViewModel.addMarker(mMap, latlng)
+        displayWeather(latlng)
     }
 
     private fun getLocationPermission() {
@@ -429,4 +441,38 @@ class MapsFragment : Fragment(),
         }
         return false
     }
+
+
+    private val forecastModel by viewModels<LocationForecastViewModel> { LocationForecastViewModel.InstanceCreator() }
+
+    private fun displayWeather(location : LatLng) {
+        val tag = "displayWeather"
+        Log.d(tag, location.toString())
+        if(location != null){
+
+            val latlng = LatLng(59.0, 11.0)
+
+
+            forecastModel.fetchLocationForecast(location)
+            forecastModel.locationForecastLiveData.observe(viewLifecycleOwner, Observer {
+                val temperature = it.product.time[0].location.temperature.value
+                requireView().findViewById<TextView>(R.id.w_deg).text = "${temperature} \u2103"
+                val id = it.product.time[1].location.symbol.number
+                val img = requireView().findViewById<ImageView>(R.id.weater_icon)
+                val url = "https://in2000-apiproxy.ifi.uio.no/weatherapi/weathericon/1.1?content_type=image%2Fpng&symbol=${id}"
+
+                Picasso.with(activity)
+                    .load(url)
+                    .resize(100,100)
+                    .into(img)
+            })
+        }else{
+            Toast.makeText(activity, "Får ikke tak i mMap", Toast.LENGTH_SHORT).show()
+            Log.d("displayweather", "Could not fetch mMap")
+        }
+
+
+
+    }
+
 }
