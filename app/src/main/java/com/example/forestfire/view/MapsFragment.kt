@@ -246,7 +246,6 @@ class MapsFragment : Fragment(),
             val myLoc = mapsViewModel.getDeviceLocation(mMap, activity!!.applicationContext)
             if (myLoc != null) {
                 Log.d(TAG, "myLoc != null")
-                Log.d(TAG, "maybe center camera on your loc thingy")
                 getAddressFromLocation(myLoc.latitude, myLoc.longitude)
                 chosenLoc = myLoc
                 favoriteBtn.visibility = View.VISIBLE
