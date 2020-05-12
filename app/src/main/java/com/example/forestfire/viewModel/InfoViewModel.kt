@@ -39,7 +39,6 @@ class InfoViewModel : ViewModel() {
         dialog.show()
         val msgTxt = dialog.findViewById<View>(android.R.id.message)!! as TextView
         msgTxt.setTextSize(22F)
-      //  dialog.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FFCCD1EF")))
     }
 
     fun engangsgrillDialog(context: Context){
@@ -56,7 +55,6 @@ class InfoViewModel : ViewModel() {
         dialog.show()
         val msgTxt = dialog.findViewById<View>(android.R.id.message)!! as TextView
         msgTxt.setTextSize(22F)
-       // dialog.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FFCCD1EF")))
     }
 
     fun lynDialog(context: Context){
@@ -71,7 +69,6 @@ class InfoViewModel : ViewModel() {
         dialog.show()
         val msgTxt = dialog.findViewById<View>(android.R.id.message)!! as TextView
         msgTxt.setTextSize(22F)
-        //dialog.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FFCCD1EF")))
     }
 
     fun soppelDialog(context: Context){
@@ -86,7 +83,6 @@ class InfoViewModel : ViewModel() {
         dialog.show()
         val msgTxt = dialog.findViewById<View>(android.R.id.message)!! as TextView
         msgTxt.setTextSize(22F)
-       // dialog.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FFCCD1EF")))
     }
 
     fun verktoyDialog(context: Context){
