@@ -3,19 +3,20 @@ package com.example.forestfire.view
 import android.content.res.Configuration
 import android.location.Address
 import android.location.Geocoder
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
 import com.example.forestfire.R
 import com.example.forestfire.viewModel.FavoriteViewModel
 import com.example.forestfire.viewModel.MapsViewModel
@@ -103,18 +104,12 @@ class FavoritesFragment : Fragment() {
             PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
                 Log.i(TAG, "Place: " + place.name + ", " + place.id)
-                /*chosenNewPlace(place.latLng!!)
-                mapsViewModel.moveCam(mMap, activity!!.applicationContext, place.latLng, DEFAULT_ZOOM)
-                valgtSted.text = place.name
-                valgtSted2.text = place.name*/
-                if (getAddressFromLocation(place.latLng!!.latitude, place.latLng!!.longitude) != null) {
-                    getAddressFromLocation(place.latLng!!.latitude, place.latLng!!.longitude)?.let {
-                        favoriteViewModel.addFavorite(
-                            place.latLng!!,
-                            it
-                        )
-                    }
+                favoriteViewModel.addFavorite(place.latLng!!, place.name!!)
+                val ft: FragmentTransaction = fragmentManager!!.beginTransaction()
+                if (Build.VERSION.SDK_INT >= 26) {
+                    ft.setReorderingAllowed(false)
                 }
+                ft.detach(this@FavoritesFragment).attach(this@FavoritesFragment).commit()
                 leggTil.visibility = View.GONE
             }
 
