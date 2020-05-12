@@ -19,9 +19,8 @@ class ListAdapter(private var favorites: MutableMap<LatLng, String>) :
     private var places = favorites.values // MutableCollection of values from favorites map
 
 
-    class ViewHolder constructor(
-        itemView: View
-    ): RecyclerView.ViewHolder(itemView){
+    class ViewHolder constructor(itemView: View) :
+            RecyclerView.ViewHolder(itemView){
         val valgtSted: TextView = itemView.valgtSted
         val dag1: TextView = itemView.dag1
         val vær1: TextView = itemView.dag1
@@ -32,6 +31,7 @@ class ListAdapter(private var favorites: MutableMap<LatLng, String>) :
         val dag3: TextView = itemView.dag3
         val vær3: TextView = itemView.dag3
         val brannfare3: TextView = itemView.dag3
+
         fun bind(place: String){
             val c = Calendar.getInstance()
             valgtSted.text = place
