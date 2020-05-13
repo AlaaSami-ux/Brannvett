@@ -18,7 +18,6 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -50,19 +49,16 @@ import java.util.*
 
 class MapsFragment : Fragment(),
     OnMapReadyCallback,
-    View.OnTouchListener{
+    View.OnTouchListener, View.OnClickListener{
 
     val TAG = "MapsFragment"
-    private var DEFAULT_ZOOM = 15f
     private var MY_PERMISSIONS_REQUEST_FINE_LOCATION = 1
     private var MY_PERMISSIONS_REQUEST_COARSE_LOCATION = 1
     private var MIN_DISTANCE = 100
 
     private lateinit var chosenLoc: LatLng
-    val Oslo = LatLng(59.911491, 10.757933)
 
     private lateinit var root: View
-    private lateinit var mMap: GoogleMap
     private lateinit var weather: CardView
     private lateinit var wtext: TextView
     private lateinit var valgtSted: TextView
@@ -73,16 +69,17 @@ class MapsFragment : Fragment(),
     private lateinit var favoriteBtn: ImageButton // button for adding as favorite
     private lateinit var favoriteBtn2: ImageButton // button for adding as favorite
 
-    private var mLocationPermissionGranted = false // assume location permission is not granted
-
-    // the location of the device
-    private var deviceloc: LatLng? = null
-    // Autocomplete fragment
+    // Everything to do with maps
+    private lateinit var mMap: GoogleMap
     private lateinit var autocompleteFragment: AutocompleteSupportFragment
+    val norge = LatLngBounds(LatLng(58.019156, 2.141567), LatLng(71.399348, 33.442113))
+    private val oslo = LatLng(59.911491, 10.757933)
+
+
     //private var previousX: Float = 0F
     private var previousY: Float = 0F // used for checking if there has been a swipe upward
 
-    // the ViewModel for the map
+    // the ViewModels for map and favorites
     private lateinit var mapsViewModel: MapsViewModel
     private lateinit var favoriteViewModel: FavoriteViewModel
 
@@ -95,129 +92,112 @@ class MapsFragment : Fragment(),
         // Inflate the layout for this fragment
         root =  inflater.inflate(R.layout.fragment_maps, container, false)
 
-
-        // tilgang til mapsViewModel
+        // tilgang til viewmodels
         mapsViewModel = activity?.run {
             ViewModelProviders.of(this)[MapsViewModel::class.java]
         } ?: throw Exception("Invalid Activity")
 
-        // tilgang til favoriteViewModel
         favoriteViewModel = activity?.run {
             ViewModelProviders.of(this)[FavoriteViewModel::class.java]
         } ?: throw Exception("Invalid Activity")
 
+        mapsViewModel.setActivity(activity!!)
+        mapsViewModel.setContext(context!!)
 
+        // initialize variables
         weather = root.findViewById(R.id.weather)
         wtext = root.findViewById(R.id.wtext)
-
-        valgtSted = root.findViewById(R.id.valgtSted)
         slideUp = root.findViewById(R.id.slideUp)
         slideUp.setOnTouchListener(this)
-        swipeUp = root.findViewById(R.id.swipeUp)
+        swipeUp = root.findViewById(R.id.swipeUp) // includer stedinfo
         swipeUp.setOnTouchListener(this)
-        valgtSted2 = swipeUp.findViewById<TextView>(R.id.valgtSted)
+        valgtSted = root.findViewById(R.id.valgtSted) // tekst på cardView på forsiden
+        valgtSted2 = swipeUp.findViewById<TextView>(R.id.valgtSted) // tekst på cardView når det er sveipet opp
 
-        stedinfo = root.findViewById<View>(R.id.swipeUp)
-        // gjør at de to favoritt-knappene samarbeider/er like
-        favoriteBtn = root.findViewById(R.id.favoritt)
-        favoriteBtn2 = stedinfo.findViewById(R.id.favoritt)
+        stedinfo = root.findViewById<View>(R.id.swipeUp) // cardView som synes når man har sveipet opp
 
-        if (favoriteViewModel.isFavorite(Oslo)){
-            favoriteViewModel.setBtnClicked(favoriteBtn)
-            favoriteViewModel.setBtnClicked(favoriteBtn2)
+        favoriteBtn = root.findViewById(R.id.favoritt)      // favorittknapp cardView nede
+        favoriteBtn2 = stedinfo.findViewById(R.id.favoritt) // favorittknapp cardView åpent
+
+        var loc = mapsViewModel.getLastUsedLocation()   // MapsViewModel holder kontroll på sist besøkte sted
+
+        if (favoriteViewModel.isFavorite(loc)){        // Om Oslo allerede er favoritt skal knappene fylles med farge
+            favoriteViewModel.setBtnClicked(favoriteBtn, favoriteBtn2)
         }
 
-        //favoriteBtn = root.findViewById(R.id.favoriteBtn)
-        favoriteBtn.setOnClickListener(View.OnClickListener {
-            Log.d(TAG, "favorite button clicked")
-            favoriteViewModel.changeFavoriteBoolean()
-            if (favoriteViewModel.isBtnClicked()){ // hvis knappen er fylt med farge
-                favoriteViewModel.addFavorite(chosenLoc, valgtSted.text.toString())
-                favoriteViewModel.setBtnClicked(favoriteBtn)
-                favoriteViewModel.setBtnClicked(favoriteBtn2)
-            } else { // hvis knappen ikke er fylt med farge
-                favoriteViewModel.removeFavorite(chosenLoc, valgtSted.text.toString())
-                favoriteViewModel.setBtnUnClicked(favoriteBtn)
-                favoriteViewModel.setBtnUnClicked(favoriteBtn2)
-            }
-        })
+        // click listener to the two favorite buttons
+        favoriteBtn.setOnClickListener(this)
+        favoriteBtn2.setOnClickListener(this)
 
-        favoriteBtn2.setOnClickListener(View.OnClickListener {
-            Log.d(TAG, "favorite button 2 clicked")
-            //favoriteViewModel.buttonClick(favoriteBtn)
-            //favoriteViewModel.buttonClick(favoriteBtn2)
-            favoriteViewModel.changeFavoriteBoolean()
-            if (favoriteViewModel.isBtnClicked()){ // hvis knappen er fylt med farge
-                favoriteViewModel.setBtnClicked(favoriteBtn)
-                favoriteViewModel.setBtnClicked(favoriteBtn2)
-                favoriteViewModel.addFavorite(chosenLoc, valgtSted.text.toString())
-            } else { // hvis knappen ikke er fylt med farge
-                favoriteViewModel.removeFavorite(chosenLoc, valgtSted.text.toString())
-                favoriteViewModel.setBtnUnClicked(favoriteBtn)
-                favoriteViewModel.setBtnUnClicked(favoriteBtn2)
-            }
-        })
 
+
+        // --------------- Lets get the map going ---------------
         // Try to obtain the map from the SupportMapFragment.
         val mapFragment = SupportMapFragment.newInstance()
         childFragmentManager.beginTransaction().replace(R.id.map, mapFragment).commit()
         mapFragment.getMapAsync(this)
 
-
         // Initialize google places
         Places.initialize(context!!, "AIzaSyD10fJ7iHSaVhairAHZnpuFcrm5fU4SFM4")
         // Create a new Places client instance
-        var placesClient: PlacesClient = Places.createClient(context!!)
+        Places.createClient(context!!)
 
         // initialize autocompleteFragment
         autocompleteFragment = childFragmentManager.findFragmentById(R.id.autocomplete_fragment) as AutocompleteSupportFragment
-
         autocompleteFragment.setPlaceFields(listOf(
-            Place.Field.ID,
             Place.Field.NAME,
             Place.Field.LAT_LNG
         ))
         // set bounds for the results
-        autocompleteFragment.setLocationBias(
-            RectangularBounds.newInstance(
-                LatLngBounds(
-                    LatLng(58.019156, 2.141567), LatLng(71.399348, 33.442113)
-                )
-            )
-        )
+        autocompleteFragment.setLocationBias(RectangularBounds.newInstance(norge))
         autocompleteFragment.setCountries("NO")
         autocompleteFragment.setActivityMode(AutocompleteActivityMode.OVERLAY)
-
         autocompleteFragment.setOnPlaceSelectedListener(object :
             PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
-                Log.i(TAG, "Place: " + place.name + ", " + place.id)
+                Log.i(TAG, "Place: " + place.name + ", " + place.latLng)
                 chosenNewPlace(place.latLng!!)
-                mapsViewModel.moveCam(mMap, activity!!.applicationContext, place.latLng, DEFAULT_ZOOM)
-                valgtSted.text = place.name
-                valgtSted2.text = place.name
+                mapsViewModel.setLastUsedLocation(place.latLng!!) // Oppdaterer sist brukte lokasjon
+                mapsViewModel.moveCam(mMap, activity!!.applicationContext, place.latLng)
+                settValgtStedTekst(place.name!!)
             }
-
             override fun onError(status: Status) {
                 Log.i(TAG, "An error occurred: $status")
             }
         })
 
-        getLocationPermission()
+        mapsViewModel.getLocationPermission()
 
         return root
     }
 
-    override fun onConfigurationChanged(newConfig: Configuration) {
+    override fun onClick(v: View){
+        Log.d(TAG, "favorite button clicked")
+        favoriteViewModel.changeFavoriteBoolean()
+        if (favoriteViewModel.isBtnClicked()){ // hvis knappen er fylt med farge
+            favoriteViewModel.addFavorite(chosenLoc, valgtSted.text.toString())
+            favoriteViewModel.setBtnClicked(favoriteBtn, favoriteBtn2)
+        } else { // hvis knappen ikke er fylt med farge
+            favoriteViewModel.removeFavorite(chosenLoc, valgtSted.text.toString())
+            favoriteViewModel.setBtnUnClicked(favoriteBtn, favoriteBtn2)
+        }
+    }
+
+    /*override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
+    }*/
+
+    private fun settValgtStedTekst(place: String){
+        valgtSted.text = place
+        valgtSted2.text = place
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
         Log.d(TAG, "onMapReady: map is ready")
         mMap = googleMap
 
-        // Converts 120 dip into its equivalent px
-        var dip = 110f
+        // Coonvert dp to px
+        var dip = 90f
         val r = resources
         val top = TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP,
@@ -259,33 +239,10 @@ class MapsFragment : Fragment(),
             false
         }
 
-        /*if (mLocationPermissionGranted) {
-            val myLoc = mapsViewModel.getDeviceLocation(mMap, activity!!.applicationContext)
-            if (myLoc != null) {
-                Log.d(TAG, "myLoc != null")
-                chosenLoc = myLoc
-                favoriteBtn.visibility = View.VISIBLE
-                favoriteBtn2.visibility = View.VISIBLE
-                getAddressFromLocation(myLoc.latitude, myLoc.longitude)
- 
-            } else {
-                mapsViewModel.moveCam(mMap, activity!!.applicationContext, LatLng(59.911491, 10.757933), DEFAULT_ZOOM)
-                valgtSted.text = "Oslo";
-                valgtSted2.text = valgtSted.text}
-
-
-        }
-         */
-        // Create a LatLngBounds that includes the country Norway
-        val norge = LatLngBounds(
-            LatLng(58.019156, 2.141567), LatLng(71.399348, 33.442113)
-        )
-
-        chosenLoc = Oslo
-        mapsViewModel.moveCam(mMap, activity!!.applicationContext, Oslo, DEFAULT_ZOOM)
-        mapsViewModel.addMarker(mMap, Oslo)
-        valgtSted.text = "Oslo";
-        valgtSted2.text = valgtSted.text
+        chosenLoc = oslo
+        mapsViewModel.moveCam(mMap, activity!!.applicationContext, oslo)
+        mapsViewModel.addMarker(mMap, oslo)
+        settValgtStedTekst("Oslo")
         displayWeather(chosenLoc)
         // Constrain the camera target to the Norway bounds.
         mMap.setLatLngBoundsForCameraTarget(norge)
@@ -293,71 +250,17 @@ class MapsFragment : Fragment(),
 
     private fun chosenNewPlace(latlng: LatLng){
         chosenLoc = latlng
-        favoriteBtn.visibility = View.VISIBLE
-        favoriteBtn2.visibility = View.VISIBLE
         if (favoriteViewModel.isFavorite(latlng)){
-            favoriteViewModel.setBtnClicked(favoriteBtn)
-            favoriteViewModel.setBtnClicked(favoriteBtn2)
+            favoriteViewModel.setBtnClicked(favoriteBtn, favoriteBtn2)
         } else {
-            favoriteViewModel.setBtnUnClicked(favoriteBtn)
-            favoriteViewModel.setBtnUnClicked(favoriteBtn2)
+            favoriteViewModel.setBtnUnClicked(favoriteBtn, favoriteBtn2)
         }
         displayWeather(latlng)
     }
 
-    private fun getLocationPermission() {
-        // get permission to get current location
-        Log.d(TAG, "getLocationPermission called")
-        if (ContextCompat.checkSelfPermission(
-                activity!!,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            if (ContextCompat.checkSelfPermission(
-                    context!!,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                ) == PackageManager.PERMISSION_GRANTED
-            ) {
-                Log.d(TAG, "permission fine and coarse location granted")
-                mLocationPermissionGranted = true
-            } else {
-                Log.d(TAG, "permission COARSE_LOCATION not granted")
-                ActivityCompat.requestPermissions(
-                    activity!!,
-                    arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
-                    MY_PERMISSIONS_REQUEST_COARSE_LOCATION
-                )
-            }
-        } else {
-            Log.d(TAG, "permission FINE_LOCATION not granted")
-            ActivityCompat.requestPermissions(
-                activity!!,
-                arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
-                MY_PERMISSIONS_REQUEST_FINE_LOCATION
-            )
-        }
-    }
-
     private fun getAddressFromLocation(latitude: Double, longitude: Double) {
-        Log.d(TAG, "getAddressFromLocation")
-        val geocoder = Geocoder(activity!!, Locale.ENGLISH)
-        try {
-            val addresses: List<Address> = geocoder.getFromLocation(latitude, longitude, 1)
-            if (addresses.isNotEmpty()) {
-                val fetchedAddress: Address = addresses[0]
-                val strAddress: String = fetchedAddress.getAddressLine(0)
-                val sted: String = strAddress.split(",", ignoreCase=true, limit=0).first()
-                valgtSted.text = sted
-                valgtSted2.text = sted
-                Log.d(TAG, "sted:" + sted)
-            } else {
-                valgtSted.text = "Valgt posisjon"
-                valgtSted2.text = "Valgt posisjon"
-            }
-        } catch (e: IOException) {
-            e.printStackTrace()
-            valgtSted.text = "Valgt posisjon"
-        }
+        var sted = mapsViewModel.getAddressFromLocation(latitude, longitude)
+        settValgtStedTekst(sted)
     }
 
     override fun onTouch(v: View?, event: MotionEvent?): Boolean {
