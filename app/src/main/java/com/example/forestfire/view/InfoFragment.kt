@@ -1,12 +1,14 @@
 package com.example.forestfire.view
 
 import android.content.res.Configuration
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProviders
 
 import com.example.forestfire.R
@@ -42,12 +44,12 @@ class InfoFragment : Fragment() {
         soppel = root.findViewById(R.id.soppel)
         verktoy = root.findViewById(R.id.verktoy)
 
-        baal.setOnClickListener { infoViewModel.baalDialog(activity!!) }
-        engangsgrill.setOnClickListener { infoViewModel.engangsgrillDialog(activity!!) }
-        glass.setOnClickListener { infoViewModel.glassDialog(activity!!) }
-        lyn.setOnClickListener { infoViewModel.lynDialog(activity!!) }
-        soppel.setOnClickListener { infoViewModel.soppelDialog(activity!!) }
-        verktoy.setOnClickListener { infoViewModel.verktoyDialog(activity!!) }
+        baal.setOnClickListener { infoViewModel.baalDialog(requireActivity()) }
+        engangsgrill.setOnClickListener { infoViewModel.engangsgrillDialog(requireActivity()) }
+        glass.setOnClickListener { infoViewModel.glassDialog(requireActivity()) }
+        lyn.setOnClickListener { infoViewModel.lynDialog(requireActivity()) }
+        soppel.setOnClickListener { infoViewModel.soppelDialog(requireActivity()) }
+        verktoy.setOnClickListener { infoViewModel.verktoyDialog(requireActivity()) }
 
         return root
     }
@@ -61,5 +63,14 @@ class InfoFragment : Fragment() {
                 ?.attach(this)
                 ?.commit();
         }
+    }
+
+    fun updateFragment(){
+        val ft: FragmentTransaction = requireFragmentManager().beginTransaction()
+        if (Build.VERSION.SDK_INT >= 26) {
+            ft.setReorderingAllowed(false)
+        }
+        ft.detach(this@InfoFragment).attach(this@InfoFragment).commit()
+
     }
 }
