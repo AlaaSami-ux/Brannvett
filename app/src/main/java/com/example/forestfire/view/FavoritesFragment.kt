@@ -15,12 +15,15 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.forestfire.R
 import com.example.forestfire.viewModel.FavoriteViewModel
 import com.example.forestfire.viewModel.MapsViewModel
+import com.example.forestfire.viewModel.fetchAPI.LocationForecastViewModel
+import com.example.forestfire.viewModel.fetchAPI.StationInfoViewModel
 import com.google.android.gms.common.api.Status
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
@@ -208,15 +211,16 @@ class FavoritesFragment : Fragment() {
         super.onConfigurationChanged(newConfig)
     }
 
+    private val forecastModel : StationInfoViewModel by viewModels{ StationInfoViewModel.InstanceCreator() }
+
     private fun initRecyclerView(){
         my_recycler_view.apply{
             layoutManager = LinearLayoutManager(activity!!)
-            viewAdapter = ListAdapter(favorites, this@FavoritesFragment)
+            viewAdapter = ListAdapter(requireActivity(), requireActivity(), forecastModel, favorites, this@FavoritesFragment)
             if(favorites.count() >0){
                 noFavoritesTextBox.visibility = View.GONE
             }
             adapter = viewAdapter
-
         }
     }
 }

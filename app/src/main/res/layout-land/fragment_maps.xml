@@ -126,7 +126,7 @@
                 <!-- bare et textview for å fylle cardviewet for værmeldingen.
                         Fjernes når vi legger inn værmeldingen -->
                 <TextView
-                    android:id="@+id/wtext"
+                    android:id="@+id/w_deg"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center|center_horizontal"
