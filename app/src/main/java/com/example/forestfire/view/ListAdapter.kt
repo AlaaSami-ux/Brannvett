@@ -50,9 +50,6 @@ class ListAdapter(context : Context, lifecycleOwner: LifecycleOwner, forecastVie
         val brannfare3: ImageView = itemView.brannfare3
         val remove: ImageButton = itemView.remove
 
-        val con = context
-        val life = lifecycleOwner
-        val forecastModel = forecastViewModel
 
 
         fun bind(place: String, ll: LatLng){
@@ -99,7 +96,7 @@ class ListAdapter(context : Context, lifecycleOwner: LifecycleOwner, forecastVie
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(con, life, forecastModel, LayoutInflater.from(parent.context).inflate(R.layout.element, parent, false), this, fragment)
+        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.element, parent, false), this, fragment)
     }
 
     override fun getItemCount(): Int {
