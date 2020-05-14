@@ -13,9 +13,8 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_hot_blond_lady_24dp"
+        android:icon="@mipmap/ic_forestfire_appicon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
