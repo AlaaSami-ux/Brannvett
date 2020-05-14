@@ -68,6 +68,8 @@ class FavoritesFragment : Fragment() {
     private lateinit var mapsViewModel: MapsViewModel
     private lateinit var favorites: MutableMap<LatLng, String>
 
+    private val forecastModel : LocationForecastViewModel by viewModels{ LocationForecastViewModel.InstanceCreator() }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -133,6 +135,9 @@ class FavoritesFragment : Fragment() {
             override fun onPlaceSelected(place: Place) {
                 Log.i(TAG, "Place: " + place.name + ", " + place.id)
                 favoriteViewModel.addFavorite(place.latLng!!, place.name!!)
+
+                //TODO
+                forecastModel.addFavoriteForecast(place.latLng)
 
                 updateFragment()
               
@@ -213,7 +218,6 @@ class FavoritesFragment : Fragment() {
         super.onConfigurationChanged(newConfig)
     }
 
-    private val forecastModel : StationInfoViewModel by viewModels{ StationInfoViewModel.InstanceCreator() }
 
     private fun initRecyclerView(){
         my_recycler_view.apply{

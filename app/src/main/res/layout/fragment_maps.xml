@@ -48,7 +48,7 @@
                         android:textColor="@color/DingGrey"/>
 
                     <ImageView
-                        android:id="@+id/weater_icon"
+                        android:id="@+id/weather_icon"
                         android:layout_weight="1"
                         android:layout_gravity="center"
                         android:layout_width="wrap_content"

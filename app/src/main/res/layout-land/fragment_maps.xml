@@ -82,7 +82,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
             android:baselineAligned="false"
             android:orientation="horizontal"
@@ -91,17 +91,23 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/weather"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
                 app:cardBackgroundColor="@color/whiteColor"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="5dp"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="10dp">
                 <!-- bare et textview for å fylle cardviewet for værmeldingen.
                         Fjernes når vi legger inn værmeldingen -->
+                <ImageView
+                    android:id="@+id/weather_icon"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
                 <TextView
                     android:id="@+id/w_deg"
                     android:layout_weight="1"
@@ -109,9 +115,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="30dp"
-                    android:text="VÆRET I DAG"
                     android:textSize="18sp"
                     android:textColor="@color/DingGrey"/>
+
             </androidx.cardview.widget.CardView>
 
             <!--søkeboks -->
