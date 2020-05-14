@@ -38,10 +38,15 @@ class MapsViewModel(): ViewModel(){ //AndroidViewModel(app)
     )
     val oslo = LatLng(59.911491, 10.757933)
     private var lastUsedLocation: LatLng = oslo
+    private var lastUsedLocationName: String = "Oslo"
     private var deviceLoc: LatLng = oslo
 
     private lateinit var activity: Activity
     private lateinit var context: Context
+
+    fun setFusedLocationProviderClient(){
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(activity)
+    }
 
     fun setActivity(a: Activity){
         activity = a
@@ -49,42 +54,39 @@ class MapsViewModel(): ViewModel(){ //AndroidViewModel(app)
 
     fun setContext(c: Context){
         context = c
+        mFusedLocationProviderClient =
+            LocationServices.getFusedLocationProviderClient(context)
     }
 
-    fun getDeviceLocation(mMap: GoogleMap, applicationContext: Context): LatLng {
+    /*fun getDeviceLocation(mMap: GoogleMap): LatLng {
         Log.d(TAG, "getDeviceLocation called")
-        findDeviceLocation(mMap, applicationContext)
+        findDeviceLocation(mMap)
         Log.d(TAG, "After findDeviceLocation called")
         return deviceLoc
     }
 
-    fun findDeviceLocation(mMap: GoogleMap, applicationContext: Context){
-        mFusedLocationProviderClient =
-            LocationServices.getFusedLocationProviderClient(applicationContext)
+    fun findDeviceLocation(mMap: GoogleMap){
+        Log.d(TAG, "findDeviceLocation called")
         mFusedLocationProviderClient.lastLocation.addOnSuccessListener { location: Location? ->
             if (location != null) {
                 Log.d(TAG, "found a location")
                 deviceLoc = LatLng(location.latitude, location.longitude)
                 if (!norge.contains(deviceLoc)){ // enheten befinner seg ikke i norge
                     Log.d(TAG, "location outside of Norway")
-                    Toast.makeText(applicationContext,
+                    Toast.makeText(context,
                         "Din posisjon er utenfor Norge. Søk på et sted i Norge",
                         Toast.LENGTH_LONG).show()
-                    moveCam(mMap, applicationContext, oslo)
                 } else {
                     Log.d(TAG, "location in Norway")
-                    moveCam(mMap, applicationContext,
-                        LatLng(location.latitude, location.longitude)
-                    )
                     deviceLoc = LatLng(location.latitude, location.longitude)
                 }
             } else {
-                moveCam(mMap, applicationContext, oslo)
-                Toast.makeText(applicationContext, "kunne ikke finne posisjonen din", Toast.LENGTH_SHORT)
+                moveCam(mMap, oslo)
+                Toast.makeText(context, "kunne ikke finne posisjonen din", Toast.LENGTH_SHORT)
                     .show()
             }
         }
-    }
+    }*/
 
     fun getLocationPermission(){
         // get permission to get current location
@@ -119,13 +121,26 @@ class MapsViewModel(): ViewModel(){ //AndroidViewModel(app)
         }
     }
 
-    fun moveCam(mMap: GoogleMap, applicationContext: Context, ll: LatLng?) {
-        if (ll == null) {
-            Toast.makeText(applicationContext, "kan ikke flytte kamera", Toast.LENGTH_SHORT).show()
-        } else {
-            lastUsedLocation = ll
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ll, DEFAULT_ZOOM))
+    fun getUserLocation(): LatLng?{
+        Log.d(TAG, "getUserLocation called")
+        var sted: LatLng? = null
+        mFusedLocationProviderClient.lastLocation.addOnSuccessListener {
+            // kan bli null
+            if (it != null){
+                sted = LatLng(it.latitude, it.longitude)
+                if (!norge.contains(sted)){
+                    sted = null
+                }
+            }
         }
+        return sted
+    }
+
+    fun moveCam(mMap: GoogleMap, ll: LatLng) {
+        //lastUsedLocation = ll
+        Log.d(TAG, "moveCam to $ll")
+        mMap.setLatLngBoundsForCameraTarget(norge)
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ll, DEFAULT_ZOOM))
     }
 
     fun getAddressFromLocation(latitude: Double, longitude: Double) : String {
@@ -138,7 +153,7 @@ class MapsViewModel(): ViewModel(){ //AndroidViewModel(app)
                 val fetchedAddress: Address = addresses[0]
                 val strAddress: String = fetchedAddress.getAddressLine(0)
                 sted = strAddress.split(",", ignoreCase=true, limit=0).first()
-                Log.d(TAG, "sted:" + sted)
+                Log.d(TAG, "sted: $sted")
             } else {
             }
         } catch (e: IOException) {
@@ -147,20 +162,26 @@ class MapsViewModel(): ViewModel(){ //AndroidViewModel(app)
         return sted
     }
 
-    fun addMarker(mMap: GoogleMap, ll: LatLng?) {
-        if (ll != null) {
-            if (::marker.isInitialized) {
-                marker.remove()
-            }
-            marker = mMap.addMarker(MarkerOptions().position(ll).title("markør plassering"))
+    fun addMarker(mMap: GoogleMap, ll: LatLng) {
+        Log.d(TAG, "add marker to $ll")
+        if (::marker.isInitialized) {
+            marker.remove()
         }
+        marker = mMap.addMarker(MarkerOptions().position(ll).title("markør plassering"))
     }
 
-    fun setLastUsedLocation(ll: LatLng){
+    fun setLastUsedLocation(ll: LatLng, s: String = getAddressFromLocation(ll.latitude
+    , ll.longitude)){
+        Log.d(TAG, "setLastUsedLocation to $ll")
         lastUsedLocation = ll
+        lastUsedLocationName = s
     }
 
     fun getLastUsedLocation(): LatLng{
         return lastUsedLocation
+    }
+
+    fun getLastUsedLocationName(): String{
+        return lastUsedLocationName
     }
 }

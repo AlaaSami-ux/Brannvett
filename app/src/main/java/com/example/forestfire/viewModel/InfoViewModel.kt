@@ -9,6 +9,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModel
 import com.example.forestfire.R
+import com.example.forestfire.R.color.DingGrey
+import com.example.forestfire.R.color.whiteColor
 
 class InfoViewModel : ViewModel() {
 
@@ -39,6 +41,10 @@ class InfoViewModel : ViewModel() {
         dialog.show()
         val msgTxt = dialog.findViewById<View>(android.R.id.message)!! as TextView
         msgTxt.setTextSize(22F)
+        msgTxt.setTextColor(Color.GRAY)
+       // val msgTit = dialog.findViewById<View>(android.R.id.title)!! as TextView
+        //msgTit.setTextColor(Color.GRAY)
+
     }
 
     fun engangsgrillDialog(context: Context){

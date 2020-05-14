@@ -34,7 +34,10 @@ class ListAdapter(context : Context, lifecycleOwner: LifecycleOwner, forecastVie
     private val life = lifecycleOwner
     private val forecastModel = forecastViewModel
 
-    class ViewHolder constructor(context: Context, lifecycleOwner: LifecycleOwner, forecastViewModel: StationInfoViewModel, itemView: View, adapter: ListAdapter, fragment:FavoritesFragment) :
+
+
+    class ViewHolder constructor(itemView: View, adapter: ListAdapter, fragment:FavoritesFragment) :
+
             RecyclerView.ViewHolder(itemView){
         val adapter: ListAdapter = adapter
         val fragment: FavoritesFragment = fragment
