@@ -107,9 +107,9 @@ class FavoritesFragment : Fragment() {
         tilbake = root.findViewById(R.id.tilbake)
 
         // Initialize google places
-        Places.initialize(context!!, "AIzaSyD10fJ7iHSaVhairAHZnpuFcrm5fU4SFM4")
+        Places.initialize(requireContext(), "AIzaSyD10fJ7iHSaVhairAHZnpuFcrm5fU4SFM4")
         // Create a new Places client instance
-        var placesClient: PlacesClient = Places.createClient(context!!)
+        var placesClient: PlacesClient = Places.createClient(requireContext())
 
         // initialize autocompleteFragment
         autocompleteFragment = childFragmentManager.findFragmentById(R.id.autocomplete_fragment) as AutocompleteSupportFragment
@@ -188,17 +188,16 @@ class FavoritesFragment : Fragment() {
     }
 
     fun updateFragment(){
-        val ft: FragmentTransaction = fragmentManager!!.beginTransaction()
+        val ft: FragmentTransaction = requireFragmentManager().beginTransaction()
         if (Build.VERSION.SDK_INT >= 26) {
             ft.setReorderingAllowed(false)
         }
         ft.detach(this@FavoritesFragment).attach(this@FavoritesFragment).commit()
-
     }
 
     private fun getAddressFromLocation(latitude: Double, longitude: Double) : String?{
         Log.d(TAG, "getAddressFromLocation")
-        val geocoder = Geocoder(activity!!, Locale.ENGLISH)
+        val geocoder = Geocoder(requireActivity(), Locale.ENGLISH)
         try {
             val addresses: List<Address> = geocoder.getFromLocation(latitude, longitude, 1)
             if (addresses.isNotEmpty()) {
@@ -221,7 +220,7 @@ class FavoritesFragment : Fragment() {
 
     private fun initRecyclerView(){
         my_recycler_view.apply{
-            layoutManager = LinearLayoutManager(activity!!)
+            layoutManager = LinearLayoutManager(requireActivity())
             viewAdapter = ListAdapter(requireActivity(), requireActivity(), forecastModel, favorites, this@FavoritesFragment)
             if(favorites.count() >0){
                 noFavoritesTextBox.visibility = View.GONE

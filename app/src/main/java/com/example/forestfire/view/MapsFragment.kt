@@ -219,6 +219,7 @@ class MapsFragment : Fragment(),
             mapsViewModel.addMarker(mMap, it)
             getAddressFromLocation(it.latitude, it.longitude)
             mapsViewModel.setLastUsedLocation(it)
+            displayWeather(it)
         }
 
 
