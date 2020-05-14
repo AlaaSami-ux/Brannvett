@@ -220,7 +220,7 @@ class MapsFragment : Fragment(),
         mMap = googleMap
 
         // Converts 120 dip into its equivalent px
-        var dip = 110f
+        var dip = 50f
         val r = resources
         val top = TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP,
