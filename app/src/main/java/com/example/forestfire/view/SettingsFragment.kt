@@ -3,6 +3,7 @@ package com.example.forestfire.view
 import android.app.Activity
 import android.content.Context
 import android.content.res.Configuration
+import android.os.Build
 import android.os.Bundle
 import android.renderscript.Sampler
 import androidx.fragment.app.Fragment
@@ -12,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat.recreate
+import androidx.fragment.app.FragmentTransaction
 
 import com.example.forestfire.R
 import com.example.forestfire.viewModel.settings.settingsViewModel
@@ -51,7 +53,6 @@ class SettingsFragment() : Fragment() {
                     activity?.getSharedPreferences("Nightmode", Context.MODE_PRIVATE)?.edit()
                 sharedPrefEdit?.putBoolean("Nightmode", false)
                 sharedPrefEdit?.apply()
-
             } else {
                 switch.isChecked = false
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
@@ -92,12 +93,13 @@ class SettingsFragment() : Fragment() {
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
     }
+
     private fun spinn(){
         spinner = root.findViewById(R.id.spinner2)
         spinner.adapter = activity?.applicationContext?.let { ArrayAdapter(it, R.layout.support_simple_spinner_dropdown_item, languages) } as SpinnerAdapter
         spinner.onItemSelectedListener = object :AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                println("erreur")
+                // do nothing
             }
 
             override fun onItemSelected(
@@ -121,5 +123,14 @@ class SettingsFragment() : Fragment() {
                 }
             }
         }
+    }
+
+    fun updateFragment(){
+        val ft: FragmentTransaction = requireFragmentManager().beginTransaction()
+        if (Build.VERSION.SDK_INT >= 26) {
+            ft.setReorderingAllowed(false)
+        }
+        ft.detach(this@SettingsFragment).attach(this@SettingsFragment).commit()
+
     }
 }
