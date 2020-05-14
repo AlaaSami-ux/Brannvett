@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
@@ -43,14 +44,22 @@ class FavoritesFragment : Fragment() {
     private lateinit var root: View
     private lateinit var noFavoritesTextBox: TextView
 
+    // daoter
+    private lateinit var c: Calendar
+    private lateinit var dag1: TextView
+    private lateinit var dag2: TextView
+    private lateinit var dag3: TextView
+
     // Legg til
-    private lateinit var leggTilBtn: Button
+    private lateinit var leggTilBtn: ImageButton
     private lateinit var leggTil: CardView
     private lateinit var tilbake: Button
     private lateinit var autocompleteFragment: AutocompleteSupportFragment
 
     // Rediger
-
+    private lateinit var redigerBtn: Button
+    private lateinit var removeBtn: Button
+    private lateinit var favorittCard: CardView
 
     private lateinit var favoriteViewModel: FavoriteViewModel
     private lateinit var mapsViewModel: MapsViewModel
@@ -71,6 +80,22 @@ class FavoritesFragment : Fragment() {
         mapsViewModel = activity?.run {
             ViewModelProviders.of(this)[MapsViewModel::class.java]
         } ?: throw Exception("Invalid Activity")
+
+
+        // datoer
+        dag1 = root.findViewById(R.id.dag1)
+        dag2 = root.findViewById(R.id.dag2)
+        dag3 = root.findViewById(R.id.dag3)
+        c = Calendar.getInstance()
+        var dato = c.get(Calendar.DAY_OF_MONTH).toString() + "/" + (c.get(Calendar.MONTH)+1).toString()
+        dag1.text = dato
+        c.roll(Calendar.DATE, 1)
+        dato = c.get(Calendar.DAY_OF_MONTH).toString() + "/" + (c.get(Calendar.MONTH)+1).toString()
+        dag2.text = dato
+        c.roll(Calendar.DATE, 1)
+        dato = c.get(Calendar.DAY_OF_MONTH).toString() + "/" + (c.get(Calendar.MONTH)+1).toString()
+        dag3.text = dato
+
 
         leggTilBtn = root.findViewById(R.id.leggTilBtn)
         leggTil = root.findViewById(R.id.leggTil)
@@ -105,12 +130,11 @@ class FavoritesFragment : Fragment() {
             override fun onPlaceSelected(place: Place) {
                 Log.i(TAG, "Place: " + place.name + ", " + place.id)
                 favoriteViewModel.addFavorite(place.latLng!!, place.name!!)
-                val ft: FragmentTransaction = fragmentManager!!.beginTransaction()
-                if (Build.VERSION.SDK_INT >= 26) {
-                    ft.setReorderingAllowed(false)
-                }
-                ft.detach(this@FavoritesFragment).attach(this@FavoritesFragment).commit()
+
+                updateFragment()
+              
                 leggTil.visibility = View.GONE
+                autocompleteFragment.setText("")
             }
 
             override fun onError(status: Status) {
@@ -128,13 +152,40 @@ class FavoritesFragment : Fragment() {
         }
 
         noFavoritesTextBox = root.findViewById(R.id.no_favorites)
-        favorites= favoriteViewModel.favorites
+        favorites = favoriteViewModel.favorites
 
         my_recycler_view = root.findViewById(R.id.my_recycler_view)
         initRecyclerView()
 
+        /*
+        redigerBtn = root.findViewById(R.id.redigerBtn)
+
+        redigerBtn.setOnClickListener {
+            Log.d(TAG, "rediger")
+            if (favorites.count() > 0){
+                favorittCard = my_recycler_view.findViewById(R.id.favorittCard)
+                removeBtn = my_recycler_view.findViewById(R.id.remove)
+            } else { /* do nothing */}
+
+            //removeBtn.visibility = View.VISIBLE
+            // vil endre marginStart
+        }
+         */
 
         return root
+    }
+
+    fun getInstance() : FavoritesFragment{
+        return this
+    }
+
+    fun updateFragment(){
+        val ft: FragmentTransaction = fragmentManager!!.beginTransaction()
+        if (Build.VERSION.SDK_INT >= 26) {
+            ft.setReorderingAllowed(false)
+        }
+        ft.detach(this@FavoritesFragment).attach(this@FavoritesFragment).commit()
+
     }
 
     private fun getAddressFromLocation(latitude: Double, longitude: Double) : String?{
@@ -162,7 +213,7 @@ class FavoritesFragment : Fragment() {
     private fun initRecyclerView(){
         my_recycler_view.apply{
             layoutManager = LinearLayoutManager(activity!!)
-            viewAdapter = ListAdapter(favorites)
+            viewAdapter = ListAdapter(favorites, this@FavoritesFragment)
             if(favorites.count() >0){
                 noFavoritesTextBox.visibility = View.GONE
             }

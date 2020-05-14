@@ -16,11 +16,13 @@
 
         <Button
             android:id="@+id/tilbake"
-            android:layout_width="100dp"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="400dp"
             android:background="@drawable/roundedbtn"
-            android:text="Gå tilbake"/>
+            android:text="Gå tilbake"
+            android:textColor="@color/quantum_grey"/>
 
         <!--søkeboks -->
         <androidx.cardview.widget.CardView
@@ -28,9 +30,9 @@
             android:layout_height="30dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginStart="70dp"
-            android:layout_marginTop="120dp"
+            android:layout_marginTop="200dp"
             android:layout_marginEnd="70dp"
-            app:cardBackgroundColor="#B3FFFFFF"
+            app:cardBackgroundColor="#FFFFFF"
             app:cardCornerRadius="12dp">
             <!-- Fragment som har med autocomplete å gjøre-->
             <fragment
@@ -74,29 +76,64 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:gravity="center"
-                android:layout_marginBottom="5dp"
                 android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
                 android:orientation="horizontal">
-                <Button
+                <ImageButton
                     android:id="@+id/leggTilBtn"
-                    android:layout_width="100dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/roundedbtn"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="10dp"
-                    android:text="Legg til"/>
-
-                <Button
-                    android:id="@+id/redigerBtn"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/roundedbtn"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="10dp"
-                    android:text="Rediger" />
+                    android:background="@null"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_add_circle_black_24dp"/>
             </LinearLayout>
+
+            <!-- Mine steder + datoer-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="5dp"
+                android:weightSum="8">
+
+                <TextView
+                    android:layout_weight="5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/purpleColor"
+                    android:text="Mine steder"
+                    android:textStyle="bold"
+                    android:textSize="24sp"/>
+
+                    <TextView
+                        android:id="@+id/dag1"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/purpleColor"/>
+                    <TextView
+                        android:id="@+id/dag2"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/purpleColor"/>
+                    <TextView
+                        android:id="@+id/dag3"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/purpleColor"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/purpleColor"
+                android:paddingBottom="8dp"
+                android:paddingTop="4dp"/>
 
             <TextView
                 android:id="@+id/no_favorites"
