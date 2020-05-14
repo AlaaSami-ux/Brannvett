@@ -130,7 +130,9 @@ class FavoritesFragment : Fragment() {
             override fun onPlaceSelected(place: Place) {
                 Log.i(TAG, "Place: " + place.name + ", " + place.id)
                 favoriteViewModel.addFavorite(place.latLng!!, place.name!!)
+
                 updateFragment()
+              
                 leggTil.visibility = View.GONE
                 autocompleteFragment.setText("")
             }

@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -29,6 +30,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
+import com.google.android.gms.tasks.Tasks.await
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.model.RectangularBounds
@@ -36,6 +38,8 @@ import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.squareup.picasso.Picasso
+import java.io.IOException
+import java.util.*
 
 
 class MapsFragment : Fragment(),
@@ -46,6 +50,7 @@ class MapsFragment : Fragment(),
     private var MY_PERMISSIONS_REQUEST_FINE_LOCATION = 1
     private var MY_PERMISSIONS_REQUEST_COARSE_LOCATION = 1
     private var MIN_DISTANCE = 100
+
 
     private lateinit var startLoc: LatLng
     private lateinit var lastLoc: LatLng
@@ -86,7 +91,8 @@ class MapsFragment : Fragment(),
         // Inflate the layout for this fragment
         root =  inflater.inflate(R.layout.fragment_maps, container, false)
 
-        // tilgang til viewmodels
+
+        // tilgang til mapsViewModel
         mapsViewModel = activity?.run {
             ViewModelProviders.of(this)[MapsViewModel::class.java]
         } ?: throw Exception("Invalid Activity")
@@ -107,12 +113,12 @@ class MapsFragment : Fragment(),
         slideUp.setOnTouchListener(this)
         swipeUp = root.findViewById(R.id.swipeUp) // includer stedinfo
         swipeUp.setOnTouchListener(this)
+
         valgtSted = root.findViewById(R.id.valgtSted) // tekst på cardView på forsiden
         valgtSted2 = swipeUp.findViewById<TextView>(R.id.valgtSted) // tekst på cardView når det er sveipet opp
         stedinfo = root.findViewById<View>(R.id.swipeUp) // cardView som synes når man har sveipet opp
         favoriteBtn = root.findViewById(R.id.favoritt)      // favorittknapp cardView nede
         favoriteBtn2 = stedinfo.findViewById(R.id.favoritt) // favorittknapp cardView åpent
-
 
 
         // MapsViewModel holder kontroll på sist besøkte sted
@@ -189,6 +195,7 @@ class MapsFragment : Fragment(),
 
         // Coonvert dp to px
         var dip = 90f
+
         val r = resources
         val top = TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP,
@@ -213,6 +220,7 @@ class MapsFragment : Fragment(),
             getAddressFromLocation(it.latitude, it.longitude)
             mapsViewModel.setLastUsedLocation(it)
         }
+
 
         mapsViewModel.moveCam(mMap, lastLoc) // Åpne kartet på sist brukte posisjon
         mapsViewModel.addMarker(mMap, lastLoc)

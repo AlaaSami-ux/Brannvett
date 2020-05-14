@@ -1,22 +1,17 @@
 package com.example.forestfire.view
 
-import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
-import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import com.example.forestfire.R
@@ -123,7 +118,8 @@ class MainActivity : AppCompatActivity() {
                         .commit()
                 }
                 R.id.settings ->{
-                    settingsFragment = SettingsFragment()
+                    settingsFragment =
+                        SettingsFragment()
                     supportFragmentManager
                         .beginTransaction()
                         .replace(R.id.frame_layout, settingsFragment)

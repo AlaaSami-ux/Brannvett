@@ -23,6 +23,7 @@ class ListAdapter(var favorites: MutableMap<LatLng, String>, var fragment: Favor
     private var positions = favorites.keys // MutableSet of keys from favorites map
     private var places = favorites.values // MutableCollection of values from favorites map
 
+
     class ViewHolder constructor(itemView: View, adapter: ListAdapter, fragment:FavoritesFragment) :
             RecyclerView.ViewHolder(itemView){
         val adapter: ListAdapter = adapter
