@@ -3,6 +3,7 @@ package com.example.forestfire.view
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.annotation.SuppressLint
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
@@ -74,6 +75,12 @@ class MapsFragment : Fragment(),
     val norge = LatLngBounds(LatLng(58.019156, 2.141567), LatLng(71.399348, 33.442113))
     private val oslo = LatLng(59.911491, 10.757933)
 
+    // kort som blir sveipet opp
+    private lateinit var dag1: TextView
+    private lateinit var dag2: TextView
+    private lateinit var dag3: TextView
+    private lateinit var c: Calendar
+
 
     //private var previousX: Float = 0F
     private var previousY: Float = 0F // used for checking if there has been a swipe upward
@@ -108,7 +115,7 @@ class MapsFragment : Fragment(),
 
         // initialize variables
         weather = root.findViewById(R.id.weather)
-        wtext = root.findViewById(R.id.wtext)
+        wtext = root.findViewById(R.id.w_deg)
         slideUp = root.findViewById(R.id.slideUp)
         slideUp.setOnTouchListener(this)
         swipeUp = root.findViewById(R.id.swipeUp) // includer stedinfo
@@ -120,6 +127,23 @@ class MapsFragment : Fragment(),
         favoriteBtn = root.findViewById(R.id.favoritt)      // favorittknapp cardView nede
         favoriteBtn2 = stedinfo.findViewById(R.id.favoritt) // favorittknapp cardView åpent
 
+        dag1 = stedinfo.findViewById(R.id.dag1)
+        dag2 = stedinfo.findViewById(R.id.dag2)
+        dag3 = stedinfo.findViewById(R.id.dag3)
+
+        // datoer
+        dag1 = root.findViewById(R.id.dag1)
+        dag2 = root.findViewById(R.id.dag2)
+        dag3 = root.findViewById(R.id.dag3)
+        c = Calendar.getInstance()
+        var dato = c.get(Calendar.DAY_OF_MONTH).toString() + "/" + (c.get(Calendar.MONTH)+1).toString()
+        dag1.text = dato
+        c.roll(Calendar.DATE, 1)
+        dato = c.get(Calendar.DAY_OF_MONTH).toString() + "/" + (c.get(Calendar.MONTH)+1).toString()
+        dag2.text = dato
+        c.roll(Calendar.DATE, 1)
+        dato = c.get(Calendar.DAY_OF_MONTH).toString() + "/" + (c.get(Calendar.MONTH)+1).toString()
+        dag3.text = dato
 
         // MapsViewModel holder kontroll på sist besøkte sted
         lastLoc = mapsViewModel.getLastUsedLocation() // lagre siste posisjon
@@ -239,6 +263,17 @@ class MapsFragment : Fragment(),
             true
         })
 
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        if (getFragmentManager() != null) {
+            getFragmentManager()
+                ?.beginTransaction()
+                ?.detach(this)
+                ?.attach(this)
+                ?.commit();
+        }
     }
 
     private fun chosenNewPlace(latlng: LatLng){

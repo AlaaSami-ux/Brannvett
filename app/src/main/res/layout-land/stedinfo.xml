@@ -75,11 +75,9 @@
             android:id="@+id/datoOgFare"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal|top"
+            android:layout_gravity="left|top"
             android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp"
-            android:layout_marginTop="100dp"
-            android:layout_marginBottom="100dp"
+            android:layout_marginTop="50dp"
             android:orientation="horizontal"
             android:weightSum="3">
 
@@ -193,8 +191,9 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal|bottom"
-            android:layout_marginBottom="300dp"
+            android:layout_gravity="left|bottom"
+            android:layout_marginLeft="50dp"
+            android:layout_marginBottom="50dp"
             android:contentDescription="lav brannfare 0 til 30. middels brannfare 30 til 60. høy brannfare over 60"
             android:src="@drawable/ic_fareindex" />
 
@@ -208,11 +207,11 @@
             android:layout_marginBottom="80dp">
 
             <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
                 android:background="@color/purpleColor"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="8dp"/>
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd ="8dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -220,7 +219,7 @@
                 android:layout_gravity="center_horizontal|bottom"
                 android:background="@null"
                 android:padding="5dp"
-                android:text="her skriver jeg bare litt tekst som skal fylle litt plass og det er hyggelig og fint og jeg liker gruppen jeg er på prosjekt med og jeg gleder meg til å drikke vin med dem og ha det hyggelig"
+                android:text=""
                 android:textSize="16sp" />
 
         </LinearLayout>
