@@ -35,35 +35,13 @@ class SettingsFragment() : Fragment() {
         loadLocate()
         root = inflater.inflate(R.layout.fragment_settings2, container, false)
 
-        spinn()
+        spraakSpinner()
+        darkModeSwitch()
 
-        switch = root.findViewById(R.id.darkSwitch)
-
-        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        }
-
-        switch.setOnCheckedChangeListener { compoundButton, b ->
-            if (b) {
-                switch.isChecked = true
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                val sharedPrefEdit =
-                    activity?.getSharedPreferences("Nightmode", Context.MODE_PRIVATE)?.edit()
-                sharedPrefEdit?.putBoolean("Nightmode", false)
-                sharedPrefEdit?.apply()
-            } else {
-                switch.isChecked = false
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                val sharedPrefEdit =
-                    activity?.getSharedPreferences("Nightmode", Context.MODE_PRIVATE)?.edit()
-                sharedPrefEdit?.putBoolean("Nightmode", true)
-                sharedPrefEdit?.apply()
-            }
-        }
         return root
     }
+
+
 
     fun setLocate(Lang: String) {
 
@@ -94,7 +72,7 @@ class SettingsFragment() : Fragment() {
         super.onConfigurationChanged(newConfig)
     }
 
-    private fun spinn(){
+    private fun spraakSpinner(){
         spinner = root.findViewById(R.id.spinner2)
         spinner.adapter = activity?.applicationContext?.let { ArrayAdapter(it, R.layout.support_simple_spinner_dropdown_item, languages) } as SpinnerAdapter
         spinner.onItemSelectedListener = object :AdapterView.OnItemSelectedListener {
@@ -113,14 +91,44 @@ class SettingsFragment() : Fragment() {
                     val type = parent?.getItemAtPosition(position).toString()
                     if (selectedItem == "English"){
                         setLocate("en")
+                      //  updateFragment()
                         Toast.makeText(activity, type, Toast.LENGTH_LONG).show()
                         println(type)
                     }else if (selectedItem == "Norsk"){
                         setLocate("nb")
+                      //  updateFragment()
                         Toast.makeText(activity, type, Toast.LENGTH_LONG).show()
                         println(type)
                     }
                 }
+            }
+        }
+    }
+
+    fun darkModeSwitch(){
+        switch = root.findViewById(R.id.darkSwitch)
+
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
+
+        switch.setOnCheckedChangeListener { compoundButton, b ->
+            if (b) {
+                switch.isChecked = true
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                val sharedPrefEdit =
+                    activity?.getSharedPreferences("Nightmode", Context.MODE_PRIVATE)?.edit()
+                sharedPrefEdit?.putBoolean("Nightmode", false)
+                sharedPrefEdit?.apply()
+            } else {
+                switch.isChecked = false
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                val sharedPrefEdit =
+                    activity?.getSharedPreferences("Nightmode", Context.MODE_PRIVATE)?.edit()
+                sharedPrefEdit?.putBoolean("Nightmode", true)
+                sharedPrefEdit?.apply()
             }
         }
     }

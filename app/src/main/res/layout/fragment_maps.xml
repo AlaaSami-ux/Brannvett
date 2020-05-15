@@ -79,8 +79,8 @@
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"
                 android:layout_marginBottom="-40dp"
-                app:cardCornerRadius="40dp"
-                app:cardBackgroundColor="#DEFFFFFF">
+                app:cardBackgroundColor="@color/whiteColor"
+                app:cardCornerRadius="40dp">
 
                 <TextView
                     android:id="@+id/valgtSted"
@@ -100,8 +100,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center|top"
-                    android:textStyle="bold"
-                    android:src="@drawable/ic_keyboard_arrow_up_black_24dp" />
+                    android:src="@drawable/ic_keyboard_arrow_up_lille_24dp" />
 
                 <!--<TextView
                     android:layout_width="wrap_content"
@@ -111,8 +110,9 @@
                     android:layout_marginTop="10dp"
                     android:text="sveip opp" />-->
 
-                <include layout="@layout/favorittknapp"
+                <include
                     android:id="@+id/favoritt"
+                    layout="@layout/favorittknapp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"

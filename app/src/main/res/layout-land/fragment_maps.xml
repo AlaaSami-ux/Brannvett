@@ -46,8 +46,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center|top"
-                    android:textStyle="bold"
-                    android:src="@drawable/ic_keyboard_arrow_up_black_24dp" />
+                    android:background="@color/whiteColor"
+                    android:src="@drawable/ic_keyboard_arrow_up_lille_24dp"
+                    android:textStyle="bold" />
 
                 <!--<TextView
                     android:layout_width="wrap_content"
