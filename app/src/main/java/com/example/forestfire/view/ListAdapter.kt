@@ -3,6 +3,7 @@ package com.example.forestfire.view
 
 import android.content.Context
 import android.content.DialogInterface
+import android.location.Location
 import android.media.Image
 import android.util.Log
 import android.view.LayoutInflater
@@ -25,18 +26,18 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.element.view.*
 import java.util.*
 
-class ListAdapter(context : Context, lifecycleOwner: LifecycleOwner, forecastViewModel: StationInfoViewModel, var favorites: MutableMap<LatLng, String>, var fragment: FavoritesFragment) :
+class ListAdapter(context : Context, lifecycleOwner: LifecycleOwner, forecastViewModel: LocationForecastViewModel, var favorites: MutableMap<LatLng, String>, var fragment: FavoritesFragment) :
     RecyclerView.Adapter<ListAdapter.ViewHolder>()  {
 
     private var positions = favorites.keys // MutableSet of keys from favorites map
     private var places = favorites.values // MutableCollection of values from favorites map
+
     private val con = context
-    private val life = lifecycleOwner
     private val forecastModel = forecastViewModel
 
 
 
-    class ViewHolder constructor(itemView: View, adapter: ListAdapter, fragment:FavoritesFragment) :
+    class ViewHolder constructor(context: Context, forecastModel : LocationForecastViewModel, itemView: View, adapter: ListAdapter, fragment:FavoritesFragment) :
 
             RecyclerView.ViewHolder(itemView){
         val adapter: ListAdapter = adapter
@@ -49,6 +50,9 @@ class ListAdapter(context : Context, lifecycleOwner: LifecycleOwner, forecastVie
         val vær3: ImageView = itemView.vær3
         val brannfare3: ImageView = itemView.brannfare3
         val remove: ImageButton = itemView.remove
+
+        val forecast = forecastModel
+        val con = context
 
 
 
@@ -77,6 +81,19 @@ class ListAdapter(context : Context, lifecycleOwner: LifecycleOwner, forecastVie
             Log.d("ListAdapter Adresse:", place)
 
             /*
+            if(!forecast.favoriteLocationMap.isEmpty()) {
+                for ((loc, forecast) in forecast.favoriteLocationMap) {
+                    val id = forecast.forecast[0].symbol_id
+                    val url =
+                        "https://in2000-apiproxy.ifi.uio.no/weatherapi/weathericon/1.1?content_type=image%2Fpng&symbol=${id}"
+                    Picasso.with(con)
+                        .load(url)
+                        .into(vær1)
+                }
+            }
+             */
+
+            /*
             forecastModel.fetchLocationForecast(ll)
             forecastModel.locationForecastLiveData.observe(life, androidx.lifecycle.Observer {
                 val temp = it.product.time[0].location.temperature.value
@@ -96,7 +113,7 @@ class ListAdapter(context : Context, lifecycleOwner: LifecycleOwner, forecastVie
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.element, parent, false), this, fragment)
+        return ViewHolder(con, forecastModel, LayoutInflater.from(parent.context).inflate(R.layout.element, parent, false), this, fragment)
     }
 
     override fun getItemCount(): Int {

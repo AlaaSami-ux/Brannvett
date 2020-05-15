@@ -390,7 +390,7 @@ class MapsFragment : Fragment(),
             val temperature = it.product.time[0].location.temperature.value
             requireView().findViewById<TextView>(R.id.w_deg).text = "${temperature} \u2103"
             val id = it.product.time[1].location.symbol.number
-            val img = requireView().findViewById<ImageView>(R.id.weater_icon)
+            val img = requireView().findViewById<ImageView>(R.id.weather_icon)
             val url = "https://in2000-apiproxy.ifi.uio.no/weatherapi/weathericon/1.1?content_type=image%2Fpng&symbol=${id}"
 
             Picasso.with(activity)
