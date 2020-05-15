@@ -14,7 +14,6 @@
             android:layout_height="match_parent"
             tools:context=".MapsActivity">
 
-            <!--værmelding -->
 
         <!--sveip opp for mer info -->
             <androidx.cardview.widget.CardView
@@ -47,7 +46,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center|top"
                     android:textStyle="bold"
-                    android:src="@drawable/ic_keyboard_arrow_up_black_24dp" />
+                    android:src="@drawable/ic_keyboard_arrow_up_black_24dp"/>
 
                 <!--<TextView
                     android:layout_width="wrap_content"
@@ -66,7 +65,6 @@
                     android:layout_marginEnd="20dp"/>
 
             </androidx.cardview.widget.CardView>
-
 
         </FrameLayout>
     <include layout="@layout/stedinfo"
@@ -87,6 +85,7 @@
             android:orientation="horizontal"
             android:weightSum="5">
 
+            <!--værmelding -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/weather"
                 android:layout_width="match_parent"
@@ -99,8 +98,6 @@
                 android:layout_weight="4"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="10dp">
-                <!-- bare et textview for å fylle cardviewet for værmeldingen.
-                        Fjernes når vi legger inn værmeldingen -->
 
                 <ImageView
                     android:id="@+id/weather_icon"
@@ -118,8 +115,6 @@
                     android:layout_marginEnd="10dp"
                     android:textSize="18sp"
                     android:textColor="@color/DingGrey"/>
-
-
             </androidx.cardview.widget.CardView>
 
             <!--søkeboks -->
