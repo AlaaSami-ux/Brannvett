@@ -114,11 +114,32 @@
                     android:layout_gravity="end"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="20dp"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="30dp"
+                    android:layout_gravity="center_horizontal">
+                    <!-- farevarsel ikon -->
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_whatshot_red_24dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Høy brannfare"
+                        android:textStyle="normal"
+                        android:textSize="18sp"
+                        android:textColor="@color/DangerRed"/>
+                </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
             <!--søkeboks -->
             <androidx.cardview.widget.CardView
+                android:id="@+id/search_box"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_gravity="center_horizontal"
@@ -126,6 +147,7 @@
                 android:layout_marginTop="100dp"
                 android:layout_marginEnd="70dp"
                 app:cardBackgroundColor="#B3FFFFFF"
+                android:visibility="visible"
                 app:cardCornerRadius="12dp">
                 <!-- Fragment som har med autocomplete å gjøre-->
                 <fragment

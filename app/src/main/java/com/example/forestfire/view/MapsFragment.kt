@@ -74,6 +74,8 @@ class MapsFragment : Fragment(),
     private lateinit var autocompleteFragment: AutocompleteSupportFragment
     val norge = LatLngBounds(LatLng(58.019156, 2.141567), LatLng(71.399348, 33.442113))
     private val oslo = LatLng(59.911491, 10.757933)
+    var dip = 90f
+    private lateinit var search_box: CardView
 
     // kort som blir sveipet opp
     private lateinit var dag1: TextView
@@ -120,6 +122,7 @@ class MapsFragment : Fragment(),
         slideUp.setOnTouchListener(this)
         swipeUp = root.findViewById(R.id.swipeUp) // includer stedinfo
         swipeUp.setOnTouchListener(this)
+        search_box = root.findViewById(R.id.search_box)
 
         valgtSted = root.findViewById(R.id.valgtSted) // tekst på cardView på forsiden
         valgtSted2 = swipeUp.findViewById<TextView>(R.id.valgtSted) // tekst på cardView når det er sveipet opp
@@ -218,8 +221,6 @@ class MapsFragment : Fragment(),
         mMap = googleMap
 
         // Coonvert dp to px
-        var dip = 90f
-
         val r = resources
         val top = TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP,
@@ -338,6 +339,14 @@ class MapsFragment : Fragment(),
                                 }
                                 })
                                 .duration = (shortAnimationDuration.toLong())
+                            search_box.animate()
+                                .alpha(0f)
+                                .setListener(object: AnimatorListenerAdapter(){
+                                override fun onAnimationEnd(animation: Animator) {
+                                    slideUp.visibility = View.GONE
+                                }
+                                })
+                                .duration = (shortAnimationDuration.toLong())
                         }
                     } else if(previousY < event.y && event.y - previousY > MIN_DISTANCE){
                         if (v != null && v.id == R.id.swipeUp){
@@ -352,6 +361,14 @@ class MapsFragment : Fragment(),
                                     .duration = (shortAnimationDuration.toLong())
                             }
                             weather.apply{
+                                alpha = 0f
+                                visibility = View.VISIBLE
+                                animate()
+                                    .alpha(1f)
+                                    .setListener(null)
+                                    .duration = (shortAnimationDuration.toLong())
+                            }
+                            search_box.apply{
                                 alpha = 0f
                                 visibility = View.VISIBLE
                                 animate()
