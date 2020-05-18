@@ -3,6 +3,7 @@ package com.example.forestfire.viewModel.fetchAPI
 import androidx.lifecycle.*
 import com.example.forestfire.model.FireModel
 import com.example.forestfire.repository.FireApiService
+import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -10,18 +11,14 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 class FireDataViewModel(private val fireService : FireApiService) : ViewModel() {
 
 
-    val liveAllFireData = MutableLiveData<List<FireModel.Dag>>()
     val liveFireStation = MutableLiveData<FireModel.Location>()
-    val liveFireLocations = MutableLiveData<List<FireModel.Location>>()
+    val liveFireLocations = MutableLiveData<List<FireModel.Dag>>()
 
 
-    fun fetchAllFireData(context : LifecycleOwner, dag : Int, stasjonsID : String) {
-        //Returnerer en list med alle dagene
-        viewModelScope.launch {
-            val fireApi = fireService.fetchFireData()
-            liveAllFireData.postValue(fireApi)
-        }
-    }
+    val favMap = hashMapOf<LatLng?, List<DangerIndex>>()
+    val favFireLiveData = MutableLiveData<HashMap<LatLng?, List<DangerIndex>>>()
+
+
 
     fun fetchFireStation(context: LifecycleOwner, dag: Int, stasjonsID: String){
         //returnerer en spesifikk lokasjon basert på oppgitt stasjons id
@@ -42,12 +39,36 @@ class FireDataViewModel(private val fireService : FireApiService) : ViewModel() 
 
     }
 
+    fun fetchFavoritesDangerIndex(posisjonsliste : List<LatLng?>, stasjonsId : String){
+       viewModelScope.launch {
+           val service : List<FireModel.Dag>  = fireService.fetchFireData()
+           for(pos in posisjonsliste){
+               val dangerList = mutableListOf<DangerIndex>()
+               for(i in 0..2){
+                   var danger : String? = null
+                   for(loc in service[i].locations){
+                       if("SN${loc.id}" == stasjonsId){
+                           danger = loc.danger_index
+                       }
+                   }
+                   dangerList.add(DangerIndex(danger))
+               }
+               favMap[pos] = dangerList
+           }
+           favFireLiveData.postValue(favMap)
+       }
+    }
 
-    fun fetchFireLocations(context : LifecycleOwner, dag : Int){
+
+    data class DangerIndex(
+        val danger_index : String?
+    )
+
+    fun fetchFireLocations(){
         //Returnerer en liste med alle lokasjoner for en gitt dag
         viewModelScope.launch {
             val service : List<FireModel.Dag> = fireService.fetchFireData()
-            liveFireLocations.postValue(service[dag].locations)
+            liveFireLocations.postValue(service)
         }
     }
 

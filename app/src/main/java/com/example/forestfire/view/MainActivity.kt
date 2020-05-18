@@ -74,16 +74,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val dag = 0
-
-        fireViewModel.fetchFireLocations(this, dag)
-        fireViewModel.liveFireLocations.observe(this, Observer { locList ->
-            stationInfoViewModel.fetchData(locList)
-            stationInfoViewModel.stationInfoLiveData.observe(this, Observer {
-                val station = stationInfoViewModel.findBestLocation(LatLng(8.0, 62.0))
-                //drawData(station)
-            })
-        })
         // bottom navigation bar
         val nav: BottomNavigationView = findViewById(R.id.menu)
 

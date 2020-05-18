@@ -14,87 +14,86 @@ import kotlin.math.abs
 import kotlin.system.exitProcess
 
 class StationInfoViewModel(private val stationService : StationService) : ViewModel() {
-    /*
-    Hent alle stasjoner gitt en dag fra FireDataViewModel
-    Plasser i Hashmap med sine koordinater fra StationInfoModel
-    */
-
     var locCoorMap = mutableMapOf<FireModel.Location, StationInfoModel.Geometry>()
     var stationInfoLiveData = MutableLiveData<List<StationInfoModel.GeneralInformation>>()
 
+    var favMap = hashMapOf<LatLng?, List<String>>()
+    var stationFavDangerLiveData = MutableLiveData<HashMap<LatLng?, List<String>>>()
+
+
     fun fetchData(locList : List<FireModel.Location>){
-        viewModelScope.launch {
-            val stationList = mutableListOf<StationInfoModel.GeneralInformation>()
-            for(loc in locList){
-                if(loc.danger_index != "-"){
-                    val station = stationService.fetchStationData("SN${loc.id}")
-                    stationList.add(station)
-                    locCoorMap[loc] = station.data[0].geometry
+        if(locCoorMap.isEmpty()){
+            Log.d("Inside stationInfoVM", "fetching data")
+            viewModelScope.launch {
+                val stationList = mutableListOf<StationInfoModel.GeneralInformation>()
+                for(loc in locList){
+                    if(loc.danger_index != "-"){
+                        val station = stationService.fetchStationData("SN${loc.id}")
+                        stationList.add(station)
+                        locCoorMap[loc] = station.data[0].geometry
+                    }
                 }
+                stationInfoLiveData.postValue(stationList)
             }
-            stationInfoLiveData.postValue(stationList)
         }
     }
 
-    fun findBestLocation(latlonObjekt : LatLng) : FireModel.Location{
-        // Sjekker om hashmappet med alle lokasjoner og koordinater er fylt
+    fun fetchFavDanger(posisjonsListe : List<LatLng>, dagListe : List<FireModel.Dag>){
+
+        viewModelScope.launch {
+            for(pos in posisjonsListe){
+
+                val bestLoc = findBestLoc(pos)
+                Log.d("Fav danger StationVM", "bestLoc = " + bestLoc.name + " pos: " + pos.toString())
+                val dangerList = mutableListOf<String>()
+                for(dag in dagListe){
+                    for(loc in dag.locations){
+                        if(loc.id == bestLoc.id){
+                            dangerList.add(loc.danger_index)
+                        }
+                    }
+                }
+                favMap[pos] = dangerList
+            }
+            stationFavDangerLiveData.postValue(favMap)
+        }
+    }
+
+    data class DangerIndex(
+        val danger_index : String
+    )
+
+    private fun findBestLoc(latlonObjekt : LatLng) : FireModel.Location{
         if(locCoorMap.isEmpty()){
             Log.d("StationInfoViewModel", "locCoorMap is empty")
             exitProcess(1)  // Dersom hashmappet ikke er fylt stopper vi prosessen
         }
+
+
 
         val userLng = latlonObjekt.longitude
         val userLat = latlonObjekt.latitude
 
         var currentBestLoc : FireModel.Location = locCoorMap.keys.elementAt(0)
-        var currentLength = 1000F
+        var minLatDistance = 1000F
+        var minLonDistance = 1000F
 
-        var lon : Float
         var lat : Float
-        var lonLat : Float
+        var lon : Float
 
         for((loc,geo) in locCoorMap){
-            lon = abs(geo.coordinates[0] - userLng.toFloat())
             lat = abs(geo.coordinates[1] - userLat.toFloat())
+            lon = abs(geo.coordinates[0] - userLng.toFloat())
 
-            lonLat = abs(lon - lat)
-
-            if(lonLat < currentLength){
-                currentLength = lonLat
+            if(minLatDistance > lat && minLonDistance > lon){
+                Log.d("BestLoc method", "geo coor ("+geo.coordinates[1].toString() + ", " + geo.coordinates[0].toString() + ")")
+                minLatDistance = lat
+                minLonDistance = lon
                 currentBestLoc = loc
             }
         }
         return currentBestLoc
     }
-
-   /* fun findBestLocation(userLon : Float, userLat : Float) : FireModel.Location{
-        // Sjekker om hashmappet med alle lokasjoner og koordinater er fylt
-        if(locCoorMap.isEmpty()){
-            Log.d("StationInfoViewModel", "locCoorMap is empty")
-            exitProcess(1)  // Dersom hashmappet ikke er fylt stopper vi prosessen
-        }
-
-        var currentBestLoc : FireModel.Location = locCoorMap.keys.elementAt(0)
-        var currentLength = 1000F
-
-        var lon : Float
-        var lat : Float
-        var lonLat : Float
-
-        for((loc,geo) in locCoorMap){
-            lon = abs(geo.coordinates[0] - userLon)
-            lat = abs(geo.coordinates[1] - userLat)
-
-            lonLat = abs(lon - lat)
-
-            if(lonLat < currentLength){
-                currentLength = lonLat
-                currentBestLoc = loc
-            }
-        }
-        return currentBestLoc
-    } */
-
 
     class InstanceCreator : ViewModelProvider.Factory{
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {

@@ -410,6 +410,8 @@ class MapsFragment : Fragment(),
 
         forecastModel.fetchLocationForecast(location)
         forecastModel.locationForecastLiveData.observe(viewLifecycleOwner, Observer {
+            if(it == null) return@Observer
+
             val temperature = it.product.time[0].location.temperature.value
             requireView().findViewById<TextView>(R.id.w_deg).text = "${temperature} \u2103"
             val id = it.product.time[1].location.symbol.number
