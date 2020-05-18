@@ -14,7 +14,6 @@
         android:layout_height="match_parent"
         tools:context=".MapsActivity">
 
-
         <!--sveip opp for mer info -->
         <androidx.cardview.widget.CardView
             android:id="@+id/slideUp"
@@ -26,6 +25,7 @@
             android:layout_marginBottom="-40dp"
             app:cardBackgroundColor="@color/whiteColor"
             app:cardCornerRadius="40dp">
+
 
             <TextView
                 android:id="@+id/valgtSted"
@@ -94,10 +94,12 @@
         layout="@layout/stedinfo"
         android:visibility="gone" />
 
+    <!--værmelding -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:weightSum="1"
         tools:ignore="UselessParent">
 
         <LinearLayout
@@ -106,13 +108,13 @@
             android:layout_weight="1"
             android:baselineAligned="false"
             android:orientation="horizontal"
-            android:weightSum="5">
+            android:weightSum="2">
 
             <!--værmelding -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/weather"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal|top|start"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
