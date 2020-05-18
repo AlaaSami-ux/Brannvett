@@ -350,8 +350,6 @@
                 android:progressTint="@color/purpleColor"
                 android:scrollbarSize="20dp" />
         </LinearLayout>
-
-
     </LinearLayout>
 
 </RelativeLayout>
