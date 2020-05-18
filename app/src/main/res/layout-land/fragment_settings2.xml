@@ -57,6 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:background="@drawable/border"
             android:orientation="vertical"
             android:weightSum="1">
 
@@ -64,7 +65,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="@drawable/border"
                 android:orientation="horizontal"
                 android:weightSum="3"
                 android:baselineAligned="false"
@@ -323,8 +323,8 @@
                 android:id="@+id/textView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingTop="30dp"
+                android:gravity="center_horizontal"
+                android:paddingTop="2dp"
                 android:paddingBottom="20dp"
                 android:text="Velg hvilken fare nivå du vil få varsler for"
                 android:textSize="18sp" />
@@ -335,14 +335,51 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_marginStart="30dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginEnd="30dp"
                 android:max="2"
                 android:paddingTop="10dp"
-                android:paddingBottom="10dp"
+                android:paddingBottom="5dp"
                 android:progress="0"
                 android:progressTint="@color/purpleColor"
                 android:scrollbarSize="20dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="3"
+                tools:ignore="NestedWeights">
+
+                <ImageView
+                    android:id="@+id/imageView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_brannfare_rodtre" />
+
+                <ImageView
+                    android:id="@+id/imageView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_brannfare_gultre" />
+
+                <ImageView
+                    android:id="@+id/imageView9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_brannfare_gronntre" />
+            </LinearLayout>
         </LinearLayout>
 
 

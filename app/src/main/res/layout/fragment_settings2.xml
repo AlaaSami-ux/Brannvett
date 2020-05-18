@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -56,15 +57,17 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:orientation="vertical"
             android:showDividers="none"
+            android:background="@drawable/border"
             android:weightSum="1">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="@drawable/border"
                 android:orientation="horizontal"
                 android:weightSum="3"
                 tools:ignore="NestedWeights"
@@ -127,6 +130,9 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:background="@drawable/border"
         android:orientation="vertical"
         android:weightSum="1">
 
@@ -134,7 +140,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@drawable/border"
         android:orientation="horizontal"
         android:weightSum="3"
         android:baselineAligned="false"
@@ -191,14 +196,16 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:background="@drawable/border"
             android:orientation="vertical"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:weightSum="1">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="@drawable/border"
                 android:orientation="horizontal"
                 android:weightSum="3"
                 android:baselineAligned="false"
@@ -255,7 +262,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:layout_weight="1"
+            android:background="@drawable/border"
             android:orientation="vertical"
             android:weightSum="1">
 
@@ -263,7 +273,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="@drawable/border"
                 android:orientation="horizontal"
                 android:weightSum="3"
                 android:baselineAligned="false"
@@ -320,10 +329,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:weightSum="3">
-
+            android:weightSum="2">
 
             <TextView
                 android:id="@+id/textView2"
@@ -340,7 +349,6 @@
                 style="@style/Widget.AppCompat.SeekBar.Discrete"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"
                 android:max="2"
@@ -349,6 +357,44 @@
                 android:progress="0"
                 android:progressTint="@color/purpleColor"
                 android:scrollbarSize="20dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="3"
+                tools:ignore="NestedWeights">
+
+                <ImageView
+                    android:id="@+id/imageView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_brannfare_rodtre" />
+
+                <ImageView
+                    android:id="@+id/imageView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_brannfare_gultre" />
+
+                <ImageView
+                    android:id="@+id/imageView9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_brannfare_gronntre" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
