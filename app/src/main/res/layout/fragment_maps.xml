@@ -63,6 +63,8 @@
                         android:textStyle="bold"
                         android:textColor="@color/DingGrey"
                         />
+
+                    <!-- HER KAN DU LEGGE TILL VINN IKON-->
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 

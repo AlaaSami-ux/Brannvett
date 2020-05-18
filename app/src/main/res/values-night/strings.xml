@@ -4,7 +4,6 @@
     <string name="info">INFO</string>
 
     <string name="dato" translatable="false">%1$s/%2$s</string>
-    <!-- TODO: Remove or change this placeholder text -->
 
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
 
@@ -32,11 +31,9 @@
         <item>Fahrenheit</item>
     </string-array>
 
-    <string name="baalInfo">"perioden 15.april til 15.
-        september er det forud mot å tenne bål, grill og engangsgrill i skog eller i nærheten av skog.
+    <string name="baalInfo">\n\n perioden 15.april til 15.
+        september er det forbud mot å tenne bål, grill og engangsgrill i skog eller i nærheten av skog.
         Når du tenner bål er det ALLTID viktig å slukke skikkelig,
-        og forsikre seg om at det er helt slukket før du drar videre. Kilde: norskfriluftsliv.no"</string>
+        og forsikre seg om at det er helt slukket før du drar videre. Kilde: norskfriluftsliv.no</string>
     <string name="tempratur">Tempratur</string>
-    <string name="tillat_varsling">Tillatt Varsling</string>
-    <string name="varsling">Varsling</string>
 </resources>
