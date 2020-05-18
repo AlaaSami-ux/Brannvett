@@ -3,9 +3,11 @@ package com.example.forestfire.view
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.activity.viewModels
@@ -23,6 +25,10 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import java.io.FileInputStream
+import java.io.IOException
+import java.io.ObjectInputStream
+import java.io.ObjectOutputStream
 
 class MainActivity : AppCompatActivity() {
 
@@ -39,6 +45,7 @@ class MainActivity : AppCompatActivity() {
     // objekter til fragments
     private lateinit var homeFragment: MapsFragment
     private lateinit var favoriteFragment: FavoritesFragment
+    private lateinit var favorites: MutableMap<LatLng, String>
     lateinit var infoFragment: InfoFragment
     lateinit var settingsFragment: SettingsFragment
 
@@ -67,16 +74,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val dag = 0
-
-        fireViewModel.fetchFireLocations(this, dag)
-        fireViewModel.liveFireLocations.observe(this, Observer { locList ->
-            stationInfoViewModel.fetchData(locList)
-            stationInfoViewModel.stationInfoLiveData.observe(this, Observer {
-                val station = stationInfoViewModel.findBestLocation(LatLng(8.0, 62.0))
-                //drawData(station)
-            })
-        })
         // bottom navigation bar
         val nav: BottomNavigationView = findViewById(R.id.menu)
 
@@ -131,6 +128,27 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
+        // hente favoritter fra internal storage
+        try {
+            Log.d(TAG, "prøve å hente favoritter fra internal storage")
+            val fileInputStream =
+                FileInputStream(applicationContext.filesDir.toString() + "/FenceInformation.ser")
+            val objectInputStream = ObjectInputStream(fileInputStream)
+            favorites = objectInputStream.readObject() as MutableMap<LatLng, String>
+        } catch (e: ClassNotFoundException) {
+            e.printStackTrace()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        } catch (e: ClassCastException) {
+            e.printStackTrace()
+        }
+        // hvis vi ikke fant noe så er listen tom og kan hentes fra
+        // favoriteViewModel
+        if(!::favorites.isInitialized){
+            favorites = favoriteViewModel.favorites
+        }
+
+
         /*
         // --------------------------------- Varsling ---------------------------------------------
         //  var varsling : Varsling = Varsling(this, CHANNEL_ID)
@@ -178,4 +196,20 @@ class MainActivity : AppCompatActivity() {
     /*private fun drawData(loc : FireModel.Location){
         findViewById<TextView>(R.id.name_text).text = loc.name
     }*/
+
+    /*fun onTaskRemoved(){
+        // read hashmap to a file
+        try {
+            Log.d(TAG, "prøve å legge til favoritter i internal storage")
+
+            val fos =
+                applicationContext.openFileOutput("YourInfomration.ser", Context.MODE_PRIVATE)
+            val oos = ObjectOutputStream(fos)
+            oos.writeObject(favorites)
+            oos.close()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+    }
+     */
 }

@@ -32,11 +32,10 @@
         <item>Fahrenheit</item>
     </string-array>
 
-    <string name="baalInfo">"perioden 15.april til 15.
-        september er det forud mot å tenne bål, grill og engangsgrill i skog eller i nærheten av skog.
-        Når du tenner bål er det ALLTID viktig å slukke skikkelig,
-        og forsikre seg om at det er helt slukket før du drar videre. Kilde: norskfriluftsliv.no"</string>
-    <string name="tempratur">Tempratur</string>
+
     <string name="tillat_varsling">Tillatt Varsling</string>
     <string name="varsling">Varsling</string>
+
+    <string name="infoOmBrannfareNivåer"> "her skriver jeg bare litt tekst som skal fylle litt plass og det er hyggelig og fint og jeg liker gruppen jeg er på prosjekt med og jeg gleder meg til å drikke vin med dem og ha det hyggelig "</string>
+
 </resources>

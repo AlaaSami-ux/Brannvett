@@ -1,5 +1,6 @@
 package com.example.forestfire.view
 
+import android.content.Context
 import android.content.res.Configuration
 import android.location.Address
 import android.location.Geocoder
@@ -22,8 +23,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.forestfire.R
 import com.example.forestfire.viewModel.FavoriteViewModel
 import com.example.forestfire.viewModel.MapsViewModel
+import com.example.forestfire.viewModel.fetchAPI.FireDataViewModel
 import com.example.forestfire.viewModel.fetchAPI.LocationForecastViewModel
-import com.example.forestfire.viewModel.fetchAPI.StationInfoViewModel
 import com.google.android.gms.common.api.Status
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
@@ -34,8 +35,12 @@ import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
+import java.io.FileInputStream
 import java.io.IOException
+import java.io.ObjectInputStream
+import java.io.ObjectOutputStream
 import java.util.*
+import kotlin.collections.HashMap
 
 
 class FavoritesFragment : Fragment() {
@@ -59,16 +64,23 @@ class FavoritesFragment : Fragment() {
     private lateinit var tilbake: Button
     private lateinit var autocompleteFragment: AutocompleteSupportFragment
 
-    // Rediger
-    private lateinit var redigerBtn: Button
-    private lateinit var removeBtn: Button
-    private lateinit var favorittCard: CardView
 
     private lateinit var favoriteViewModel: FavoriteViewModel
     private lateinit var mapsViewModel: MapsViewModel
     private lateinit var favorites: MutableMap<LatLng, String>
 
-    private val forecastModel : LocationForecastViewModel by viewModels{ LocationForecastViewModel.InstanceCreator() }
+
+    private val fireViewModel : FireDataViewModel by viewModels { FireDataViewModel.InstanceCreator() }
+    private val stationViewModel : StationInfoViewModel by viewModels { StationInfoViewModel.InstanceCreator() }
+    private val forecastViewModel : LocationForecastViewModel by viewModels { LocationForecastViewModel.InstanceCreator() }
+
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        // Her legges ting vi vil ha tilgang til hele tiden
+
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -136,9 +148,7 @@ class FavoritesFragment : Fragment() {
                 Log.i(TAG, "Place: " + place.name + ", " + place.id)
                 favoriteViewModel.addFavorite(place.latLng!!, place.name!!)
 
-                //TODO
                 forecastModel.addFavoriteForecast(place.latLng)
-
                 updateFragment()
               
                 leggTil.visibility = View.GONE
@@ -160,10 +170,43 @@ class FavoritesFragment : Fragment() {
         }
 
         noFavoritesTextBox = root.findViewById(R.id.no_favorites)
-        favorites = favoriteViewModel.favorites
+
+        readFile()
+
+        if(!::favorites.isInitialized){
+            favorites = favoriteViewModel.favorites
+        }
 
         my_recycler_view = root.findViewById(R.id.my_recycler_view)
-        initRecyclerView()
+
+
+        forecastViewModel.fetchForecastFavorites(favorites.keys.toList())
+        forecastViewModel.forecastFavoritesLiveData.observe(viewLifecycleOwner, androidx.lifecycle.Observer {forecastMap ->
+            if(forecastMap == null) return@Observer
+            Log.d("forecastViewModel ", "fetched Favs")
+
+            fireViewModel.fetchFireLocations()
+            fireViewModel.liveFireLocations.observe(viewLifecycleOwner, androidx.lifecycle.Observer { dayList ->
+                if(dayList == null) return@Observer
+                Log.d("FireViewModel", "fetched all days")
+
+                stationViewModel.fetchData(dayList[0].locations)
+                stationViewModel.stationInfoLiveData.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+                    if(it == null) return@Observer
+                    Log.d("stationViewModel", "Filling hashmap")
+
+                    stationViewModel.fetchFavDanger(favorites.keys.toList(), dayList)
+                    stationViewModel.stationFavDangerLiveData.observe(viewLifecycleOwner, androidx.lifecycle.Observer { posDangerMap ->
+                        if(posDangerMap == null) return@Observer
+                        Log.d("stationViewModel", "Fetched dangerlist of favs")
+
+                        initRecyclerView(forecastMap, posDangerMap)
+                    })
+                })
+
+            })
+        })
+
 
         /*
         redigerBtn = root.findViewById(R.id.redigerBtn)
@@ -181,6 +224,38 @@ class FavoritesFragment : Fragment() {
          */
 
         return root
+    }
+
+    fun readFile(){
+        // hente favoritter fra internal storage
+        try {
+            Log.d(TAG, "prøve å hente favoritter fra internal storage")
+            val fileInputStream =
+                FileInputStream("favorites.txt")
+            val objectInputStream = ObjectInputStream(fileInputStream)
+            favorites = objectInputStream.readObject() as MutableMap<LatLng, String>
+        } catch (e: ClassNotFoundException) {
+            e.printStackTrace()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        } catch (e: ClassCastException) {
+            e.printStackTrace()
+        }
+    }
+
+    fun writeFile(){
+        // read hashmap to a file
+        try {
+            Log.d(TAG, "prøve å legge til favoritter i internal storage")
+
+            val fos =
+                requireContext().openFileOutput("favorites.txt", Context.MODE_PRIVATE)
+            val oos = ObjectOutputStream(fos)
+            oos.writeObject(favorites)
+            oos.close()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
     }
 
     fun getInstance() : FavoritesFragment{
@@ -215,17 +290,67 @@ class FavoritesFragment : Fragment() {
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
+        if (getFragmentManager() != null) {
+            getFragmentManager()
+                ?.beginTransaction()
+                ?.detach(this)
+                ?.attach(this)
+                ?.commit();
+        }
     }
 
 
-    private fun initRecyclerView(){
+    private fun initRecyclerView(forecastMap : HashMap<LatLng?, List<LocationForecastViewModel.FavForecast>>, posDangerMap : HashMap<LatLng?, List<String>>){
         my_recycler_view.apply{
             layoutManager = LinearLayoutManager(requireActivity())
-            viewAdapter = ListAdapter(requireActivity(), requireActivity(), forecastModel, favorites, this@FavoritesFragment)
+            viewAdapter = ListAdapter(forecastMap, posDangerMap, favorites, this@FavoritesFragment)
             if(favorites.count() >0){
                 noFavoritesTextBox.visibility = View.GONE
             }
             adapter = viewAdapter
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG, "resuming app")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        // her skal jeg legge ting som jeg vil bevare dersom brukeren
+        // skulle avslutte appen og ikke komme tilbake
+        // onPause blir kalt ved første indikasjon på at brukeren forlater appen
+
+        Log.d(TAG, "onPause")
+
+        // bevare listen med favoritter
+        favorites = favoriteViewModel.favorites
+
+        writeFile()
+    }
+
+    override fun onStop(){
+        super.onStop()
+
+        Log.d(TAG, "onStop")
+        // read hashmap to a file
+        try {
+            Log.d(TAG, "prøve å legge til favoritter i internal storage")
+
+            val fos =
+                requireContext().openFileOutput("YourInfomration.ser", Context.MODE_PRIVATE)
+            val oos = ObjectOutputStream(fos)
+            oos.writeObject(favorites)
+            oos.close()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        Log.d(TAG, "onDestroy")
     }
 }
