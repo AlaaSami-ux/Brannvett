@@ -234,7 +234,7 @@
                 android:layout_marginBottom="10dp"
                 android:layout_weight="1"
                 android:padding="5dp"
-                android:text="her skriver jeg bare litt tekst som skal fylle litt plass og det er hyggelig og fint og jeg liker gruppen jeg er på prosjekt med og jeg gleder meg til å drikke vin med dem og ha det hyggelig"
+                android:text="@string/infoOmBrannfareNivåer"
                 android:textSize="16sp" />
 
         </LinearLayout>
