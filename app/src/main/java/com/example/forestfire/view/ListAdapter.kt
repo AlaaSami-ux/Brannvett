@@ -1,8 +1,10 @@
 package com.example.forestfire.view
 
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.DialogInterface
+import android.graphics.drawable.Drawable
 import android.location.Location
 import android.media.Image
 import android.util.Log
@@ -26,37 +28,44 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.element.view.*
 import java.util.*
 
-class ListAdapter(context : Context, lifecycleOwner: LifecycleOwner, forecastViewModel: LocationForecastViewModel, var favorites: MutableMap<LatLng, String>, var fragment: FavoritesFragment) :
+class ListAdapter(var forecastMap : HashMap<LatLng?, List<LocationForecastViewModel.FavForecast>>,
+                  var posDangerMap : HashMap<LatLng?, List<String>>,
+                  var favorites: MutableMap<LatLng, String>, var fragment: FavoritesFragment) :
     RecyclerView.Adapter<ListAdapter.ViewHolder>()  {
 
     private var positions = favorites.keys // MutableSet of keys from favorites map
     private var places = favorites.values // MutableCollection of values from favorites map
 
-    private val con = context
-    private val forecastModel = forecastViewModel
-
-
-
-    class ViewHolder constructor(context: Context, forecastModel : LocationForecastViewModel, itemView: View, adapter: ListAdapter, fragment:FavoritesFragment) :
+    class ViewHolder constructor(itemView: View, adapter: ListAdapter, fragment:FavoritesFragment) :
 
             RecyclerView.ViewHolder(itemView){
         val adapter: ListAdapter = adapter
         val fragment: FavoritesFragment = fragment
         val valgtSted: TextView = itemView.valgtSted
-        val vær1: ImageView = itemView.vær1
-        val brannfare1: TextView = itemView.brannfare1
-        val vær2: ImageView = itemView.vær2
-        val brannfare2: ImageView = itemView.brannfare2
-        val vær3: ImageView = itemView.vær3
-        val brannfare3: ImageView = itemView.brannfare3
+
+        val vær_text1: TextView = itemView.vær_text1
+        val vær_symbol1 : ImageView = itemView.vær_symbol1
+        val brann_index1 : TextView = itemView.brann_index1
+        val brann_symbol1 : ImageView = itemView.brann_symbol1
+
+        val vær_text2: TextView = itemView.vær_text2
+        val vær_symbol2 : ImageView = itemView.vær_symbol2
+        val brann_index2 : TextView = itemView.brann_index2
+        val brann_symbol2 : ImageView = itemView.brann_symbol2
+
+        val vær_text3 : TextView = itemView.vær_text3
+        val vær_symbol3 : ImageView = itemView.vær_symbol3
+        val brann_index3 : TextView = itemView.brann_index3
+        val brann_symbol3 : ImageView = itemView.brann_symbol3
+
         val remove: ImageButton = itemView.remove
 
-        val forecast = forecastModel
-        val con = context
 
+        @SuppressLint("SetTextI18n")
+        fun bind(applicationContext: Context?, place: String, ll: LatLng,
+                 forecastList: List<LocationForecastViewModel.FavForecast>?,
+                 dangerList : List<String>?){
 
-
-        fun bind(place: String, ll: LatLng){
             var dialogClickListener =
                 DialogInterface.OnClickListener { dialog, which ->
                     when (which) {
@@ -78,42 +87,61 @@ class ListAdapter(context : Context, lifecycleOwner: LifecycleOwner, forecastVie
                 builder.setPositiveButton("Ja", dialogClickListener).show()
             }
             valgtSted.text = place
-            Log.d("ListAdapter Adresse:", place)
+            Log.d("ListAdapter Adresse", place)
 
-            /*
-            if(!forecast.favoriteLocationMap.isEmpty()) {
-                for ((loc, forecast) in forecast.favoriteLocationMap) {
-                    val id = forecast.forecast[0].symbol_id
-                    val url =
-                        "https://in2000-apiproxy.ifi.uio.no/weatherapi/weathericon/1.1?content_type=image%2Fpng&symbol=${id}"
-                    Picasso.with(con)
-                        .load(url)
-                        .into(vær1)
-                }
+            Log.d("danger_index 0", dangerList?.get(0).toString())
+            Log.d("danger_index 1", dangerList?.get(1).toString())
+            Log.d("danger_index 2", dangerList?.get(2).toString())
+
+
+
+            vær_text1.text = "${forecastList?.get(0)?.temperature}°"
+            Picasso.with(applicationContext)
+                .load("https://in2000-apiproxy.ifi.uio.no/weatherapi/weathericon/1.1?content_type=image%2Fpng&symbol=${forecastList?.get(0)?.symbol_id}")
+                .resize(70, 70)
+                .into(vær_symbol1)
+
+            brann_index1.text = dangerList?.get(0)
+            var brann : Int = getTree(dangerList?.get(0)!!.toInt())
+            brann_symbol1.setImageResource(brann)
+
+
+            vær_text2.text = "${forecastList?.get(1)?.temperature}°"
+            Picasso.with(applicationContext)
+                .load("https://in2000-apiproxy.ifi.uio.no/weatherapi/weathericon/1.1?content_type=image%2Fpng&symbol=${forecastList?.get(1)?.symbol_id}")
+                .resize(70, 70)
+                .into(vær_symbol2)
+
+            brann_index2.text = dangerList[1]
+            brann = getTree(dangerList[1].toInt())
+            brann_symbol2.setImageResource(brann)
+
+            vær_text3.text = "${forecastList?.get(2)?.temperature}°"
+            Picasso.with(applicationContext)
+                .load("https://in2000-apiproxy.ifi.uio.no/weatherapi/weathericon/1.1?content_type=image%2Fpng&symbol=${forecastList?.get(2)?.symbol_id}")
+                .resize(70, 70)
+                .into(vær_symbol3)
+
+            brann_index3.text = dangerList[2]
+            brann = getTree(dangerList[2].toInt())
+            brann_symbol3.setImageResource(brann)
+        }
+
+        private fun getTree(danger_index : Int) : Int{
+            val brann : Int
+            if(danger_index <= 30){
+                brann = R.drawable.ic_brannfare_gronntre
+            }else if(danger_index in 31..59){
+                brann = R.drawable.ic_brannfare_gultre
+            }else {
+                brann = R.drawable.ic_brannfare_rodtre
             }
-             */
-
-            /*
-            forecastModel.fetchLocationForecast(ll)
-            forecastModel.locationForecastLiveData.observe(life, androidx.lifecycle.Observer {
-                val temp = it.product.time[0].location.temperature.value
-                val id = it.product.time[1].location.symbol.number
-                // = "${temp} \u2103"
-                val url = "https://in2000-apiproxy.ifi.uio.no/weatherapi/weathericon/1.1?content_type=image%2Fpng&symbol=${id}"
-                Picasso.with(con)
-                    .load(url)
-                    .into(vær1)
-            })
-            */
-
-            //val location : FireModel.Location = forecastModel.findBestLocation(ll)
-            //brannfare1.text = location.danger_index
-
+            return brann
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(con, forecastModel, LayoutInflater.from(parent.context).inflate(R.layout.element, parent, false), this, fragment)
+        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.element, parent, false), this, fragment)
     }
 
     override fun getItemCount(): Int {
@@ -121,7 +149,11 @@ class ListAdapter(context : Context, lifecycleOwner: LifecycleOwner, forecastVie
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(places.elementAt(position), positions.elementAt(position))
+        holder.bind(fragment.context?.applicationContext,
+            places.elementAt(position), positions.elementAt(position),
+            forecastMap[positions.elementAt(position)],
+            posDangerMap[positions.elementAt(position)]
+        )
     }
 
     fun removeItem(ll: LatLng){
