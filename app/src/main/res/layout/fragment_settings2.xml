@@ -232,7 +232,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="10dp"
                         android:gravity="start|center"
-                        android:text="@string/tempratur"
+                        android:text="@string/temperatur"
                         android:textSize="20sp" />
 
                 </RelativeLayout>
@@ -350,8 +350,6 @@
                 android:progressTint="@color/purpleColor"
                 android:scrollbarSize="20dp" />
         </LinearLayout>
-
-
     </LinearLayout>
 
 </RelativeLayout>
