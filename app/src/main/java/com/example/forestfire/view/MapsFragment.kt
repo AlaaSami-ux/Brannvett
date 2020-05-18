@@ -3,6 +3,7 @@ package com.example.forestfire.view
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.annotation.SuppressLint
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
@@ -73,6 +74,14 @@ class MapsFragment : Fragment(),
     private lateinit var autocompleteFragment: AutocompleteSupportFragment
     val norge = LatLngBounds(LatLng(58.019156, 2.141567), LatLng(71.399348, 33.442113))
     private val oslo = LatLng(59.911491, 10.757933)
+    var dip = 90f
+    private lateinit var search_box: CardView
+
+    // kort som blir sveipet opp
+    private lateinit var dag1: TextView
+    private lateinit var dag2: TextView
+    private lateinit var dag3: TextView
+    private lateinit var c: Calendar
 
 
     //private var previousX: Float = 0F
@@ -113,6 +122,7 @@ class MapsFragment : Fragment(),
         slideUp.setOnTouchListener(this)
         swipeUp = root.findViewById(R.id.swipeUp) // includer stedinfo
         swipeUp.setOnTouchListener(this)
+        search_box = root.findViewById(R.id.search_box)
 
         valgtSted = root.findViewById(R.id.valgtSted) // tekst på cardView på forsiden
         valgtSted2 = swipeUp.findViewById<TextView>(R.id.valgtSted) // tekst på cardView når det er sveipet opp
@@ -120,6 +130,23 @@ class MapsFragment : Fragment(),
         favoriteBtn = root.findViewById(R.id.favoritt)      // favorittknapp cardView nede
         favoriteBtn2 = stedinfo.findViewById(R.id.favoritt) // favorittknapp cardView åpent
 
+        dag1 = stedinfo.findViewById(R.id.dag1)
+        dag2 = stedinfo.findViewById(R.id.dag2)
+        dag3 = stedinfo.findViewById(R.id.dag3)
+
+        // datoer
+        dag1 = root.findViewById(R.id.dag1)
+        dag2 = root.findViewById(R.id.dag2)
+        dag3 = root.findViewById(R.id.dag3)
+        c = Calendar.getInstance()
+        var dato = c.get(Calendar.DAY_OF_MONTH).toString() + "/" + (c.get(Calendar.MONTH)+1).toString()
+        dag1.text = dato
+        c.roll(Calendar.DATE, 1)
+        dato = c.get(Calendar.DAY_OF_MONTH).toString() + "/" + (c.get(Calendar.MONTH)+1).toString()
+        dag2.text = dato
+        c.roll(Calendar.DATE, 1)
+        dato = c.get(Calendar.DAY_OF_MONTH).toString() + "/" + (c.get(Calendar.MONTH)+1).toString()
+        dag3.text = dato
 
         // MapsViewModel holder kontroll på sist besøkte sted
         lastLoc = mapsViewModel.getLastUsedLocation() // lagre siste posisjon
@@ -194,8 +221,6 @@ class MapsFragment : Fragment(),
         mMap = googleMap
 
         // Coonvert dp to px
-        var dip = 90f
-
         val r = resources
         val top = TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP,
@@ -239,6 +264,17 @@ class MapsFragment : Fragment(),
             true
         })
 
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        if (getFragmentManager() != null) {
+            getFragmentManager()
+                ?.beginTransaction()
+                ?.detach(this)
+                ?.attach(this)
+                ?.commit();
+        }
     }
 
     private fun chosenNewPlace(latlng: LatLng){
@@ -303,6 +339,14 @@ class MapsFragment : Fragment(),
                                 }
                                 })
                                 .duration = (shortAnimationDuration.toLong())
+                            search_box.animate()
+                                .alpha(0f)
+                                .setListener(object: AnimatorListenerAdapter(){
+                                override fun onAnimationEnd(animation: Animator) {
+                                    slideUp.visibility = View.GONE
+                                }
+                                })
+                                .duration = (shortAnimationDuration.toLong())
                         }
                     } else if(previousY < event.y && event.y - previousY > MIN_DISTANCE){
                         if (v != null && v.id == R.id.swipeUp){
@@ -317,6 +361,14 @@ class MapsFragment : Fragment(),
                                     .duration = (shortAnimationDuration.toLong())
                             }
                             weather.apply{
+                                alpha = 0f
+                                visibility = View.VISIBLE
+                                animate()
+                                    .alpha(1f)
+                                    .setListener(null)
+                                    .duration = (shortAnimationDuration.toLong())
+                            }
+                            search_box.apply{
                                 alpha = 0f
                                 visibility = View.VISIBLE
                                 animate()

@@ -6,4 +6,7 @@
     <color name="whiteColor">#FFFFFF</color>
     <color name="purpleColor">#7F74AF</color>
     <color name="DingGrey">#9D9696</color>
+    <color name="DangerRed">#FF0000</color>
+    <color name="DangerOrange">#FF4500</color>
+    <color name="DangerGreen">#00D90E</color>
 </resources>
