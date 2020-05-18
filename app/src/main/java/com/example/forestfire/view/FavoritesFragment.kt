@@ -25,6 +25,7 @@ import com.example.forestfire.viewModel.FavoriteViewModel
 import com.example.forestfire.viewModel.MapsViewModel
 import com.example.forestfire.viewModel.fetchAPI.FireDataViewModel
 import com.example.forestfire.viewModel.fetchAPI.LocationForecastViewModel
+import com.example.forestfire.viewModel.fetchAPI.StationInfoViewModel
 import com.google.android.gms.common.api.Status
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
@@ -148,7 +149,6 @@ class FavoritesFragment : Fragment() {
                 Log.i(TAG, "Place: " + place.name + ", " + place.id)
                 favoriteViewModel.addFavorite(place.latLng!!, place.name!!)
 
-                forecastModel.addFavoriteForecast(place.latLng)
                 updateFragment()
               
                 leggTil.visibility = View.GONE
