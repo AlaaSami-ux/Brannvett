@@ -106,25 +106,29 @@
                     android:textColor="@color/purpleColor"
                     android:text="Mine steder"
                     android:textStyle="bold"
-                    android:textSize="24sp"/>
+                    android:textSize="20sp"
+                    android:layout_marginStart="5dp"/>
 
                     <TextView
                         android:id="@+id/dag1"
                         android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
                         android:textColor="@color/purpleColor"/>
                     <TextView
                         android:id="@+id/dag2"
                         android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
                         android:textColor="@color/purpleColor"/>
                     <TextView
                         android:id="@+id/dag3"
                         android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
                         android:textColor="@color/purpleColor"/>
             </LinearLayout>
 

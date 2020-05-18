@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.forestfire.R
 import com.example.forestfire.viewModel.FavoriteViewModel
 import com.example.forestfire.viewModel.MapsViewModel
+import com.example.forestfire.viewModel.fetchAPI.FireDataViewModel
 import com.example.forestfire.viewModel.fetchAPI.LocationForecastViewModel
 import com.example.forestfire.viewModel.fetchAPI.StationInfoViewModel
 import com.google.android.gms.common.api.Status
@@ -36,6 +37,7 @@ import com.google.android.libraries.places.widget.listener.PlaceSelectionListene
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import java.io.IOException
 import java.util.*
+import kotlin.collections.HashMap
 
 
 class FavoritesFragment : Fragment() {
@@ -68,7 +70,11 @@ class FavoritesFragment : Fragment() {
     private lateinit var mapsViewModel: MapsViewModel
     private lateinit var favorites: MutableMap<LatLng, String>
 
-    private val forecastModel : LocationForecastViewModel by viewModels{ LocationForecastViewModel.InstanceCreator() }
+
+    private val fireViewModel : FireDataViewModel by viewModels { FireDataViewModel.InstanceCreator() }
+    private val stationViewModel : StationInfoViewModel by viewModels { StationInfoViewModel.InstanceCreator() }
+    private val forecastViewModel : LocationForecastViewModel by viewModels { LocationForecastViewModel.InstanceCreator() }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -136,9 +142,6 @@ class FavoritesFragment : Fragment() {
                 Log.i(TAG, "Place: " + place.name + ", " + place.id)
                 favoriteViewModel.addFavorite(place.latLng!!, place.name!!)
 
-                //TODO
-                forecastModel.addFavoriteForecast(place.latLng)
-
                 updateFragment()
               
                 leggTil.visibility = View.GONE
@@ -163,7 +166,35 @@ class FavoritesFragment : Fragment() {
         favorites = favoriteViewModel.favorites
 
         my_recycler_view = root.findViewById(R.id.my_recycler_view)
-        initRecyclerView()
+
+
+        forecastViewModel.fetchForecastFavorites(favorites.keys.toList())
+        forecastViewModel.forecastFavoritesLiveData.observe(viewLifecycleOwner, androidx.lifecycle.Observer {forecastMap ->
+            if(forecastMap == null) return@Observer
+            Log.d("forecastViewModel ", "fetched Favs")
+
+            fireViewModel.fetchFireLocations()
+            fireViewModel.liveFireLocations.observe(viewLifecycleOwner, androidx.lifecycle.Observer { dayList ->
+                if(dayList == null) return@Observer
+                Log.d("FireViewModel", "fetched all days")
+
+                stationViewModel.fetchData(dayList[0].locations)
+                stationViewModel.stationInfoLiveData.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+                    if(it == null) return@Observer
+                    Log.d("stationViewModel", "Filling hashmap")
+
+                    stationViewModel.fetchFavDanger(favorites.keys.toList(), dayList)
+                    stationViewModel.stationFavDangerLiveData.observe(viewLifecycleOwner, androidx.lifecycle.Observer { posDangerMap ->
+                        if(posDangerMap == null) return@Observer
+                        Log.d("stationViewModel", "Fetched dangerlist of favs")
+
+                        initRecyclerView(forecastMap, posDangerMap)
+                    })
+                })
+
+            })
+        })
+
 
         /*
         redigerBtn = root.findViewById(R.id.redigerBtn)
@@ -218,10 +249,10 @@ class FavoritesFragment : Fragment() {
     }
 
 
-    private fun initRecyclerView(){
+    private fun initRecyclerView(forecastMap : HashMap<LatLng?, List<LocationForecastViewModel.FavForecast>>, posDangerMap : HashMap<LatLng?, List<String>>){
         my_recycler_view.apply{
             layoutManager = LinearLayoutManager(requireActivity())
-            viewAdapter = ListAdapter(requireActivity(), requireActivity(), forecastModel, favorites, this@FavoritesFragment)
+            viewAdapter = ListAdapter(forecastMap, posDangerMap, favorites, this@FavoritesFragment)
             if(favorites.count() >0){
                 noFavoritesTextBox.visibility = View.GONE
             }
