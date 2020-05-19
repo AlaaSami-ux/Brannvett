@@ -122,17 +122,16 @@
                     android:layout_gravity="center_horizontal">
                     <!-- farevarsel ikon -->
                     <ImageView
+                        android:id="@+id/fire_symbol"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_whatshot_red_24dp"/>
+                        android:layout_gravity="center"/>
                     <TextView
+                        android:id="@+id/fire_warning"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Høy brannfare"
-                        android:textStyle="normal"
-                        android:textSize="18sp"
-                        android:textColor="@color/DangerRed"/>
+                        android:textStyle="bold"
+                        android:textSize="18sp"/>
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>

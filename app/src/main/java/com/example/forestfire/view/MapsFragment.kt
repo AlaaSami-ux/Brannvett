@@ -23,7 +23,9 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.forestfire.R
 import com.example.forestfire.viewModel.FavoriteViewModel
 import com.example.forestfire.viewModel.MapsViewModel
+import com.example.forestfire.viewModel.fetchAPI.FireDataViewModel
 import com.example.forestfire.viewModel.fetchAPI.LocationForecastViewModel
+import com.example.forestfire.viewModel.fetchAPI.StationInfoViewModel
 import com.google.android.gms.common.api.Status
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener
@@ -91,6 +93,10 @@ class MapsFragment : Fragment(),
     private lateinit var mapsViewModel: MapsViewModel
     private lateinit var favoriteViewModel: FavoriteViewModel
 
+    private val forecastModel by viewModels<LocationForecastViewModel> { LocationForecastViewModel.InstanceCreator() }
+    private val stationModel by viewModels<StationInfoViewModel> { StationInfoViewModel.InstanceCreator() }
+    private val fireModel by viewModels<FireDataViewModel> { FireDataViewModel.InstanceCreator() }
+
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
@@ -151,6 +157,9 @@ class MapsFragment : Fragment(),
         // MapsViewModel holder kontroll på sist besøkte sted
         lastLoc = mapsViewModel.getLastUsedLocation() // lagre siste posisjon
         lastLocName = mapsViewModel.getLastUsedLocationName()
+
+        // Fyller stedinfo.xml med danger_index og vær basert på lastLoc
+        fillSwipeUpScreen(lastLoc)
 
         // Sjekke om sist brukte posisjon er en av favorittene til brukeren
         if (favoriteViewModel.isFavorite(lastLoc)){
@@ -280,6 +289,7 @@ class MapsFragment : Fragment(),
     private fun chosenNewPlace(latlng: LatLng){
         lastLoc = latlng
         displayWeather(latlng)
+        fillSwipeUpScreen(lastLoc)
         if (favoriteViewModel.isFavorite(latlng)){
             favoriteViewModel.setBtnClicked(favoriteBtn, favoriteBtn2)
         } else {
@@ -385,7 +395,6 @@ class MapsFragment : Fragment(),
                                 })
                                 .duration = (shortAnimationDuration.toLong())
                         }
-
                     }
                     return false
                 }
@@ -396,9 +405,9 @@ class MapsFragment : Fragment(),
     }
 
 
-    private val forecastModel by viewModels<LocationForecastViewModel> { LocationForecastViewModel.InstanceCreator() }
 
     private fun displayWeather(location : LatLng) {
+        // Denne metoden plasserer værdata i kortet som ligger øverst på hovedsiden
         val tag = "displayWeather"
         Log.d(tag, location.toString())
 
@@ -407,7 +416,7 @@ class MapsFragment : Fragment(),
             if(it == null) return@Observer
 
             val temperature = it.product.time[0].location.temperature.value
-            requireView().findViewById<TextView>(R.id.w_deg).text = "${temperature} \u2103"
+            requireView().findViewById<TextView>(R.id.w_deg).text = "${temperature} \u2103" // \u2103 er koden for "grader celsius"
             val id = it.product.time[1].location.symbol.number
             val img = requireView().findViewById<ImageView>(R.id.weather_icon)
             val url = "https://in2000-apiproxy.ifi.uio.no/weatherapi/weathericon/1.1?content_type=image%2Fpng&symbol=${id}"
@@ -419,4 +428,126 @@ class MapsFragment : Fragment(),
         })
     }
 
+
+    private fun getTree(danger_index : Int) : Int{
+        // Metode for å hente riktig farge på treet som brukes som symbol for
+        // danger_index (farevarsel, brannfarevarsel)
+        val brann : Int
+        if(danger_index < 30){
+            brann = R.drawable.ic_brannfare_gronntre
+        }else if(danger_index in 30..60){
+            brann = R.drawable.ic_brannfare_gultre
+        }else {
+            brann = R.drawable.ic_brannfare_rodtre
+        }
+        return brann
+    }
+
+
+    private fun fillSwipeUpScreen(loc : LatLng){
+        // Her skal skjermen man swiper opp på hovedsiden fylles med informasjon, samt kortet
+        // nederst på hovedsiden
+
+        // Starter med å hente været for de neste tre dagene for den gitte lokasjonen
+        forecastModel.fetchThreeDayForecast(loc)
+        forecastModel.threeDayForecast.observe(viewLifecycleOwner, Observer { forecastList ->
+            if(forecastList == null) return@Observer
+
+            // Deretter må vi hente farevarsel (danger_index) for de tre neste dagene
+            // Dette gjøres ved å hente alle lokasjonene som finnes i forestfireindex apiet ...
+            fireModel.fetchFireLocations()
+            fireModel.liveFireLocations.observe(viewLifecycleOwner, Observer {dayList ->
+                if(dayList == null) return@Observer
+
+                // ... for så å hente alle koordinatene til disse lokasjonene, og plassere de i et lokalt hashmap
+                // i StationInFoViewModel
+                stationModel.fetchData(dayList[0].locations)
+                stationModel.stationInfoLiveData.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+                    // og dermed kan vi hente farevarsel for tre dager. Metoden fetchThreeDayDanger tar inn et latlng objekt
+                    // og søker i det lokale hashmappet i StationInfoViewModel for den stasjonen som ligger nærmest
+                    // brukeren (latlon objektet). Den tar så in en liste av forestfireindex lokasjonene for alle dagene
+                    // og bruker denne til å finne farevarsel for riktig stasjon
+                    stationModel.fetchThreeDayDanger(loc, dayList)
+                    stationModel.stationThreeDayDanger.observe(viewLifecycleOwner, Observer {dangerList ->
+                        if(dangerList == null) return@Observer
+
+                        // Plaserer først informasjon i kortet nederst på hovedskjermen
+                        val fare_symbol = root.findViewById<ImageView>(R.id.fire_symbol)
+                        val fare_warning = root.findViewById<TextView>(R.id.fire_warning)
+
+                        if(dangerList[0].toInt() <= 30){
+                            fare_warning.setTextColor(resources.getColor(R.color.DangerGreen))
+                            fare_warning.text = getString(R.string.lavFare)
+                            fare_symbol.setImageResource(R.drawable.ic_fareicongraa)
+                        }else if(dangerList[0].toInt() in 31..59){
+                            fare_warning.text = getString(R.string.middelsFare)
+                            fare_warning.setTextColor(resources.getColor(R.color.DangerOrange))
+                            fare_symbol.setImageResource(R.drawable.ic_fareiconrod)
+                        }else{
+                            fare_warning.text = getString(R.string.hoyFare)
+                            fare_warning.setTextColor(resources.getColor(R.color.DangerRed))
+                            fare_symbol.setImageResource(R.drawable.ic_fareiconrod)
+                        }
+
+
+                        // Plasserer deretter informasjon inne i stedinfo.xml siden som er korresponderende
+                        // xml layot med swipe-up skjermen
+
+                        // Dag 1
+                        val vær1 = stedinfo.findViewById<TextView>(R.id.vær1)
+                        val vær_symbol1 = stedinfo.findViewById<ImageView>(R.id.vær_symbol1)
+
+                        vær1.text = "${forecastList[0].temperature}°"
+                        Picasso.with(activity)
+                            .load("https://in2000-apiproxy.ifi.uio.no/weatherapi/weathericon/1.1?content_type=image%2Fpng&symbol=${forecastList[0].symbol_id}")
+                            .resize(60, 60)
+                            .into(vær_symbol1)
+
+                        val brann1 = stedinfo.findViewById<TextView>(R.id.brann1)
+                        val brann_symbol1 = stedinfo.findViewById<ImageView>(R.id.brann_symbol1)
+                        brann1.text = dangerList[0]
+                        var brann : Int = getTree(dangerList[0].toInt()) //henter riktig farge på treet som brukes som symbol på danger_index
+                        brann_symbol1.setImageResource(brann)
+
+                        // Dag 2
+                        val vær2 = stedinfo.findViewById<TextView>(R.id.vær2)
+                        val vær_symbol2 = stedinfo.findViewById<ImageView>(R.id.vær_symbol2)
+
+                        vær2.text = "${forecastList[1].temperature}°"
+                        Picasso.with(activity)
+                            .load("https://in2000-apiproxy.ifi.uio.no/weatherapi/weathericon/1.1?content_type=image%2Fpng&symbol=${forecastList[1].symbol_id}")
+                            .resize(60, 60)
+                            .into(vær_symbol2)
+
+                        val brann2 = stedinfo.findViewById<TextView>(R.id.brann2)
+                        val brann_symbol2 = stedinfo.findViewById<ImageView>(R.id.brann_symbol2)
+
+                        brann = getTree(dangerList[1].toInt())
+                        brann2.text = dangerList[1]
+                        brann_symbol2.setImageResource(brann)
+
+
+                        // Dag 3
+                        val vær3 = stedinfo.findViewById<TextView>(R.id.vær3)
+                        val vær_symbol3 = stedinfo.findViewById<ImageView>(R.id.vær_symbol3)
+
+                        vær3.text = "${forecastList[2].temperature}°"
+                        Picasso.with(activity)
+                            .load("https://in2000-apiproxy.ifi.uio.no/weatherapi/weathericon/1.1?content_type=image%2Fpng&symbol=${forecastList[2].symbol_id}")
+                            .resize(60, 60)
+                            .into(vær_symbol3)
+
+                        val brann3 = stedinfo.findViewById<TextView>(R.id.brann3)
+                        val brann_symbol3 = stedinfo.findViewById<ImageView>(R.id.brann_symbol3)
+
+                        brann = getTree(dangerList[2].toInt())
+                        brann3.text = dangerList[2]
+                        brann_symbol3.setImageResource(brann)
+                    })
+                })
+            })
+        })
+    }
 }
+
+
