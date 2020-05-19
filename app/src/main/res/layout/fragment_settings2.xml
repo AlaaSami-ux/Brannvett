@@ -28,7 +28,8 @@
                 android:layout_weight="1"
                 android:baselineAligned="false"
                 android:orientation="horizontal"
-                android:weightSum="2">
+                android:weightSum="2"
+                tools:ignore="NestedWeights">
 
                 <ImageView
                     android:id="@+id/imageView2"
@@ -64,7 +65,8 @@
                 android:layout_weight="1"
                 android:orientation="horizontal"
                 android:weightSum="2"
-                android:baselineAligned="false">
+                android:baselineAligned="false"
+                tools:ignore="NestedWeights">
 
                 <RelativeLayout
                     android:layout_width="0dp"
@@ -110,7 +112,8 @@
         android:layout_weight="1"
         android:orientation="horizontal"
         android:weightSum="2"
-        android:baselineAligned="false">
+        android:baselineAligned="false"
+        tools:ignore="NestedWeights">
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -137,7 +140,7 @@
                 android:id="@+id/darkSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Switch" />
+                android:text="@string/switchKnapp" />
 
                </RelativeLayout>
             </LinearLayout>
@@ -155,7 +158,8 @@
                 android:layout_weight="1"
                 android:orientation="horizontal"
                 android:weightSum="2"
-                android:baselineAligned="false">
+                android:baselineAligned="false"
+                tools:ignore="NestedWeights">
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -168,7 +172,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:gravity="center"
-                        android:text="Tempratur"
+                        android:text="@string/temperatur"
                         android:textSize="20sp" />
 
                 </RelativeLayout>

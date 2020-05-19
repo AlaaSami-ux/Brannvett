@@ -27,32 +27,19 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top|start"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
-
-            <!-- farevarsel ikon -->
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|start"
-                android:layout_marginEnd="5dp"
-                android:src="@drawable/ic_whatshot_red_24dp" />
-
             <TextView
                 android:id="@+id/valgtSted"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="top|start"
+                android:layout_marginStart="20dp"
                 android:background="@null"
                 android:textSize="16sp"
-                android:textStyle="bold" />
-        </LinearLayout>
+                android:textStyle="bold"
+                android:drawableStart="@drawable/ic_whatshot_red_24dp"/>
 
-        <!-- dette er den lille pilen som peker necover for å
+        <!-- dette er den lille pilen som peker nedover for å
         symbolisere at man skal sveipe ned -->
         <ImageView
             android:id="@+id/down"
@@ -60,7 +47,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center|top"
             android:src="@drawable/ic_keyboard_arrow_down_black_24dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:contentDescription="@string/swipeDownArrow" />
 
         <!--<TextView
             android:layout_width="wrap_content"
@@ -81,7 +69,8 @@
             android:layout_marginTop="100dp"
             android:layout_marginBottom="100dp"
             android:orientation="horizontal"
-            android:weightSum="3">
+            android:weightSum="3"
+            android:baselineAligned="false">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -107,7 +96,8 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:src="@drawable/ic_wb_sunny_black_24dp" />
+                    android:src="@drawable/ic_wb_sunny_black_24dp"
+                    android:contentDescription="@string/værIkon"/>
 
                 <ImageView
                     android:id="@+id/brannfare1"
@@ -115,7 +105,8 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:src="@drawable/ic_whatshot_red_24dp" />
+                    android:src="@drawable/ic_whatshot_red_24dp"
+                    android:contentDescription="@string/brannfare"/>
             </LinearLayout>
 
             <LinearLayout
@@ -134,7 +125,7 @@
                     android:gravity="center"
                     android:textColor="@color/purpleColor"
                     android:textSize="18sp"
-                    tools:ignore="NestedWeights" />
+                    tools:ignore="NestedWeights"/>
 
                 <ImageView
                     android:id="@+id/vær2"
@@ -142,14 +133,15 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:src="@drawable/ic_wb_sunny_black_24dp" />
+                    android:src="@drawable/ic_wb_sunny_black_24dp"
+                    android:contentDescription="@string/værIkon"/>
 
                 <ImageView
                     android:id="@+id/brannfare2"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:contentDescription="TODO"
+                    android:contentDescription="@string/brannfare"
                     android:gravity="center"
                     android:src="@drawable/ic_whatshot_red_24dp" />
             </LinearLayout>
@@ -178,7 +170,8 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:src="@drawable/ic_wb_sunny_black_24dp" />
+                    android:src="@drawable/ic_wb_sunny_black_24dp"
+                    android:contentDescription="@string/værIkon"/>
 
                 <ImageView
                     android:id="@+id/brannfare3"
@@ -186,7 +179,8 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:src="@drawable/ic_whatshot_red_24dp" />
+                    android:src="@drawable/ic_whatshot_red_24dp"
+                    android:contentDescription="@string/brannfare"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -195,7 +189,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|bottom"
             android:layout_marginBottom="300dp"
-            android:contentDescription="lav brannfare 0 til 30. middels brannfare 30 til 60. høy brannfare over 60"
+            android:contentDescription="@string/brannfareLevels"
             android:src="@drawable/ic_fareindex" />
 
         <LinearLayout
@@ -220,7 +214,7 @@
                 android:layout_gravity="center_horizontal|bottom"
                 android:background="@null"
                 android:padding="5dp"
-                android:text="her skriver jeg bare litt tekst som skal fylle litt plass og det er hyggelig og fint og jeg liker gruppen jeg er på prosjekt med og jeg gleder meg til å drikke vin med dem og ha det hyggelig"
+                android:text="@string/infoOmBrannfareNivåer"
                 android:textSize="16sp" />
 
         </LinearLayout>

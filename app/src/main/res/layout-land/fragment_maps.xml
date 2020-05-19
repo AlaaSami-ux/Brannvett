@@ -45,6 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|top"
+                android:contentDescription="@string/swipeUpArrow"
                 android:src="@drawable/ic_keyboard_arrow_up_black_24dp"
                 android:textStyle="bold" />
 
@@ -65,26 +66,15 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="20dp" />
 
-            <LinearLayout
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="30dp"
-                android:orientation="horizontal">
-                <!-- farevarsel ikon -->
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_whatshot_red_24dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Høy brannfare"
-                    android:textColor="@color/DangerRed"
-                    android:textSize="18sp"
-                    android:textStyle="normal" />
-            </LinearLayout>
+                android:drawableStart="@drawable/ic_whatshot_red_24dp"
+                android:text=""
+                android:textColor="@color/DangerRed"
+                android:textSize="18sp"
+                android:textStyle="normal" />
         </androidx.cardview.widget.CardView>
 
     </FrameLayout>
@@ -120,7 +110,8 @@
                 android:layout_weight="4"
                 app:cardBackgroundColor="@color/whiteColor"
                 app:cardCornerRadius="12dp"
-                app:cardElevation="10dp">
+                app:cardElevation="10dp"
+                tools:ignore="NestedWeights">
 
                 <ImageView
                     android:id="@+id/weather_icon"
@@ -128,7 +119,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical|start"
                     android:layout_marginStart="10dp"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:contentDescription="@string/værIkon"/>
 
                 <TextView
                     android:id="@+id/w_deg"
@@ -151,11 +143,11 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="5dp"
                 android:layout_weight="1"
-                app:cardBackgroundColor="@color/whiteColor"
                 android:visibility="visible"
+                app:cardBackgroundColor="@color/whiteColor"
                 app:cardCornerRadius="12dp">
                 <!-- Fragment som har med autocomplete å gjøre-->
-                <fragment
+                <androidx.fragment.app.FragmentContainerView
                     android:id="@+id/autocomplete_fragment"
                     android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
                     android:layout_width="match_parent"
