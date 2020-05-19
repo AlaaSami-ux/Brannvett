@@ -4,7 +4,6 @@
     <string name="info">INFO</string>
 
     <string name="dato" translatable="false">%1$s/%2$s</string>
-    <!-- TODO: Remove or change this placeholder text -->
 
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
 
@@ -21,11 +20,6 @@
     <string name="spraak">Språk</string>
     <string name="morkModus">Mørk modus</string>
 
-    <!-- Fare tekst på kortet nederst på hovedside -->
-    <string name="hoyFare">HØY FARE</string>
-    <string name="middelsFare">MIDDELS FARE</string>
-    <string name="lavFare">LAV FARE</string>
-
     <string-array name="spraak">
         <item>Velg Språk</item>
         <item>Norsk</item>
@@ -36,13 +30,5 @@
         <item>Celsius</item>
         <item>Fahrenheit</item>
     </string-array>
-
-
-    <string name="tillat_varsling">Tillatt Varsling</string>
-    <string name="varsling">Varsling</string>
-
-    <string name="infoOmBrannfareNivåer" translatable="false">I am not translating all this shit to english right now but I hope it will be fixed damn</string>
-    <string name="baalInfo">perioden 15.april til 15.     september er det forbud mot å tenne bål, grill og engangsgrill i skog eller i nærheten av skog. Når du tenner bål er det ALLTID viktig å slukke skikkelig, og forsikre seg om at det er helt slukket før du drar videre. Kilde: norskfriluftsliv.no</string>
-    <string name="temperatur">Temperatur</string>
 
 </resources>

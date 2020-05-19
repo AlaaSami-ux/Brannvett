@@ -98,16 +98,11 @@ class MapsFragment : Fragment(),
     private val fireModel by viewModels<FireDataViewModel> { FireDataViewModel.InstanceCreator() }
 
 
-    @SuppressLint("ClickableViewAccessibility")
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        root =  inflater.inflate(R.layout.fragment_maps, container, false)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        // Her legges ting vi vil ha tilgang til hele tiden
 
-
-        // tilgang til mapsViewModel
+        super.onCreate(savedInstanceState)
+        // tilgang til mapsViewModel og favoriteViewModel
         mapsViewModel = activity?.run {
             ViewModelProviders.of(this)[MapsViewModel::class.java]
         } ?: throw Exception("Invalid Activity")
@@ -119,7 +114,21 @@ class MapsFragment : Fragment(),
         mapsViewModel.setActivity(requireActivity())
         mapsViewModel.setContext(requireContext())
         mapsViewModel.setFusedLocationProviderClient()
-        userLoc = mapsViewModel.getUserLocation() // userLoc may not be initialized
+        //userLoc = mapsViewModel.getUserLocation() // userLoc may not be initialized
+
+        // MapsViewModel holder kontroll på sist besøkte sted
+        lastLoc = mapsViewModel.getLastUsedLocation() // lagre siste posisjon
+        lastLocName = mapsViewModel.getLastUsedLocationName()
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        root =  inflater.inflate(R.layout.fragment_maps, container, false)
+
 
         // initialize variables
         weather = root.findViewById(R.id.weather)
@@ -154,9 +163,6 @@ class MapsFragment : Fragment(),
         dato = c.get(Calendar.DAY_OF_MONTH).toString() + "/" + (c.get(Calendar.MONTH)+1).toString()
         dag3.text = dato
 
-        // MapsViewModel holder kontroll på sist besøkte sted
-        lastLoc = mapsViewModel.getLastUsedLocation() // lagre siste posisjon
-        lastLocName = mapsViewModel.getLastUsedLocationName()
 
         // Fyller stedinfo.xml med danger_index og vær basert på lastLoc
         fillSwipeUpScreen(lastLoc)

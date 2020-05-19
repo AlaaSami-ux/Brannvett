@@ -1,5 +1,6 @@
 package com.example.forestfire.view
 
+import android.content.Context
 import android.content.res.Configuration
 import android.location.Address
 import android.location.Geocoder
@@ -35,7 +36,10 @@ import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
+import java.io.FileInputStream
 import java.io.IOException
+import java.io.ObjectInputStream
+import java.io.ObjectOutputStream
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -61,10 +65,6 @@ class FavoritesFragment : Fragment() {
     private lateinit var tilbake: Button
     private lateinit var autocompleteFragment: AutocompleteSupportFragment
 
-    // Rediger
-    private lateinit var redigerBtn: Button
-    private lateinit var removeBtn: Button
-    private lateinit var favorittCard: CardView
 
     private lateinit var favoriteViewModel: FavoriteViewModel
     private lateinit var mapsViewModel: MapsViewModel
@@ -75,6 +75,13 @@ class FavoritesFragment : Fragment() {
     private val stationViewModel : StationInfoViewModel by viewModels { StationInfoViewModel.InstanceCreator() }
     private val forecastViewModel : LocationForecastViewModel by viewModels { LocationForecastViewModel.InstanceCreator() }
 
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        // Her legges ting vi vil ha tilgang til hele tiden
+
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -163,7 +170,12 @@ class FavoritesFragment : Fragment() {
         }
 
         noFavoritesTextBox = root.findViewById(R.id.no_favorites)
-        favorites = favoriteViewModel.favorites
+
+        readFile()
+
+        if(!::favorites.isInitialized){
+            favorites = favoriteViewModel.favorites
+        }
 
         my_recycler_view = root.findViewById(R.id.my_recycler_view)
 
@@ -214,6 +226,38 @@ class FavoritesFragment : Fragment() {
         return root
     }
 
+    fun readFile(){
+        // hente favoritter fra internal storage
+        try {
+            Log.d(TAG, "prøve å hente favoritter fra internal storage")
+            val fileInputStream =
+                FileInputStream("favorites.txt")
+            val objectInputStream = ObjectInputStream(fileInputStream)
+            favorites = objectInputStream.readObject() as MutableMap<LatLng, String>
+        } catch (e: ClassNotFoundException) {
+            e.printStackTrace()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        } catch (e: ClassCastException) {
+            e.printStackTrace()
+        }
+    }
+
+    fun writeFile(){
+        // read hashmap to a file
+        try {
+            Log.d(TAG, "prøve å legge til favoritter i internal storage")
+
+            val fos =
+                requireContext().openFileOutput("favorites.txt", Context.MODE_PRIVATE)
+            val oos = ObjectOutputStream(fos)
+            oos.writeObject(favorites)
+            oos.close()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+    }
+
     fun getInstance() : FavoritesFragment{
         return this
     }
@@ -246,6 +290,13 @@ class FavoritesFragment : Fragment() {
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
+        if (getFragmentManager() != null) {
+            getFragmentManager()
+                ?.beginTransaction()
+                ?.detach(this)
+                ?.attach(this)
+                ?.commit();
+        }
     }
 
 
@@ -258,5 +309,48 @@ class FavoritesFragment : Fragment() {
             }
             adapter = viewAdapter
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG, "resuming app")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        // her skal jeg legge ting som jeg vil bevare dersom brukeren
+        // skulle avslutte appen og ikke komme tilbake
+        // onPause blir kalt ved første indikasjon på at brukeren forlater appen
+
+        Log.d(TAG, "onPause")
+
+        // bevare listen med favoritter
+        favorites = favoriteViewModel.favorites
+
+        writeFile()
+    }
+
+    override fun onStop(){
+        super.onStop()
+
+        Log.d(TAG, "onStop")
+        // read hashmap to a file
+        try {
+            Log.d(TAG, "prøve å legge til favoritter i internal storage")
+
+            val fos =
+                requireContext().openFileOutput("YourInfomration.ser", Context.MODE_PRIVATE)
+            val oos = ObjectOutputStream(fos)
+            oos.writeObject(favorites)
+            oos.close()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        Log.d(TAG, "onDestroy")
     }
 }
