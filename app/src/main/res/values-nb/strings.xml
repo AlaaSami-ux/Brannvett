@@ -21,7 +21,6 @@
     <string name="middelsFare">MIDDELS FARE</string>
     <string name="lavFare">LAV FARE</string>
 
-    <string name="baalInfo">perioden 15.april til 15. september er det forbud mot å tenne bål, grill og engangsgrill i skog eller i nærheten av skog. Når du tenner bål er det ALLTID viktig å slukke skikkelig, og forsikre seg om at det er helt slukket før du drar videre. Kilde: norskfriluftsliv.no</string>
     <string name="varsling">Varsling</string>
     <string name="tillat_varsling">Tillatt Varsling</string>
     <string name="infoOmBrannfareNivåer" translatable="false">I am not translating all this shit to english right now but I hope it will be fixed damn</string>
