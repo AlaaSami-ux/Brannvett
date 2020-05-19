@@ -70,9 +70,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="horizontal"
-                android:weightSum="3"
+                android:baselineAligned="false"
                 tools:ignore="NestedWeights"
-                android:baselineAligned="false">
+                android:weightSum="3">
 
                 <RelativeLayout
                     android:layout_width="0dp"
@@ -189,9 +189,10 @@
 
             <Switch
                 android:id="@+id/darkSwitch"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Switch" />
+                android:text="@string/switchKnapp" />
+
 
                </RelativeLayout>
             </LinearLayout>
@@ -244,7 +245,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginStart="10dp"
-                        android:gravity="start|center"
+                        android:gravity="center"
                         android:text="@string/temperatur"
                         android:textSize="20sp" />
 
@@ -328,7 +329,7 @@
                         android:id="@+id/varslingen"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/tillat_varsling" />
+                        android:text="@string/varsling" />
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>

@@ -53,73 +53,167 @@
                         android:orientation="vertical"
                         android:weightSum="2">
 
-                        <ImageView
-                            android:id="@+id/vær1"
+                        <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
                             android:layout_weight="1"
-                            android:src="@drawable/ic_wb_sunny_black_24dp" />
+                            android:weightSum="3">
 
-                        <TextView
-                            android:id="@+id/brannfare1"
+                            <ImageView
+                                android:id="@+id/vær_symbol1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1" />
+
+                            <TextView
+                                android:id="@+id/vær_text1"
+                                android:textSize="12sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_weight="1"
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
-                            android:layout_weight="1"
-                            />
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <ImageView
+                                android:id="@+id/brann_symbol1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:adjustViewBounds="true"
+                                android:maxWidth="20dp"
+                                android:maxHeight="20dp"
+                                android:layout_weight="1" />
+
+                            <TextView
+                                android:id="@+id/brann_index1"
+                                android:textSize="12sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1" />
+                        </LinearLayout>
+
                     </LinearLayout>
 
                     <!-- dag 2-->
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="start"
                         android:orientation="vertical"
                         android:weightSum="2">
 
-                        <ImageView
-                            android:id="@+id/vær2"
+                        <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
                             android:layout_weight="1"
-                            android:src="@drawable/ic_wb_sunny_black_24dp" />
+                            android:weightSum="3">
 
-                        <ImageView
-                            android:id="@+id/brannfare2"
+                            <ImageView
+                                android:id="@+id/vær_symbol2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1" />
+
+                            <TextView
+                                android:id="@+id/vær_text2"
+                                android:textSize="12sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_weight="1"
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:src="@drawable/ic_whatshot_black_24dp" />
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <ImageView
+                                android:id="@+id/brann_symbol2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:adjustViewBounds="true"
+                                android:maxWidth="20dp"
+                                android:maxHeight="20dp"
+                                android:layout_weight="1" />
+
+                            <TextView
+                                android:id="@+id/brann_index2"
+                                android:textSize="12sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1" />
+
+                        </LinearLayout>
                     </LinearLayout>
 
                     <!-- dag 3-->
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="start"
                         android:orientation="vertical"
                         android:weightSum="2">
 
-                        <ImageView
-                            android:id="@+id/vær3"
+                        <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
                             android:layout_weight="1"
-                            android:src="@drawable/ic_wb_sunny_black_24dp" />
+                            android:weightSum="3">
 
-                        <ImageView
-                            android:id="@+id/brannfare3"
+                            <ImageView
+                                android:id="@+id/vær_symbol3"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1" />
+
+                            <TextView
+                                android:id="@+id/vær_text3"
+                                android:textSize="12sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_weight="1"
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:src="@drawable/ic_whatshot_black_24dp" />
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <ImageView
+                                android:id="@+id/brann_symbol3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:adjustViewBounds="true"
+                                android:maxWidth="20dp"
+                                android:maxHeight="20dp"
+                                android:layout_weight="1" />
+
+                            <TextView
+                                android:id="@+id/brann_index3"
+                                android:textSize="12sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1" />
+
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </RelativeLayout>
-
     <ImageButton
         android:id="@+id/remove"
         android:layout_width="wrap_content"
@@ -127,5 +221,4 @@
         android:layout_alignParentEnd="true"
         android:background="@null"
         android:src="@drawable/ic_remove_circle_black_24dp" />
-
 </RelativeLayout>

@@ -1,14 +1,12 @@
 package com.example.forestfire.view
 
 import android.content.res.Configuration
-import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProviders
 
 import com.example.forestfire.R
@@ -56,20 +54,10 @@ class InfoFragment : Fragment() {
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-        if (fragmentManager != null) {
-            fragmentManager
-                ?.beginTransaction()
-                ?.detach(this)
-                ?.attach(this)
-                ?.commit();
-        }
-    }
-
-    fun updateFragment(){
-        val ft: FragmentTransaction = requireFragmentManager().beginTransaction()
-        if (Build.VERSION.SDK_INT >= 26) {
-            ft.setReorderingAllowed(false)
-        }
-        ft.detach(this@InfoFragment).attach(this@InfoFragment).commit()
+        parentFragmentManager
+            .beginTransaction()
+            .detach(this)
+            .attach(this)
+            .commit()
     }
 }

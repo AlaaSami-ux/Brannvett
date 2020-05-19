@@ -4,9 +4,6 @@ package com.example.forestfire.view
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.DialogInterface
-import android.graphics.drawable.Drawable
-import android.location.Location
-import android.media.Image
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -15,14 +12,9 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.example.forestfire.R
-import com.example.forestfire.model.FireModel
 import com.example.forestfire.viewModel.fetchAPI.LocationForecastViewModel
-import com.example.forestfire.viewModel.fetchAPI.StationInfoViewModel
 import com.google.android.gms.maps.model.LatLng
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.element.view.*
@@ -89,12 +81,6 @@ class ListAdapter(var forecastMap : HashMap<LatLng?, List<LocationForecastViewMo
             valgtSted.text = place
             Log.d("ListAdapter Adresse", place)
 
-            Log.d("danger_index 0", dangerList?.get(0).toString())
-            Log.d("danger_index 1", dangerList?.get(1).toString())
-            Log.d("danger_index 2", dangerList?.get(2).toString())
-
-
-
             vær_text1.text = "${forecastList?.get(0)?.temperature}°"
             Picasso.with(applicationContext)
                 .load("https://in2000-apiproxy.ifi.uio.no/weatherapi/weathericon/1.1?content_type=image%2Fpng&symbol=${forecastList?.get(0)?.symbol_id}")
@@ -129,9 +115,9 @@ class ListAdapter(var forecastMap : HashMap<LatLng?, List<LocationForecastViewMo
 
         private fun getTree(danger_index : Int) : Int{
             val brann : Int
-            if(danger_index <= 30){
+            if(danger_index < 30){
                 brann = R.drawable.ic_brannfare_gronntre
-            }else if(danger_index in 31..59){
+            }else if(danger_index in 30..60){
                 brann = R.drawable.ic_brannfare_gultre
             }else {
                 brann = R.drawable.ic_brannfare_rodtre

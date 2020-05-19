@@ -1,5 +1,6 @@
 package com.example.forestfire.viewModel.fetchAPI
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.*
 import com.example.forestfire.model.FireModel
@@ -10,6 +11,10 @@ import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
+import java.io.FileInputStream
+import java.io.FileOutputStream
+import java.io.IOException
+import java.io.ObjectOutputStream
 import kotlin.math.abs
 import kotlin.system.exitProcess
 
@@ -20,6 +25,8 @@ class StationInfoViewModel(private val stationService : StationService) : ViewMo
     var favMap = hashMapOf<LatLng?, List<String>>()
     var stationFavDangerLiveData = MutableLiveData<HashMap<LatLng?, List<String>>>()
 
+    var stationThreeDayDanger = MutableLiveData<List<String>>()
+
 
     fun fetchData(locList : List<FireModel.Location>){
         if(locCoorMap.isEmpty()){
@@ -29,12 +36,29 @@ class StationInfoViewModel(private val stationService : StationService) : ViewMo
                 for(loc in locList){
                     if(loc.danger_index != "-"){
                         val station = stationService.fetchStationData("SN${loc.id}")
+                        //Log.d("stationinfoviewmodel", station.toString())
                         stationList.add(station)
                         locCoorMap[loc] = station.data[0].geometry
                     }
                 }
                 stationInfoLiveData.postValue(stationList)
+
             }
+        }
+    }
+
+    fun fetchThreeDayDanger(posisjon : LatLng, dagListe: List<FireModel.Dag>){
+        viewModelScope.launch {
+            val bestLoc = findBestLoc(posisjon)
+            val dangerList = mutableListOf<String>()
+            for(dag in dagListe){
+                for(loc in dag.locations){
+                    if(loc.id == bestLoc.id){
+                        dangerList.add(loc.danger_index)
+                    }
+                }
+            }
+            stationThreeDayDanger.postValue(dangerList)
         }
     }
 

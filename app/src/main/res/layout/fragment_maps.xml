@@ -7,26 +7,26 @@
     tools:context=".view.MapsFragment">
 
 
-        <!--kart -->
-        <FrameLayout
-            android:id="@+id/map"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context=".MapsActivity">
+    <!--kart -->
+    <FrameLayout
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MapsActivity">
 
-            <!--værmelding -->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/weather"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_gravity="top|center_horizontal"
-                app:cardBackgroundColor="@color/whiteColor"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="10dp">
+        <!--værmelding -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/weather"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_gravity="top|center_horizontal"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            app:cardBackgroundColor="@color/whiteColor"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -68,45 +68,45 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!--sveip opp for mer info -->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/slideUp"
-                android:layout_width="match_parent"
-                android:layout_height="140dp"
-                android:layout_gravity="bottom|center_horizontal"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginBottom="-40dp"
-                app:cardBackgroundColor="@color/whiteColor"
-                app:cardCornerRadius="40dp">
 
-                <TextView
-                    android:id="@+id/valgtSted"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="top|start"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@null"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+        <!--sveip opp for mer info -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/slideUp"
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="-40dp"
+            app:cardBackgroundColor="#DEFFFFFF"
+            app:cardCornerRadius="40dp">
 
-                <!--dette er den lille pilen som peker oppover for å
-                symbolisere at man skal sveipe opp-->
-                <ImageView
-                    android:id="@+id/up"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|top"
-                    android:src="@drawable/ic_keyboard_arrow_up_lille_24dp" />
+            <TextView
+                android:id="@+id/valgtSted"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|start"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@null"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-                <!--<TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/up"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="10dp"
-                    android:text="sveip opp" />-->
+            <!--dette er den lille pilen som peker oppover for å
+            symbolisere at man skal sveipe opp-->
+            <ImageView
+                android:id="@+id/up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|top"
+                android:contentDescription="@string/swipeUpArrow"
+                android:src="@drawable/ic_keyboard_arrow_up_black_24dp"
+                android:textStyle="bold" />
+
+            <!--<TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/up"/>-->
 
                 <include
                     android:id="@+id/favoritt"
@@ -115,54 +115,85 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:layout_marginTop="10dp"
-                    android:layout_marginEnd="20dp"/>
+                    android:layout_marginEnd="20dp"/> 
+          
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_marginTop="30dp"
-                    android:layout_gravity="center_horizontal">
+                    android:layout_gravity="center_horizontal"
+                    tools:ignore="UseCompoundDrawables">
+
+                    <!-- farevarsel<LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:orientation="horizontal"> ikon -->
                     <!-- farevarsel ikon -->
                     <ImageView
+                        android:id="@+id/fire_symbol"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_whatshot_red_24dp"/>
+                          android:layout_gravity="center"/>
                     <TextView
+                        android:id="@+id/fire_warning"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Høy brannfare"
-                        android:textStyle="normal"
-                        android:textSize="18sp"
-                        android:textColor="@color/DangerRed"/>
+                        android:textStyle="bold"
+                        android:textSize="18sp"/>
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
-            <!--søkeboks -->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/search_box"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
+            <include
+                android:id="@+id/favoritt"
+                layout="@layout/favorittknapp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginStart="70dp"
-                android:layout_marginTop="100dp"
-                android:layout_marginEnd="70dp"
-                app:cardBackgroundColor="#B3FFFFFF"
-                android:visibility="visible"
-                app:cardCornerRadius="12dp">
-                <!-- Fragment som har med autocomplete å gjøre-->
-                <fragment
-                    android:id="@+id/autocomplete_fragment"
-                    android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:focusable="true" />
-            </androidx.cardview.widget.CardView>
-        </FrameLayout>
-    <include layout="@layout/stedinfo"
+                android:layout_marginTop="30dp"
+                android:drawableTop="@drawable/ic_whatshot_red_24dp"
+                android:text=""
+                android:textColor="@color/DangerRed"
+                android:textSize="18sp"
+                android:textStyle="normal" />
+
+
+        <!--søkeboks -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/search_box"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="70dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginEnd="70dp"
+            android:visibility="visible"
+            app:cardBackgroundColor="#B3FFFFFF"
+            app:cardCornerRadius="12dp">
+            <!-- Fragment som har med autocomplete å gjøre-->
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/autocomplete_fragment"
+                android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true" />
+        </androidx.cardview.widget.CardView>
+    </FrameLayout>
+
+    <include
         android:id="@+id/swipeUp"
-        android:visibility="gone"/>
+        layout="@layout/stedinfo"
+        android:visibility="gone" />
 
 </RelativeLayout>

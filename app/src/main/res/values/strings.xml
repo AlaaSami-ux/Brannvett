@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
     <string name="app_name">ForestFire</string>
     <string name="title_activity_maps">Map</string>
     <string name="info">INFO</string>
 
     <string name="dato" translatable="false">%1$s/%2$s</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
 
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
 
@@ -22,6 +21,11 @@
     <string name="spraak">Språk</string>
     <string name="morkModus">Mørk modus</string>
 
+    <!-- Fare tekst på kortet nederst på hovedside -->
+    <string name="hoyFare">HØY FARE</string>
+    <string name="middelsFare">MIDDELS FARE</string>
+    <string name="lavFare">LAV FARE</string>
+
     <string-array name="spraak">
         <item>Velg Språk</item>
         <item>Norsk</item>
@@ -34,11 +38,23 @@
     </string-array>
 
 
-    <string name="tillat_varsling">Tillatt Varsling</string>
-    <string name="varsling">Varsling</string>
-    <string name="temperatur">Temperatur</string>
+    <string name="infoOmBrannfareNivåer"> "her skriver jeg bare litt tekst som skal fylle litt plass og det er hyggelig og fint og jeg liker gruppen jeg er på prosjekt med og jeg gleder meg til å drikke vin med dem og ha det hyggelig "</string>
+    <string name="brannfareIkonForside">ikon som viser dagens brannfare på valgt sted</string>
+    <string name="swipeUpArrow">ikon som symboliserer sveip opp</string>
+    <string name="swipeDownArrow">ikon som symboliserer sveip ned</string>
+    <string name="værIdag">VÆRET I DAG</string>
 
-    <string name="infoOmBrannfareNivåer" translatable="false">I am not translating all this shit to english right now but I hope it will be fixed damn</string>
+    <string name="værIkon">ikon som viser været</string>
+    <string name="tilbake">Gå tilbake</string>
+    <string name="toppBildeFragment">deskriptivt bilde som fyller toppen av siden</string>
+    <string name="plussIkon">legg til knapp</string>
+    <string name="mineSteder">Mine steder</string>
+    <string name="ingenFavoritter">Du har ingen favoritter</string>
+    <string name="switchKnapp">Switch</string>
+    <string name="temperatur">Temperatur</string>
+    <string name="brannfare">brannfare ikon</string>
+    <string name="brannfareLevels">lav brannfare 0 til 30. middels brannfare 31 til 60. høy brannfare over 60</string>
+
 
     <string name="baalInfo"> "perioden 15.april til 15.september er det forbud mot å tenne bål, grill og engangsgrill i skog eller i nærheten av skog. \nNår du tenner bål er det ALLTID viktig å slukke skikkelig, og forsikre seg om at det er helt slukket før du drar videre. \n\nKilde: norskfriluftsliv.no"</string>
     <string name="glassInfo">"En knust glassflaske kan med hjelp av solen potensielt starte en gressbrann, som kan utvikle seg til en skogbrann. \nTa alltid med deg søppelet ditt hjem igjen!\n\n"</string>
@@ -47,4 +63,7 @@
     <string name="verktaayInfo">"Bruk av verktøy som har åpen flamme, eller som slår gnister kan være svært brannfarlig. \nDet er viktig å være obs på dette, og ta de forholdsreglene som trengs. \nGjør alltid en vurdering, og utsett heller arbeidet hvis det er fare for skogbrann. \nKilde: Domeneeksperten vår og \nbondelaget.no"</string>
     <string name="avfallInfo">"Bruk alltid en avfallscontainer som er for engangsgrill etter du er ferdig å bruke den. \nOfte finnes det en oversikt over hvilke parker eller området som har disse på kommunen sine nettsider. \nTenk før du kaster!"</string>
 
+    <string name="værIdagIkon">ikon som viser dagens vær</string>
+    <string name="tillat_varsling">"Allowed notification "</string>
+    <string name="varsling">Varsling</string>
 </resources>

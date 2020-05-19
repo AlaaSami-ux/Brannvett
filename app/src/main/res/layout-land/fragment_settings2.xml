@@ -85,7 +85,6 @@
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_language_black_24dp"
                         android:contentDescription="@string/bilde" />
-
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -157,6 +156,7 @@
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:text="@string/switchKnapp"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1.4">
 
@@ -321,9 +321,9 @@
                     <Switch
                         android:id="@+id/varslingen"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:text="@string/tillat_varsling" />
+                        android:layout_height="match_parent"
+                        android:text="@string/varsling"
+                        android:layout_marginStart="10dp"/>
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>

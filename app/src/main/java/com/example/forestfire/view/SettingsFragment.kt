@@ -11,14 +11,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.view.get
 import androidx.fragment.app.FragmentTransaction
 import com.example.forestfire.R
 import com.example.forestfire.viewModel.settings.settingsViewModel
 import java.util.*
 
 
-class SettingsFragment() : Fragment(), AdapterView.OnItemSelectedListener {
+class SettingsFragment : Fragment(), AdapterView.OnItemSelectedListener {
+
     private var languages = arrayOf("Norsk", "English")
 
     //  private lateinit var settingsViewModel: settingsViewModel
@@ -35,6 +35,7 @@ class SettingsFragment() : Fragment(), AdapterView.OnItemSelectedListener {
         darkModeSwitch()
         spinner = root.findViewById(R.id.spinner2)
         spinner.onItemSelectedListener = this
+
         return root
     }
 
@@ -43,9 +44,9 @@ class SettingsFragment() : Fragment(), AdapterView.OnItemSelectedListener {
         val locale = Locale(Lang)
         Locale.setDefault(locale)
         val config = Configuration()
-        config.locale = locale
-        @Suppress("DEPRECATION")
-        requireActivity().baseContext.resources.updateConfiguration(
+
+        config.locale = locale // deprecated in API 24. This is API 23
+        requireActivity().baseContext.resources.updateConfiguration( // deprecated in API 25. this is API 23
             config,
             requireActivity().baseContext.resources.displayMetrics
         )
@@ -55,9 +56,8 @@ class SettingsFragment() : Fragment(), AdapterView.OnItemSelectedListener {
         editor.apply()
     }
 
-    fun loadLocate() {
-        val sharedPreferences =
-            requireActivity().getSharedPreferences("Settings", Activity.MODE_PRIVATE)
+    private fun loadLocate() {
+        val sharedPreferences = requireActivity().getSharedPreferences("Settings", Activity.MODE_PRIVATE)
         val language = sharedPreferences.getString("My_Lang", "")
         language?.let { setLocate(it) }
     }

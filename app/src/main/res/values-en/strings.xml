@@ -16,16 +16,37 @@
     <string name="morkModus">Dark Mode</string>
     <string name="varsling">Notification</string>
     <string name="tillat_varsling">"Allowed notification "</string>
-    <string name="temperatur">Temperature</string>
 
 
-    <string name="infoOmBrannfareNivåer">I am not translating all this shit to english right now but I hope it will be fixed damn</string>
-
-
-    <string name="baalInfo">"It is prohibited to light a fire, bbq og disposable grill in, or in close range of, the forest from the 15. April to the 15. September. \nWhen lightning a fire you should always make sure to properly put it out before leaving.\n\n"</string>
     <string name="glassInfo">"A shattered glass bottle can potentially start a wildfire with help from the sun, which can develop into a forest fire. \nMake sure to always take your garbage home with you!\n\n"</string>
     <string name="engangsgrillInfo">"When using a disposable grill you should always make sure that it is placed on an even and non-flammable surface. \nMake sure that is properly put out, and always dispose of it in a container specifically made for disposable grills. \n\n"</string>
     <string name="lynInfo">Did you know that lightning is the cause of a lot of forest fires in Norway every year? \nIt can also linger in the ground for three days as well, before igniting. \n\nAlways CALL 110 if you witness any sign of FIRE!</string>
     <string name="verktaayInfo">"Using tools that has an open flame, or that potentially sparks can be very dangerous. \nIt is important to take precautions when dealing with these kind of tools. \nAlways make an assessment before using them, and if there is a danger of forest fire, postpone it! \n\n"</string>
     <string name="avfallInfo">"Make sure that you always use a container specifically made for disposable grills when you are done using it. \nYou can often find a useful map of these on official websites. \n\n"</string>
+    <string name="baalInfo">In the period from April 15 to September 15, there is a ban on igniting bonfires, barbecue and disposable grill in forest or near forest.When you light a fire, it is ALWAYS important to turn off properly,and make sure it\'s completely off before you move on.Source: norskfriluftsliv.no</string>
+
+    <!-- Fare tekst på kortet nederst på hovedside -->
+    <string name="hoyFare">DANGEROUS</string>
+    <string name="middelsFare">RISKY</string>
+    <string name="lavFare">SAFE</string>
+
+    <string name="swipeUpArrow">icon symbolizing swipe up</string>
+    <string name="værIkon">icon showing the weather</string>
+    <string name="infoOmBrannfareNivåer">I am not translating all this shit to english right now but I hope it will be fixed damn</string>
+
+    <string name="brannfareIkonForside">icon showing todays danger index</string>
+    <string name="værIdag">WEATHER TODAY</string>
+
+    <string name="tilbake">Go back</string>
+    <string name="toppBildeFragment">Descriptive image filling top of page</string>
+    <string name="plussIkon">Add button</string>
+    <string name="mineSteder">My places</string>
+    <string name="ingenFavoritter">You don\'t have any favorites</string>
+    <string name="brannfareLevels">low danger 0 to 30. Medium danger 31 to 60. great danger over 60</string>
+    <string name="brannfare">danger index icon</string>
+    <string name="temperatur">temperature</string>
+    <string name="switchKnapp">switch</string>
+    <string name="swipeDownArrow">icon symbolizing swipe down</string>
+    <string name="værIdagIkon">icon showing todays weather</string>
+
 </resources>
