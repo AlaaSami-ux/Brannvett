@@ -21,6 +21,11 @@
     <string name="spraak">Språk</string>
     <string name="morkModus">Mørk modus</string>
 
+    <!-- Fare tekst på kortet nederst på hovedside -->
+    <string name="hoyFare">HØY FARE</string>
+    <string name="middelsFare">MIDDELS FARE</string>
+    <string name="lavFare">LAV FARE</string>
+
     <string-array name="spraak">
         <item>Velg Språk</item>
         <item>Norsk</item>

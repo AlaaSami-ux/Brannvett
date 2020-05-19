@@ -20,6 +20,8 @@ class StationInfoViewModel(private val stationService : StationService) : ViewMo
     var favMap = hashMapOf<LatLng?, List<String>>()
     var stationFavDangerLiveData = MutableLiveData<HashMap<LatLng?, List<String>>>()
 
+    var stationThreeDayDanger = MutableLiveData<List<String>>()
+
 
     fun fetchData(locList : List<FireModel.Location>){
         if(locCoorMap.isEmpty()){
@@ -35,6 +37,21 @@ class StationInfoViewModel(private val stationService : StationService) : ViewMo
                 }
                 stationInfoLiveData.postValue(stationList)
             }
+        }
+    }
+
+    fun fetchThreeDayDanger(posisjon : LatLng, dagListe: List<FireModel.Dag>){
+        viewModelScope.launch {
+            val bestLoc = findBestLoc(posisjon)
+            val dangerList = mutableListOf<String>()
+            for(dag in dagListe){
+                for(loc in dag.locations){
+                    if(loc.id == bestLoc.id){
+                        dangerList.add(loc.danger_index)
+                    }
+                }
+            }
+            stationThreeDayDanger.postValue(dangerList)
         }
     }
 

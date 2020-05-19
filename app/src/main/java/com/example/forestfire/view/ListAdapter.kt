@@ -89,12 +89,6 @@ class ListAdapter(var forecastMap : HashMap<LatLng?, List<LocationForecastViewMo
             valgtSted.text = place
             Log.d("ListAdapter Adresse", place)
 
-            Log.d("danger_index 0", dangerList?.get(0).toString())
-            Log.d("danger_index 1", dangerList?.get(1).toString())
-            Log.d("danger_index 2", dangerList?.get(2).toString())
-
-
-
             vær_text1.text = "${forecastList?.get(0)?.temperature}°"
             Picasso.with(applicationContext)
                 .load("https://in2000-apiproxy.ifi.uio.no/weatherapi/weathericon/1.1?content_type=image%2Fpng&symbol=${forecastList?.get(0)?.symbol_id}")
@@ -129,9 +123,9 @@ class ListAdapter(var forecastMap : HashMap<LatLng?, List<LocationForecastViewMo
 
         private fun getTree(danger_index : Int) : Int{
             val brann : Int
-            if(danger_index <= 30){
+            if(danger_index < 30){
                 brann = R.drawable.ic_brannfare_gronntre
-            }else if(danger_index in 31..59){
+            }else if(danger_index in 30..60){
                 brann = R.drawable.ic_brannfare_gultre
             }else {
                 brann = R.drawable.ic_brannfare_rodtre
