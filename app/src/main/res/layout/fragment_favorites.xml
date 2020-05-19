@@ -21,7 +21,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="400dp"
             android:background="@drawable/roundedbtn"
-            android:text="Gå tilbake"
+            android:text="@string/tilbake"
             android:textColor="@color/quantum_grey" />
 
         <!--søkeboks -->
@@ -35,7 +35,7 @@
             app:cardBackgroundColor="#FFFFFF"
             app:cardCornerRadius="12dp">
             <!-- Fragment som har med autocomplete å gjøre-->
-            <fragment
+            <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/autocomplete_fragment"
                 android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
                 android:layout_width="match_parent"
@@ -63,6 +63,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="2"
+                android:background="#FFFFFF"
+                android:backgroundTint="#D6C4A4"
+                android:contentDescription="@string/toppBildeFragment"
+                tools:ignore="NestedWeights" 
                 app:srcCompat="@drawable/kartet_med_hjerter"
                 android:scaleType="centerCrop"/>
         </LinearLayout>
@@ -87,7 +91,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="@null"
-                    android:src="@drawable/ic_add_circle_black_24dp" />
+                    android:src="@drawable/ic_add_circle_black_24dp"
+                    android:contentDescription="@string/plussIkon"/>
             </LinearLayout>
 
             <!-- Mine steder + datoer-->
@@ -103,7 +108,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
-                    android:text="Mine steder"
+                    android:text="@string/mineSteder"
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:layout_marginStart="5dp"/>
@@ -143,7 +148,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="Du har ingen favoritter enda"
+                android:text="@string/ingenFavoritter"
                 android:textColor="@color/purpleColor"
                 android:textSize="18sp"
                 android:textStyle="bold" />

@@ -30,8 +30,18 @@
     <string name="brannfareIkonForside">icon showing todays danger index</string>
     <string name="swipeUpArrow">icon symbolizing swipe up</string>
     <string name="værIdag">WEATHER TODAY</string>
-    <string name="værIdagIkon">icon showing todays weather</string>
 
-    <string name="temperatur">Temperature</string>
+    <string name="værIkon">icon showing the weather</string>
+    <string name="tilbake">Go back</string>
+    <string name="toppBildeFragment">Descriptive image filling top of page</string>
+    <string name="plussIkon">Add button</string>
+    <string name="mineSteder">My places</string>
+    <string name="ingenFavoritter">You don\'t have any favorites</string>
+    <string name="brannfareLevels">low danger 0 to 30. Medium danger 31 to 60. great danger over 60</string>
+    <string name="brannfare">danger index icon</string>
+    <string name="temperatur">temperature</string>
+    <string name="switchKnapp">switch</string>
+    <string name="swipeDownArrow">icon symbolizing swipe down</string>
+    <string name="værIdagIkon">icon showing todays weather</string>
 
 </resources>

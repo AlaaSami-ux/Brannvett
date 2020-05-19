@@ -98,7 +98,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:contentDescription="@string/værIdagIkon" />
+                    android:contentDescription="@string/værIkon" />
 
 
                 <TextView

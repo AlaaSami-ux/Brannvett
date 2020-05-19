@@ -27,30 +27,17 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/valgtSted"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:layout_gravity="top|start"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
-
-            <!-- farevarsel ikon -->
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|start"
-                android:layout_marginEnd="5dp"
-                android:src="@drawable/ic_whatshot_red_24dp" />
-
-            <TextView
-                android:id="@+id/valgtSted"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-        </LinearLayout>
+            android:background="@null"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:drawableStart="@drawable/ic_whatshot_red_24dp"/>
 
         <!-- dette er den lille pilen som peker nedover for å
         symbolisere at man skal sveipe ned -->
@@ -60,7 +47,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center|top"
             android:src="@drawable/ic_keyboard_arrow_down_black_24dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:contentDescription="@string/swipeDownArrow" />
 
         <!--<TextView
             android:layout_width="wrap_content"
@@ -96,7 +84,9 @@
                     android:layout_marginEnd="30dp"
                     android:layout_weight="1"
                     android:orientation="horizontal"
-                    android:weightSum="3">
+                    android:weightSum="3"
+                    android:baselineAligned="false"
+                    tools:ignore="NestedWeights">
 
                     <!-- Dag 1 -->
                     <LinearLayout
@@ -122,6 +112,8 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:contentDescription="@string/værIdag" 
                             android:orientation="horizontal"
                             android:weightSum="2"
                             android:layout_marginBottom="5dp">
@@ -138,12 +130,12 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"/>
-
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:contentDescription="@string/brannfare"
                             android:orientation="horizontal"
                             android:weightSum="2">
 
@@ -162,7 +154,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
                         </LinearLayout>
-
                     </LinearLayout>
 
                     <!-- Dag 2 -->
@@ -189,6 +180,7 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:contentDescription="@string/værIkon"
                             android:orientation="horizontal"
                             android:weightSum="2"
                             android:layout_marginBottom="5dp">
@@ -205,12 +197,12 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"/>
-
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:contentDescription="@string/brannfare"
                             android:orientation="horizontal"
                             android:weightSum="2">
 
@@ -255,6 +247,7 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:contentDescription="@string/værIkon"
                             android:orientation="horizontal"
                             android:weightSum="2"
                             android:layout_marginBottom="5dp">
@@ -277,6 +270,7 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:contentDescription="@string/brannfare"
                             android:orientation="horizontal"
                             android:weightSum="2">
 
@@ -305,7 +299,7 @@
                     android:layout_gravity="bottom|center_horizontal"
                     android:layout_weight="1"
                     android:layout_marginBottom="30dp"
-                    android:contentDescription="lav brannfare 0 til 30. middels brannfare 30 til 60. høy brannfare over 60"
+                    android:contentDescription="@string/brannfareLevels"
                     android:src="@drawable/ic_fareindex" />
             </LinearLayout>
 
