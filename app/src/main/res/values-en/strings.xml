@@ -16,4 +16,8 @@
     <string name="morkModus">Dark Mode</string>
     <string name="baalInfo">In the period from April 15 to September 15, there is a ban on igniting bonfires, barbecue and disposable grill in forest or near forest.When you light a fire, it is ALWAYS important to turn off properly,and make sure it\'s completely off before you move on.Source: norskfriluftsliv.no</string>
     <string name="infoOmBrannfareNivåer">I am not translating all this shit to english right now but I hope it will be fixed damn</string>
+    <string name="brannfareIkonForside">icon showing todays danger index</string>
+    <string name="swipeUpArrow">icon symbolizing swipe up</string>
+    <string name="værIdag">WEATHER TODAY</string>
+    <string name="værIdagIkon">icon showing todays weather</string>
 </resources>

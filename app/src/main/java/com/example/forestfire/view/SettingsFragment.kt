@@ -5,23 +5,20 @@ import android.content.Context
 import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
-import android.renderscript.Sampler
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.app.ActivityCompat.recreate
 import androidx.fragment.app.FragmentTransaction
 
 import com.example.forestfire.R
 import com.example.forestfire.viewModel.settings.settingsViewModel
-import kotlinx.android.synthetic.*
 import java.util.*
 
 
-class SettingsFragment() : Fragment() {
+class SettingsFragment : Fragment() {
     private var languages = arrayOf("Norsk", "English")
     private lateinit var settingsViewModel: settingsViewModel
     private lateinit var root: View
@@ -45,7 +42,7 @@ class SettingsFragment() : Fragment() {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
 
-        switch.setOnCheckedChangeListener { compoundButton, b ->
+        switch.setOnCheckedChangeListener { _, b ->
             if (b) {
                 switch.isChecked = true
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
@@ -73,8 +70,8 @@ class SettingsFragment() : Fragment() {
 
         val config = Configuration()
 
-        config.locale = locale
-        requireActivity().baseContext.resources.updateConfiguration(
+        config.locale = locale // deprecated in API 24. This is API 23
+        requireActivity().baseContext.resources.updateConfiguration( // deprecated in API 25. this is API 23
             config,
             requireActivity().baseContext.resources.displayMetrics
         )
@@ -84,7 +81,7 @@ class SettingsFragment() : Fragment() {
         editor.apply()
     }
 
-    fun loadLocate() {
+    private fun loadLocate() {
         val sharedPreferences = requireActivity().getSharedPreferences("Settings", Activity.MODE_PRIVATE)
         val language = sharedPreferences.getString("My_Lang", "")
         language?.let { setLocate(it) }
@@ -131,6 +128,5 @@ class SettingsFragment() : Fragment() {
             ft.setReorderingAllowed(false)
         }
         ft.detach(this@SettingsFragment).attach(this@SettingsFragment).commit()
-
     }
 }
