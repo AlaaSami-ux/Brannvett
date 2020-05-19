@@ -68,50 +68,6 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!--sveip opp for mer info -->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/slideUp"
-                android:layout_width="match_parent"
-                android:layout_height="140dp"
-                android:layout_gravity="bottom|center_horizontal"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginBottom="-40dp"
-                app:cardBackgroundColor="@color/whiteColor"
-                app:cardCornerRadius="40dp">
-
-
-                <TextView
-                    android:id="@+id/wtext"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="30dp"
-                    android:layout_weight="2"
-                    android:text="@string/værIdag"
-                    android:textColor="@color/DingGrey"
-                    android:textSize="18sp" />
-
-                <ImageView
-                    android:id="@+id/weather_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:contentDescription="@string/værIkon" />
-
-
-                <TextView
-                    android:id="@+id/w_deg"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|center_horizontal"
-                    android:layout_weight="1"
-                    android:textColor="@color/DingGrey"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
 
         <!--sveip opp for mer info -->
         <androidx.cardview.widget.CardView
@@ -191,15 +147,6 @@
 
             </androidx.cardview.widget.CardView>
 
-            <!--søkeboks -->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/search_box"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:text="sveip opp" />-->
-
             <include
                 android:id="@+id/favoritt"
                 layout="@layout/favorittknapp"
@@ -220,7 +167,6 @@
                 android:textSize="18sp"
                 android:textStyle="normal" />
 
-        </androidx.cardview.widget.CardView>
 
         <!--søkeboks -->
         <androidx.cardview.widget.CardView
