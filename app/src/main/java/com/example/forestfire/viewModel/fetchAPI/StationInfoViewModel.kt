@@ -36,6 +36,7 @@ class StationInfoViewModel(private val stationService : StationService) : ViewMo
                 for(loc in locList){
                     if(loc.danger_index != "-"){
                         val station = stationService.fetchStationData("SN${loc.id}")
+                        //Log.d("stationinfoviewmodel", station.toString())
                         stationList.add(station)
                         locCoorMap[loc] = station.data[0].geometry
                     }
@@ -45,23 +46,6 @@ class StationInfoViewModel(private val stationService : StationService) : ViewMo
             }
         }
     }
-
-    /*
-    fun writeToFile(context: Context){
-        try{
-            Log.d("StationInfoViewModel", "Writing to file")
-            val fos : FileOutputStream = context.openFileOutput("Coordinates_of_locations.ser", Context.MODE_PRIVATE)
-            val oos = ObjectOutputStream(fos)
-            oos.writeObject(locCoorMap)
-            oos.close()
-
-        }catch( e : IOException ){
-            e.printStackTrace()
-            Log.d("StationInfoViewModel", "Error in writing to file")
-        }
-    }
-
-     */
 
     fun fetchThreeDayDanger(posisjon : LatLng, dagListe: List<FireModel.Dag>){
         viewModelScope.launch {

@@ -40,6 +40,8 @@
     <string name="middelsFare">MIDDELS FARE</string>
     <string name="lavFare">LAV FARE</string>
 
+    <string name="swipeUpArrow">ikon som symboliserer sveip opp</string>
+    <string name="værIkon">ikon som viser været</string>
     <string name="varsling">Varsling</string>
 
 </resources>

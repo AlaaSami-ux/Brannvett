@@ -58,6 +58,7 @@
 
     <string name="værIdagIkon">ikon som viser dagens vær</string>
 
+    <string name="værIkon">ikon som viser været</string>
     <string name="tillat_varsling">Tillatt Varsling</string>
     <string name="varsling">Varsling</string>
 </resources>
