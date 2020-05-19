@@ -321,7 +321,7 @@
                         android:id="@+id/varslingen"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="@string/tillat_varsling" />
+                        android:text="@string/varsling" />
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>

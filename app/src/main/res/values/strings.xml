@@ -57,8 +57,6 @@
     <string name="brannfareLevels">lav brannfare 0 til 30. middels brannfare 31 til 60. høy brannfare over 60</string>
 
     <string name="værIdagIkon">ikon som viser dagens vær</string>
-
-    <string name="værIkon">ikon som viser været</string>
-    <string name="tillat_varsling">Tillatt Varsling</string>
+    <string name="tillat_varsling">"Allowed notification "</string>
     <string name="varsling">Varsling</string>
 </resources>

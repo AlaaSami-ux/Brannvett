@@ -34,14 +34,14 @@
     <string name="brannfareLevels">lav brannfare 0 til 30. middels brannfare 30 til 60. høy brannfare over 60</string>
     <string name="værIdagIkon">ikon som viser dagens vær</string>
 
+    <string name="tillat_varsling">"Allowed notification "</string>
+
 
     <!-- Fare tekst på kortet nederst på hovedside -->
     <string name="hoyFare">HØY FARE</string>
     <string name="middelsFare">MIDDELS FARE</string>
     <string name="lavFare">LAV FARE</string>
 
-    <string name="swipeUpArrow">ikon som symboliserer sveip opp</string>
-    <string name="værIkon">ikon som viser været</string>
     <string name="varsling">Varsling</string>
 
 </resources>
