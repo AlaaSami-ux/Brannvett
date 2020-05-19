@@ -32,7 +32,8 @@
                 android:text="@string/ved_brann_ring_110"
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                tools:ignore="NestedWeights" />
         </LinearLayout>
         <!--
         Lager et linear layout med tre linear layouts inni.
@@ -52,7 +53,8 @@
                 android:layout_weight="1"
                 android:orientation="horizontal"
                 android:weightSum="3"
-                android:baselineAligned="false">
+                android:baselineAligned="false"
+                tools:ignore="NestedWeights">
 
                 <RelativeLayout
                     android:layout_width="0dp"
@@ -114,7 +116,6 @@
                         android:id="@+id/glass"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:layout_centerInParent="true"
                         android:background="#00FF80AB"
                         android:src="@drawable/ic_glassflaskericon"
@@ -147,7 +148,6 @@
                         android:id="@+id/lyn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:layout_centerInParent="true"
                         android:background="#00FFFFFF"
                         android:src="@drawable/ic_lyn_ny"
@@ -173,7 +173,6 @@
                         android:id="@+id/soppel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:layout_centerInParent="true"
                         android:background="#00FFFFFF"
                         android:src="@drawable/ic_soppelcontainer"
@@ -199,7 +198,6 @@
                         android:id="@+id/verktoy"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:layout_centerInParent="true"
                         android:background="#00FFFFFF"
                         android:src="@drawable/ic_verktoy"

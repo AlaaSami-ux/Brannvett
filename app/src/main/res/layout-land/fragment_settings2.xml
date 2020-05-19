@@ -86,7 +86,6 @@
                         android:layout_height="match_parent"
                         android:src="@drawable/ic_language_black_24dp"
                         android:contentDescription="@string/bilde" />
-
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -137,6 +136,7 @@
             android:baselineAligned="false"
             android:orientation="horizontal"
             android:weightSum="3"
+            android:baselineAligned="false"
             tools:ignore="NestedWeights">
 
             <RelativeLayout
@@ -158,6 +158,7 @@
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:text="@string/switchKnapp"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1.4">
 

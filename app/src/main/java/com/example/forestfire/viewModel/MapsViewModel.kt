@@ -6,9 +6,7 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Address
 import android.location.Geocoder
-import android.location.Location
 import android.util.Log
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
@@ -33,10 +31,10 @@ class MapsViewModel(): ViewModel(){ //AndroidViewModel(app)
     private var mLocationPermissionGranted = false // assume location permission is not granted
 
     private lateinit var marker: Marker
-    val norge = LatLngBounds(
+    private val norge = LatLngBounds(
         LatLng(58.019156, 2.141567), LatLng(71.399348, 33.442113)
     )
-    val oslo = LatLng(59.911491, 10.757933)
+    private val oslo = LatLng(59.911491, 10.757933)
     private var lastUsedLocation: LatLng = oslo
     private var lastUsedLocationName: String = "Oslo"
     private var deviceLoc: LatLng = oslo
@@ -143,6 +141,14 @@ class MapsViewModel(): ViewModel(){ //AndroidViewModel(app)
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ll, DEFAULT_ZOOM))
     }
 
+    fun addMarker(mMap: GoogleMap, ll: LatLng) {
+        Log.d(TAG, "add marker to $ll")
+        if (::marker.isInitialized) {
+            marker.remove()
+        }
+        marker = mMap.addMarker(MarkerOptions().position(ll).title("markør plassering"))
+    }
+
     fun getAddressFromLocation(latitude: Double, longitude: Double) : String {
         Log.d(TAG, "getAddressFromLocation")
         var sted = "Valgt posisjon"
@@ -160,14 +166,6 @@ class MapsViewModel(): ViewModel(){ //AndroidViewModel(app)
             e.printStackTrace()
         }
         return sted
-    }
-
-    fun addMarker(mMap: GoogleMap, ll: LatLng) {
-        Log.d(TAG, "add marker to $ll")
-        if (::marker.isInitialized) {
-            marker.remove()
-        }
-        marker = mMap.addMarker(MarkerOptions().position(ll).title("markør plassering"))
     }
 
     fun setLastUsedLocation(ll: LatLng, s: String = getAddressFromLocation(ll.latitude

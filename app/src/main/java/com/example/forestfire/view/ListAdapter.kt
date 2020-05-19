@@ -4,9 +4,6 @@ package com.example.forestfire.view
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.DialogInterface
-import android.graphics.drawable.Drawable
-import android.location.Location
-import android.media.Image
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -15,14 +12,9 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.example.forestfire.R
-import com.example.forestfire.model.FireModel
 import com.example.forestfire.viewModel.fetchAPI.LocationForecastViewModel
-import com.example.forestfire.viewModel.fetchAPI.StationInfoViewModel
 import com.google.android.gms.maps.model.LatLng
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.element.view.*
