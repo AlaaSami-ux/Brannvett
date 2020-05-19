@@ -1,0 +1,34 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <string name="app_name">ForestFire</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="info">INFO</string>
+
+    <string name="dato" translatable="false">%1$s/%2$s</string>
+
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+
+    <string name="bilde">bilde</string>
+    <string name="ved_brann_ring_110">VED BRANN - RING 110</string>
+    <string name="baal">Bål</string>
+    <string name="engangsgrill">Engangsgrill</string>
+    <string name="glassflasker">Glassflasker</string>
+    <string name="lyn">Lyn</string>
+    <string name="avfallscontainer">Avfallscontainer</string>
+    <string name="verktoy">Verktøy</string>
+    <string name="instillinger">Innstillinger</string>
+    <string name="setting_ikon" translatable="false">setting ikon</string>
+    <string name="spraak">Språk</string>
+    <string name="morkModus">Mørk modus</string>
+
+    <string-array name="spraak">
+        <item>Velg Språk</item>
+        <item>Norsk</item>
+        <item>English</item>
+    </string-array>
+  
+    <string-array name="tempratur">
+        <item>Celsius</item>
+        <item>Fahrenheit</item>
+    </string-array>
+
+</resources>

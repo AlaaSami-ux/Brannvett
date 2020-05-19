@@ -88,6 +88,7 @@
                     android:baselineAligned="false"
                     tools:ignore="NestedWeights">
 
+                    <!-- Dag 1 -->
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -104,27 +105,58 @@
                             android:gravity="center"
                             android:textColor="@color/purpleColor"
                             android:textSize="18sp"
-                            tools:ignore="NestedWeights" />
+                            tools:ignore="NestedWeights"
+                            android:layout_marginBottom="10dp"/>
 
-                        <ImageView
-                            android:id="@+id/vær1"
+                        <!-- Brannfare og vær -->
+                        <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="0dp"
+                            android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:gravity="center"
-                            android:src="@drawable/ic_wb_sunny_black_24dp"
-                            android:contentDescription="@string/værIdag" />
+                            android:contentDescription="@string/værIdag" 
+                            android:orientation="horizontal"
+                            android:weightSum="2"
+                            android:layout_marginBottom="5dp">
 
-                        <ImageView
-                            android:id="@+id/brannfare1"
+                            <ImageView
+                                android:id="@+id/vær_symbol1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"/>
+
+                            <TextView
+                                android:id="@+id/vær1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"/>
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:src="@drawable/ic_whatshot_red_24dp"
-                            android:contentDescription="@string/brannfare"/>
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/brannfare"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <ImageView
+                                android:id="@+id/brann_symbol1"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:layout_height="20dp"
+                                android:layout_width="20dp"
+                                android:scaleType="fitXY"
+                                android:adjustViewBounds="true"/>
+
+                            <TextView
+                                android:id="@+id/brann1"
+                                android:layout_weight="1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
                     </LinearLayout>
 
+                    <!-- Dag 2 -->
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -141,27 +173,57 @@
                             android:gravity="center"
                             android:textColor="@color/purpleColor"
                             android:textSize="18sp"
-                            tools:ignore="NestedWeights" />
+                            tools:ignore="NestedWeights"
+                            android:layout_marginBottom="10dp"/>
 
-                        <ImageView
-                            android:id="@+id/vær2"
+                        <!-- Brannfare og vær -->
+                        <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:src="@drawable/ic_wb_sunny_black_24dp"
-                            android:contentDescription="@string/værIkon"/>
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/værIkon"
+                            android:orientation="horizontal"
+                            android:weightSum="2"
+                            android:layout_marginBottom="5dp">
 
-                        <ImageView
-                            android:id="@+id/brannfare2"
+                            <ImageView
+                                android:id="@+id/vær_symbol2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"/>
+
+                            <TextView
+                                android:id="@+id/vær2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"/>
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
                             android:contentDescription="@string/brannfare"
-                            android:gravity="center"
-                            android:src="@drawable/ic_whatshot_red_24dp" />
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <ImageView
+                                android:id="@+id/brann_symbol2"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:layout_height="20dp"
+                                android:layout_width="20dp"
+                                android:scaleType="fitXY"
+                                android:adjustViewBounds="true"/>
+
+                            <TextView
+                                android:id="@+id/brann2"
+                                android:layout_weight="1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
                     </LinearLayout>
 
+                    <!-- Dag 3 -->
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -178,25 +240,55 @@
                             android:gravity="center"
                             android:textColor="@color/purpleColor"
                             android:textSize="18sp"
-                            tools:ignore="NestedWeights" />
+                            tools:ignore="NestedWeights"
+                            android:layout_marginBottom="10dp"/>
 
-                        <ImageView
-                            android:id="@+id/vær3"
+                        <!-- Brannfare og vær -->
+                        <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:src="@drawable/ic_wb_sunny_black_24dp"
-                            android:contentDescription="@string/værIkon"/>
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/værIkon"
+                            android:orientation="horizontal"
+                            android:weightSum="2"
+                            android:layout_marginBottom="5dp">
 
-                        <ImageView
-                            android:id="@+id/brannfare3"
+                            <ImageView
+                                android:id="@+id/vær_symbol3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"/>
+
+                            <TextView
+                                android:id="@+id/vær3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:src="@drawable/ic_whatshot_red_24dp"
-                            android:contentDescription="@string/brannfare"/>
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/brannfare"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <ImageView
+                                android:id="@+id/brann_symbol3"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:layout_height="20dp"
+                                android:layout_width="20dp"
+                                android:scaleType="fitXY"
+                                android:adjustViewBounds="true"/>
+
+                            <TextView
+                                android:id="@+id/brann3"
+                                android:layout_weight="1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
                     </LinearLayout>
 
                 </LinearLayout>

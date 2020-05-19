@@ -25,8 +25,8 @@
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/skogbilde"
-                android:scaleType="fitXY"
+                android:src="@drawable/infosidebilde"
+                android:scaleType="centerCrop"
                 android:contentDescription="@string/bilde" />
 
             <TextView
@@ -64,7 +64,7 @@
 
                 <RelativeLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="125dp"
                     android:layout_weight="1">
 
                     <ImageButton
@@ -74,8 +74,8 @@
                         android:layout_centerInParent="true"
                         android:background="#00FFFFFF"
                         android:backgroundTint="#FFFFFF"
-                        android:src="@drawable/ic_baalicon"
-                        android:contentDescription="@string/bilde" />
+                        android:contentDescription="@string/bilde"
+                        android:src="@drawable/ic_baalicon" />
 
                     <TextView
                         android:id="@+id/baaltw"
@@ -83,6 +83,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/baal"
                         android:layout_centerHorizontal="true"
+                        android:layout_marginTop="-22dp"
                         android:paddingTop="20dp"
                         android:text="@string/baal"
                         android:textSize="18sp"
@@ -111,8 +112,7 @@
                         android:layout_centerHorizontal="true"
                         android:paddingTop="20dp"
                         android:textSize="18sp"
-                        android:text="@string/engangsgrill"
-                         />
+                        android:text="@string/engangsgrill"/>
                 </RelativeLayout>
             </LinearLayout>
 
@@ -240,22 +240,6 @@
                         android:textStyle="normal" />
                 </RelativeLayout>
             </LinearLayout>
-
         </LinearLayout>
     </LinearLayout>
-
-
-    <!--<ImageButton
-        android:id="@+id/infoBilde"
-        android:layout_width="59dp"
-        android:layout_height="60dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="144dp"
-        android:background="#00FFFFFF"
-        android:src="@drawable/ic_info"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView" />-->
-
-
 </RelativeLayout>

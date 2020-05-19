@@ -18,6 +18,7 @@ class LocationForecastViewModel(private val forecastService : LocationForecastSe
 
     var favMap = hashMapOf<LatLng?, List<FavForecast>>()
     val forecastFavoritesLiveData = MutableLiveData<HashMap<LatLng?, List<FavForecast>>>()
+    val threeDayForecast = MutableLiveData<List<FavForecast>>()
 
     lateinit var c : Calendar
 
@@ -30,6 +31,44 @@ class LocationForecastViewModel(private val forecastService : LocationForecastSe
             locationForecastLiveData.postValue(locService)
         }
     }
+
+    fun fetchThreeDayForecast(posisjon : LatLng?){
+        c = Calendar.getInstance()
+        viewModelScope.launch {
+            val forecastList = mutableListOf<FavForecast>()
+            val lat = posisjon?.latitude
+            val lon = posisjon?.longitude
+
+            val service = forecastService.fetchLocationForecast(lat, lon)
+            var temp : String? = null
+            var symbol : String? = null
+
+            for(i in 0..2){
+                if(i == 0){
+                    temp = service.product.time[0].location.temperature.value
+                    symbol = service.product.time[1].location.symbol.number
+                    forecastList.add(FavForecast(i, temp, symbol))
+                } else {
+                    val date = getDate(i)
+                    for(forecast in service.product.time){
+                        if(forecast.to == forecast.from){
+                            temp = forecast.location.temperature.value
+                        }
+
+                        if(forecast.to == date && forecast.from == prevHour(i)){
+                            symbol = forecast.location.symbol.number
+                        }
+                    }
+                    if(temp != null && symbol != null){
+                        forecastList.add(FavForecast(i, temp, symbol))
+                    }
+                }
+            }
+            threeDayForecast.postValue(forecastList)
+        }
+    }
+
+
 
     fun fetchForecastFavorites(posisjonsListe : List<LatLng?>){
         c = Calendar.getInstance()

@@ -15,6 +15,7 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProviders
@@ -148,6 +149,7 @@ class FavoritesFragment : Fragment() {
             override fun onPlaceSelected(place: Place) {
                 Log.i(TAG, "Place: " + place.name + ", " + place.id)
                 favoriteViewModel.addFavorite(place.latLng!!, place.name!!)
+
                 updateFragment()
               
                 leggTil.visibility = View.GONE

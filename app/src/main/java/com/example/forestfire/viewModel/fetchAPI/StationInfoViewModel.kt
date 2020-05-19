@@ -1,5 +1,6 @@
 package com.example.forestfire.viewModel.fetchAPI
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.*
 import com.example.forestfire.model.FireModel
@@ -10,6 +11,10 @@ import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
+import java.io.FileInputStream
+import java.io.FileOutputStream
+import java.io.IOException
+import java.io.ObjectOutputStream
 import kotlin.math.abs
 import kotlin.system.exitProcess
 
@@ -19,6 +24,8 @@ class StationInfoViewModel(private val stationService : StationService) : ViewMo
 
     var favMap = hashMapOf<LatLng?, List<String>>()
     var stationFavDangerLiveData = MutableLiveData<HashMap<LatLng?, List<String>>>()
+
+    var stationThreeDayDanger = MutableLiveData<List<String>>()
 
 
     fun fetchData(locList : List<FireModel.Location>){
@@ -34,7 +41,40 @@ class StationInfoViewModel(private val stationService : StationService) : ViewMo
                     }
                 }
                 stationInfoLiveData.postValue(stationList)
+
             }
+        }
+    }
+
+    /*
+    fun writeToFile(context: Context){
+        try{
+            Log.d("StationInfoViewModel", "Writing to file")
+            val fos : FileOutputStream = context.openFileOutput("Coordinates_of_locations.ser", Context.MODE_PRIVATE)
+            val oos = ObjectOutputStream(fos)
+            oos.writeObject(locCoorMap)
+            oos.close()
+
+        }catch( e : IOException ){
+            e.printStackTrace()
+            Log.d("StationInfoViewModel", "Error in writing to file")
+        }
+    }
+
+     */
+
+    fun fetchThreeDayDanger(posisjon : LatLng, dagListe: List<FireModel.Dag>){
+        viewModelScope.launch {
+            val bestLoc = findBestLoc(posisjon)
+            val dangerList = mutableListOf<String>()
+            for(dag in dagListe){
+                for(loc in dag.locations){
+                    if(loc.id == bestLoc.id){
+                        dangerList.add(loc.danger_index)
+                    }
+                }
+            }
+            stationThreeDayDanger.postValue(dangerList)
         }
     }
 
