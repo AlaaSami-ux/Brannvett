@@ -79,17 +79,7 @@ class FavoritesFragment : Fragment() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        // Her legges ting vi vil ha tilgang til hele tiden
-
         super.onCreate(savedInstanceState)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        root =  inflater.inflate(R.layout.fragment_favorites, container, false)
 
         // tilgang til favoriteViewModel
         favoriteViewModel = activity?.run {
@@ -99,6 +89,15 @@ class FavoritesFragment : Fragment() {
         mapsViewModel = activity?.run {
             ViewModelProviders.of(this)[MapsViewModel::class.java]
         } ?: throw Exception("Invalid Activity")
+
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        root =  inflater.inflate(R.layout.fragment_favorites, container, false)
 
 
         // datoer
@@ -120,10 +119,11 @@ class FavoritesFragment : Fragment() {
         leggTil = root.findViewById(R.id.leggTil)
         tilbake = root.findViewById(R.id.tilbake)
 
+
         // Initialize google places
         Places.initialize(requireContext(), "AIzaSyD10fJ7iHSaVhairAHZnpuFcrm5fU4SFM4")
         // Create a new Places client instance
-        var placesClient: PlacesClient = Places.createClient(requireContext())
+        Places.createClient(requireContext())
 
         // initialize autocompleteFragment
         autocompleteFragment = childFragmentManager.findFragmentById(R.id.autocomplete_fragment) as AutocompleteSupportFragment
@@ -172,7 +172,7 @@ class FavoritesFragment : Fragment() {
 
         noFavoritesTextBox = root.findViewById(R.id.no_favorites)
 
-        readFile()
+        //readFile()
 
         if(!::favorites.isInitialized){
             favorites = favoriteViewModel.favorites
@@ -208,26 +208,11 @@ class FavoritesFragment : Fragment() {
             })
         })
 
-
-        /*
-        redigerBtn = root.findViewById(R.id.redigerBtn)
-
-        redigerBtn.setOnClickListener {
-            Log.d(TAG, "rediger")
-            if (favorites.count() > 0){
-                favorittCard = my_recycler_view.findViewById(R.id.favorittCard)
-                removeBtn = my_recycler_view.findViewById(R.id.remove)
-            } else { /* do nothing */}
-
-            //removeBtn.visibility = View.VISIBLE
-            // vil endre marginStart
-        }
-         */
-
         return root
     }
 
-    fun readFile(){
+    /*
+    private fun readFile(){
         // hente favoritter fra internal storage
         try {
             Log.d(TAG, "prøve å hente favoritter fra internal storage")
@@ -259,19 +244,21 @@ class FavoritesFragment : Fragment() {
         }
     }
 
+
     fun getInstance() : FavoritesFragment{
         return this
     }
+     */
 
     fun updateFragment(){
-        val ft: FragmentTransaction = requireFragmentManager().beginTransaction()
+        val ft: FragmentTransaction = parentFragmentManager.beginTransaction()
         if (Build.VERSION.SDK_INT >= 26) {
             ft.setReorderingAllowed(false)
         }
         ft.detach(this@FavoritesFragment).attach(this@FavoritesFragment).commit()
     }
 
-    private fun getAddressFromLocation(latitude: Double, longitude: Double) : String?{
+    /*private fun getAddressFromLocation(latitude: Double, longitude: Double) : String?{
         Log.d(TAG, "getAddressFromLocation")
         val geocoder = Geocoder(requireActivity(), Locale.ENGLISH)
         try {
@@ -282,22 +269,20 @@ class FavoritesFragment : Fragment() {
                 val sted: String = strAddress.split(",", ignoreCase=true, limit=0).first()
                 Log.d(TAG, "sted: $sted")
                 return sted
-            } else { /* do nothing */ }
+            }
         } catch (e: IOException) {
             e.printStackTrace()
         }
         return null
-    }
+    }*/
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-        if (getFragmentManager() != null) {
-            getFragmentManager()
-                ?.beginTransaction()
-                ?.detach(this)
-                ?.attach(this)
-                ?.commit();
-        }
+        parentFragmentManager
+            .beginTransaction()
+            .detach(this)
+            .attach(this)
+            .commit()
     }
 
 
@@ -328,7 +313,7 @@ class FavoritesFragment : Fragment() {
         // bevare listen med favoritter
         favorites = favoriteViewModel.favorites
 
-        writeFile()
+        //writeFile()
     }
 
     override fun onStop(){
@@ -351,7 +336,6 @@ class FavoritesFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-
         Log.d(TAG, "onDestroy")
     }
 }

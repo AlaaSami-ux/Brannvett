@@ -26,6 +26,12 @@
 
 
     <string name="infoOmBrannfareNivåer">I am not translating all this shit to english right now but I hope it will be fixed damn</string>
+
+    <string name="brannfareIkonForside">icon showing todays danger index</string>
+    <string name="swipeUpArrow">icon symbolizing swipe up</string>
+    <string name="værIdag">WEATHER TODAY</string>
+    <string name="værIdagIkon">icon showing todays weather</string>
+
     <string name="temperatur">Temperature</string>
 
 </resources>
