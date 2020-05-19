@@ -1,5 +1,7 @@
 package com.example.forestfire.model
 
+import java.io.Serializable
+
 object FireModel {
 
     data class FireModel(
@@ -14,5 +16,5 @@ object FireModel {
         val name : String,
         val id : String,
         val danger_index : String //Vær obs på at noen danger_index = '-'
-    )
+    ) : Serializable
 }

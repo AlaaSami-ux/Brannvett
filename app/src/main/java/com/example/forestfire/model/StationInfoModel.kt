@@ -1,5 +1,7 @@
 package com.example.forestfire.model
 
+import java.io.Serializable
+
 object StationInfoModel {
     data class GeneralInformation(
         val data : List<StasjonInfo>
@@ -14,5 +16,5 @@ object StationInfoModel {
 
     data class Geometry(
         val coordinates : List<Float>
-    )
+    ) : Serializable
 }

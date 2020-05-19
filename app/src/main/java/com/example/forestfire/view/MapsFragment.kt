@@ -469,6 +469,8 @@ class MapsFragment : Fragment(),
                 // i StationInFoViewModel
                 stationModel.fetchData(dayList[0].locations)
                 stationModel.stationInfoLiveData.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+                    //stationModel.writeToFile(requireContext())
+
                     // og dermed kan vi hente farevarsel for tre dager. Metoden fetchThreeDayDanger tar inn et latlng objekt
                     // og søker i det lokale hashmappet i StationInfoViewModel for den stasjonen som ligger nærmest
                     // brukeren (latlon objektet). Den tar så in en liste av forestfireindex lokasjonene for alle dagene
