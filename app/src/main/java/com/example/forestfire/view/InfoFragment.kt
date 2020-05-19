@@ -56,8 +56,8 @@ class InfoFragment : Fragment() {
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-        if (getFragmentManager() != null) {
-            getFragmentManager()
+        if (fragmentManager != null) {
+            fragmentManager
                 ?.beginTransaction()
                 ?.detach(this)
                 ?.attach(this)
@@ -71,6 +71,5 @@ class InfoFragment : Fragment() {
             ft.setReorderingAllowed(false)
         }
         ft.detach(this@InfoFragment).attach(this@InfoFragment).commit()
-
     }
 }

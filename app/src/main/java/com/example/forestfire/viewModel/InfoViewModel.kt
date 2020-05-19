@@ -32,9 +32,6 @@ class InfoViewModel : ViewModel() {
         text.setPadding(30, 30, 20, 30)
         text.setCompoundDrawablesWithIntrinsicBounds(ic_baalicon_smaal,0,0,0)
         text.textSize = 24F
-        val text2 = TextView(context)
-        text2.setText(string.baalInfo)
-
         val builder = AlertDialog.Builder(context, style.CustomAlertDialog)
        // builder.setIcon(drawable.ic_baalicon)
         builder.setCustomTitle(text)
@@ -58,8 +55,7 @@ class InfoViewModel : ViewModel() {
         val builder = AlertDialog.Builder(context, style.CustomAlertDialog)
       //  builder.setIcon(drawable.ic_glassflaskericon)
         builder.setCustomTitle(text)
-        builder.setMessage("\nEn knust glassflaske kan med hjelp av solen potensielt starte en gressbrann, " +
-                "som kan utvikle seg til en skogbrann. \n\nTa alltid med deg søppelet ditt hjem igjen!\n")
+        builder.setMessage(string.glassInfo)
         builder.setPositiveButton("OK",{ dialogInterface: DialogInterface, i: Int -> })
         val dialog =builder.create()
         dialog.show()
@@ -80,11 +76,7 @@ class InfoViewModel : ViewModel() {
         val builder = AlertDialog.Builder(context, style.CustomAlertDialog)
       //  builder.setIcon(drawable.ic_engangsgrill_ny_boks)
         builder.setCustomTitle(text)
-        builder.setMessage("\nEn engangsgrill skal alltid stå stødig på et underlag som ikke er brennbart, " +
-                "og husk alltid å bruke stativet som følger med. " +
-                "\n\nPass på at grillen er ordentlig slukket og at du kaster den " +
-                "i en container spesifiser for engangsgriller." +
-                "\n\nKilde: Brannvernforeningen.no")
+        builder.setMessage(string.engangsgrillInfo)
         builder.setPositiveButton("OK",{ dialogInterface: DialogInterface, i: Int -> })
         val dialog =builder.create()
         dialog.show()
@@ -105,9 +97,7 @@ class InfoViewModel : ViewModel() {
         val builder = AlertDialog.Builder(context, style.CustomAlertDialog)
         //builder.setIcon(drawable.ic_lyn_ny)
         builder.setCustomTitle(text)
-        builder.setMessage("\nVisste du at lynnedslag starter mange branner i skog i Norge i løpet av året? " +
-                "I tillegg kan det ligge og ulme i bakken i opptil tre dager før det antenner. " +
-                "\n\nAlltid meld ifra hvis du ser antydninger til skogbrann!\n")
+        builder.setMessage(string.lynInfo)
         builder.setPositiveButton("OK",{ dialogInterface: DialogInterface, i: Int -> })
         val dialog =builder.create()
         dialog.show()
@@ -128,9 +118,7 @@ class InfoViewModel : ViewModel() {
         val builder = AlertDialog.Builder(context, style.CustomAlertDialog)
         //builder.setIcon(drawable.ic_soppelcontainer)
         builder.setCustomTitle(text)
-        builder.setMessage("\nBruk alltid en avfallscontainer som er for engangsgrill etter du er ferdig å bruke den. " +
-                "Ofte finnes det en oversikt over hvilke parker eller området som har disse på kommunen sine nettsider. " +
-                "\n\nTenk før du kaster!")
+        builder.setMessage(string.avfallInfo)
         builder.setPositiveButton("OK",{ dialogInterface: DialogInterface, i: Int -> })
         val dialog =builder.create()
         dialog.show()
@@ -152,11 +140,7 @@ class InfoViewModel : ViewModel() {
         val builder = AlertDialog.Builder(context, style.CustomAlertDialog)
        // builder.setIcon(R.drawable.ic_verktoy)
         builder.setCustomTitle(text)
-        builder.setMessage("\nBruk av verktøy som har åpen flamme," +
-                " eller som slår gnister kan være svært brannfarlig. " +
-                "Det er viktig å være obs på dette, og ta de forholdsreglene som trengs. " +
-                "\n\nGjør alltid en vurdering, og utsett heller arbeidet hvis det er fare for skogbrann." +
-                "\n\n Kilde: bondelaget.no")
+        builder.setMessage(string.verktaayInfo)
 
         builder.setPositiveButton("OK",{ dialogInterface: DialogInterface, i: Int -> })
         val dialog =builder.create()

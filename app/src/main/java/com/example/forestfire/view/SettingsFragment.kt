@@ -35,7 +35,6 @@ class SettingsFragment() : Fragment(), AdapterView.OnItemSelectedListener {
         darkModeSwitch()
         spinner = root.findViewById(R.id.spinner2)
         spinner.onItemSelectedListener = this
-
         return root
     }
 
@@ -61,10 +60,6 @@ class SettingsFragment() : Fragment(), AdapterView.OnItemSelectedListener {
             requireActivity().getSharedPreferences("Settings", Activity.MODE_PRIVATE)
         val language = sharedPreferences.getString("My_Lang", "")
         language?.let { setLocate(it) }
-    }
-
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
     }
 
     private fun darkModeSwitch() {
@@ -93,6 +88,16 @@ class SettingsFragment() : Fragment(), AdapterView.OnItemSelectedListener {
             }
         }
     }
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        if (fragmentManager != null) {
+            fragmentManager
+                ?.beginTransaction()
+                ?.detach(this)
+                ?.attach(this)
+                ?.commit();
+        }
+    }
 
     @Suppress("DEPRECATION")
     fun updateFragment() {
@@ -118,5 +123,10 @@ class SettingsFragment() : Fragment(), AdapterView.OnItemSelectedListener {
         }else if(selectedItem == "Velg Språk"){
             onNothingSelected(parent)
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
     }
 }
