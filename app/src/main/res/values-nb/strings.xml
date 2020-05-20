@@ -55,9 +55,11 @@
     <string name="lavBrannfare">Lav brannfare</string>
     <string name="lasterInn">LASTER INN..</string>
     <string name="fjernFavoritt">fjern favoritt</string>
+
     <string name="home">Hjem</string>
     <string name="favorites">Favoritter</string>
     <string name="settings">Innstillinger</string>
+
 
 
 </resources>

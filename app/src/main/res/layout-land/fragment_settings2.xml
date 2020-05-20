@@ -129,8 +129,9 @@
         android:weightSum="1">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
             android:layout_weight="1"
             android:baselineAligned="false"
             android:orientation="horizontal"
@@ -150,7 +151,6 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_brightness_3_black_24dp"
                     android:contentDescription="@string/bilde" />
-
             </RelativeLayout>
 
             <RelativeLayout
@@ -181,15 +181,15 @@
                     android:text="@string/switchKnapp">
 
 
-
                     <Switch
                         android:id="@+id/darkSwitch"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="10dp"
                         android:layout_marginStart="10dp"
+                        android:layout_marginBottom="7dp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp" />
                         android:text="@string/switchKnapp" />
 
                 </RelativeLayout>
@@ -325,8 +325,7 @@
                         android:id="@+id/varslingen"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/varsling"
-                        android:layout_marginStart="10dp"/>
+                        android:layout_marginStart="10dp" />
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
@@ -353,8 +352,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="30dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="60dp"
                 android:layout_weight="1"
                 android:max="2"
                 android:paddingTop="5dp"
@@ -375,7 +374,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:orientation="horizontal"
-                android:weightSum="3"
+                android:weightSum="6"
                 tools:ignore="NestedWeights">
 
                 <ImageView
@@ -385,6 +384,13 @@
                     android:layout_weight="1"
                     android:src="@drawable/ic_brannfare_rodtre"
                     android:contentDescription="@string/hoyBrannfare"/>
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left|center"
+                    android:layout_weight="1"
+                    android:text="Høy" />
 
                 <ImageView
                     android:id="@+id/imageView8"
@@ -394,13 +400,29 @@
                     android:src="@drawable/ic_brannfare_gultre"
                     android:contentDescription="@string/middelsBrannfare"/>
 
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left|center"
+                    android:layout_weight="1"
+                    android:text="Middels" />
+
                 <ImageView
                     android:id="@+id/imageView9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:layout_gravity="right"
                     android:src="@drawable/ic_brannfare_gronntre"
                     android:contentDescription="@string/lavBrannfare"/>
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left|center"
+                    android:layout_weight="1"
+                    android:text="Lav" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

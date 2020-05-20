@@ -54,8 +54,10 @@
     <string name="lavBrannfare">low danger index</string>
     <string name="lasterInn">LOADING..</string>
     <string name="fjernFavoritt">remove favorite</string>
+
     <string name="home">Home</string>
     <string name="favorites">Favorites</string>
     <string name="settings">Settings</string>
+
 
 </resources>
