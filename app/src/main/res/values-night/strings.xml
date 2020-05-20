@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-    <string name="app_name">ForestFire</string>
+    <string name="app_name">Grill og Chill</string>
     <string name="title_activity_maps">Map</string>
     <string name="info">INFO</string>
 

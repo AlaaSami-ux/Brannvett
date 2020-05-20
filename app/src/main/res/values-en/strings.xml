@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ForestFire</string>
+    <string name="app_name">Grill og Chill</string>
     <string name="title_activity_maps">Map</string>
     <string name="info">Info</string>
     <string name="bilde">Image</string>
