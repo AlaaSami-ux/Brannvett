@@ -7,9 +7,11 @@ import com.example.forestfire.model.StationInfoModel
 import com.example.forestfire.repository.StationService
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.launch
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
+import java.util.concurrent.TimeUnit
 import kotlin.math.abs
 import kotlin.system.exitProcess
 
@@ -126,8 +128,14 @@ class StationInfoViewModel(private val stationService : StationService) : ViewMo
 
     class InstanceCreator : ViewModelProvider.Factory{
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            val okHttpClient = OkHttpClient.Builder()
+                .readTimeout(60, TimeUnit.SECONDS)
+                .connectTimeout(40, TimeUnit.SECONDS)
+                .build()
+
             val retrofit : Retrofit = Retrofit.Builder()
                 .baseUrl("https://in2000-frostproxy.ifi.uio.no/sources/")
+                .client(okHttpClient)
                 .addConverterFactory(MoshiConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()

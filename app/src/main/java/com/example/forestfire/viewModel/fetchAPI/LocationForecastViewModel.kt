@@ -6,9 +6,11 @@ import com.example.forestfire.model.LocationForecastModel
 import com.example.forestfire.repository.LocationForecastService
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.launch
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.*
+import java.util.concurrent.TimeUnit
 import kotlin.collections.HashMap
 
 class LocationForecastViewModel(private val forecastService : LocationForecastService) : ViewModel(){
@@ -143,8 +145,15 @@ class LocationForecastViewModel(private val forecastService : LocationForecastSe
 
     class InstanceCreator : ViewModelProvider.Factory{
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+
+            val okHttpClient = OkHttpClient.Builder()
+                .readTimeout(60, TimeUnit.SECONDS)
+                .connectTimeout(40, TimeUnit.SECONDS)
+                .build()
+
             val retrofit : Retrofit = Retrofit.Builder()
                 .baseUrl("https://in2000-apiproxy.ifi.uio.no/weatherapi/")
+                .client(okHttpClient)
                 .addConverterFactory(MoshiConverterFactory.create())
                 .build()
             val service : LocationForecastService = retrofit.create(LocationForecastService::class.java)
