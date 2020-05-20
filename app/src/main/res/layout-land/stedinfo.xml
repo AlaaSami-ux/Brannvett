@@ -113,21 +113,21 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:contentDescription="@string/værIdag" 
+                            android:contentDescription="@string/vaerIdag"
                             android:orientation="horizontal"
                             android:weightSum="2"
                             android:layout_marginBottom="5dp">
 
                             <ImageView
-                                android:id="@+id/vær_symbol1"
+                                android:id="@+id/vaer_symbol1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:gravity="center"
-                                android:contentDescription="@string/værIkon"/>
+                                android:contentDescription="@string/vaerIkon"/>
 
                             <TextView
-                                android:id="@+id/vær1"
+                                android:id="@+id/vaer1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"/>
@@ -182,21 +182,21 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:contentDescription="@string/værIkon"
+                            android:contentDescription="@string/vaerIkon"
                             android:orientation="horizontal"
                             android:weightSum="2"
                             android:layout_marginBottom="5dp">
 
                             <ImageView
-                                android:id="@+id/vær_symbol2"
+                                android:id="@+id/vaer_symbol2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:gravity="center"
-                                android:contentDescription="@string/værIkon"/>
+                                android:contentDescription="@string/vaerIkon"/>
 
                             <TextView
-                                android:id="@+id/vær2"
+                                android:id="@+id/vaer2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"/>
@@ -251,21 +251,21 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:contentDescription="@string/værIkon"
+                            android:contentDescription="@string/vaerIkon"
                             android:orientation="horizontal"
                             android:weightSum="2"
                             android:layout_marginBottom="5dp">
 
                             <ImageView
-                                android:id="@+id/vær_symbol3"
+                                android:id="@+id/vaer_symbol3"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:gravity="center"
-                                android:contentDescription="@string/værIkon"/>
+                                android:contentDescription="@string/vaerIkon"/>
 
                             <TextView
-                                android:id="@+id/vær3"
+                                android:id="@+id/vaer3"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"/>
@@ -327,7 +327,7 @@
                 android:layout_marginBottom="10dp"
                 android:layout_weight="1"
                 android:padding="5dp"
-                android:text="@string/infoOmBrannfareNivåer"
+                android:text="@string/infoOmBrannfareNivaaer"
                 android:textSize="16sp" />
 
         </LinearLayout>

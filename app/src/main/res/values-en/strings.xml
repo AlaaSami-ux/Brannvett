@@ -31,11 +31,12 @@
     <string name="lavFare">SAFE</string>
 
     <string name="swipeUpArrow">icon symbolizing swipe up</string>
-    <string name="værIkon">icon showing the weather</string>
-    <string name="infoOmBrannfareNivåer">The numbers indicating the danger index are provided by The Norwegian Meteorological Institute, and are calculated with regards to rainfall, humidity and temperature. \nIt is important to be extra cautious when the index signals a high risk.</string>
+    <string name="infoOmBrannfareNivaaer">The numbers indicating the danger index are provided by The Norwegian Meteorological Institute, and are calculated with regards to rainfall, humidity and temperature. \nIt is important to be extra cautious when the index signals a high risk.</string>
+
+    <string name="vaerIkon">icon showing the weather</string>
 
     <string name="brannfareIkonForside">icon showing todays danger index</string>
-    <string name="værIdag">WEATHER TODAY</string>
+    <string name="vaerIdag">WEATHER TODAY</string>
 
     <string name="tilbake">Go back</string>
     <string name="toppBildeFragment">Descriptive image filling top of page</string>
@@ -47,7 +48,7 @@
     <string name="temperatur">temperature</string>
     <string name="switchKnapp">switch</string>
     <string name="swipeDownArrow">icon symbolizing swipe down</string>
-    <string name="værIdagIkon">icon showing todays weather</string>
+    <string name="vaerIdagIkon">icon showing todays weather</string>
     <string name="inkluderVarsling">slide to the right to include warning for lower danger index</string>
     <string name="hoyBrannfare">high danger index</string>
     <string name="middelsBrannfare">medium danger index</string>

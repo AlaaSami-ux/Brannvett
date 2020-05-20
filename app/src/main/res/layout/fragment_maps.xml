@@ -40,7 +40,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginStart="30dp"
-                        android:text="@string/værIdag"
+                        android:text="@string/vaerIdag"
                         android:textSize="18sp"
                         android:textColor="@color/DingGrey"/>
 
@@ -50,7 +50,7 @@
                         android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:contentDescription="@string/værIkon"/>
+                        android:contentDescription="@string/vaerIkon"/>
 
                     <TextView
                         android:id="@+id/w_deg"
