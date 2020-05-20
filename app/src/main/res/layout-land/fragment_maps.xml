@@ -23,7 +23,7 @@
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
             android:layout_marginBottom="-40dp"
-            app:cardBackgroundColor="@color/whiteColor"
+            app:cardBackgroundColor="#E6FFFFFF"
             app:cardCornerRadius="40dp">
 
 
@@ -80,7 +80,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:contentDescription="@string/brannfare"/>
+                    android:contentDescription="@string/brannfare"
+                    android:layout_marginRight="3dp"/>
                 <TextView
                     android:id="@+id/fire_warning"
                     android:layout_width="wrap_content"
@@ -98,21 +99,22 @@
         layout="@layout/stedinfo"
         android:visibility="gone" />
 
-    <!--værmelding -->
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:orientation="vertical"
         android:weightSum="1"
         tools:ignore="UselessParent">
 
+        <!--værmelding og søkeboks -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:baselineAligned="false"
             android:orientation="horizontal"
-            android:weightSum="2">
+            android:weightSum="5">
 
             <!--værmelding -->
             <androidx.cardview.widget.CardView
@@ -123,8 +125,8 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="5dp"
-                android:layout_weight="1"
-                app:cardBackgroundColor="@color/whiteColor"
+                android:layout_weight="4"
+                app:cardBackgroundColor="#E6FFFFFF"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="10dp"
                 tools:ignore="NestedWeights">
@@ -139,11 +141,11 @@
                         android:id="@+id/weather_icon"
                         android:layout_weight="1"
                         android:layout_gravity="center_vertical|start"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="2dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:contentDescription="@string/vaerIkon"
-                        />
+                        android:contentDescription="@string/vaerIkon" />
 
                     <TextView
                         android:id="@+id/w_deg"
@@ -151,11 +153,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end|center_vertical"
-                        android:layout_marginEnd="10dp"
-                        android:textSize="18sp"
+                        android:layout_marginEnd="5dp"
+                        android:textSize="16sp"
                         android:textStyle="bold"
-                        android:textColor="@color/DingGrey"
-                        />
+                        android:textColor="@color/DingGrey" />
 
                     <!-- HER KAN DU LEGGE TILL VINN IKON-->
                 </LinearLayout>
@@ -172,7 +173,7 @@
                 android:layout_marginEnd="5dp"
                 android:layout_weight="1"
                 android:visibility="visible"
-                app:cardBackgroundColor="@color/whiteColor"
+                app:cardBackgroundColor="#E6FFFFFF"
                 app:cardCornerRadius="12dp">
                 <!-- Fragment som har med autocomplete å gjøre-->
                 <androidx.fragment.app.FragmentContainerView
