@@ -54,5 +54,8 @@
     <string name="lavBrannfare">low danger index</string>
     <string name="lasterInn">LOADING..</string>
     <string name="fjernFavoritt">remove favorite</string>
+    <string name="haay">DANGEROUS</string>
+    <string name="middels">RISKY</string>
+    <string name="lav">SAFE</string>
 
 </resources>

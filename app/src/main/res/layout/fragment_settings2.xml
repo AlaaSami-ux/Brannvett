@@ -188,9 +188,8 @@
 
             <Switch
                 android:id="@+id/darkSwitch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/switchKnapp" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
 
                </RelativeLayout>
@@ -327,8 +326,7 @@
                     <Switch
                         android:id="@+id/varslingen"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/varsling" />
+                        android:layout_height="wrap_content" />
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
@@ -372,7 +370,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:weightSum="1">
+            android:weightSum="2">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -405,6 +403,40 @@
                     android:layout_weight="1"
                     android:src="@drawable/ic_brannfare_gronntre"
                     android:contentDescription="@string/lavBrannfare"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="3"
+                tools:ignore="NestedWeights">
+
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:text="@string/haay" />
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:text="@string/middels" />
+
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:text="@string/lav" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

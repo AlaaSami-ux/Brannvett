@@ -73,4 +73,7 @@
     <string name="lavBrannfare">Lav brannfare</string>
     <string name="lasterInn">LASTER INN..</string>
     <string name="fjernFavoritt">fjern favoritt</string>
+    <string name="haay">Høy</string>
+    <string name="middels">Middels</string>
+    <string name="lav">Lav</string>
 </resources>
