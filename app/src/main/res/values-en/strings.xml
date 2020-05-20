@@ -58,6 +58,9 @@
     <string name="home">Home</string>
     <string name="favorites">Favorites</string>
     <string name="settings">Settings</string>
+    <string name="haay">High</string>
+    <string name="middels">Medium</string>
+    <string name="lav">Low</string>
 
 
 </resources>

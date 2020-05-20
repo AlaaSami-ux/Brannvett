@@ -77,5 +77,8 @@
     <string name="info">Info</string>
     <string name="favorites">Favoritter</string>
     <string name="settings">Innstillinger</string>
+    <string name="haay">Høy</string>
+    <string name="middels">Middels</string>
+    <string name="lav">Lav</string>
 
 </resources>

@@ -59,7 +59,9 @@
     <string name="home">Hjem</string>
     <string name="favorites">Favoritter</string>
     <string name="settings">Innstillinger</string>
-
+    <string name="lav">Lav</string>
+    <string name="middels">Middels</string>
+    <string name="haay">Høy</string>
 
 
 </resources>
