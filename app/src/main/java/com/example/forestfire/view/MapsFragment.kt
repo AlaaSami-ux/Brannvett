@@ -419,6 +419,7 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
         forecastModel.locationForecastLiveData.observe(viewLifecycleOwner, Observer {
             if(it == null) return@Observer
 
+            // Temperatur og symbol
             val temperature = it.product.time[0].location.temperature.value
 
             requireView().findViewById<TextView>(R.id.w_deg).text = "$temperature \u2103" // \u2103 er koden for "grader celsius"
@@ -429,9 +430,16 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
 
             Picasso.with(activity)
                 .load(url)
-                .resize(100,100)
+                .resize(80,80)
                 .into(img)
+
+
+            // V{indstyrke
+            if(resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT){
+                requireView().findViewById<TextView>(R.id.wind_text).text = "${it.product.time[0].location.windSpeed.mps} m/s"
+            }
         })
+
     }
 
 

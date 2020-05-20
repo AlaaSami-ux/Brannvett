@@ -63,5 +63,7 @@
     <string name="middels">Medium</string>
     <string name="lav">Low</string>
 
+    <string name="vindsymbol">wind symbol</string>
+
 
 </resources>
