@@ -327,7 +327,7 @@
                 android:layout_marginBottom="10dp"
                 android:layout_weight="1"
                 android:padding="5dp"
-                android:text="@string/infoOmBrannfareNivåer"
+                android:text="@string/infoOmBrannfareNivaaer"
                 android:textSize="16sp" />
 
         </LinearLayout>
