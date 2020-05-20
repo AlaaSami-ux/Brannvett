@@ -63,5 +63,6 @@
     <string name="baalInfo">"I perioden 15. april til 15. september er det forbud mot å tenne bål, grill og engangsgrill i skog eller i nærheten av skog. \n\nNår du tenner bål er det alltid viktig å slukke skikkelig, og forsikre seg om at det er helt slukket før du drar."</string>
     <string name="finnerIkkeDinPos">Finner ikke din posisjon</string>
 
+    <string name="vindsymbol">vind symbol</string>
 
 </resources>

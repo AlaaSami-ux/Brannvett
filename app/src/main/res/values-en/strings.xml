@@ -64,5 +64,7 @@
     <string name="lav">Low</string>
     <string name="finnerIkkeDinPos">Cannot find your location</string>
 
+    <string name="vindsymbol">wind symbol</string>
+
 
 </resources>
