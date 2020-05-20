@@ -153,7 +153,7 @@ class FavoritesFragment( stationInfoViewModel: StationInfoViewModel,
                 favoriteViewModel.addFavorite(place.latLng!!, place.name!!)
 
                 updateFragment()
-              
+
                 leggTil.visibility = View.GONE
                 autocompleteFragment.setText("")
             }
