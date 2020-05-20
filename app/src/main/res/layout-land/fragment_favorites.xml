@@ -22,7 +22,7 @@
             android:layout_marginTop="200dp"
             android:background="@drawable/roundedbtn"
             android:text="@string/tilbake"
-            android:textColor="@color/quantum_grey" />
+            android:textColor="@color/quantum_grey"/>
 
         <!--søkeboks -->
         <androidx.cardview.widget.CardView

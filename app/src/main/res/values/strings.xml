@@ -1,7 +1,6 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
     <string name="app_name">ForestFire</string>
     <string name="title_activity_maps">Map</string>
-    <string name="info">INFO</string>
 
     <string name="dato" translatable="false">%1$s/%2$s</string>
 
@@ -73,4 +72,9 @@
     <string name="lavBrannfare">Lav brannfare</string>
     <string name="lasterInn">LASTER INN..</string>
     <string name="fjernFavoritt">fjern favoritt</string>
+
+    <string name="home">Hjem</string>
+    <string name="info">Info</string>
+    <string name="favorites">Favoritter</string>
+    <string name="settings">Innstillinger</string>
 </resources>

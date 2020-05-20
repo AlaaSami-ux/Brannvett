@@ -252,7 +252,6 @@ class MapsFragment : Fragment(),
         mapsViewModel.moveCam(mMap, lastLoc) // Åpne kartet på sist brukte posisjon
         mapsViewModel.addMarker(mMap, lastLoc)
         settValgtStedTekst(lastLocName)
-        //mapsViewModel.findDeviceLocation(mMap)
         displayWeather(lastLoc)
 
         mMap.setOnMyLocationButtonClickListener(OnMyLocationButtonClickListener {
