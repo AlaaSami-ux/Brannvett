@@ -35,18 +35,18 @@ class ListAdapter(var forecastMap : HashMap<LatLng?, List<LocationForecastViewMo
         val fragment: FavoritesFragment = fragment
         val valgtSted: TextView = itemView.valgtSted
 
-        val vær_text1: TextView = itemView.vær_text1
-        val vær_symbol1 : ImageView = itemView.vær_symbol1
+        val vaer_text1: TextView = itemView.vaer_text1
+        val vaer_symbol1 : ImageView = itemView.vaer_symbol1
         val brann_index1 : TextView = itemView.brann_index1
         val brann_symbol1 : ImageView = itemView.brann_symbol1
 
-        val vær_text2: TextView = itemView.vær_text2
-        val vær_symbol2 : ImageView = itemView.vær_symbol2
+        val vaer_text2: TextView = itemView.vaer_text2
+        val vaer_symbol2 : ImageView = itemView.vaer_symbol2
         val brann_index2 : TextView = itemView.brann_index2
         val brann_symbol2 : ImageView = itemView.brann_symbol2
 
-        val vær_text3 : TextView = itemView.vær_text3
-        val vær_symbol3 : ImageView = itemView.vær_symbol3
+        val vaer_text3 : TextView = itemView.vaer_text3
+        val vaer_symbol3 : ImageView = itemView.vaer_symbol3
         val brann_index3 : TextView = itemView.brann_index3
         val brann_symbol3 : ImageView = itemView.brann_symbol3
 
@@ -81,32 +81,32 @@ class ListAdapter(var forecastMap : HashMap<LatLng?, List<LocationForecastViewMo
             valgtSted.text = place
             Log.d("ListAdapter Adresse", place)
 
-            vær_text1.text = "${forecastList?.get(0)?.temperature}°"
+            vaer_text1.text = "${forecastList?.get(0)?.temperature}°"
             Picasso.with(applicationContext)
                 .load("https://in2000-apiproxy.ifi.uio.no/weatherapi/weathericon/1.1?content_type=image%2Fpng&symbol=${forecastList?.get(0)?.symbol_id}")
                 .resize(70, 70)
-                .into(vær_symbol1)
+                .into(vaer_symbol1)
 
             brann_index1.text = dangerList?.get(0)
             var brann : Int = getTree(dangerList?.get(0)!!.toInt())
             brann_symbol1.setImageResource(brann)
 
 
-            vær_text2.text = "${forecastList?.get(1)?.temperature}°"
+            vaer_text2.text = "${forecastList?.get(1)?.temperature}°"
             Picasso.with(applicationContext)
                 .load("https://in2000-apiproxy.ifi.uio.no/weatherapi/weathericon/1.1?content_type=image%2Fpng&symbol=${forecastList?.get(1)?.symbol_id}")
                 .resize(70, 70)
-                .into(vær_symbol2)
+                .into(vaer_symbol2)
 
             brann_index2.text = dangerList[1]
             brann = getTree(dangerList[1].toInt())
             brann_symbol2.setImageResource(brann)
 
-            vær_text3.text = "${forecastList?.get(2)?.temperature}°"
+            vaer_text3.text = "${forecastList?.get(2)?.temperature}°"
             Picasso.with(applicationContext)
                 .load("https://in2000-apiproxy.ifi.uio.no/weatherapi/weathericon/1.1?content_type=image%2Fpng&symbol=${forecastList?.get(2)?.symbol_id}")
                 .resize(70, 70)
-                .into(vær_symbol3)
+                .into(vaer_symbol3)
 
             brann_index3.text = dangerList[2]
             brann = getTree(dangerList[2].toInt())

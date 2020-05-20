@@ -499,14 +499,14 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
                         // xml layot med swipe-up skjermen
 
                         // Dag 1
-                        val vær1 = stedinfo.findViewById<TextView>(R.id.vær1)
-                        val vær_symbol1 = stedinfo.findViewById<ImageView>(R.id.vær_symbol1)
+                        val vaer1 = stedinfo.findViewById<TextView>(R.id.vaer1)
+                        val vaer_symbol1 = stedinfo.findViewById<ImageView>(R.id.vaer_symbol1)
 
-                        vær1.text = "${forecastList[0].temperature}°"
+                        vaer1.text = "${forecastList[0].temperature}°"
                         Picasso.with(activity)
                             .load("https://in2000-apiproxy.ifi.uio.no/weatherapi/weathericon/1.1?content_type=image%2Fpng&symbol=${forecastList[0].symbol_id}")
                             .resize(60, 60)
-                            .into(vær_symbol1)
+                            .into(vaer_symbol1)
 
                         val brann1 = stedinfo.findViewById<TextView>(R.id.brann1)
                         val brann_symbol1 = stedinfo.findViewById<ImageView>(R.id.brann_symbol1)
@@ -515,14 +515,14 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
                         brann_symbol1.setImageResource(brann)
 
                         // Dag 2
-                        val vær2 = stedinfo.findViewById<TextView>(R.id.vær2)
-                        val vær_symbol2 = stedinfo.findViewById<ImageView>(R.id.vær_symbol2)
+                        val vaer2 = stedinfo.findViewById<TextView>(R.id.vaer2)
+                        val vaer_symbol2 = stedinfo.findViewById<ImageView>(R.id.vaer_symbol2)
 
-                        vær2.text = "${forecastList[1].temperature}°"
+                        vaer2.text = "${forecastList[1].temperature}°"
                         Picasso.with(activity)
                             .load("https://in2000-apiproxy.ifi.uio.no/weatherapi/weathericon/1.1?content_type=image%2Fpng&symbol=${forecastList[1].symbol_id}")
                             .resize(60, 60)
-                            .into(vær_symbol2)
+                            .into(vaer_symbol2)
 
                         val brann2 = stedinfo.findViewById<TextView>(R.id.brann2)
                         val brann_symbol2 = stedinfo.findViewById<ImageView>(R.id.brann_symbol2)
@@ -533,14 +533,14 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
 
 
                         // Dag 3
-                        val vær3 = stedinfo.findViewById<TextView>(R.id.vær3)
-                        val vær_symbol3 = stedinfo.findViewById<ImageView>(R.id.vær_symbol3)
+                        val vaer3 = stedinfo.findViewById<TextView>(R.id.vaer3)
+                        val vaer_symbol3 = stedinfo.findViewById<ImageView>(R.id.vaer_symbol3)
 
-                        vær3.text = "${forecastList[2].temperature}°"
+                        vaer3.text = "${forecastList[2].temperature}°"
                         Picasso.with(activity)
                             .load("https://in2000-apiproxy.ifi.uio.no/weatherapi/weathericon/1.1?content_type=image%2Fpng&symbol=${forecastList[2].symbol_id}")
                             .resize(60, 60)
-                            .into(vær_symbol3)
+                            .into(vaer_symbol3)
 
                         val brann3 = stedinfo.findViewById<TextView>(R.id.brann3)
                         val brann_symbol3 = stedinfo.findViewById<ImageView>(R.id.brann_symbol3)

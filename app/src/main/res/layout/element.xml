@@ -62,13 +62,13 @@
                             android:weightSum="3">
 
                             <ImageView
-                                android:id="@+id/vær_symbol1"
+                                android:id="@+id/vaer_symbol1"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1" />
 
                             <TextView
-                                android:id="@+id/vær_text1"
+                                android:id="@+id/vaer_text1"
                                 android:textSize="12sp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -118,13 +118,13 @@
                             android:weightSum="3">
 
                             <ImageView
-                                android:id="@+id/vær_symbol2"
+                                android:id="@+id/vaer_symbol2"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1" />
 
                             <TextView
-                                android:id="@+id/vær_text2"
+                                android:id="@+id/vaer_text2"
                                 android:textSize="12sp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -174,13 +174,13 @@
                             android:weightSum="3">
 
                             <ImageView
-                                android:id="@+id/vær_symbol3"
+                                android:id="@+id/vaer_symbol3"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1" />
 
                             <TextView
-                                android:id="@+id/vær_text3"
+                                android:id="@+id/vaer_text3"
                                 android:textSize="12sp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
