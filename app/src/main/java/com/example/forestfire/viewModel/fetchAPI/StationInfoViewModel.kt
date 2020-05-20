@@ -7,9 +7,11 @@ import com.example.forestfire.model.StationInfoModel
 import com.example.forestfire.repository.StationService
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.launch
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
+import java.util.concurrent.TimeUnit
 import kotlin.math.abs
 import kotlin.system.exitProcess
 
@@ -28,23 +30,28 @@ class StationInfoViewModel(private val stationService : StationService) : ViewMo
         // fra forestFireIndex apiet (FireModel), og deres korresponderende data fra
         // Frost apiet (StationInfoModel). Dette hashmappet brukes videre for å finne
         // nærmeste posisjon til et gitt latlng objekt.
-        if(locCoorMap.isEmpty()){
-            Log.d("Inside stationInfoVM", "fetching data")
-            viewModelScope.launch {
-                val stationList = mutableListOf<StationInfoModel.GeneralInformation>()
-                for(loc in locList){
-                    // Stasjoner som ikke lengre er i bruk har en danger_index på '-'
-                    // Disse stasjonene finnes ikke i Frost apiet og vi vil få en 404
-                    // error dersom vi kaller på deres id.
-                    if(loc.danger_index != "-"){
-                        val station = stationService.fetchStationData("SN${loc.id}")
-                        stationList.add(station)
-                        locCoorMap[loc] = station.data[0].geometry
+        try{
+            if(locCoorMap.isEmpty()){
+                Log.d("Inside stationInfoVM", "fetching data")
+                viewModelScope.launch {
+                    val stationList = mutableListOf<StationInfoModel.GeneralInformation>()
+                    for(loc in locList){
+                        // Stasjoner som ikke lengre er i bruk har en danger_index på '-'
+                        // Disse stasjonene finnes ikke i Frost apiet og vi vil få en 404
+                        // error dersom vi kaller på deres id.
+                        if(loc.danger_index != "-"){
+                            val station = stationService.fetchStationData("SN${loc.id}")
+                            stationList.add(station)
+                            locCoorMap[loc] = station.data[0].geometry
+                        }
                     }
+                    stationInfoLiveData.postValue(stationList)
                 }
-                stationInfoLiveData.postValue(stationList)
             }
+        }catch ( e : java.net.SocketTimeoutException ){
+            Log.d("StationVM", e.toString())
         }
+
     }
 
     fun fetchThreeDayDanger(posisjon : LatLng, dagListe: List<FireModel.Dag>){
@@ -111,7 +118,6 @@ class StationInfoViewModel(private val stationService : StationService) : ViewMo
             lon = abs(geo.coordinates[0] - userLng.toFloat())
 
             if(minLatDistance > lat && minLonDistance > lon){
-                Log.d("BestLoc coordinates", "location coordinates ("+geo.coordinates[1].toString() + ", " + geo.coordinates[0].toString() + ")")
                 minLatDistance = lat
                 minLonDistance = lon
                 currentBestLoc = loc
@@ -122,8 +128,14 @@ class StationInfoViewModel(private val stationService : StationService) : ViewMo
 
     class InstanceCreator : ViewModelProvider.Factory{
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            val okHttpClient = OkHttpClient.Builder()
+                .readTimeout(60, TimeUnit.SECONDS)
+                .connectTimeout(40, TimeUnit.SECONDS)
+                .build()
+
             val retrofit : Retrofit = Retrofit.Builder()
                 .baseUrl("https://in2000-frostproxy.ifi.uio.no/sources/")
+                .client(okHttpClient)
                 .addConverterFactory(MoshiConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
