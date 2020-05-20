@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|top"
                 android:contentDescription="@string/swipeUpArrow"
-                android:src="@drawable/ic_keyboard_arrow_up_black_24dp"
+                android:src="@drawable/ic_keyboard_arrow_down_lille_24dp"
                 android:textStyle="bold" />
 
             <!--<TextView

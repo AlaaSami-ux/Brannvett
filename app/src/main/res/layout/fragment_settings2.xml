@@ -16,7 +16,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="#7F74AF"
             android:orientation="vertical"
@@ -24,8 +24,9 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@drawable/border2"
                 android:orientation="horizontal"
                 android:weightSum="2"
                 tools:ignore="NestedWeights">
@@ -54,10 +55,10 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
             android:orientation="vertical"
             android:showDividers="none"
             android:background="@drawable/border"
@@ -65,7 +66,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="horizontal"
                 android:baselineAligned="false"
@@ -76,13 +77,15 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginStart="15dp"
+                    android:gravity="center"
                     android:layout_weight="0.2"
                     tools:ignore="NestedWeights">
 
                     <ImageView
                         android:id="@+id/imageView3"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:src="@drawable/ic_language_black_24dp"
                         android:contentDescription="@string/bilde" />
 
@@ -97,7 +100,7 @@
                     <TextView
                         android:id="@+id/textView3"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:gravity="start|center"
                         android:text="@string/spraak"
@@ -114,7 +117,7 @@
                     <Spinner
                         android:id="@+id/spinner2"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:dropDownWidth="match_parent"
                         android:entries="@array/spraak"
                         android:gravity="center|center_horizontal"
@@ -127,10 +130,10 @@
         </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
         android:background="@drawable/border"
         android:orientation="vertical"
         android:weightSum="1">
@@ -149,12 +152,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="0.2"
+            android:layout_marginStart="15dp"
             tools:ignore="NestedWeights">
 
             <ImageView
                 android:id="@+id/imageView4"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:src="@drawable/ic_brightness_3_black_24dp"
                 android:contentDescription="@string/bilde" />
 
@@ -169,7 +173,7 @@
             <TextView
                 android:id="@+id/dark_mood"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:gravity="start|center"
                 android:text="@string/morkModus"
@@ -192,6 +196,8 @@
                </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
+
+        <!--
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -258,12 +264,13 @@
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
+        -->
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+            android:layout_height="wrap_content"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
             android:layout_weight="1"
             android:background="@drawable/border"
             android:orientation="vertical"
@@ -283,12 +290,13 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="0.2"
+                    android:layout_marginStart="15dp"
                     tools:ignore="NestedWeights">
 
                     <ImageView
                         android:id="@+id/imageView6"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:src="@drawable/ic_notifications_active_black_24dp"
                         android:contentDescription="@string/bilde" />
 
@@ -303,7 +311,7 @@
                     <TextView
                         android:id="@+id/varsling"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:gravity="start|center"
                         android:text="@string/varsling"
@@ -319,7 +327,7 @@
                     <Switch
                         android:id="@+id/varslingen"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:text="@string/varsling" />
                 </RelativeLayout>
             </LinearLayout>
