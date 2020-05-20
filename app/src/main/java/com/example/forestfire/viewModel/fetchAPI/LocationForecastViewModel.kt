@@ -51,7 +51,7 @@ class LocationForecastViewModel(private val forecastService : LocationForecastSe
                 } else {
                     val date = getDate(i)
                     for(forecast in service.product.time){
-                        if(forecast.to == forecast.from){
+                        if(forecast.to == forecast.from && forecast.to == date){
                             temp = forecast.location.temperature.value
                         }
 
@@ -59,7 +59,9 @@ class LocationForecastViewModel(private val forecastService : LocationForecastSe
                             symbol = forecast.location.symbol.number
                         }
                     }
+
                     if(temp != null && symbol != null){
+                        Log.d("LOCATION", "$temp og $symbol")
                         forecastList.add(FavForecast(i, temp, symbol))
                     }
                 }
@@ -122,12 +124,18 @@ class LocationForecastViewModel(private val forecastService : LocationForecastSe
 
     }
     private fun prevHour(increase: Int) : String {
-        return c.get(Calendar.YEAR).toString() + "-0" + (c.get(Calendar.MONTH)+1).toString() + "-" +
-                      (c.get(Calendar.DAY_OF_MONTH) + increase).toString() + "T11:00:00Z"
+        if((c.get(Calendar.MONTH)+1) < 10){
+            return c.get(Calendar.YEAR).toString() + "-0" + (c.get(Calendar.MONTH)+1).toString() + "-" +
+                    (c.get(Calendar.DAY_OF_MONTH) + increase).toString() + "T11:00:00Z"
+        } else {
+            return c.get(Calendar.YEAR).toString() + "-" + (c.get(Calendar.MONTH)+1).toString() + "-" +
+                    (c.get(Calendar.DAY_OF_MONTH) + increase).toString() + "T11:00:00Z"
+        }
+
     }
 
     data class FavForecast(
-        val dag : Int,  //0: idag, 1: imorgen, 2: over imorgen
+        val dag : Int,
         val temperature : String?,
         val symbol_id : String?
     )
