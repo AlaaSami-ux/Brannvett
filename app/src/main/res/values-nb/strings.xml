@@ -46,7 +46,7 @@
     <string name="lavFare">LAV FARE</string>
 
     <string name="varsling">Varsling</string>
-    <string name="inkluderVarsling">dra mot høyre for å inkludere varsling for lavere brannfare</string>
+    <string name="inkluderVarsling">Dra mot høyre for å inkludere varsling for lavere brannfare</string>
     <string name="hoyBrannfare">Høy brannfare</string>
     <string name="middelsBrannfare">Middels brannfare</string>
     <string name="lavBrannfare">Lav brannfare</string>
