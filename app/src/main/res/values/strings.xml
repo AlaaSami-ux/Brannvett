@@ -37,7 +37,7 @@
     </string-array>
 
 
-    <string name="infoOmBrannfareNivåer">"Tallene som indikerer hvor høyt farenivå det er, er hentet fra Meteorologisk Institutt, og beregnes etter nedbør, luftfuktighet og lufttemperatur. \n\nVed høy fare er det viktig å være ekstra påpasselig ved bruk av redskaper som kan utgjøre en potensiell risiko."</string>
+    <string name="infoOmBrannfareNivaaer">"Tallene som indikerer hvor høyt farenivå det er, er hentet fra Meteorologisk Institutt, og beregnes etter nedbør, luftfuktighet og lufttemperatur. \n\nVed høy fare er det viktig å være ekstra påpasselig ved bruk av redskaper som kan utgjøre en potensiell risiko."</string>
 
     <string name="brannfareIkonForside">ikon som viser dagens brannfare på valgt sted</string>
     <string name="swipeUpArrow">ikon som symboliserer sveip opp</string>
