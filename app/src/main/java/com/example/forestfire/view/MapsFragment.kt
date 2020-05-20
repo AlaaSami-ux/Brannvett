@@ -530,7 +530,7 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
                             }
                             else -> {
                                 fare_warning.text = getString(R.string.hoyFare)
-                                fare_warning.setTextColor(ContextCompat.getColor(requireContext(), R.color.DangerGreen))
+                                fare_warning.setTextColor(ContextCompat.getColor(requireContext(), R.color.DangerRed))
                                 fare_symbol.setImageResource(R.drawable.ic_fareiconrod)
                             }
                         }
