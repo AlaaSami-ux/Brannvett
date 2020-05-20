@@ -40,7 +40,7 @@ class SettingsFragment : Fragment(), AdapterView.OnItemSelectedListener {
     }
 
 
-    fun setLocate(Lang: String) {
+    private fun setLocate(Lang: String) {
         val locale = Locale(Lang)
         Locale.setDefault(locale)
         val config = Configuration()
@@ -56,12 +56,7 @@ class SettingsFragment : Fragment(), AdapterView.OnItemSelectedListener {
         editor.apply()
     }
 
-    private fun loadLocate() {
-        val sharedPreferences = requireActivity().getSharedPreferences("Settings", Activity.MODE_PRIVATE)
-        val language = sharedPreferences.getString("My_Lang", "")
-        language?.let { setLocate(it) }
-    }
-
+    @Suppress("UNUSED_ANONYMOUS_PARAMETER")
     private fun darkModeSwitch() {
         switch = root.findViewById(R.id.darkSwitch)
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
@@ -95,11 +90,10 @@ class SettingsFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 ?.beginTransaction()
                 ?.detach(this)
                 ?.attach(this)
-                ?.commit();
+                ?.commit()
         }
     }
 
-    @Suppress("DEPRECATION")
     fun updateFragment() {
         val ft: FragmentTransaction = requireFragmentManager().beginTransaction()
         if (Build.VERSION.SDK_INT >= 26) {
@@ -109,24 +103,28 @@ class SettingsFragment : Fragment(), AdapterView.OnItemSelectedListener {
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
-        Toast.makeText(activity, "Nothing Is Selected", Toast.LENGTH_LONG).show()
+      //  Toast.makeText(activity, "Nothing Is Selected", Toast.LENGTH_LONG).show()
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        val selectedItem = parent?.getItemAtPosition(position).toString()
-        if (selectedItem == "English") {
-            setLocate("en")
-            Toast.makeText(activity, selectedItem, Toast.LENGTH_LONG).show()
-        } else if (selectedItem == "Norsk") {
-            setLocate("nb")
-            Toast.makeText(activity, selectedItem, Toast.LENGTH_LONG).show()
-        }else if(selectedItem == "Velg Språk"){
-            onNothingSelected(parent)
+        when (val selectedItem = parent?.getItemAtPosition(position).toString()) {
+            "English" -> {
+                setLocate("en")
+                Toast.makeText(activity, selectedItem, Toast.LENGTH_LONG).show()
+            }
+            "Norsk" -> {
+                setLocate("nb")
+                Toast.makeText(activity, selectedItem, Toast.LENGTH_LONG).show()
+            }
+            "Velg Språk" -> {
+                onNothingSelected(parent)
+            }
         }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-
-    }
+        spinner = root.findViewById(R.id.spinner2)
+        spinner.onItemSelectedListener = this
+        }
 }
