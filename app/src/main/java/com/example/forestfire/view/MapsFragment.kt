@@ -263,6 +263,7 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
         settValgtStedTekst(lastLocName)
         displayWeather(lastLoc)
 
+
         mMap.setOnMyLocationButtonClickListener(OnMyLocationButtonClickListener {
             Log.d(TAG, "My location button clicked")
             mMap.myLocation
@@ -270,6 +271,8 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
             mapsViewModel.addMarker(mMap, LatLng(mMap.myLocation.latitude, mMap.myLocation.longitude))
             mapsViewModel.moveCam(mMap, LatLng(mMap.myLocation.latitude, mMap.myLocation.longitude))
             mapsViewModel.setLastUsedLocation(LatLng(mMap.myLocation.latitude, mMap.myLocation.longitude))
+            displayWeather(mapsViewModel.getLastUsedLocation())
+            fillSwipeUpScreen(mapsViewModel.getLastUsedLocation())
             true
         })
     }
