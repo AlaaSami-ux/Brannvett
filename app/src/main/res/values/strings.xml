@@ -37,13 +37,13 @@
     </string-array>
 
 
-    <string name="infoOmBrannfareNivåer"> "her skriver jeg bare litt tekst som skal fylle litt plass og det er hyggelig og fint og jeg liker gruppen jeg er på prosjekt med og jeg gleder meg til å drikke vin med dem og ha det hyggelig "</string>
+    <string name="infoOmBrannfareNivaaer"> "her skriver jeg bare litt tekst som skal fylle litt plass og det er hyggelig og fint og jeg liker gruppen jeg er på prosjekt med og jeg gleder meg til å drikke vin med dem og ha det hyggelig "</string>
     <string name="brannfareIkonForside">ikon som viser dagens brannfare på valgt sted</string>
     <string name="swipeUpArrow">ikon som symboliserer sveip opp</string>
     <string name="swipeDownArrow">ikon som symboliserer sveip ned</string>
-    <string name="værIdag">VÆRET I DAG</string>
+    <string name="vaerIdag">VÆRET I DAG</string>
 
-    <string name="værIkon">ikon som viser været</string>
+    <string name="vaerIkon">ikon som viser vaeret</string>
     <string name="tilbake">Gå tilbake</string>
     <string name="toppBildeFragment">deskriptivt bilde som fyller toppen av siden</string>
     <string name="plussIkon">legg til knapp</string>
@@ -62,7 +62,7 @@
     <string name="verktaayInfo">"Bruk av verktøy som har åpen flamme, eller som slår gnister kan være svært brannfarlig. \nDet er viktig å være obs på dette, og ta de forholdsreglene som trengs. \nGjør alltid en vurdering, og utsett heller arbeidet hvis det er fare for skogbrann. \nKilde: Domeneeksperten vår og \nbondelaget.no"</string>
     <string name="avfallInfo">"Bruk alltid en avfallscontainer som er for engangsgrill etter du er ferdig å bruke den. \nOfte finnes det en oversikt over hvilke parker eller området som har disse på kommunen sine nettsider. \nTenk før du kaster!"</string>
 
-    <string name="værIdagIkon">ikon som viser dagens vær</string>
+    <string name="vaerIdagIkon">ikon som viser dagens vær</string>
 
     <string name="tillat_varsling">Tillatt Varsling</string>
     <string name="varsling">Varsling</string>
