@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
@@ -171,15 +172,17 @@ class FavoritesFragment : Fragment() {
         }
 
         noFavoritesTextBox = root.findViewById(R.id.no_favorites)
-
         //readFile()
 
         if(!::favorites.isInitialized){
             favorites = favoriteViewModel.favorites
         }
 
-        my_recycler_view = root.findViewById(R.id.my_recycler_view)
+        if (favorites.isNotEmpty()){
+            noFavoritesTextBox.text = getString(R.string.lasterInn)
+        }
 
+        my_recycler_view = root.findViewById(R.id.my_recycler_view)
 
         forecastViewModel.fetchForecastFavorites(favorites.keys.toList())
         forecastViewModel.forecastFavoritesLiveData.observe(viewLifecycleOwner, androidx.lifecycle.Observer {forecastMap ->
@@ -290,7 +293,7 @@ class FavoritesFragment : Fragment() {
         my_recycler_view.apply{
             layoutManager = LinearLayoutManager(requireActivity())
             viewAdapter = ListAdapter(forecastMap, posDangerMap, favorites, this@FavoritesFragment)
-            if(favorites.count() >0){
+            if(favorites.count() > 0){
                 noFavoritesTextBox.visibility = View.GONE
             }
             adapter = viewAdapter
@@ -321,7 +324,7 @@ class FavoritesFragment : Fragment() {
 
         Log.d(TAG, "onStop")
         // read hashmap to a file
-        try {
+        /*try {
             Log.d(TAG, "prøve å legge til favoritter i internal storage")
 
             val fos =
@@ -331,7 +334,7 @@ class FavoritesFragment : Fragment() {
             oos.close()
         } catch (e: IOException) {
             e.printStackTrace()
-        }
+        }*/
     }
 
     override fun onDestroy() {

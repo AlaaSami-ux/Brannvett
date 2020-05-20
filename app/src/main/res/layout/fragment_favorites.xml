@@ -153,6 +153,15 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
+            <!--<ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:indeterminateDrawable="@drawable/progress"
+                android:visibility="gone"/>-->
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/my_recycler_view"
                 android:layout_width="match_parent"

@@ -41,7 +41,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginStart="30dp"
-                        android:text="VÆRET I DAG"
+                        android:text="@string/værIdag"
                         android:textSize="18sp"
                         android:textColor="@color/DingGrey"/>
 
@@ -51,7 +51,7 @@
                         android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        />
+                        android:contentDescription="@string/værIkon"/>
 
                     <TextView
                         android:id="@+id/w_deg"
@@ -136,7 +136,8 @@
                         android:id="@+id/fire_symbol"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                          android:layout_gravity="center"/>
+                        android:layout_gravity="center"
+                        android:contentDescription="@string/brannfare"/>
                     <TextView
                         android:id="@+id/fire_warning"
                         android:layout_width="wrap_content"
