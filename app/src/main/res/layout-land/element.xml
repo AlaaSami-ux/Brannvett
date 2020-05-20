@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingLeft="2dp"
@@ -42,7 +43,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:orientation="horizontal"
-                    android:weightSum="3">
+                    android:weightSum="3"
+                    android:baselineAligned="false">
 
                     <!-- dag 1-->
                     <LinearLayout
@@ -51,20 +53,23 @@
                         android:layout_weight="1"
                         android:gravity="start"
                         android:orientation="vertical"
-                        android:weightSum="2">
+                        android:weightSum="2"
+                        tools:ignore="NestedWeights">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:layout_weight="1"
-                            android:weightSum="3">
+                            android:weightSum="3"
+                            tools:ignore="NestedWeights">
 
                             <ImageView
                                 android:id="@+id/vær_symbol1"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1" />
+                                android:layout_weight="1"
+                                android:contentDescription="@string/værIkon"/>
 
                             <TextView
                                 android:id="@+id/vær_text1"
@@ -87,7 +92,8 @@
                                 android:adjustViewBounds="true"
                                 android:maxWidth="20dp"
                                 android:maxHeight="20dp"
-                                android:layout_weight="1" />
+                                android:layout_weight="1"
+                                android:contentDescription="@string/brannfare"/>
 
                             <TextView
                                 android:id="@+id/brann_index1"
@@ -101,7 +107,7 @@
 
                     <!-- dag 2-->
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="start"
@@ -110,7 +116,7 @@
 
                         <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="0dp"
                             android:orientation="horizontal"
                             android:layout_weight="1"
                             android:weightSum="3">
@@ -119,7 +125,9 @@
                                 android:id="@+id/vær_symbol2"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1" />
+                                android:layout_weight="1"
+                                tools:ignore="NestedWeights"
+                                android:contentDescription="@string/værIkon"/>
 
                             <TextView
                                 android:id="@+id/vær_text2"
@@ -143,7 +151,9 @@
                                 android:adjustViewBounds="true"
                                 android:maxWidth="20dp"
                                 android:maxHeight="20dp"
-                                android:layout_weight="1" />
+                                android:layout_weight="1"
+                                tools:ignore="NestedWeights"
+                                android:contentDescription="@string/brannfare"/>
 
                             <TextView
                                 android:id="@+id/brann_index2"
@@ -157,7 +167,7 @@
 
                     <!-- dag 3-->
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="start"
@@ -166,7 +176,7 @@
 
                         <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="0dp"
                             android:orientation="horizontal"
                             android:layout_weight="1"
                             android:weightSum="3">
@@ -175,7 +185,9 @@
                                 android:id="@+id/vær_symbol3"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1" />
+                                android:layout_weight="1"
+                                tools:ignore="NestedWeights"
+                                android:contentDescription="@string/værIkon"/>
 
                             <TextView
                                 android:id="@+id/vær_text3"
@@ -199,7 +211,9 @@
                                 android:adjustViewBounds="true"
                                 android:maxWidth="20dp"
                                 android:maxHeight="20dp"
-                                android:layout_weight="1" />
+                                android:layout_weight="1"
+                                tools:ignore="NestedWeights"
+                                android:contentDescription="@string/brannfare"/>
 
                             <TextView
                                 android:id="@+id/brann_index3"
@@ -220,5 +234,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:background="@null"
-        android:src="@drawable/ic_remove_circle_black_24dp" />
+        android:src="@drawable/ic_remove_circle_black_24dp"
+        android:contentDescription="@string/fjernFavoritt"/>
 </RelativeLayout>

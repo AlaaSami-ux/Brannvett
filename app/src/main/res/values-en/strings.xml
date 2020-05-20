@@ -42,5 +42,11 @@
     <string name="switchKnapp">switch</string>
     <string name="swipeDownArrow">icon symbolizing swipe down</string>
     <string name="værIdagIkon">icon showing todays weather</string>
+    <string name="inkluderVarsling">slide to the right to include warning for lower danger index</string>
+    <string name="hoyBrannfare">high danger index</string>
+    <string name="middelsBrannfare">medium danger index</string>
+    <string name="lavBrannfare">low danger index</string>
+    <string name="lasterInn">LOADING..</string>
+    <string name="fjernFavoritt">remove favorite</string>
 
 </resources>
