@@ -14,7 +14,9 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -26,6 +28,8 @@ import com.example.forestfire.viewModel.fetchAPI.FireDataViewModel
 import com.example.forestfire.viewModel.fetchAPI.LocationForecastViewModel
 import com.example.forestfire.viewModel.fetchAPI.StationInfoViewModel
 import com.google.android.gms.common.api.Status
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -53,6 +57,7 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
 
     private lateinit var lastLoc: LatLng
     private lateinit var lastLocName: String
+    private var deviceLoc: LatLng? = null
 
     private lateinit var root: View
     private lateinit var weather: CardView
@@ -70,6 +75,7 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
     private lateinit var autocompleteFragment: AutocompleteSupportFragment
     private val norge = LatLngBounds(LatLng(58.019156, 2.141567), LatLng(71.399348, 33.442113))
     private lateinit var searchBox: CardView
+    private lateinit var mFusedLocationProviderClient: FusedLocationProviderClient
 
     // kort som blir sveipet opp
     private lateinit var dag1: TextView
@@ -101,11 +107,15 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
         // sett activity, context og fusedLocation... i viewModel
         mapsViewModel.setActivity(requireActivity())
         mapsViewModel.setContext(requireContext())
-        mapsViewModel.setFusedLocationProviderClient()
+
+        // get users permission for location
+        mapsViewModel.getLocationPermission()
 
         // MapsViewModel holder kontroll på sist besøkte sted
-        lastLoc = mapsViewModel.getLastUsedLocation() // lagre siste posisjon
+        lastLoc = mapsViewModel.getLastUsedLocation() // hente siste brukte posisjon
         lastLocName = mapsViewModel.getLastUsedLocationName()
+
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -130,8 +140,6 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
         stedinfo = root.findViewById(R.id.swipeUp) // cardView som synes når man har sveipet opp
         favoriteBtn = root.findViewById(R.id.favoritt)      // favorittknapp cardView nede
         favoriteBtn2 = stedinfo.findViewById(R.id.favoritt) // favorittknapp cardView åpent
-
-
 
         // datoer
         dag1 = root.findViewById(R.id.dag1)
@@ -197,8 +205,8 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
                 Log.i(TAG, "Place: " + place.name + ", " + place.latLng)
                 chosenNewPlace(place.latLng!!)
                 mapsViewModel.setLastUsedLocation(place.latLng!!, place.name!!) // Oppdaterer sist brukte lokasjon
-                mapsViewModel.moveCam(mMap, place.latLng!!)
-                mapsViewModel.addMarker(mMap, place.latLng!!)
+                mapsViewModel.moveCam(place.latLng!!)
+                mapsViewModel.addMarker(place.latLng!!)
                 settValgtStedTekst(place.name!!)
             }
             override fun onError(status: Status) {
@@ -207,9 +215,8 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
         })
         // ---------------------------------------------------------------
 
-        // get users permission for location
-        mapsViewModel.getLocationPermission()
-
+        mapsViewModel.setTextViews(valgtSted, valgtSted2)
+        mapsViewModel.setFavButtons(favoriteBtn, favoriteBtn2)
         return root
     }
 
@@ -218,9 +225,11 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
         Log.d(TAG, "favorite button clicked")
         favoriteViewModel.changeFavoriteBoolean()
         if (favoriteViewModel.isBtnClicked()){ // hvis knappen er fylt med farge
+
             favoriteViewModel.addFavorite(lastLoc, valgtSted.text.toString())
             favoriteViewModel.setBtnClicked(favoriteBtn, favoriteBtn2)
         } else { // hvis knappen ikke er fylt med farge
+
             favoriteViewModel.removeFavorite(lastLoc, valgtSted.text.toString())
             favoriteViewModel.setBtnUnClicked(favoriteBtn, favoriteBtn2)
         }
@@ -229,6 +238,7 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
     override fun onMapReady(googleMap: GoogleMap) {
         Log.d(TAG, "onMapReady: map is ready")
         mMap = googleMap
+        mapsViewModel.setMap(mMap)
 
         // Convert dp to px
         val dip = 90f
@@ -251,28 +261,39 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
         mMap.isMyLocationEnabled = true
         mMap.setOnMapLongClickListener {
             chosenNewPlace(it)
-            mapsViewModel.addMarker(mMap, it)
+            mapsViewModel.addMarker(it)
             getAddressFromLocation(it.latitude, it.longitude)
             mapsViewModel.setLastUsedLocation(it)
             displayWeather(it)
         }
 
 
-        mapsViewModel.moveCam(mMap, lastLoc) // Åpne kartet på sist brukte posisjon
-        mapsViewModel.addMarker(mMap, lastLoc)
+        mapsViewModel.moveCam(lastLoc) // Åpne kartet på sist brukte posisjon
+        mapsViewModel.addMarker(lastLoc)
         settValgtStedTekst(lastLocName)
         displayWeather(lastLoc)
 
 
         mMap.setOnMyLocationButtonClickListener(OnMyLocationButtonClickListener {
             Log.d(TAG, "My location button clicked")
-            mMap.myLocation
-            getAddressFromLocation(mMap.myLocation.latitude, mMap.myLocation.longitude)
-            mapsViewModel.addMarker(mMap, LatLng(mMap.myLocation.latitude, mMap.myLocation.longitude))
-            mapsViewModel.moveCam(mMap, LatLng(mMap.myLocation.latitude, mMap.myLocation.longitude))
-            mapsViewModel.setLastUsedLocation(LatLng(mMap.myLocation.latitude, mMap.myLocation.longitude))
-            displayWeather(mapsViewModel.getLastUsedLocation())
-            fillSwipeUpScreen(mapsViewModel.getLastUsedLocation())
+
+            //mapsViewModel.setCurrentFavorites(favoriteViewModel.favoriteList)
+            //mapsViewModel.getLastDeviceLocation()
+
+            mFusedLocationProviderClient.lastLocation.addOnSuccessListener {
+                // fikk tak i sist kjente lokasjon
+                if(it != null && norge.contains(LatLng(it.latitude, it.longitude))){
+                    deviceLoc = LatLng(it.latitude, it.longitude)
+                    mapsViewModel.moveCam(deviceLoc!!)
+                    mapsViewModel.addMarker(deviceLoc!!)
+                    getAddressFromLocation(deviceLoc!!.latitude, deviceLoc!!.longitude)
+                    // oppdaterer sist brukte posisjon
+                    mapsViewModel.setLastUsedLocation(deviceLoc!!)
+                    chosenNewPlace(deviceLoc!!)
+                    displayWeather(deviceLoc!!)
+                    fillSwipeUpScreen(deviceLoc!!)
+                }
+            }
             true
         })
     }
@@ -447,17 +468,22 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
         // Metode for å hente riktig farge på treet som brukes som symbol for
         // danger_index (farevarsel, brannfarevarsel)
         val brann : Int
-        if(danger_index < 30){
-            brann = R.drawable.ic_brannfare_gronntre
-        }else if(danger_index in 30..60){
-            brann = R.drawable.ic_brannfare_gultre
-        }else {
-            brann = R.drawable.ic_brannfare_rodtre
+        brann = when {
+            danger_index < 30 -> {
+                R.drawable.ic_brannfare_gronntre
+            }
+            danger_index in 30..60 -> {
+                R.drawable.ic_brannfare_gultre
+            }
+            else -> {
+                R.drawable.ic_brannfare_rodtre
+            }
         }
         return brann
     }
 
 
+    @SuppressLint("SetTextI18n")
     private fun fillSwipeUpScreen(loc : LatLng){
         // Her skal skjermen man swiper opp på hovedsiden fylles med informasjon, samt kortet
         // nederst på hovedsiden
@@ -491,18 +517,22 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
                         val fare_symbol = root.findViewById<ImageView>(R.id.fire_symbol)
                         val fare_warning = root.findViewById<TextView>(R.id.fire_warning)
 
-                        if(dangerList[0].toInt() <= 30){
-                            fare_warning.setTextColor(resources.getColor(R.color.DangerGreen))
-                            fare_warning.text = getString(R.string.lavFare)
-                            fare_symbol.setImageResource(R.drawable.ic_fareicongraa)
-                        }else if(dangerList[0].toInt() in 31..59){
-                            fare_warning.text = getString(R.string.middelsFare)
-                            fare_warning.setTextColor(resources.getColor(R.color.DangerOrange))
-                            fare_symbol.setImageResource(R.drawable.ic_fareiconrod)
-                        }else{
-                            fare_warning.text = getString(R.string.hoyFare)
-                            fare_warning.setTextColor(resources.getColor(R.color.DangerRed))
-                            fare_symbol.setImageResource(R.drawable.ic_fareiconrod)
+                        when {
+                            dangerList[0].toInt() <= 30 -> {
+                                fare_warning.setTextColor(ContextCompat.getColor(requireContext(), R.color.DangerGreen))
+                                fare_warning.text = getString(R.string.lavFare)
+                                fare_symbol.setImageResource(R.drawable.ic_fareicongraa)
+                            }
+                            dangerList[0].toInt() in 31..59 -> {
+                                fare_warning.text = getString(R.string.middelsFare)
+                                fare_warning.setTextColor(ContextCompat.getColor(requireContext(), R.color.DangerOrange))
+                                fare_symbol.setImageResource(R.drawable.ic_fareiconrod)
+                            }
+                            else -> {
+                                fare_warning.text = getString(R.string.hoyFare)
+                                fare_warning.setTextColor(ContextCompat.getColor(requireContext(), R.color.DangerGreen))
+                                fare_symbol.setImageResource(R.drawable.ic_fareiconrod)
+                            }
                         }
 
 
