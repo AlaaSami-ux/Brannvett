@@ -148,7 +148,6 @@ class InfoViewModel : ViewModel() {
         val msgTxt = dialog.findViewById<View>(android.R.id.message)!! as TextView
         msgTxt.textSize = 22F
         msgTxt.setTextColor(Color.GRAY)
-
         //dialog.window?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FFCCD1EF")))
     }
 }
