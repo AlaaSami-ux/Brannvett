@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -350,7 +349,7 @@
                 android:gravity="center"
                 android:paddingTop="30dp"
                 android:paddingBottom="20dp"
-                android:text="Velg hvilken fare nivå du vil få varsler for"
+                android:text="@string/inkluderVarsling"
                 android:textSize="18sp" />
 
             <SeekBar
@@ -388,21 +387,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_brannfare_rodtre" />
+                    android:src="@drawable/ic_brannfare_rodtre"
+                    android:contentDescription="@string/hoyBrannfare"/>
 
                 <ImageView
                     android:id="@+id/imageView8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_brannfare_gultre" />
+                    android:src="@drawable/ic_brannfare_gultre"
+                    android:contentDescription="@string/middelsBrannfare"/>
 
                 <ImageView
                     android:id="@+id/imageView9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_brannfare_gronntre" />
+                    android:src="@drawable/ic_brannfare_gronntre"
+                    android:contentDescription="@string/lavBrannfare"/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

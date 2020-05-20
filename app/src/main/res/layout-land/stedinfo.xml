@@ -123,7 +123,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:gravity="center"/>
+                                android:gravity="center"
+                                android:contentDescription="@string/værIkon"/>
 
                             <TextView
                                 android:id="@+id/vær1"
@@ -146,7 +147,8 @@
                                 android:layout_height="20dp"
                                 android:layout_width="20dp"
                                 android:scaleType="fitXY"
-                                android:adjustViewBounds="true"/>
+                                android:adjustViewBounds="true"
+                                android:contentDescription="@string/brannfare"/>
 
                             <TextView
                                 android:id="@+id/brann1"
@@ -190,7 +192,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:gravity="center"/>
+                                android:gravity="center"
+                                android:contentDescription="@string/værIkon"/>
 
                             <TextView
                                 android:id="@+id/vær2"
@@ -213,7 +216,8 @@
                                 android:layout_height="20dp"
                                 android:layout_width="20dp"
                                 android:scaleType="fitXY"
-                                android:adjustViewBounds="true"/>
+                                android:adjustViewBounds="true"
+                                android:contentDescription="@string/brannfare"/>
 
                             <TextView
                                 android:id="@+id/brann2"
@@ -257,7 +261,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:gravity="center"/>
+                                android:gravity="center"
+                                android:contentDescription="@string/værIkon"/>
 
                             <TextView
                                 android:id="@+id/vær3"
@@ -281,7 +286,8 @@
                                 android:layout_height="20dp"
                                 android:layout_width="20dp"
                                 android:scaleType="fitXY"
-                                android:adjustViewBounds="true"/>
+                                android:adjustViewBounds="true"
+                                android:contentDescription="@string/brannfare"/>
 
                             <TextView
                                 android:id="@+id/brann3"

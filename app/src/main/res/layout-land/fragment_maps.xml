@@ -71,20 +71,22 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="30dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                tools:ignore="UseCompoundDrawables">
               
                 <!-- farevarsel ikon -->
                 <ImageView
                     android:id="@+id/fire_symbol"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/brannfare"/>
                 <TextView
                     android:id="@+id/fire_warning"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"/>
             </LinearLayout>
           
         </androidx.cardview.widget.CardView>

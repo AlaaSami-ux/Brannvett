@@ -64,6 +64,13 @@
     <string name="avfallInfo">"Bruk alltid en avfallscontainer som er for engangsgrill etter du er ferdig å bruke den. \nOfte finnes det en oversikt over hvilke parker eller området som har disse på kommunen sine nettsider. \nTenk før du kaster!"</string>
 
     <string name="værIdagIkon">ikon som viser dagens vær</string>
-    <string name="tillat_varsling">"Allowed notification "</string>
+
+    <string name="tillat_varsling">Tillatt Varsling</string>
     <string name="varsling">Varsling</string>
+    <string name="inkluderVarsling">dra mot høyre for å inkludere varsling for lavere brannfare</string>
+    <string name="hoyBrannfare">Høy brannfare</string>
+    <string name="middelsBrannfare">Middels brannfare</string>
+    <string name="lavBrannfare">Lav brannfare</string>
+    <string name="lasterInn">LASTER INN..</string>
+    <string name="fjernFavoritt">fjern favoritt</string>
 </resources>

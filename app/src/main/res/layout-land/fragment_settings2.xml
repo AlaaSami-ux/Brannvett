@@ -176,7 +176,10 @@
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1.4">
+                    android:layout_weight="1.4"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/switchKnapp">
+
 
 
                     <Switch
@@ -341,7 +344,7 @@
                 android:paddingTop="2dp"
                 android:layout_weight="1"
                 android:paddingBottom="20dp"
-                android:text="Velg hvilken fare nivå du vil få varsler for"
+                android:text="@string/inkluderVarsling"
                 android:textSize="18sp" />
 
             <SeekBar
@@ -349,7 +352,7 @@
                 style="@style/Widget.AppCompat.SeekBar.Discrete"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="30dp"
                 android:layout_weight="1"
@@ -380,21 +383,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_brannfare_rodtre" />
+                    android:src="@drawable/ic_brannfare_rodtre"
+                    android:contentDescription="@string/hoyBrannfare"/>
 
                 <ImageView
                     android:id="@+id/imageView8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_brannfare_gultre" />
+                    android:src="@drawable/ic_brannfare_gultre"
+                    android:contentDescription="@string/middelsBrannfare"/>
 
                 <ImageView
                     android:id="@+id/imageView9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_brannfare_gronntre" />
+                    android:src="@drawable/ic_brannfare_gronntre"
+                    android:contentDescription="@string/lavBrannfare"/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
