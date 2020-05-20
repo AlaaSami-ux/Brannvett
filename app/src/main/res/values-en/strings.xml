@@ -32,7 +32,7 @@
 
     <string name="swipeUpArrow">icon symbolizing swipe up</string>
     <string name="værIkon">icon showing the weather</string>
-    <string name="infoOmBrannfareNivåer">I am not translating all this shit to english right now but I hope it will be fixed damn</string>
+    <string name="infoOmBrannfareNivåer">The numbers indicating the danger index are provided by The Norwegian Meteorological Institute, and are calculated with regards to rainfall, humidity and temperature. \nIt is important to be extra cautious when the index signals a high risk.</string>
 
     <string name="brannfareIkonForside">icon showing todays danger index</string>
     <string name="værIdag">WEATHER TODAY</string>

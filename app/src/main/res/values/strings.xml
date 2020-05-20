@@ -37,7 +37,7 @@
     </string-array>
 
 
-    <string name="infoOmBrannfareNivåer"> "her skriver jeg bare litt tekst som skal fylle litt plass og det er hyggelig og fint og jeg liker gruppen jeg er på prosjekt med og jeg gleder meg til å drikke vin med dem og ha det hyggelig "</string>
+    <string name="infoOmBrannfareNivåer">"Tallene som indikerer hvor høyt farenivå det er, er hentet fra Meteorologisk Institutt, og beregnes etter nedbør, luftfuktighet og lufttemperatur. \n\nVed høy fare er det viktig å være ekstra påpasselig ved bruk av redskaper som kan utgjøre en potensiell risiko."</string>
     <string name="brannfareIkonForside">ikon som viser dagens brannfare på valgt sted</string>
     <string name="swipeUpArrow">ikon som symboliserer sveip opp</string>
     <string name="swipeDownArrow">ikon som symboliserer sveip ned</string>
@@ -55,18 +55,18 @@
     <string name="brannfareLevels">lav brannfare 0 til 30. middels brannfare 31 til 60. høy brannfare over 60</string>
 
 
-    <string name="baalInfo"> "perioden 15.april til 15.september er det forbud mot å tenne bål, grill og engangsgrill i skog eller i nærheten av skog. \nNår du tenner bål er det ALLTID viktig å slukke skikkelig, og forsikre seg om at det er helt slukket før du drar videre. \n\nKilde: norskfriluftsliv.no"</string>
-    <string name="glassInfo">"En knust glassflaske kan med hjelp av solen potensielt starte en gressbrann, som kan utvikle seg til en skogbrann. \nTa alltid med deg søppelet ditt hjem igjen!\n\n"</string>
-    <string name="engangsgrillInfo">"En engangsgrill skal alltid stå stødig på et underlag som ikke er brennbart, og husk alltid å bruke stativet som følger med. \nPass på at grillen er ordentlig slukket og at du kaster den i en container spesifiser for engangsgriller.  \n\nKilde: Brannvernforeningen.no"</string>
-    <string name="lynInfo">"Visste du at lynnedslag starter mange branner i skog i Norge i løpet av året? \nI tillegg kan det ligge og ulme i bakken i opptil tre dager før det antenner. \nAlltid meld ifra hvis du ser antydninger til skogbrann!"</string>
-    <string name="verktaayInfo">"Bruk av verktøy som har åpen flamme, eller som slår gnister kan være svært brannfarlig. \nDet er viktig å være obs på dette, og ta de forholdsreglene som trengs. \nGjør alltid en vurdering, og utsett heller arbeidet hvis det er fare for skogbrann. \nKilde: Domeneeksperten vår og \nbondelaget.no"</string>
-    <string name="avfallInfo">"Bruk alltid en avfallscontainer som er for engangsgrill etter du er ferdig å bruke den. \nOfte finnes det en oversikt over hvilke parker eller området som har disse på kommunen sine nettsider. \nTenk før du kaster!"</string>
+    <string name="baalInfo">"I perioden 15. april til 15. september er det forbud mot å tenne bål, grill og engangsgrill i skog eller i nærheten av skog. \n\nNår du tenner bål er det alltid viktig å slukke skikkelig, og forsikre seg om at det er helt slukket før du drar."</string>
+    <string name="glassInfo">"En knust glassflaske kan med hjelp av solen potensielt starte en gressbrann, som igjen kan utvikle seg til en skogbrann. \n\nTa alltid med deg søppelet ditt hjem igjen!"</string>
+    <string name="engangsgrillInfo">"En engangsgrill skal alltid stå stødig på et underlag som ikke er brennbart, og husk alltid å bruke stativet som følger med. \n\nPass på at grillen er ordentlig slukket, og at du kaster den i en container for engangsgriller."</string>
+    <string name="lynInfo">"Visste du at lynnedslag starter mange branner i skog i Norge i løpet av året? I tillegg kan det ligge og ulme i bakken i opptil tre dager før det antenner. \n\nAlltid meld ifra hvis du ser antydninger til skogbrann!"</string>
+    <string name="verktaayInfo">"Bruk av verktøy som har åpen flamme, eller som slår gnister kan være svært brannfarlig. Det er viktig å være obs på dette, og ta de forholdsreglene som trengs. \n\nGjør alltid en vurdering, og utsett heller arbeidet hvis det er fare for skogbrann."</string>
+    <string name="avfallInfo">"Bruk alltid en avfallscontainer som er for engangsgrill etter at du er ferdig med å bruke den. Ofte finnes det en oversikt over hvilke parker eller området som har disse på kommunen sine nettsider. \n\nTenk før du kaster!"</string>
 
     <string name="værIdagIkon">ikon som viser dagens vær</string>
 
     <string name="tillat_varsling">Tillatt Varsling</string>
     <string name="varsling">Varsling</string>
-    <string name="inkluderVarsling">dra mot høyre for å inkludere varsling for lavere brannfare</string>
+    <string name="inkluderVarsling">Dra mot høyre for å inkludere varsling for lavere brannfare</string>
     <string name="hoyBrannfare">Høy brannfare</string>
     <string name="middelsBrannfare">Middels brannfare</string>
     <string name="lavBrannfare">Lav brannfare</string>
