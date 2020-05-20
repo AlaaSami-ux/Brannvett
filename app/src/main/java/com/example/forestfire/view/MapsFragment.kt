@@ -42,7 +42,9 @@ import com.squareup.picasso.Picasso
 import java.util.*
 
 
-class MapsFragment : Fragment(),
+class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
+                     fireIndexViewModel : FireDataViewModel,
+                     forecastViewModel : LocationForecastViewModel) : Fragment(),
     OnMapReadyCallback,
     View.OnTouchListener, View.OnClickListener{
 
@@ -81,10 +83,9 @@ class MapsFragment : Fragment(),
     private lateinit var mapsViewModel: MapsViewModel
     private lateinit var favoriteViewModel: FavoriteViewModel
 
-    private val forecastModel by viewModels<LocationForecastViewModel> { LocationForecastViewModel.InstanceCreator() }
-    private val stationModel by viewModels<StationInfoViewModel> { StationInfoViewModel.InstanceCreator() }
-    private val fireModel by viewModels<FireDataViewModel> { FireDataViewModel.InstanceCreator() }
-
+    private val forecastModel = forecastViewModel
+    private val stationModel = stationInfoViewModel
+    private val fireModel = fireIndexViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

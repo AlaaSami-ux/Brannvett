@@ -46,7 +46,9 @@ import java.util.*
 import kotlin.collections.HashMap
 
 
-class FavoritesFragment : Fragment() {
+class FavoritesFragment( stationInfoViewModel: StationInfoViewModel,
+                         fireIndexViewModel : FireDataViewModel,
+                         locationForecastViewModel : LocationForecastViewModel) : Fragment() {
 
     val TAG = "FavoritesFragment"
 
@@ -73,10 +75,9 @@ class FavoritesFragment : Fragment() {
     private lateinit var favorites: MutableMap<LatLng, String>
 
 
-    private val fireViewModel : FireDataViewModel by viewModels { FireDataViewModel.InstanceCreator() }
-    private val stationViewModel : StationInfoViewModel by viewModels { StationInfoViewModel.InstanceCreator() }
-    private val forecastViewModel : LocationForecastViewModel by viewModels { LocationForecastViewModel.InstanceCreator() }
-
+    private val fireViewModel = fireIndexViewModel
+    private val stationViewModel = stationInfoViewModel
+    private val forecastViewModel = locationForecastViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

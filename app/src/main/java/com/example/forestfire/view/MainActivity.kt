@@ -15,11 +15,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.app.NotificationCompat
 import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.forestfire.R
 import com.example.forestfire.viewModel.FavoriteViewModel
 import com.example.forestfire.viewModel.MapsViewModel
 import com.example.forestfire.viewModel.fetchAPI.FireDataViewModel
+import com.example.forestfire.viewModel.fetchAPI.LocationForecastViewModel
 import com.example.forestfire.viewModel.fetchAPI.StationInfoViewModel
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
@@ -66,8 +68,11 @@ class MainActivity : AppCompatActivity() {
     // the ViewModel for the map
     val mapsViewModel: MapsViewModel by viewModels()
     val favoriteViewModel: FavoriteViewModel by viewModels()
+
+    // API viewmodels
     private val fireViewModel : FireDataViewModel by viewModels { FireDataViewModel.InstanceCreator()}
     private val stationInfoViewModel : StationInfoViewModel by viewModels { StationInfoViewModel.InstanceCreator()}
+    private val forecastViewModel : LocationForecastViewModel by viewModels { LocationForecastViewModel.InstanceCreator() }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,7 +83,7 @@ class MainActivity : AppCompatActivity() {
         val nav: BottomNavigationView = findViewById(R.id.menu)
 
         if (savedInstanceState == null) {
-            homeFragment = MapsFragment()
+            homeFragment = MapsFragment(stationInfoViewModel, fireViewModel, forecastViewModel)
             supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.frame_layout, homeFragment)
@@ -90,7 +95,7 @@ class MainActivity : AppCompatActivity() {
         nav.setOnNavigationItemSelectedListener { item ->
             when(item.itemId){
                 R.id.home ->{
-                    homeFragment = MapsFragment()
+                    homeFragment = MapsFragment(stationInfoViewModel, fireViewModel, forecastViewModel)
                     supportFragmentManager
                         .beginTransaction()
                         .replace(R.id.frame_layout, homeFragment)
@@ -98,7 +103,7 @@ class MainActivity : AppCompatActivity() {
                         .commit()
                 }
                 R.id.favorites ->{
-                    favoriteFragment = FavoritesFragment()
+                    favoriteFragment = FavoritesFragment(stationInfoViewModel, fireViewModel, forecastViewModel)
                     supportFragmentManager
                         .beginTransaction()
                         .replace(R.id.frame_layout, favoriteFragment)
@@ -192,10 +197,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
-    /*private fun drawData(loc : FireModel.Location){
-        findViewById<TextView>(R.id.name_text).text = loc.name
-    }*/
 
     /*fun onTaskRemoved(){
         // read hashmap to a file
