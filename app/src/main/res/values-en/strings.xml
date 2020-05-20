@@ -19,7 +19,7 @@
 
 
     <string name="glassInfo">"A shattered glass bottle can potentially start a wildfire with help from the sun, which can develop into a forest fire. \nMake sure to always take your garbage home with you!\n\n"</string>
-    <string name="engangsgrillInfo">"When using a disposable grill you should always make sure that it is placed on an even and non-flammable surface. \nMake sure that is properly put out, and always dispose of it in a container specifically made for disposable grills. \n\n"</string>
+    <string name="engangsgrillInfo">"When using a disposable grill you should always make sure that it is placed on an even and non-flammable surface.  Make sure that is properly put out, and always dispose of it in a container specifically made for disposable grills.   "</string>
     <string name="lynInfo">Did you know that lightning is the cause of a lot of forest fires in Norway every year? \nIt can also linger in the ground for three days as well, before igniting. \n\nAlways CALL 110 if you witness any sign of FIRE!</string>
     <string name="verktaayInfo">"Using tools that has an open flame, or that potentially sparks can be very dangerous. \nIt is important to take precautions when dealing with these kind of tools. \nAlways make an assessment before using them, and if there is a danger of forest fire, postpone it! \n\n"</string>
     <string name="avfallInfo">"Make sure that you always use a container specifically made for disposable grills when you are done using it. \nYou can often find a useful map of these on official websites. \n\n"</string>
@@ -62,6 +62,7 @@
     <string name="haay">High</string>
     <string name="middels">Medium</string>
     <string name="lav">Low</string>
+    <string name="finnerIkkeDinPos">Cannot find your location</string>
 
 
 </resources>
