@@ -44,7 +44,7 @@ import java.util.*
 
 class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
                      fireIndexViewModel : FireDataViewModel,
-                     forecastViewModel : LocationForecastViewModel) : Fragment(),
+                     forecastViewModel : LocationForecastViewModel ) : Fragment(),
     OnMapReadyCallback,
     View.OnTouchListener, View.OnClickListener{
 

@@ -28,23 +28,28 @@ class StationInfoViewModel(private val stationService : StationService) : ViewMo
         // fra forestFireIndex apiet (FireModel), og deres korresponderende data fra
         // Frost apiet (StationInfoModel). Dette hashmappet brukes videre for å finne
         // nærmeste posisjon til et gitt latlng objekt.
-        if(locCoorMap.isEmpty()){
-            Log.d("Inside stationInfoVM", "fetching data")
-            viewModelScope.launch {
-                val stationList = mutableListOf<StationInfoModel.GeneralInformation>()
-                for(loc in locList){
-                    // Stasjoner som ikke lengre er i bruk har en danger_index på '-'
-                    // Disse stasjonene finnes ikke i Frost apiet og vi vil få en 404
-                    // error dersom vi kaller på deres id.
-                    if(loc.danger_index != "-"){
-                        val station = stationService.fetchStationData("SN${loc.id}")
-                        stationList.add(station)
-                        locCoorMap[loc] = station.data[0].geometry
+        try{
+            if(locCoorMap.isEmpty()){
+                Log.d("Inside stationInfoVM", "fetching data")
+                viewModelScope.launch {
+                    val stationList = mutableListOf<StationInfoModel.GeneralInformation>()
+                    for(loc in locList){
+                        // Stasjoner som ikke lengre er i bruk har en danger_index på '-'
+                        // Disse stasjonene finnes ikke i Frost apiet og vi vil få en 404
+                        // error dersom vi kaller på deres id.
+                        if(loc.danger_index != "-"){
+                            val station = stationService.fetchStationData("SN${loc.id}")
+                            stationList.add(station)
+                            locCoorMap[loc] = station.data[0].geometry
+                        }
                     }
+                    stationInfoLiveData.postValue(stationList)
                 }
-                stationInfoLiveData.postValue(stationList)
             }
+        }catch ( e : java.net.SocketTimeoutException ){
+            Log.d("StationVM", e.toString())
         }
+
     }
 
     fun fetchThreeDayDanger(posisjon : LatLng, dagListe: List<FireModel.Dag>){
@@ -111,7 +116,6 @@ class StationInfoViewModel(private val stationService : StationService) : ViewMo
             lon = abs(geo.coordinates[0] - userLng.toFloat())
 
             if(minLatDistance > lat && minLonDistance > lon){
-                Log.d("BestLoc coordinates", "location coordinates ("+geo.coordinates[1].toString() + ", " + geo.coordinates[0].toString() + ")")
                 minLatDistance = lat
                 minLonDistance = lon
                 currentBestLoc = loc
