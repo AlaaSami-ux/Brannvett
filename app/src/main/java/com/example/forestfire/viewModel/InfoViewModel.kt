@@ -112,7 +112,7 @@ class InfoViewModel : ViewModel() {
         text.setText(string.avfallscontainer)
         text.setPadding(30, 30, 20, 30)
         //text.setTextColor(Color.GRAY)
-        text.setCompoundDrawablesWithIntrinsicBounds(ic_soppelcontainer_smaal,0,0,0)
+        text.setCompoundDrawablesWithIntrinsicBounds(ic_iconcontainer,0,0,0)
         text.textSize = 24F
 
         val builder = AlertDialog.Builder(context, style.CustomAlertDialog)
@@ -134,7 +134,7 @@ class InfoViewModel : ViewModel() {
         text.setText(string.verktoy)
         text.setPadding(30, 30, 20, 30)
         //text.setTextColor(Color.GRAY)
-        text.setCompoundDrawablesWithIntrinsicBounds(ic_verktoy_small,0,0,0)
+        text.setCompoundDrawablesWithIntrinsicBounds(ic_toolicon_smaal,0,0,0)
         text.textSize = 24F
 
         val builder = AlertDialog.Builder(context, style.CustomAlertDialog)
@@ -148,7 +148,6 @@ class InfoViewModel : ViewModel() {
         val msgTxt = dialog.findViewById<View>(android.R.id.message)!! as TextView
         msgTxt.textSize = 22F
         msgTxt.setTextColor(Color.GRAY)
-
         //dialog.window?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FFCCD1EF")))
     }
 }

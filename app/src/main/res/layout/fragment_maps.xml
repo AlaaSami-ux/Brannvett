@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".view.MapsFragment">
 
-
     <!--kart -->
     <FrameLayout
         android:id="@+id/map"

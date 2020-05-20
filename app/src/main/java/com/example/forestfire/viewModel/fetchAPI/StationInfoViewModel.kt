@@ -1,6 +1,5 @@
 package com.example.forestfire.viewModel.fetchAPI
 
-import android.content.Context
 import android.util.Log
 import androidx.lifecycle.*
 import com.example.forestfire.model.FireModel
@@ -11,10 +10,6 @@ import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
-import java.io.FileInputStream
-import java.io.FileOutputStream
-import java.io.IOException
-import java.io.ObjectOutputStream
 import kotlin.math.abs
 import kotlin.system.exitProcess
 
@@ -29,25 +24,32 @@ class StationInfoViewModel(private val stationService : StationService) : ViewMo
 
 
     fun fetchData(locList : List<FireModel.Location>){
+        // Denne metoden brukes for å fylle hashmappet locCoorMap med alle lokasjonene/stasjonene
+        // fra forestFireIndex apiet (FireModel), og deres korresponderende data fra
+        // Frost apiet (StationInfoModel). Dette hashmappet brukes videre for å finne
+        // nærmeste posisjon til et gitt latlng objekt.
         if(locCoorMap.isEmpty()){
             Log.d("Inside stationInfoVM", "fetching data")
             viewModelScope.launch {
                 val stationList = mutableListOf<StationInfoModel.GeneralInformation>()
                 for(loc in locList){
+                    // Stasjoner som ikke lengre er i bruk har en danger_index på '-'
+                    // Disse stasjonene finnes ikke i Frost apiet og vi vil få en 404
+                    // error dersom vi kaller på deres id.
                     if(loc.danger_index != "-"){
                         val station = stationService.fetchStationData("SN${loc.id}")
-                        //Log.d("stationinfoviewmodel", station.toString())
                         stationList.add(station)
                         locCoorMap[loc] = station.data[0].geometry
                     }
                 }
                 stationInfoLiveData.postValue(stationList)
-
             }
         }
     }
 
     fun fetchThreeDayDanger(posisjon : LatLng, dagListe: List<FireModel.Dag>){
+        // Denne metoden produserer en liste av danger_index for tre dager for
+        // den gitte posisjonen.
         viewModelScope.launch {
             val bestLoc = findBestLoc(posisjon)
             val dangerList = mutableListOf<String>()
@@ -63,10 +65,11 @@ class StationInfoViewModel(private val stationService : StationService) : ViewMo
     }
 
     fun fetchFavDanger(posisjonsListe : List<LatLng>, dagListe : List<FireModel.Dag>){
-
+        // Denne metoden produserer et hashmap bestpende at latlng objektene vi får inn
+        // og deres korresponderende danger_index for tre dager
+        // HashMap<LatLng, List<String>>, hvor List<String> er en liste med danger_index
         viewModelScope.launch {
             for(pos in posisjonsListe){
-
                 val bestLoc = findBestLoc(pos)
                 Log.d("Fav danger StationVM", "bestLoc = " + bestLoc.name + " pos: " + pos.toString())
                 val dangerList = mutableListOf<String>()
@@ -83,17 +86,15 @@ class StationInfoViewModel(private val stationService : StationService) : ViewMo
         }
     }
 
-    data class DangerIndex(
-        val danger_index : String
-    )
 
     private fun findBestLoc(latlonObjekt : LatLng) : FireModel.Location{
+        // Denne metoden finner stasjonen som er nærmest posisjonen som sendes inn
+        // og returnerer denne stasjonen (instans av FireModel.Location)
+
         if(locCoorMap.isEmpty()){
             Log.d("StationInfoViewModel", "locCoorMap is empty")
             exitProcess(1)  // Dersom hashmappet ikke er fylt stopper vi prosessen
         }
-
-
 
         val userLng = latlonObjekt.longitude
         val userLat = latlonObjekt.latitude
@@ -110,7 +111,7 @@ class StationInfoViewModel(private val stationService : StationService) : ViewMo
             lon = abs(geo.coordinates[0] - userLng.toFloat())
 
             if(minLatDistance > lat && minLonDistance > lon){
-                Log.d("BestLoc method", "geo coor ("+geo.coordinates[1].toString() + ", " + geo.coordinates[0].toString() + ")")
+                Log.d("BestLoc coordinates", "location coordinates ("+geo.coordinates[1].toString() + ", " + geo.coordinates[0].toString() + ")")
                 minLatDistance = lat
                 minLonDistance = lon
                 currentBestLoc = loc
