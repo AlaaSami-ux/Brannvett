@@ -38,6 +38,7 @@ class MapsViewModel(): ViewModel(){ //AndroidViewModel(app)
     private var lastUsedLocation: LatLng = oslo
     private var lastUsedLocationName: String = "Oslo"
     private var deviceLoc: LatLng = oslo
+    private var merInfoVises: Boolean = false
 
     private lateinit var activity: Activity
     private lateinit var context: Context
@@ -181,5 +182,15 @@ class MapsViewModel(): ViewModel(){ //AndroidViewModel(app)
 
     fun getLastUsedLocationName(): String{
         return lastUsedLocationName
+    }
+
+    fun setMerInfoVises(b: Boolean){
+        Log.d(TAG, "mer info vises settes til $b")
+        merInfoVises = b
+    }
+
+    fun getMerInfoVises(): Boolean{
+        Log.d(TAG, "mer info er $merInfoVises")
+        return merInfoVises
     }
 }

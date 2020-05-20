@@ -59,7 +59,7 @@ class MapsFragment : Fragment(),
     private lateinit var valgtSted2: TextView
     private lateinit var stedinfo: View
     private lateinit var slideUp: CardView // the cardview that opens a new activity upon swipe up
-    private lateinit var swipeUp: View
+    private lateinit var swipeUp: View // the cardview that shows when you have swiped up
     private lateinit var favoriteBtn: ImageButton // button for adding as favorite
     private lateinit var favoriteBtn2: ImageButton // button for adding as favorite
 
@@ -74,7 +74,6 @@ class MapsFragment : Fragment(),
     private lateinit var dag2: TextView
     private lateinit var dag3: TextView
     private lateinit var c: Calendar
-    private var merInfoVises: Boolean = false
     private var previousY: Float = 0F // used for checking if there has been a swipe up or down
 
     // the ViewModels for map and favorites
@@ -131,6 +130,8 @@ class MapsFragment : Fragment(),
         favoriteBtn = root.findViewById(R.id.favoritt)      // favorittknapp cardView nede
         favoriteBtn2 = stedinfo.findViewById(R.id.favoritt) // favorittknapp cardView åpent
 
+
+
         // datoer
         dag1 = root.findViewById(R.id.dag1)
         dag2 = root.findViewById(R.id.dag2)
@@ -160,6 +161,13 @@ class MapsFragment : Fragment(),
         favoriteBtn.setOnClickListener(this)
         favoriteBtn2.setOnClickListener(this)
 
+
+        if (mapsViewModel.getMerInfoVises()){
+            swipeUp.visibility = View.VISIBLE
+            slideUp.visibility = View.GONE
+            searchBox.visibility = View.GONE
+            weather.visibility = View.GONE
+        }
 
         // ------------------ Lets get the map going ------------------
         // Try to obtain the map from the SupportMapFragment.
@@ -221,7 +229,7 @@ class MapsFragment : Fragment(),
         Log.d(TAG, "onMapReady: map is ready")
         mMap = googleMap
 
-        // Coonvert dp to px
+        // Convert dp to px
         val dip = 90f
         val r = resources
         val top = TypedValue.applyDimension(
@@ -263,7 +271,6 @@ class MapsFragment : Fragment(),
             mapsViewModel.setLastUsedLocation(LatLng(mMap.myLocation.latitude, mMap.myLocation.longitude))
             true
         })
-
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
@@ -273,9 +280,6 @@ class MapsFragment : Fragment(),
             .detach(this)
             .attach(this)
             .commit()
-        if (merInfoVises){
-            swipeUp.visibility = View.VISIBLE
-        }
     }
 
     private fun chosenNewPlace(latlng: LatLng){
@@ -316,9 +320,9 @@ class MapsFragment : Fragment(),
                 if (previousY > event.y && previousY - event.y > MIN_DISTANCE) {
                     if (v != null && v.id == R.id.slideUp) {
                         v.performClick()
-                        merInfoVises = true
-                        // fade INN det store kortet og bort været
-                        swipeUp.apply{
+                        mapsViewModel.setMerInfoVises(true)
+                        // fade INN det store kortet og bort været og søkeboks
+                        swipeUp.apply{// fade INN det store kortet
                             alpha = 0f
                             visibility = View.VISIBLE
                             animate()
@@ -334,7 +338,7 @@ class MapsFragment : Fragment(),
                                 }
                             })
                             .duration = (shortAnimationDuration.toLong())
-                        weather.animate()
+                        weather.animate() // fade UT været
                             .alpha(0f)
                             .setListener(object: AnimatorListenerAdapter(){
                             override fun onAnimationEnd(animation: Animator) {
@@ -342,7 +346,7 @@ class MapsFragment : Fragment(),
                             }
                             })
                             .duration = (shortAnimationDuration.toLong())
-                        searchBox.animate()
+                        searchBox.animate() // fade UT søkeboks
                             .alpha(0f)
                             .setListener(object: AnimatorListenerAdapter(){
                             override fun onAnimationEnd(animation: Animator) {
@@ -354,10 +358,10 @@ class MapsFragment : Fragment(),
                 } else if(previousY < event.y && event.y - previousY > MIN_DISTANCE){
                     if (v != null && v.id == R.id.swipeUp){
                         v.performClick()
-                        merInfoVises = false
+                        mapsViewModel.setMerInfoVises(false)
                         weather.visibility = View.VISIBLE
                         // fade INN det lille kortet og været
-                        slideUp.apply{
+                        slideUp.apply{ // fade INN det lille kortet
                             alpha = 0f
                             visibility = View.VISIBLE
                             animate()
@@ -365,7 +369,7 @@ class MapsFragment : Fragment(),
                                 .setListener(null)
                                 .duration = (shortAnimationDuration.toLong())
                         }
-                        weather.apply{
+                        weather.apply{// fade INN vær
                             alpha = 0f
                             visibility = View.VISIBLE
                             animate()
@@ -373,7 +377,7 @@ class MapsFragment : Fragment(),
                                 .setListener(null)
                                 .duration = (shortAnimationDuration.toLong())
                         }
-                        searchBox.apply{
+                        searchBox.apply{// fade INN søkeboks
                             alpha = 0f
                             visibility = View.VISIBLE
                             animate()
@@ -382,7 +386,7 @@ class MapsFragment : Fragment(),
                                 .duration = (shortAnimationDuration.toLong())
                         }
 
-                        swipeUp.animate() // fade UT det lille kortet
+                        swipeUp.animate() // fade UT det store kortet
                             .alpha(0f)
                             .setListener(object: AnimatorListenerAdapter(){
                                 override fun onAnimationEnd(animation: Animator) {
