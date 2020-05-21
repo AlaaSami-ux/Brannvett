@@ -19,7 +19,6 @@ import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.forestfire.R
@@ -32,7 +31,6 @@ import com.google.android.gms.common.api.Status
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
@@ -276,7 +274,7 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
         displayWeather(lastLoc)
 
 
-        mMap.setOnMyLocationButtonClickListener(OnMyLocationButtonClickListener {
+        mMap.setOnMyLocationButtonClickListener {
             Log.d(TAG, "My location button clicked")
 
             mFusedLocationProviderClient.lastLocation.addOnSuccessListener {
@@ -291,10 +289,12 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
                     chosenNewPlace(deviceLoc!!, mapsViewModel.getAddressFromLocation(deviceLoc!!.latitude, deviceLoc!!.longitude))
                     displayWeather(deviceLoc!!)
                     fillSwipeUpScreen(deviceLoc!!)
+                } else {
+                    Toast.makeText(requireContext(), requireContext().getString(R.string.finnerIkkeDinPos), Toast.LENGTH_LONG).show()
                 }
             }
             true
-        })
+        }
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {

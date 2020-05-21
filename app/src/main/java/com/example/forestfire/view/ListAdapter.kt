@@ -78,7 +78,7 @@ class ListAdapter(var forecastMap : HashMap<LatLng?, List<LocationForecastViewMo
                 builder.setMessage(fragment.requireContext().getString(R.string.onskerAaslette)
                         + valgtSted.text + fragment.requireContext().getString(R.string.fraFavoritter))
                 builder.setNegativeButton(fragment.requireContext().getString(R.string.nei), dialogClickListener)
-                builder.setPositiveButton(fragment.requireContext().getString(R.string.nei), dialogClickListener)
+                builder.setPositiveButton(fragment.requireContext().getString(R.string.ja), dialogClickListener)
                 val dialog =builder.create()
                 dialog.show()
                 val msgTxt = dialog.findViewById<View>(android.R.id.message)!! as TextView
