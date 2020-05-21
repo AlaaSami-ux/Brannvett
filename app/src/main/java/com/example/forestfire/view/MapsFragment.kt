@@ -3,6 +3,7 @@ package com.example.forestfire.view
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
@@ -92,6 +93,7 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
     private val stationModel = stationInfoViewModel
     private val fireModel = fireIndexViewModel
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -116,6 +118,8 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
         lastLocName = mapsViewModel.getLastUsedLocationName()
 
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
+
+        mapsViewModel.getLocationPermission()
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -259,40 +263,49 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
         mMap.setMaxZoomPreference(20.0f) // hvor langt inn man kan zoome
         mMap.uiSettings.isZoomControlsEnabled = true
         mMap.isMyLocationEnabled = true
-        mMap.setOnMapLongClickListener {
-            chosenNewPlace(it, mapsViewModel.getAddressFromLocation(it.latitude, it.longitude))
-            mapsViewModel.addMarker(it)
-            getAddressFromLocation(it.latitude, it.longitude)
-            mapsViewModel.setLastUsedLocation(it)
-            displayWeather(it)
-        }
 
-
-        mapsViewModel.moveCam(lastLoc) // Åpne kartet på sist brukte posisjon
+        // Åpne kartet på sist brukte posisjon
+        mapsViewModel.moveCam(lastLoc)
         mapsViewModel.addMarker(lastLoc)
         settValgtStedTekst(lastLocName)
-        displayWeather(lastLoc)
+        if (!checkConnection()){
+            exitDialog()
+        } else {displayWeather(lastLoc)}
+
+
+        mMap.setOnMapLongClickListener {
+            if (checkConnection()){
+                chosenNewPlace(it, mapsViewModel.getAddressFromLocation(it.latitude, it.longitude))
+                mapsViewModel.addMarker(it)
+                getAddressFromLocation(it.latitude, it.longitude)
+                mapsViewModel.setLastUsedLocation(it)
+                displayWeather(it)
+            } else {exitDialog()}
+        }
 
 
         mMap.setOnMyLocationButtonClickListener {
             Log.d(TAG, "My location button clicked")
+            if (checkConnection()){
+                mFusedLocationProviderClient.lastLocation.addOnSuccessListener {
+                    // fikk tak i sist kjente lokasjon
+                    if(it != null && norge.contains(LatLng(it.latitude, it.longitude))){
+                        deviceLoc = LatLng(it.latitude, it.longitude)
 
-            mFusedLocationProviderClient.lastLocation.addOnSuccessListener {
-                // fikk tak i sist kjente lokasjon
-                if(it != null && norge.contains(LatLng(it.latitude, it.longitude))){
-                    deviceLoc = LatLng(it.latitude, it.longitude)
-                    mapsViewModel.moveCam(deviceLoc!!)
-                    mapsViewModel.addMarker(deviceLoc!!)
-                    getAddressFromLocation(deviceLoc!!.latitude, deviceLoc!!.longitude)
-                    // oppdaterer sist brukte posisjon
-                    mapsViewModel.setLastUsedLocation(deviceLoc!!)
-                    chosenNewPlace(deviceLoc!!, mapsViewModel.getAddressFromLocation(deviceLoc!!.latitude, deviceLoc!!.longitude))
-                    displayWeather(deviceLoc!!)
-                    fillSwipeUpScreen(deviceLoc!!)
-                } else {
-                    Toast.makeText(requireContext(), requireContext().getString(R.string.finnerIkkeDinPos), Toast.LENGTH_LONG).show()
+                        chosenNewPlace(deviceLoc!!, mapsViewModel.getAddressFromLocation(deviceLoc!!.latitude, deviceLoc!!.longitude))
+                        mapsViewModel.moveCam(deviceLoc!!)
+                        mapsViewModel.addMarker(deviceLoc!!)
+                        getAddressFromLocation(deviceLoc!!.latitude, deviceLoc!!.longitude)
+                        // oppdaterer sist brukte posisjon
+                        mapsViewModel.setLastUsedLocation(deviceLoc!!)
+                        displayWeather(deviceLoc!!)
+                        fillSwipeUpScreen(deviceLoc!!)
+
+                    } else {
+                        Toast.makeText(requireContext(), requireContext().getString(R.string.finnerIkkeDinPos), Toast.LENGTH_LONG).show()
+                    }
                 }
-            }
+            } else {exitDialog()}
             true
         }
     }
@@ -304,6 +317,14 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
             .detach(this)
             .attach(this)
             .commit()
+    }
+
+    private fun checkConnection(): Boolean{
+        return (activity as MainActivity).isOnline()
+    }
+
+    private fun exitDialog(){
+        (activity as MainActivity).showNoConnectionDialog()
     }
 
     private fun chosenNewPlace(latlng: LatLng, place: String){

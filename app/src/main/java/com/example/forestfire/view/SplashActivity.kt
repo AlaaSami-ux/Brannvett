@@ -43,6 +43,16 @@ class SplashActivity : AppCompatActivity() {
         return false
     }
 
+    fun showNoConnectionDialog(){
+        val builder = AlertDialog.Builder(this, R.style.CustomAlertDialog)
+        builder.setMessage(getString(R.string.ingenInternett))
+        builder.setPositiveButton(getString(R.string.lukkApp)) { _, _ ->
+            ActivityCompat.finishAffinity(this)
+        }
+        val dialog =builder.create()
+        dialog.show()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
@@ -51,13 +61,7 @@ class SplashActivity : AppCompatActivity() {
             // sjekker om internett
             if (!isOnline(this)){
                 Log.d("SplashActivity", "ingen internettilgang")
-                val builder = AlertDialog.Builder(this, R.style.CustomAlertDialog)
-                builder.setMessage(getString(R.string.ingenInternett))
-                builder.setPositiveButton(getString(R.string.lukkApp)) { _, _ ->
-                    ActivityCompat.finishAffinity(this)
-                }
-                val dialog =builder.create()
-                dialog.show()
+                showNoConnectionDialog()
             } else {
                 // Starter app main activity
                 startActivity(Intent(this,MainActivity::class.java))

@@ -1,5 +1,6 @@
 package com.example.forestfire.view
 
+import android.content.Context
 import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
@@ -31,13 +32,19 @@ import com.google.android.libraries.places.api.model.RectangularBounds
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
+import java.io.FileInputStream
+import java.io.IOException
+import java.io.ObjectInputStream
+import java.io.ObjectOutputStream
 import java.util.*
 import kotlin.collections.HashMap
 
 
-class FavoritesFragment( stationInfoViewModel: StationInfoViewModel,
-                         fireIndexViewModel : FireDataViewModel,
-                         locationForecastViewModel : LocationForecastViewModel) : Fragment() {
+class FavoritesFragment(
+    stationInfoViewModel: StationInfoViewModel,
+    fireIndexViewModel: FireDataViewModel,
+    locationForecastViewModel: LocationForecastViewModel
+) : Fragment() {
 
     val TAG = "FavoritesFragment"
 
@@ -58,11 +65,9 @@ class FavoritesFragment( stationInfoViewModel: StationInfoViewModel,
     private lateinit var tilbake: Button
     private lateinit var autocompleteFragment: AutocompleteSupportFragment
 
-
     private lateinit var favoriteViewModel: FavoriteViewModel
     private lateinit var mapsViewModel: MapsViewModel
     private lateinit var favorites: MutableMap<LatLng, String>
-
 
     private val fireViewModel = fireIndexViewModel
     private val stationViewModel = stationInfoViewModel
@@ -88,123 +93,134 @@ class FavoritesFragment( stationInfoViewModel: StationInfoViewModel,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        root =  inflater.inflate(R.layout.fragment_favorites, container, false)
+        root = inflater.inflate(R.layout.fragment_favorites, container, false)
+
+        if (!(activity as MainActivity).isOnline()) {
+            (activity as MainActivity).showNoConnectionDialog()
+        } else {
+            // datoer
+            dag1 = root.findViewById(R.id.dag1)
+            dag2 = root.findViewById(R.id.dag2)
+            dag3 = root.findViewById(R.id.dag3)
+            c = Calendar.getInstance()
+            var dato = c.get(Calendar.DAY_OF_MONTH)
+                .toString() + "/" + (c.get(Calendar.MONTH) + 1).toString()
+            dag1.text = dato
+            c.roll(Calendar.DATE, 1)
+            dato = c.get(Calendar.DAY_OF_MONTH)
+                .toString() + "/" + (c.get(Calendar.MONTH) + 1).toString()
+            dag2.text = dato
+            c.roll(Calendar.DATE, 1)
+            dato = c.get(Calendar.DAY_OF_MONTH)
+                .toString() + "/" + (c.get(Calendar.MONTH) + 1).toString()
+            dag3.text = dato
+
+            leggTilBtn = root.findViewById(R.id.leggTilBtn)
+            leggTil = root.findViewById(R.id.leggTil)
+            tilbake = root.findViewById(R.id.tilbake)
 
 
-        // datoer
-        dag1 = root.findViewById(R.id.dag1)
-        dag2 = root.findViewById(R.id.dag2)
-        dag3 = root.findViewById(R.id.dag3)
-        c = Calendar.getInstance()
-        var dato = c.get(Calendar.DAY_OF_MONTH).toString() + "/" + (c.get(Calendar.MONTH)+1).toString()
-        dag1.text = dato
-        c.roll(Calendar.DATE, 1)
-        dato = c.get(Calendar.DAY_OF_MONTH).toString() + "/" + (c.get(Calendar.MONTH)+1).toString()
-        dag2.text = dato
-        c.roll(Calendar.DATE, 1)
-        dato = c.get(Calendar.DAY_OF_MONTH).toString() + "/" + (c.get(Calendar.MONTH)+1).toString()
-        dag3.text = dato
-
-
-        leggTilBtn = root.findViewById(R.id.leggTilBtn)
-        leggTil = root.findViewById(R.id.leggTil)
-        tilbake = root.findViewById(R.id.tilbake)
-
-
-        // Initialize google places
-        Places.initialize(requireContext(), "AIzaSyD10fJ7iHSaVhairAHZnpuFcrm5fU4SFM4")
-        // Create a new Places client instance
-        Places.createClient(requireContext())
-
-        // initialize autocompleteFragment
-        autocompleteFragment = childFragmentManager.findFragmentById(R.id.autocomplete_fragment) as AutocompleteSupportFragment
-
-        autocompleteFragment.setPlaceFields(listOf(
-            Place.Field.ID,
-            Place.Field.NAME,
-            Place.Field.LAT_LNG
-        ))
-        // set bounds for the results
-        autocompleteFragment.setLocationBias(
-            RectangularBounds.newInstance(
-                LatLngBounds(
-                    LatLng(58.019156, 2.141567), LatLng(71.399348, 33.442113)
+            // Initialize google places
+            Places.initialize(requireContext(), "AIzaSyD10fJ7iHSaVhairAHZnpuFcrm5fU4SFM4")
+            // Create a new Places client instance
+            Places.createClient(requireContext())
+            // initialize autocompleteFragment
+            autocompleteFragment =
+                childFragmentManager.findFragmentById(R.id.autocomplete_fragment) as AutocompleteSupportFragment
+            autocompleteFragment.setPlaceFields(
+                listOf(
+                    Place.Field.ID,
+                    Place.Field.NAME,
+                    Place.Field.LAT_LNG
                 )
             )
-        )
-        autocompleteFragment.setCountries("NO")
-        autocompleteFragment.setActivityMode(AutocompleteActivityMode.OVERLAY)
+            // set bounds for the results
+            autocompleteFragment.setLocationBias(
+                RectangularBounds.newInstance(
+                    LatLngBounds(
+                        LatLng(58.019156, 2.141567), LatLng(71.399348, 33.442113)
+                    )
+                )
+            )
+            autocompleteFragment.setCountries("NO")
+            autocompleteFragment.setActivityMode(AutocompleteActivityMode.OVERLAY)
 
-        autocompleteFragment.setOnPlaceSelectedListener(object :
-            PlaceSelectionListener {
-            override fun onPlaceSelected(place: Place) {
-                Log.i(TAG, "Place: " + place.name + ", " + place.id)
-                favoriteViewModel.addFavorite(place.latLng!!, place.name!!)
+            autocompleteFragment.setOnPlaceSelectedListener(object :
+                PlaceSelectionListener {
+                override fun onPlaceSelected(place: Place) {
+                    Log.i(TAG, "Place: " + place.name + ", " + place.id)
+                    favoriteViewModel.addFavorite(place.latLng!!, place.name!!)
+                    updateFragment()
+                    leggTil.visibility = View.GONE
+                    autocompleteFragment.setText("")
+                }
 
-                updateFragment()
-
-                leggTil.visibility = View.GONE
-                autocompleteFragment.setText("")
-            }
-
-            override fun onError(status: Status) {
-                Log.i(TAG, "An error occurred: $status")
-            }
-        })
-
-        leggTilBtn.setOnClickListener {
-            Log.d(TAG, "Legg til trykket på")
-            leggTil.visibility = View.VISIBLE
-        }
-        tilbake.setOnClickListener {
-            Log.d(TAG, "gå tilbake")
-            leggTil.visibility = View.GONE
-        }
-
-        noFavoritesTextBox = root.findViewById(R.id.no_favorites)
-        //readFile()
-
-        if(!::favorites.isInitialized){
-            favorites = favoriteViewModel.favorites
-        }
-
-        if (favorites.isNotEmpty()){
-            noFavoritesTextBox.text = getString(R.string.lasterInn)
-        }
-
-        my_recycler_view = root.findViewById(R.id.my_recycler_view)
-
-        forecastViewModel.fetchForecastFavorites(favorites.keys.toList())
-        forecastViewModel.forecastFavoritesLiveData.observe(viewLifecycleOwner, androidx.lifecycle.Observer {forecastMap ->
-            if(forecastMap == null) return@Observer
-            Log.d("forecastViewModel ", "fetched Favs")
-
-            fireViewModel.fetchFireLocations()
-            fireViewModel.liveFireLocations.observe(viewLifecycleOwner, androidx.lifecycle.Observer { dayList ->
-                if(dayList == null) return@Observer
-                Log.d("FireViewModel", "fetched all days")
-
-                stationViewModel.fetchData(dayList[0].locations)
-                stationViewModel.stationInfoLiveData.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-                    if(it == null) return@Observer
-                    Log.d("stationViewModel", "Filling hashmap")
-
-                    stationViewModel.fetchFavDanger(favorites.keys.toList(), dayList)
-                    stationViewModel.stationFavDangerLiveData.observe(viewLifecycleOwner, androidx.lifecycle.Observer { posDangerMap ->
-                        if(posDangerMap == null) return@Observer
-                        Log.d("stationViewModel", "Fetched dangerlist of favs")
-
-                        initRecyclerView(forecastMap, posDangerMap)
-                    })
-                })
-
+                override fun onError(status: Status) {
+                    Log.i(TAG, "An error occurred: $status")
+                }
             })
-        })
 
+            leggTilBtn.setOnClickListener {
+                Log.d(TAG, "Legg til trykket på")
+                leggTil.visibility = View.VISIBLE
+            }
+            tilbake.setOnClickListener {
+                Log.d(TAG, "gå tilbake")
+                leggTil.visibility = View.GONE
+            }
+
+            noFavoritesTextBox = root.findViewById(R.id.no_favorites)
+            //readFile()
+
+            if (!::favorites.isInitialized) {
+                favorites = favoriteViewModel.favorites
+            }
+
+            if (favorites.isNotEmpty()) {
+                noFavoritesTextBox.text = getString(R.string.lasterInn)
+            }
+            my_recycler_view = root.findViewById(R.id.my_recycler_view)
+            forecastViewModel.fetchForecastFavorites(favorites.keys.toList())
+            forecastViewModel.forecastFavoritesLiveData.observe(
+                viewLifecycleOwner,
+                androidx.lifecycle.Observer { forecastMap ->
+                    if (forecastMap == null) return@Observer
+                    Log.d("forecastViewModel ", "fetched Favs")
+
+                    fireViewModel.fetchFireLocations()
+                    fireViewModel.liveFireLocations.observe(
+                        viewLifecycleOwner,
+                        androidx.lifecycle.Observer { dayList ->
+                            if (dayList == null) return@Observer
+                            Log.d("FireViewModel", "fetched all days")
+
+                            stationViewModel.fetchData(dayList[0].locations)
+                            stationViewModel.stationInfoLiveData.observe(
+                                viewLifecycleOwner,
+                                androidx.lifecycle.Observer {
+                                    if (it == null) return@Observer
+                                    Log.d("stationViewModel", "Filling hashmap")
+
+                                    stationViewModel.fetchFavDanger(
+                                        favorites.keys.toList(),
+                                        dayList
+                                    )
+                                    stationViewModel.stationFavDangerLiveData.observe(
+                                        viewLifecycleOwner,
+                                        androidx.lifecycle.Observer { posDangerMap ->
+                                            if (posDangerMap == null) return@Observer
+                                            Log.d("stationViewModel", "Fetched dangerlist of favs")
+                                            initRecyclerView(forecastMap, posDangerMap)
+                                        })
+                                })
+
+                        })
+                })
+        }
         return root
     }
 
-    /*
+
     private fun readFile(){
         // hente favoritter fra internal storage
         try {
@@ -238,12 +254,7 @@ class FavoritesFragment( stationInfoViewModel: StationInfoViewModel,
     }
 
 
-    fun getInstance() : FavoritesFragment{
-        return this
-    }
-     */
-
-    fun updateFragment(){
+    fun updateFragment() {
         val ft: FragmentTransaction = parentFragmentManager.beginTransaction()
         if (Build.VERSION.SDK_INT >= 26) {
             ft.setReorderingAllowed(false)
@@ -261,11 +272,14 @@ class FavoritesFragment( stationInfoViewModel: StationInfoViewModel,
     }
 
 
-    private fun initRecyclerView(forecastMap : HashMap<LatLng?, List<LocationForecastViewModel.FavForecast>>, posDangerMap : HashMap<LatLng?, List<String>>){
-        my_recycler_view.apply{
+    private fun initRecyclerView(
+        forecastMap: HashMap<LatLng?, List<LocationForecastViewModel.FavForecast>>,
+        posDangerMap: HashMap<LatLng?, List<String>>
+    ) {
+        my_recycler_view.apply {
             layoutManager = LinearLayoutManager(requireActivity())
             viewAdapter = ListAdapter(forecastMap, posDangerMap, favorites, this@FavoritesFragment)
-            if(favorites.count() > 0){
+            if (favorites.count() > 0) {
                 noFavoritesTextBox.visibility = View.GONE
             }
             adapter = viewAdapter
@@ -291,7 +305,7 @@ class FavoritesFragment( stationInfoViewModel: StationInfoViewModel,
         //writeFile()
     }
 
-    override fun onStop(){
+    override fun onStop() {
         super.onStop()
 
         Log.d(TAG, "onStop")

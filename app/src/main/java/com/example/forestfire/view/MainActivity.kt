@@ -4,9 +4,13 @@ import android.app.AlertDialog
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -33,9 +37,9 @@ class MainActivity : AppCompatActivity() {
     lateinit var infoFragment: InfoFragment
     lateinit var settingsFragment: SettingsFragment
 
-    /*fun isOnline(context: Context): Boolean {
+    fun isOnline(): Boolean{
         val connectivityManager =
-            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
+            this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
         if (connectivityManager != null) {
             val capabilities =
                 connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
@@ -59,58 +63,20 @@ class MainActivity : AppCompatActivity() {
         return false
     }
 
-     */
+    fun showNoConnectionDialog(){
+        Log.d(TAG, "viser prøv igjen dialog")
+        val builder = androidx.appcompat.app.AlertDialog.Builder(this, R.style.CustomAlertDialog)
+        builder.setMessage(getString(R.string.ingenInternett))
+        builder.setPositiveButton(getString(R.string.lukkApp)) { _, _ ->
+            ActivityCompat.finishAffinity(this)
+        }
+        val dialog =builder.create()
+        dialog.show()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        /*
-        if (!isOnline(this)){
-        Log.d(TAG, "ingen internettilgang")
-            val builder = AlertDialog.Builder(this)
-            builder.setMessage(getString(R.string.ingenInternett))
-            builder.setPositiveButton(getString(R.string.OK)) { _, _ ->
-                ActivityCompat.finishAffinity(this)
-            }
-            val dialog =builder.create()
-            dialog.show()
-        }
-         */
-
-        // Getting Google Play availability status
-
-        // Getting Google Play availability status
-        val status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(baseContext)
-
-        if (status != ConnectionResult.SUCCESS) { // Google Play Services are not available
-            val builder = AlertDialog.Builder(this)
-            builder.setMessage(getString(R.string.ingenInternett))
-            builder.setPositiveButton(getString(R.string.OK)) { _, _ ->
-                ActivityCompat.finishAffinity(this)
-            }
-            val dialog =builder.create()
-            dialog.show()
-        }
-
-        /*
-        // ICMP
-        fun isOnline(): Boolean {
-            val runtime:Runtime = Runtime.getRuntime();
-            try {
-                val ipProcess: Process = runtime.exec("/system/bin/ping -c 1 8.8.8.8");
-                val exitValue: Int = ipProcess.waitFor();
-                return (exitValue == 0);
-            }
-            catch (e: IOException)          { e.printStackTrace(); }
-            catch (e: InterruptedException) { e.printStackTrace(); }
-
-            return false;
-        }
-        if (isOnline()){
-
-        }
-         */
 
         // bottom navigation bar
         val nav: BottomNavigationView = findViewById(R.id.menu)
