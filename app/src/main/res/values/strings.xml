@@ -26,7 +26,7 @@
     <string name="lavFare">LAV FARE</string>
 
     <string-array name="spraak">
-        <item>Velg Språk</item>
+        <item>Velg språk</item>
         <item>Norsk</item>
         <item>English</item>
     </string-array>
@@ -85,5 +85,7 @@
     <string name="finnerIkkeDinPos">Finner ikke din posisjon</string>
 
     <string name="vindsymbol">vind symbol</string>
+    <string name="pupopfavoritt1">Ønsker du å slette</string>
+    <string name="pupopfavoritt2">fra dine favoritter?</string>
 
 </resources>

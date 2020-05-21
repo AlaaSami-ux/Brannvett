@@ -4,6 +4,7 @@ package com.example.forestfire.view
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.DialogInterface
+import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -76,7 +77,11 @@ class ListAdapter(var forecastMap : HashMap<LatLng?, List<LocationForecastViewMo
                 builder.setIcon(R.drawable.ic_remove_circle_black_24dp)
                 builder.setMessage("Ønsker du å slette " + valgtSted.text + " fra dine favoritter?")
                 builder.setNegativeButton("Nei", dialogClickListener)
-                builder.setPositiveButton("Ja", dialogClickListener).show()
+                builder.setPositiveButton("Ja", dialogClickListener)
+                val dialog =builder.create()
+                dialog.show()
+                val msgTxt = dialog.findViewById<View>(android.R.id.message)!! as TextView
+                msgTxt.setTextColor(Color.GRAY)
             }
             valgtSted.text = place
             Log.d("ListAdapter Adresse", place)

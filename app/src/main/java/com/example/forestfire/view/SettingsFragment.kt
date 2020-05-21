@@ -59,9 +59,9 @@ class SettingsFragment : Fragment(), AdapterView.OnItemSelectedListener {
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         when (val selectedItem = parent?.getItemAtPosition(position).toString()) {
             "English" -> {
-                settingView.setLocate("no",requireActivity())
+                settingView.setLocate("en",requireActivity())
                 // activity?.finish()
-                // activity?.recreate()
+                 //activity?.recreate()
                 Toast.makeText(activity, "Change the language from settings device to English", Toast.LENGTH_LONG).show()
             }
             "Norsk" -> {
@@ -69,7 +69,7 @@ class SettingsFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 // recreate(requireActivity())
                 Toast.makeText(activity, "Endre språk fra innstillingsenhet til Norsk", Toast.LENGTH_LONG).show()
             }
-            "Velg Språk" -> {
+            "Velg språk" -> {
                 onNothingSelected(parent)
             }
         }
