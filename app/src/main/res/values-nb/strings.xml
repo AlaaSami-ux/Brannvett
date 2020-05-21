@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ForestFire</string>
+    <string name="app_name">Grill og Chill</string>
     <string name="title_activity_maps">Map</string>
     <string name="info">Info</string>
     <string name="bilde">bilde</string>
@@ -61,6 +61,7 @@
     <string name="haay">Høy</string>
     <string name="infoOmBrannfareNivaaer">"Tallene som indikerer hvor høyt farenivå det er, er hentet fra Meteorologisk Institutt, og beregnes etter nedbør, luftfuktighet og lufttemperatur. \n\nVed høy fare er det viktig å være ekstra påpasselig ved bruk av redskaper som kan utgjøre en potensiell risiko."</string>
     <string name="baalInfo">"I perioden 15. april til 15. september er det forbud mot å tenne bål, grill og engangsgrill i skog eller i nærheten av skog. \n\nNår du tenner bål er det alltid viktig å slukke skikkelig, og forsikre seg om at det er helt slukket før du drar."</string>
+    <string name="finnerIkkeDinPos">Finner ikke din posisjon</string>
 
     <string name="vindsymbol">vind symbol</string>
 
