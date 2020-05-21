@@ -24,7 +24,7 @@
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/infosidebilde"
+                android:src="@drawable/compressed_skogbildet"
                 android:scaleType="centerCrop"
                 android:contentDescription="@string/bilde"
                 tools:ignore="NestedWeights" />
