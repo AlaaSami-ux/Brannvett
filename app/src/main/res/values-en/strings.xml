@@ -71,6 +71,11 @@
 
     <string name="slett">Remove</string>
     <string name="velgSpraak">Choose language</string>
+    <string name="onskerAaslette">"Do you wish to remove "</string>
+    <string name="fraFavoritter">" from your favorites"</string>
+    <string name="ja">Yes</string>
+    <string name="nei">No</string>
+    <string name="ingenInternett">You do not have an internet connection</string>
 
 
 </resources>

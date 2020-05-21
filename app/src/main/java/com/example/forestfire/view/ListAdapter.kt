@@ -75,9 +75,10 @@ class ListAdapter(var forecastMap : HashMap<LatLng?, List<LocationForecastViewMo
             remove.setOnClickListener {
                 val builder = AlertDialog.Builder(itemView.rootView.context, R.style.CustomAlertDialog)
                 builder.setIcon(R.drawable.ic_remove_circle_black_24dp)
-                builder.setMessage("Ønsker du å slette " + valgtSted.text + " fra dine favoritter?")
-                builder.setNegativeButton("Nei", dialogClickListener)
-                builder.setPositiveButton("Ja", dialogClickListener)
+                builder.setMessage(fragment.requireContext().getString(R.string.onskerAaslette)
+                        + valgtSted.text + fragment.requireContext().getString(R.string.fraFavoritter))
+                builder.setNegativeButton(fragment.requireContext().getString(R.string.nei), dialogClickListener)
+                builder.setPositiveButton(fragment.requireContext().getString(R.string.nei), dialogClickListener)
                 val dialog =builder.create()
                 dialog.show()
                 val msgTxt = dialog.findViewById<View>(android.R.id.message)!! as TextView

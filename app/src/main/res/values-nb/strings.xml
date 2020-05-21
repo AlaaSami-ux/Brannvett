@@ -70,6 +70,11 @@
 
     <string name="slett">Slett</string>
     <string name="velgSpraak">Velg språk</string>
+    <string name="onskerAaslette">"Ønsker du å slette "</string>
+    <string name="fraFavoritter">" fra dine favoritter?"</string>
+    <string name="ja">Ja</string>
+    <string name="nei">Nei</string>
+    <string name="ingenInternett">Du er ikke koblet til internett</string>
 
 
 </resources>
