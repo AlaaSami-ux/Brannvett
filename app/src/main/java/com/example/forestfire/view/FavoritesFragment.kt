@@ -175,22 +175,22 @@ class FavoritesFragment( stationInfoViewModel: StationInfoViewModel,
         my_recycler_view = root.findViewById(R.id.my_recycler_view)
 
         forecastViewModel.fetchForecastFavorites(favorites.keys.toList())
-        forecastViewModel.forecastFavoritesLiveData.observe(viewLifecycleOwner, androidx.lifecycle.Observer Forecast@{forecastMap ->
+        forecastViewModel.forecastFavoritesLiveData.observe(viewLifecycleOwner, androidx.lifecycle.Observer Forecast@ {forecastMap ->
             if(forecastMap == null) return@Forecast
             Log.d("forecastViewModel ", "fetched Favs")
 
             fireViewModel.fetchFireLocations()
-            fireViewModel.liveFireLocations.observe(viewLifecycleOwner, androidx.lifecycle.Observer Locations@{ dayList ->
+            fireViewModel.liveFireLocations.observe(viewLifecycleOwner, androidx.lifecycle.Observer Locations@ { dayList ->
                 if(dayList == null) return@Locations
                 Log.d("FireViewModel", "fetched all days")
 
                 stationViewModel.fetchData(dayList[0].locations)
-                stationViewModel.stationInfoLiveData.observe(viewLifecycleOwner, androidx.lifecycle.Observer Coordinates@{
+                stationViewModel.stationInfoLiveData.observe(viewLifecycleOwner, androidx.lifecycle.Observer Coordinates@ {
                     if(it == null) return@Coordinates
                     Log.d("stationViewModel", "Filling hashmap")
 
                     stationViewModel.fetchFavDanger(favorites.keys.toList(), dayList)
-                    stationViewModel.stationFavDangerLiveData.observe(viewLifecycleOwner, androidx.lifecycle.Observer Danger@{ posDangerMap ->
+                    stationViewModel.stationFavDangerLiveData.observe(viewLifecycleOwner, androidx.lifecycle.Observer Danger@ { posDangerMap ->
                         if(posDangerMap == null) return@Danger
                         Log.d("stationViewModel", "Fetched dangerlist of favs")
 
