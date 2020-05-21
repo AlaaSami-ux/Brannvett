@@ -23,7 +23,7 @@
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
             android:layout_marginBottom="-40dp"
-            app:cardBackgroundColor="#E6FFFFFF"
+            app:cardBackgroundColor="@color/whiteColor"
             app:cardCornerRadius="40dp">
 
 
@@ -81,13 +81,14 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:contentDescription="@string/brannfare"
-                    android:layout_marginRight="3dp"/>
+                    android:layout_marginEnd="3dp"/>
+
                 <TextView
                     android:id="@+id/fire_warning"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textSize="18sp"/>
+                    android:layout_height="match_parent"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
             </LinearLayout>
           
         </androidx.cardview.widget.CardView>
@@ -126,7 +127,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="5dp"
                 android:layout_weight="4"
-                app:cardBackgroundColor="#E6FFFFFF"
+                app:cardBackgroundColor="@color/whiteColor"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="10dp"
                 tools:ignore="NestedWeights">
@@ -173,7 +174,7 @@
                 android:layout_marginEnd="5dp"
                 android:layout_weight="1"
                 android:visibility="visible"
-                app:cardBackgroundColor="#E6FFFFFF"
+                app:cardBackgroundColor="@color/whiteColor"
                 app:cardCornerRadius="12dp">
                 <!-- Fragment som har med autocomplete å gjøre-->
                 <androidx.fragment.app.FragmentContainerView
