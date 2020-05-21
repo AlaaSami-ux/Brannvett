@@ -53,7 +53,7 @@ class SettingsViewModel: ViewModel() {
 
 
     fun loadLocale(activ: Activity){
-        val pref : SharedPreferences? = activ?.getSharedPreferences("Settings", Context.MODE_PRIVATE)
+        val pref : SharedPreferences? = activ.getSharedPreferences("Settings", Context.MODE_PRIVATE)
         val language : String? = pref?.getString("Spraak","")
         if (language != null) {
             setLocate(language,activ)
