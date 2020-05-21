@@ -18,6 +18,7 @@ import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -75,6 +76,7 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
     private lateinit var autocompleteFragment: AutocompleteSupportFragment
     private val norge = LatLngBounds(LatLng(58.019156, 2.141567), LatLng(71.399348, 33.442113))
     private lateinit var searchBox: CardView
+    private lateinit var auto_search_bar: FragmentContainerView
     private lateinit var mFusedLocationProviderClient: FusedLocationProviderClient
 
     // kort som blir sveipet opp
@@ -134,6 +136,7 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
         swipeUp = root.findViewById(R.id.swipeUp) // kort som vises når sveipet opp. includer stedinfo
         swipeUp.setOnTouchListener(this)
         searchBox = root.findViewById(R.id.search_box) // søkeboks
+        auto_search_bar = root.findViewById(R.id.autocomplete_fragment)
 
         valgtSted = root.findViewById(R.id.valgtSted) // tekst på cardView på forsiden
         valgtSted2 = swipeUp.findViewById(R.id.valgtSted) // tekst på cardView når det er sveipet opp
@@ -162,7 +165,7 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
         fillSwipeUpScreen(lastLoc)
 
         // Sjekke om sist brukte posisjon er en av favorittene til brukeren
-        if (favoriteViewModel.isFavorite(lastLoc)){
+        if (favoriteViewModel.isFavorite(lastLoc, lastLocName)){
             favoriteViewModel.setBtnClicked(favoriteBtn, favoriteBtn2)
         }
 
@@ -176,6 +179,7 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
             slideUp.visibility = View.GONE
             searchBox.visibility = View.GONE
             weather.visibility = View.GONE
+            auto_search_bar.visibility = View.GONE
         }
 
         // ------------------ Lets get the map going ------------------
@@ -203,7 +207,7 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
             PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
                 Log.i(TAG, "Place: " + place.name + ", " + place.latLng)
-                chosenNewPlace(place.latLng!!)
+                chosenNewPlace(place.latLng!!, place.name!!)
                 mapsViewModel.setLastUsedLocation(place.latLng!!, place.name!!) // Oppdaterer sist brukte lokasjon
                 mapsViewModel.moveCam(place.latLng!!)
                 mapsViewModel.addMarker(place.latLng!!)
@@ -215,8 +219,6 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
         })
         // ---------------------------------------------------------------
 
-        mapsViewModel.setTextViews(valgtSted, valgtSted2)
-        mapsViewModel.setFavButtons(favoriteBtn, favoriteBtn2)
         return root
     }
 
@@ -260,7 +262,7 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
         mMap.uiSettings.isZoomControlsEnabled = true
         mMap.isMyLocationEnabled = true
         mMap.setOnMapLongClickListener {
-            chosenNewPlace(it)
+            chosenNewPlace(it, mapsViewModel.getAddressFromLocation(it.latitude, it.longitude))
             mapsViewModel.addMarker(it)
             getAddressFromLocation(it.latitude, it.longitude)
             mapsViewModel.setLastUsedLocation(it)
@@ -277,9 +279,6 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
         mMap.setOnMyLocationButtonClickListener(OnMyLocationButtonClickListener {
             Log.d(TAG, "My location button clicked")
 
-            //mapsViewModel.setCurrentFavorites(favoriteViewModel.favoriteList)
-            //mapsViewModel.getLastDeviceLocation()
-
             mFusedLocationProviderClient.lastLocation.addOnSuccessListener {
                 // fikk tak i sist kjente lokasjon
                 if(it != null && norge.contains(LatLng(it.latitude, it.longitude))){
@@ -289,7 +288,7 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
                     getAddressFromLocation(deviceLoc!!.latitude, deviceLoc!!.longitude)
                     // oppdaterer sist brukte posisjon
                     mapsViewModel.setLastUsedLocation(deviceLoc!!)
-                    chosenNewPlace(deviceLoc!!)
+                    chosenNewPlace(deviceLoc!!, mapsViewModel.getAddressFromLocation(deviceLoc!!.latitude, deviceLoc!!.longitude))
                     displayWeather(deviceLoc!!)
                     fillSwipeUpScreen(deviceLoc!!)
                 }
@@ -307,11 +306,11 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
             .commit()
     }
 
-    private fun chosenNewPlace(latlng: LatLng){
+    private fun chosenNewPlace(latlng: LatLng, place: String){
         lastLoc = latlng
         displayWeather(latlng)
         fillSwipeUpScreen(lastLoc)
-        if (favoriteViewModel.isFavorite(latlng)){
+        if (favoriteViewModel.isFavorite(latlng, place)){
             favoriteViewModel.setBtnClicked(favoriteBtn, favoriteBtn2)
         } else {
             favoriteViewModel.setBtnUnClicked(favoriteBtn, favoriteBtn2)
@@ -379,6 +378,7 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
                             }
                             })
                             .duration = (shortAnimationDuration.toLong())
+                        auto_search_bar.visibility = View.GONE
                     }
                 } else if(previousY < event.y && event.y - previousY > MIN_DISTANCE){
                     if (v != null && v.id == R.id.swipeUp){
@@ -419,6 +419,7 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
                                 }
                             })
                             .duration = (shortAnimationDuration.toLong())
+                        auto_search_bar.visibility = View.VISIBLE
                     }
                 }
                 return false
@@ -455,7 +456,7 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
                 .into(img)
 
 
-            // V{indstyrke
+            // Vindstyrke
             if(resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT){
                 requireView().findViewById<TextView>(R.id.wind_text).text = "${it.product.time[0].location.windSpeed.mps} m/s"
             }

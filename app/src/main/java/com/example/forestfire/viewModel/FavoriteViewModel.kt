@@ -46,8 +46,11 @@ class FavoriteViewModel : ViewModel(){
         return btnclicked
     }
 
-    fun isFavorite(latlng: LatLng) : Boolean{
-        return favorites.containsKey(latlng)
+    fun isFavorite(latlng: LatLng, place: String) : Boolean{
+        if (favorites.containsKey(latlng) || favorites.containsValue(place)){
+            return true
+        }
+        return false
     }
 
     fun addFavorite(latlng: LatLng, place: String){

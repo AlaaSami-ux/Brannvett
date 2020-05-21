@@ -1,9 +1,6 @@
 package com.example.forestfire.view
 
-import android.content.Context
 import android.content.res.Configuration
-import android.location.Address
-import android.location.Geocoder
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -12,13 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
-import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentTransaction
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -34,14 +28,9 @@ import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.model.RectangularBounds
-import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
-import java.io.FileInputStream
-import java.io.IOException
-import java.io.ObjectInputStream
-import java.io.ObjectOutputStream
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -261,24 +250,6 @@ class FavoritesFragment( stationInfoViewModel: StationInfoViewModel,
         }
         ft.detach(this@FavoritesFragment).attach(this@FavoritesFragment).commit()
     }
-
-    /*private fun getAddressFromLocation(latitude: Double, longitude: Double) : String?{
-        Log.d(TAG, "getAddressFromLocation")
-        val geocoder = Geocoder(requireActivity(), Locale.ENGLISH)
-        try {
-            val addresses: List<Address> = geocoder.getFromLocation(latitude, longitude, 1)
-            if (addresses.isNotEmpty()) {
-                val fetchedAddress: Address = addresses[0]
-                val strAddress: String = fetchedAddress.getAddressLine(0)
-                val sted: String = strAddress.split(",", ignoreCase=true, limit=0).first()
-                Log.d(TAG, "sted: $sted")
-                return sted
-            }
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
-        return null
-    }*/
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
