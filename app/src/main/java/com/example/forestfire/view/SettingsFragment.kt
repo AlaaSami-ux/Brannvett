@@ -69,7 +69,7 @@ class SettingsFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 // recreate(requireActivity())
                 Toast.makeText(activity, "Endre språk fra innstillingsenhet til Norsk", Toast.LENGTH_LONG).show()
             }
-            "Velg språk" -> {
+            getString(R.string.velgSpraak) -> {
                 onNothingSelected(parent)
             }
         }
