@@ -74,7 +74,8 @@
     <string name="fraFavoritter">" fra dine favoritter?"</string>
     <string name="ja">Ja</string>
     <string name="nei">Nei</string>
-    <string name="ingenInternett">Du er ikke koblet til internett</string>
+    <string name="ingenInternett">Denne applikasjonen trenger tilgang til internett for å fungere. Sørg for at du er koblet til internett og prøv igjen.</string>
+    <string name="lukkApp">Lukk applikasjon</string>
 
 
 </resources>

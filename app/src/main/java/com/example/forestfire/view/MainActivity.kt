@@ -1,30 +1,31 @@
 package com.example.forestfire.view
 
+import android.app.AlertDialog
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
-import android.content.Context
 import android.content.Intent
-import android.net.*
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.fragment.app.FragmentTransaction
 import com.example.forestfire.R
 import com.example.forestfire.viewModel.fetchAPI.FireDataViewModel
 import com.example.forestfire.viewModel.fetchAPI.LocationForecastViewModel
 import com.example.forestfire.viewModel.fetchAPI.StationInfoViewModel
+import com.google.android.gms.common.ConnectionResult
+import com.google.android.gms.common.GooglePlayServicesUtil
 import com.google.android.material.bottomnavigation.BottomNavigationView
+
 
 class MainActivity : AppCompatActivity() {
 
-    val TAG = "MainActivity"
-    val CHANNEL_ID = "com.example.forestfire.view.channel1"
-    var notificationManager: NotificationManager? = null
+    private val TAG = "MainActivity"
+    private val CHANNEL_ID = "com.example.forestfire.view.channel1"
+    private var notificationManager: NotificationManager? = null
 
     // objekter til fragments
     private lateinit var homeFragment: MapsFragment
@@ -32,42 +33,66 @@ class MainActivity : AppCompatActivity() {
     lateinit var infoFragment: InfoFragment
     lateinit var settingsFragment: SettingsFragment
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        fun isOnline(context: Context): Boolean {
-            val connectivityManager =
-                context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-            if (connectivityManager != null) {
-                val capabilities =
-                    connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
-                if (capabilities != null) {
-                    if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+    /*fun isOnline(context: Context): Boolean {
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
+        if (connectivityManager != null) {
+            val capabilities =
+                connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+            if (capabilities != null) {
+                when {
+                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> {
                         Log.i("Internet", "NetworkCapabilities.TRANSPORT_CELLULAR")
                         return true
-                    } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                    }
+                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> {
                         Log.i("Internet", "NetworkCapabilities.TRANSPORT_WIFI")
                         return true
-                    } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
+                    }
+                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> {
                         Log.i("Internet", "NetworkCapabilities.TRANSPORT_ETHERNET")
                         return true
                     }
                 }
             }
-            return false
         }
+        return false
+    }
 
+     */
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        /*
         if (!isOnline(this)){
+        Log.d(TAG, "ingen internettilgang")
             val builder = AlertDialog.Builder(this)
             builder.setMessage(getString(R.string.ingenInternett))
-            builder.setPositiveButton(getString(R.string.ja),
-
-            )
+            builder.setPositiveButton(getString(R.string.OK)) { _, _ ->
+                ActivityCompat.finishAffinity(this)
+            }
             val dialog =builder.create()
             dialog.show()
         }
+         */
+
+        // Getting Google Play availability status
+
+        // Getting Google Play availability status
+        val status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(baseContext)
+
+        if (status != ConnectionResult.SUCCESS) { // Google Play Services are not available
+            val builder = AlertDialog.Builder(this)
+            builder.setMessage(getString(R.string.ingenInternett))
+            builder.setPositiveButton(getString(R.string.OK)) { _, _ ->
+                ActivityCompat.finishAffinity(this)
+            }
+            val dialog =builder.create()
+            dialog.show()
+        }
+
         /*
         // ICMP
         fun isOnline(): Boolean {
