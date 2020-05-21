@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ForestFire</string>
+    <string name="app_name">Grill og Chill</string>
     <string name="title_activity_maps">Map</string>
     <string name="info">Info</string>
     <string name="bilde">bilde</string>
@@ -46,7 +46,7 @@
     <string name="lavFare">LAV FARE</string>
 
     <string name="varsling">Varsling</string>
-    <string name="inkluderVarsling">dra mot høyre for å inkludere varsling for lavere brannfare</string>
+    <string name="inkluderVarsling">Dra mot høyre for å inkludere varsling for lavere brannfare</string>
     <string name="hoyBrannfare">Høy brannfare</string>
     <string name="middelsBrannfare">Middels brannfare</string>
     <string name="lavBrannfare">Lav brannfare</string>

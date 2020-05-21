@@ -15,7 +15,7 @@
         android:layout_marginTop="30dp"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="-40dp"
-        app:cardBackgroundColor="#DEFFFFFF"
+        app:cardBackgroundColor="@color/whiteColor"
         app:cardCornerRadius="40dp">
 
         <include
@@ -45,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|top"
-            android:src="@drawable/ic_keyboard_arrow_down_black_24dp"
+            android:src="@drawable/ic_keyboard_arrow_down_lille_24dp"
             android:textStyle="bold"
             android:contentDescription="@string/swipeDownArrow" />
 
@@ -317,7 +317,6 @@
                 android:padding="5dp"
                 android:text="@string/infoOmBrannfareNivaaer"
                 android:textSize="16sp" />
-
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </FrameLayout>

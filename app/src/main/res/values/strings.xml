@@ -1,5 +1,5 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-    <string name="app_name">ForestFire</string>
+    <string name="app_name">Grill og Chill</string>
     <string name="title_activity_maps">Map</string>
 
     <string name="dato" translatable="false">%1$s/%2$s</string>
@@ -30,7 +30,7 @@
         <item>Norsk</item>
         <item>English</item>
     </string-array>
-  
+
     <string-array name="tempratur">
         <item>Celsius</item>
         <item>Fahrenheit</item>
