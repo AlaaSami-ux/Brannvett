@@ -28,11 +28,11 @@ class ListAdapter(var forecastMap : HashMap<LatLng?, List<LocationForecastViewMo
     private var positions = favorites.keys // MutableSet of keys from favorites map
     private var places = favorites.values // MutableCollection of values from favorites map
 
-    class ViewHolder constructor(itemView: View, adapter: ListAdapter, fragment:FavoritesFragment) :
+    class ViewHolder constructor(itemView: View, val adapter: ListAdapter,
+                                 val fragment: FavoritesFragment
+    ) :
 
             RecyclerView.ViewHolder(itemView){
-        val adapter: ListAdapter = adapter
-        val fragment: FavoritesFragment = fragment
         val valgtSted: TextView = itemView.valgtSted
 
         val vaer_text1: TextView = itemView.vaer_text1
@@ -58,8 +58,8 @@ class ListAdapter(var forecastMap : HashMap<LatLng?, List<LocationForecastViewMo
                  forecastList: List<LocationForecastViewModel.FavForecast>?,
                  dangerList : List<String>?){
 
-            var dialogClickListener =
-                DialogInterface.OnClickListener { dialog, which ->
+            val dialogClickListener =
+                DialogInterface.OnClickListener { _, which ->
                     when (which) {
                         DialogInterface.BUTTON_POSITIVE -> {
                             // remove item

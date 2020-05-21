@@ -35,39 +35,14 @@ import java.io.ObjectOutputStream
 class MainActivity : AppCompatActivity() {
 
     val TAG = "MainActivity"
-    private var DEFAULT_ZOOM = 15f
-    private var MY_PERMISSIONS_REQUEST_FINE_LOCATION = 1
-    private var MY_PERMISSIONS_REQUEST_COARSE_LOCATION = 1
-    private var MIN_DISTANCE = 100
     val CHANNEL_ID = "com.example.forestfire.view.channel1"
     var notificationManager : NotificationManager? = null
-
-    private lateinit var mMap: GoogleMap
 
     // objekter til fragments
     private lateinit var homeFragment: MapsFragment
     private lateinit var favoriteFragment: FavoritesFragment
-    private lateinit var favorites: MutableMap<LatLng, String>
     lateinit var infoFragment: InfoFragment
     lateinit var settingsFragment: SettingsFragment
-
-    // the location of the device
-    private var deviceloc: LatLng? = null
-
-    // Autocomplete fragment
-    private lateinit var autocompleteFragment: AutocompleteSupportFragment
-
-    //private var previousX: Float = 0F
-    private var previousY: Float = 0F // used for checking if there has been a swipe upward
-
-    private lateinit var valgtSted: TextView
-    private lateinit var favoriteBtn: ImageButton // button for adding as favorite
-    private lateinit var slideUp: CardView // the cardview that opens a new activity upon swipe up
-    private var mLocationPermissionGranted = false // assume location permission is not granted
-
-    // the ViewModel for the map
-    val mapsViewModel: MapsViewModel by viewModels()
-    val favoriteViewModel: FavoriteViewModel by viewModels()
 
     // API viewmodels
     private val fireViewModel : FireDataViewModel by viewModels { FireDataViewModel.InstanceCreator()}
@@ -133,7 +108,7 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
-        // hente favoritter fra internal storage
+        /*// hente favoritter fra internal storage
         try {
             Log.d(TAG, "prøve å hente favoritter fra internal storage")
             val fileInputStream =
@@ -151,7 +126,7 @@ class MainActivity : AppCompatActivity() {
         // favoriteViewModel
         if(!::favorites.isInitialized){
             favorites = favoriteViewModel.favorites
-        }
+        }*/
 
 
         /*

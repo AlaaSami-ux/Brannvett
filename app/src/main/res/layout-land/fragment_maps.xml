@@ -46,16 +46,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|top"
                 android:contentDescription="@string/swipeUpArrow"
-                android:src="@drawable/ic_keyboard_arrow_down_lille_24dp"
+                android:src="@drawable/ic_keyboard_arrow_up_black_24dp"
                 android:textStyle="bold" />
-
-            <!--<TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/up"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:text="sveip opp" />-->
 
             <include
                 android:id="@+id/favoritt"
@@ -159,7 +151,7 @@
                         android:textStyle="bold"
                         android:textColor="@color/DingGrey" />
 
-                    <!-- HER KAN DU LEGGE TILL VINN IKON-->
+                    <!-- HER KAN DU LEGGE TILL VIND IKON-->
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
