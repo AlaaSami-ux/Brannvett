@@ -36,8 +36,7 @@
             android:layout_marginStart="20dp"
             android:background="@null"
             android:textSize="16sp"
-            android:textStyle="bold"
-            android:drawableStart="@drawable/ic_whatshot_red_24dp"/>
+            android:textStyle="bold"/>
 
         <!-- dette er den lille pilen som peker nedover for å
         symbolisere at man skal sveipe ned -->
@@ -49,14 +48,6 @@
             android:src="@drawable/ic_keyboard_arrow_down_black_24dp"
             android:textStyle="bold"
             android:contentDescription="@string/swipeDownArrow" />
-
-        <!--<TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/up"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp"
-            android:text="sveip ned" />-->
 
         <!-- høyre og venstre side av strek -->
         <LinearLayout
