@@ -67,7 +67,7 @@
                 android:backgroundTint="#D6C4A4"
                 android:contentDescription="@string/toppBildeFragment"
                 tools:ignore="NestedWeights" 
-                app:srcCompat="@drawable/kartet_med_hjerter"
+                app:srcCompat="@drawable/compressed_kartbilde"
                 android:scaleType="centerCrop"/>
         </LinearLayout>
 
