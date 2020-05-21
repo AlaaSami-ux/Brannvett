@@ -23,7 +23,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
-            app:cardBackgroundColor="#E6FFFFFF"
+            app:cardBackgroundColor="@color/whiteColor"
             app:cardCornerRadius="12dp"
             app:cardElevation="10dp">
 
@@ -113,7 +113,7 @@
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
             android:layout_marginBottom="-40dp"
-            app:cardBackgroundColor="#E6FFFFFF"
+            app:cardBackgroundColor="@color/whiteColor"
             app:cardCornerRadius="40dp">
 
             <TextView
@@ -214,7 +214,7 @@
             android:layout_marginTop="100dp"
             android:layout_marginEnd="70dp"
             android:visibility="visible"
-            app:cardBackgroundColor="#B3FFFFFF"
+            app:cardBackgroundColor="@color/whiteColor"
             app:cardCornerRadius="12dp">
             <!-- Fragment som har med autocomplete å gjøre-->
             <androidx.fragment.app.FragmentContainerView
