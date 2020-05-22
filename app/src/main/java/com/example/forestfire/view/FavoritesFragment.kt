@@ -86,7 +86,6 @@ class FavoritesFragment(
 
         favoriteViewModel.setContext(requireContext())
         Log.d(TAG, "context: " + requireContext().toString())
-        favoriteViewModel.readFile() // hent brukerens faovritter
     }
 
     override fun onCreateView(
@@ -100,6 +99,7 @@ class FavoritesFragment(
         if (!(activity as MainActivity).isOnline()) {
             (activity as MainActivity).showNoConnectionDialog()
         } else {
+            favoriteViewModel.readFile() // hent brukerens faovritter
             // datoer
             dag1 = root.findViewById(R.id.dag1)
             dag2 = root.findViewById(R.id.dag2)
@@ -150,11 +150,10 @@ class FavoritesFragment(
             autocompleteFragment.setOnPlaceSelectedListener(object :
                 PlaceSelectionListener {
                 override fun onPlaceSelected(place: Place) {
-                    Log.i(TAG, "Place: " + place.name + ", " + place.id)
+                    Log.i(TAG, "valgt å legge til sted: " + place.name)
                     favoriteViewModel.addFavorite(place.latLng!!, place.name!!)
-                    updateFragment()
                     leggTil.visibility = View.GONE
-                    autocompleteFragment.setText("")
+                    updateFragment()
                 }
 
                 override fun onError(status: Status) {
@@ -223,6 +222,7 @@ class FavoritesFragment(
     }
 
     fun updateFragment() {
+        Log.d(TAG, "updateFragment")
         val ft: FragmentTransaction = parentFragmentManager.beginTransaction()
         if (Build.VERSION.SDK_INT >= 26) {
             ft.setReorderingAllowed(false)
@@ -246,7 +246,12 @@ class FavoritesFragment(
     ) {
         my_recycler_view.apply {
             layoutManager = LinearLayoutManager(requireActivity())
-            viewAdapter = ListAdapter(forecastMap, posDangerMap, favorites, this@FavoritesFragment)
+            viewAdapter = ListAdapter(forecastMap,
+                posDangerMap,
+                favorites,
+                this@FavoritesFragment,
+                favoriteViewModel,
+                mapsViewModel)
             if (favorites.count() > 0) {
                 noFavoritesTextBox.visibility = View.GONE
             }

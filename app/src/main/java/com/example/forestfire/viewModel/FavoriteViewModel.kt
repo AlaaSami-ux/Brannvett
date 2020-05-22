@@ -17,7 +17,6 @@ class FavoriteViewModel : ViewModel(){
     var btnclicked = false
     private lateinit var context: Context
 
-    var favoriteList: MutableList<LatLng> = ArrayList()
     var favorites: MutableMap<LatLng, String> = mutableMapOf()
     var favlat: MutableList<Double> = ArrayList() // list of latitudes
     var favlong: MutableList<Double> = ArrayList() // list of longitudes
@@ -67,7 +66,7 @@ class FavoriteViewModel : ViewModel(){
     fun addFavorite(latlng: LatLng, place: String){
         // Her vil jeg legge inn LatLng som favoritt i en slags liste eller noe
         if(!favorites.containsKey(latlng)){
-            favorites.put(latlng, place)
+            favorites[latlng] = place
             btnclicked = true
             Log.d(TAG, "added favorite. Size of favorites list: " + favorites.count())
             writeFile()
@@ -75,6 +74,7 @@ class FavoriteViewModel : ViewModel(){
     }
 
     fun removeFavorite(latlng: LatLng, place: String){
+        Log.d(TAG, "removeFavorite $place")
         if (favorites.containsKey(latlng)){
             favorites.remove(latlng)
             btnclicked = false
@@ -86,7 +86,7 @@ class FavoriteViewModel : ViewModel(){
     fun readFile() {
         // hente favoritter fra internal storage
         try {
-            Log.d(TAG, "prøve å hente favoritter fra internal storage")
+            Log.d(TAG, "Hente favoritter fra internal storage")
             val fisLat =
                 context.openFileInput("favlat.ser")
             val oisLat = ObjectInputStream(fisLat)
@@ -97,14 +97,13 @@ class FavoriteViewModel : ViewModel(){
                 context.openFileInput("favname.ser")
             val oisName = ObjectInputStream(fisName)
 
-            val savedFavorites: MutableMap<LatLng, String> = mutableMapOf()
-            //Log.d(TAG, "favlat to string: " + favlat.toString())
+            favlat.clear(); favlong.clear(); favnames.clear()
             favlat = oisLat.readObject() as ArrayList<Double>
             favlong = oisLong.readObject() as ArrayList<Double>
             favnames = oisName.readObject() as ArrayList<String>
             savedFavoritesToHashMap()
-
             Log.d(TAG, "hentet favoritter fra minnet")
+            Log.d(TAG, "antall favoritter: " + favorites.size)
         } catch (e: FileNotFoundException){
             e.printStackTrace()
         } catch (e: NumberFormatException){
@@ -119,21 +118,28 @@ class FavoriteViewModel : ViewModel(){
     fun writeFile() {
         favoritesToSerializable()
         // read hashmap to a file
-        val favoriteLatLng = favorites.keys
+        Log.d(TAG, "favlat.size: " + favlat.size)
         try {
-            Log.d(TAG, "prøve å legge til favoritter i internal storage")
+            Log.d(TAG, "reading " + favorites.size + " favorites to file")
             val fosLat = context.openFileOutput("favlat.ser", Context.MODE_PRIVATE)
             val fosLong = context.openFileOutput("favlong.ser", Context.MODE_PRIVATE)
             val fosName = context.openFileOutput("favname.ser", Context.MODE_PRIVATE)
             val ooslat = ObjectOutputStream(fosLat)
             ooslat.writeObject(favlat)
+            fosLat.close()
+            ooslat.flush()
             ooslat.close()
             val ooslong = ObjectOutputStream(fosLong)
             ooslong.writeObject(favlong)
+            fosLong.close()
+            ooslong.flush()
             ooslong.close()
             val oosname = ObjectOutputStream(fosName)
             oosname.writeObject(favnames)
+            fosName.close()
+            oosname.flush()
             oosname.close()
+
             Log.d(TAG, "lagt til favoritter i minnet")
         } catch (e: FileNotFoundException){
             e.printStackTrace()
@@ -148,6 +154,7 @@ class FavoriteViewModel : ViewModel(){
 
     fun favoritesToSerializable(){
         val favoritesPos = favorites.keys
+        favlat.clear(); favlong.clear(); favnames.clear()
         favoritesPos.forEach {
             favlat.add(it.latitude)
             favlong.add(it.longitude)

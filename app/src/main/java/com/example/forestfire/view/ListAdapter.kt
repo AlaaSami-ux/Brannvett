@@ -15,6 +15,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.example.forestfire.R
+import com.example.forestfire.viewModel.FavoriteViewModel
+import com.example.forestfire.viewModel.MapsViewModel
 import com.example.forestfire.viewModel.fetchAPI.LocationForecastViewModel
 import com.google.android.gms.maps.model.LatLng
 import com.squareup.picasso.Picasso
@@ -23,7 +25,10 @@ import java.util.*
 
 class ListAdapter(var forecastMap : HashMap<LatLng?, List<LocationForecastViewModel.FavForecast>>,
                   var posDangerMap : HashMap<LatLng?, List<String>>,
-                  var favorites: MutableMap<LatLng, String>, var fragment: FavoritesFragment) :
+                  var favorites: MutableMap<LatLng, String>,
+                  var fragment: FavoritesFragment,
+                  var favoriteViewModel: FavoriteViewModel,
+                  var mapsViewModel: MapsViewModel) :
     RecyclerView.Adapter<ListAdapter.ViewHolder>()  {
 
     private var positions = favorites.keys // MutableSet of keys from favorites map
@@ -85,7 +90,6 @@ class ListAdapter(var forecastMap : HashMap<LatLng?, List<LocationForecastViewMo
                 msgTxt.setTextColor(Color.GRAY)
             }
             valgtSted.text = place
-            Log.d("ListAdapter Adresse", place)
 
             vaer_text1.text = "${forecastList?.get(0)?.temperature}°"
             Picasso.with(applicationContext)
@@ -149,6 +153,7 @@ class ListAdapter(var forecastMap : HashMap<LatLng?, List<LocationForecastViewMo
     }
 
     fun removeItem(ll: LatLng){
-        favorites.remove(ll)
+        favoriteViewModel.removeFavorite(ll, mapsViewModel.getAddressFromLocation(ll.latitude, ll.longitude))
+        favorites = favoriteViewModel.favorites
     }
 }

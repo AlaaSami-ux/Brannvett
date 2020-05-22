@@ -108,7 +108,6 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
 
         favoriteViewModel.setContext(requireContext())
         Log.d(TAG, "context: " + requireContext())
-        favoriteViewModel.readFile() // hente favorittene
 
         // sett activity, context og fusedLocation... i viewModel
         mapsViewModel.setActivity(requireActivity())
@@ -133,6 +132,8 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
     ): View? {
         // Inflate the layout for this fragment
         root =  inflater.inflate(R.layout.fragment_maps, container, false)
+
+        favoriteViewModel.readFile() // hente favorittene
 
         // initialize variables
         weather = root.findViewById(R.id.weather) // kort som viser været
