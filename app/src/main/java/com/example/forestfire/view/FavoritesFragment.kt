@@ -32,11 +32,9 @@ import com.google.android.libraries.places.api.model.RectangularBounds
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
-import java.io.FileInputStream
-import java.io.IOException
-import java.io.ObjectInputStream
-import java.io.ObjectOutputStream
+import java.io.*
 import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
 
@@ -86,6 +84,9 @@ class FavoritesFragment(
             ViewModelProviders.of(this)[MapsViewModel::class.java]
         } ?: throw Exception("Invalid Activity")
 
+        favoriteViewModel.setContext(requireContext())
+        Log.d(TAG, "context: " + requireContext().toString())
+        favoriteViewModel.readFile() // hent brukerens faovritter
     }
 
     override fun onCreateView(
@@ -93,6 +94,7 @@ class FavoritesFragment(
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        Log.d(TAG, "onCreateView")
         root = inflater.inflate(R.layout.fragment_favorites, container, false)
 
         if (!(activity as MainActivity).isOnline()) {
@@ -220,40 +222,6 @@ class FavoritesFragment(
         return root
     }
 
-
-    private fun readFile(){
-        // hente favoritter fra internal storage
-        try {
-            Log.d(TAG, "prøve å hente favoritter fra internal storage")
-            val fileInputStream =
-                FileInputStream("favorites.txt")
-            val objectInputStream = ObjectInputStream(fileInputStream)
-            favorites = objectInputStream.readObject() as MutableMap<LatLng, String>
-        } catch (e: ClassNotFoundException) {
-            e.printStackTrace()
-        } catch (e: IOException) {
-            e.printStackTrace()
-        } catch (e: ClassCastException) {
-            e.printStackTrace()
-        }
-    }
-
-    fun writeFile(){
-        // read hashmap to a file
-        try {
-            Log.d(TAG, "prøve å legge til favoritter i internal storage")
-
-            val fos =
-                requireContext().openFileOutput("favorites.txt", Context.MODE_PRIVATE)
-            val oos = ObjectOutputStream(fos)
-            oos.writeObject(favorites)
-            oos.close()
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
-    }
-
-
     fun updateFragment() {
         val ft: FragmentTransaction = parentFragmentManager.beginTransaction()
         if (Build.VERSION.SDK_INT >= 26) {
@@ -288,7 +256,8 @@ class FavoritesFragment(
 
     override fun onResume() {
         super.onResume()
-        Log.d(TAG, "resuming app")
+        Log.d(TAG, "onResume")
+        favoriteViewModel.readFile()
     }
 
     override fun onPause() {
@@ -298,33 +267,7 @@ class FavoritesFragment(
         // onPause blir kalt ved første indikasjon på at brukeren forlater appen
 
         Log.d(TAG, "onPause")
-
         // bevare listen med favoritter
-        favorites = favoriteViewModel.favorites
-
-        //writeFile()
-    }
-
-    override fun onStop() {
-        super.onStop()
-
-        Log.d(TAG, "onStop")
-        // read hashmap to a file
-        /*try {
-            Log.d(TAG, "prøve å legge til favoritter i internal storage")
-
-            val fos =
-                requireContext().openFileOutput("YourInfomration.ser", Context.MODE_PRIVATE)
-            val oos = ObjectOutputStream(fos)
-            oos.writeObject(favorites)
-            oos.close()
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }*/
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d(TAG, "onDestroy")
+        favoriteViewModel.writeFile() // lagre brukerens favoritter favorittene
     }
 }

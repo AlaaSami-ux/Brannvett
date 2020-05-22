@@ -1,19 +1,32 @@
 package com.example.forestfire.viewModel
 
 
+import android.content.Context
 import android.util.Log
 import android.widget.ImageButton
 import androidx.lifecycle.ViewModel
 import com.example.forestfire.R
 import com.google.android.gms.maps.model.LatLng
+import java.io.FileNotFoundException
+import java.io.IOException
+import java.io.ObjectInputStream
+import java.io.ObjectOutputStream
 
 class FavoriteViewModel : ViewModel(){
 
     val TAG = "FavoriteViewModel"
     var btnclicked = false
+    private lateinit var context: Context
 
     var favoriteList: MutableList<LatLng> = ArrayList()
     var favorites: MutableMap<LatLng, String> = mutableMapOf()
+    var favlat: MutableList<Double> = ArrayList() // list of latitudes
+    var favlong: MutableList<Double> = ArrayList() // list of longitudes
+    var favnames: MutableList<String> = ArrayList() // list of names
+
+    fun setContext(c: Context){
+        context = c
+    }
 
     fun buttonClick(btn1: ImageButton, btn2: ImageButton){
         Log.d(TAG, "favorite button clicked")
@@ -68,6 +81,91 @@ class FavoriteViewModel : ViewModel(){
             btnclicked = false
             Log.d(TAG, "removed favorite. Size of favorites list: " + favorites.count())
         }
+    }
+
+    fun readFile() {
+        // hente favoritter fra internal storage
+        try {
+            Log.d(TAG, "prøve å hente favoritter fra internal storage")
+            val fisLat =
+                context.openFileInput("favlat.ser")
+            val oisLat = ObjectInputStream(fisLat)
+            val fisLong =
+                context.openFileInput("favlong.ser")
+            val oisLong = ObjectInputStream(fisLong)
+            val fisName =
+                context.openFileInput("favname.ser")
+            val oisName = ObjectInputStream(fisName)
+
+            val savedFavorites: MutableMap<LatLng, String> = mutableMapOf()
+            //Log.d(TAG, "favlat to string: " + favlat.toString())
+            favlat = oisLat.readObject() as ArrayList<Double>
+            favlong = oisLong.readObject() as ArrayList<Double>
+            favnames = oisName.readObject() as ArrayList<String>
+            savedFavoritesToHashMap()
+
+            Log.d(TAG, "hentet favoritter fra minnet")
+        } catch (e: FileNotFoundException){
+            e.printStackTrace()
+        } catch (e: NumberFormatException){
+            e.printStackTrace()
+        } catch (e: IOException){
+            e.printStackTrace()
+        } catch (e: Exception){
+            e.printStackTrace()
+        }
+    }
+
+    fun writeFile() {
+        favoritesToSerializable()
+        // read hashmap to a file
+        val favoriteLatLng = favorites.keys
+        try {
+            Log.d(TAG, "prøve å legge til favoritter i internal storage")
+            val fosLat = context.openFileOutput("favlat.ser", Context.MODE_PRIVATE)
+            val fosLong = context.openFileOutput("favlong.ser", Context.MODE_PRIVATE)
+            val fosName = context.openFileOutput("favname.ser", Context.MODE_PRIVATE)
+            val ooslat = ObjectOutputStream(fosLat)
+            ooslat.writeObject(favlat)
+            ooslat.close()
+            val ooslong = ObjectOutputStream(fosLong)
+            ooslong.writeObject(favlong)
+            ooslong.close()
+            val oosname = ObjectOutputStream(fosName)
+            oosname.writeObject(favnames)
+            oosname.close()
+            Log.d(TAG, "lagt til favoritter i minnet")
+        } catch (e: FileNotFoundException){
+            e.printStackTrace()
+        } catch (e: NumberFormatException){
+            e.printStackTrace()
+        } catch (e: IOException){
+            e.printStackTrace()
+        } catch (e: Exception){
+            e.printStackTrace()
+        }
+    }
+
+    fun favoritesToSerializable(){
+        val favoritesPos = favorites.keys
+        favoritesPos.forEach {
+            favlat.add(it.latitude)
+            favlong.add(it.longitude)
+        }
+        favorites.values.forEach{
+            favnames.add(it)
+        }
+    }
+
+    fun savedFavoritesToHashMap(){
+        var i: Int = 0
+        var savedFavorites: MutableMap<LatLng, String> = mutableMapOf()
+        favnames.forEach {
+            var key = LatLng(favlat[i], favlong[i])
+            savedFavorites[key] = it
+            i += 1
+        }
+        favorites = savedFavorites
     }
 
 }

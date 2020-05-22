@@ -106,6 +106,10 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
             ViewModelProviders.of(this)[FavoriteViewModel::class.java]
         } ?: throw Exception("Invalid Activity")
 
+        favoriteViewModel.setContext(requireContext())
+        Log.d(TAG, "context: " + requireContext().toString())
+        favoriteViewModel.readFile() // hente favorittene
+
         // sett activity, context og fusedLocation... i viewModel
         mapsViewModel.setActivity(requireActivity())
         mapsViewModel.setContext(requireContext())
@@ -222,6 +226,12 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
         // ---------------------------------------------------------------
 
         return root
+    }
+
+    override fun onPause() {
+        super.onPause()
+        // lagre favorittene her i tilfelle brukeren ikke går inn på favoritter-fragment
+        favoriteViewModel.writeFile()
     }
 
     override fun onClick(v: View){
