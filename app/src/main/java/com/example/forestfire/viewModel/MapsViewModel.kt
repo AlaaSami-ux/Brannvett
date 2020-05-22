@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.location.Address
 import android.location.Geocoder
 import android.util.Log
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
@@ -103,7 +104,7 @@ class MapsViewModel(): ViewModel(){ //AndroidViewModel(app)
 
     fun getAddressFromLocation(latitude: Double, longitude: Double) : String {
         Log.d(TAG, "getAddressFromLocation")
-        var sted = "Valgt posisjon"
+        var sted = "(" + String.format("%.3f", latitude) + ",\n" + String.format("%.3f", longitude) + ")"
         val geocoder = Geocoder(activity, Locale.ENGLISH)
         try {
             val addresses: List<Address> = geocoder.getFromLocation(latitude, longitude, 1)
@@ -113,7 +114,8 @@ class MapsViewModel(): ViewModel(){ //AndroidViewModel(app)
                 sted = strAddress.split(",", ignoreCase=true, limit=0).first()
                 Log.d(TAG, "sted: $sted")
             }
-        } catch (e: IOException) {
+        } catch (e: IOException){
+            Toast.makeText(context, "Kunne ikke finne stedsnavn", Toast.LENGTH_SHORT).show()
             e.printStackTrace()
         }
         return sted

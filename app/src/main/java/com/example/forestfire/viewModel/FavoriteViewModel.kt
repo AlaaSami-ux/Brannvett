@@ -2,15 +2,14 @@ package com.example.forestfire.viewModel
 
 
 import android.content.Context
+import android.os.Environment
 import android.util.Log
 import android.widget.ImageButton
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
 import com.example.forestfire.R
 import com.google.android.gms.maps.model.LatLng
-import java.io.FileNotFoundException
-import java.io.IOException
-import java.io.ObjectInputStream
-import java.io.ObjectOutputStream
+import java.io.*
 
 class FavoriteViewModel : ViewModel(){
 
@@ -23,7 +22,6 @@ class FavoriteViewModel : ViewModel(){
     var favlat: MutableList<Double> = ArrayList() // list of latitudes
     var favlong: MutableList<Double> = ArrayList() // list of longitudes
     var favnames: MutableList<String> = ArrayList() // list of names
-
     fun setContext(c: Context){
         context = c
     }
@@ -72,6 +70,7 @@ class FavoriteViewModel : ViewModel(){
             favorites.put(latlng, place)
             btnclicked = true
             Log.d(TAG, "added favorite. Size of favorites list: " + favorites.count())
+            writeFile()
         }
     }
 
@@ -80,6 +79,7 @@ class FavoriteViewModel : ViewModel(){
             favorites.remove(latlng)
             btnclicked = false
             Log.d(TAG, "removed favorite. Size of favorites list: " + favorites.count())
+            writeFile()
         }
     }
 
@@ -159,9 +159,9 @@ class FavoriteViewModel : ViewModel(){
 
     fun savedFavoritesToHashMap(){
         var i: Int = 0
-        var savedFavorites: MutableMap<LatLng, String> = mutableMapOf()
+        val savedFavorites: MutableMap<LatLng, String> = mutableMapOf()
         favnames.forEach {
-            var key = LatLng(favlat[i], favlong[i])
+            val key = LatLng(favlat[i], favlong[i])
             savedFavorites[key] = it
             i += 1
         }

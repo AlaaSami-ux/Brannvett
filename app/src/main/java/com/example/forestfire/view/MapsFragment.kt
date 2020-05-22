@@ -107,7 +107,7 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
         } ?: throw Exception("Invalid Activity")
 
         favoriteViewModel.setContext(requireContext())
-        Log.d(TAG, "context: " + requireContext().toString())
+        Log.d(TAG, "context: " + requireContext())
         favoriteViewModel.readFile() // hente favorittene
 
         // sett activity, context og fusedLocation... i viewModel
@@ -228,22 +228,14 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
         return root
     }
 
-    override fun onPause() {
-        super.onPause()
-        // lagre favorittene her i tilfelle brukeren ikke går inn på favoritter-fragment
-        favoriteViewModel.writeFile()
-    }
-
     override fun onClick(v: View){
         // called on favorite button click
         Log.d(TAG, "favorite button clicked")
         favoriteViewModel.changeFavoriteBoolean()
         if (favoriteViewModel.isBtnClicked()){ // hvis knappen er fylt med farge
-
             favoriteViewModel.addFavorite(lastLoc, valgtSted.text.toString())
             favoriteViewModel.setBtnClicked(favoriteBtn, favoriteBtn2)
         } else { // hvis knappen ikke er fylt med farge
-
             favoriteViewModel.removeFavorite(lastLoc, valgtSted.text.toString())
             favoriteViewModel.setBtnUnClicked(favoriteBtn, favoriteBtn2)
         }

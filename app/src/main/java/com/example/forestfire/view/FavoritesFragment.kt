@@ -126,7 +126,7 @@ class FavoritesFragment(
             Places.initialize(requireContext(), "AIzaSyD10fJ7iHSaVhairAHZnpuFcrm5fU4SFM4")
             // Create a new Places client instance
             Places.createClient(requireContext())
-            // initialize autocompleteFragment
+            // initialize autocompleteFragmentm
             autocompleteFragment =
                 childFragmentManager.findFragmentById(R.id.autocomplete_fragment) as AutocompleteSupportFragment
             autocompleteFragment.setPlaceFields(
@@ -258,16 +258,5 @@ class FavoritesFragment(
         super.onResume()
         Log.d(TAG, "onResume")
         favoriteViewModel.readFile()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        // her skal jeg legge ting som jeg vil bevare dersom brukeren
-        // skulle avslutte appen og ikke komme tilbake
-        // onPause blir kalt ved første indikasjon på at brukeren forlater appen
-
-        Log.d(TAG, "onPause")
-        // bevare listen med favoritter
-        favoriteViewModel.writeFile() // lagre brukerens favoritter favorittene
     }
 }
