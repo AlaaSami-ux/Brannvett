@@ -1,14 +1,12 @@
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources >
     <string name="app_name">Grill og Chill</string>
     <string name="title_activity_maps">Map</string>
 
     <string name="dato" translatable="false">%1$s/%2$s</string>
 
 
-    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
-
     <string name="bilde">bilde</string>
-    <string name="ved_brann_ring_110">VED BRANN - RING 110</string>
+    <string name="nodnummer">VED BRANN - RING 110</string>
     <string name="baal">" Bål "</string>
     <string name="engangsgrill">" Engangsgrill "</string>
     <string name="glassflasker">" Glassflasker "</string>
@@ -98,5 +96,8 @@
     <string name="ingenInternett">Denne applikasjonen trenger tilgang til internett for å fungere. Sørg for at du er koblet til internett og prøv igjen.</string>
     <string name="OK" translatable="false">OK</string>
     <string name="lukkApp">Lukk applikasjon</string>
+    <string name="favorittIkon">favorittikon</string>
+
+
 
 </resources>

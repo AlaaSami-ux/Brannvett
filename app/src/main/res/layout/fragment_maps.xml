@@ -155,12 +155,6 @@
                     android:layout_gravity="center_horizontal"
                     tools:ignore="UseCompoundDrawables">
 
-                    <!-- farevarsel<LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="30dp"
-                android:orientation="horizontal"> ikon -->
                     <!-- farevarsel ikon -->
                     <ImageView
                         android:id="@+id/fire_symbol"
@@ -186,17 +180,6 @@
                 android:layout_gravity="end"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="20dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="30dp"
-                android:drawableTop="@drawable/ic_whatshot_red_24dp"
-                android:text=""
-                android:textColor="@color/DangerRed"
-                android:textSize="18sp"
-                android:textStyle="normal" />
 
 
         <!--søkeboks -->

@@ -4,7 +4,6 @@
     <string name="title_activity_maps">Map</string>
     <string name="info">Info</string>
     <string name="bilde">bilde</string>
-    <string name="ved_brann_ring_110">VED BRANN - RING 110</string>
     <string name="baal">" Bål "</string>
     <string name="engangsgrill">" Engangsgrill "</string>
     <string name="glassflasker">" Glassflasker "</string>
@@ -76,5 +75,7 @@
     <string name="nei">Nei</string>
     <string name="ingenInternett" tools:ignore="Typos">Denne applikasjonen trenger tilgang til internett for å fungere. Sørg for at du er koblet til internett og prøv igjen.</string>
     <string name="lukkApp">Lukk applikasjon</string>
+    <string name="favorittIkon">favorittikon</string>
+    <string name="nodnummer">VED BRANN - RING 110</string>
 
 </resources>

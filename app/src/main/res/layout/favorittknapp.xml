@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:background="@null"
     android:src="@drawable/ic_favorite_border_black_24dp"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:contentDescription="@string/favorittIkon">
 
 </ImageButton>

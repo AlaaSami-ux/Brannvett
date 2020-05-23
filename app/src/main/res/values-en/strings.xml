@@ -4,7 +4,6 @@
     <string name="title_activity_maps">Map</string>
     <string name="info">Info</string>
     <string name="bilde">Image</string>
-    <string name="ved_brann_ring_110">IN CASE OF FIRE - CALL 110</string>
     <string name="baal">" Campfire "</string>
     <string name="engangsgrill">" Disposable Grill "</string>
     <string name="glassflasker">" Glass Bottles "</string>
@@ -35,7 +34,7 @@
 
     <string name="vaerIkon">icon showing the weather</string>
 
-    <string name="brannfareIkonForside">icon showing todays danger index</string>
+    <string name="brannfareIkonForside">icon showing today"'"s danger index</string>
     <string name="vaerIdag">WEATHER TODAY</string>
 
     <string name="tilbake">Go back</string>
@@ -48,7 +47,7 @@
     <string name="temperatur">temperature</string>
     <string name="switchKnapp">switch</string>
     <string name="swipeDownArrow">icon symbolizing swipe down</string>
-    <string name="vaerIdagIkon">icon showing todays weather</string>
+    <string name="vaerIdagIkon">icon showing today"'"s weather</string>
     <string name="inkluderVarsling">slide to the right to include warning for lower danger index</string>
     <string name="hoyBrannfare">high danger index</string>
     <string name="middelsBrannfare">medium danger index</string>
@@ -77,6 +76,8 @@
     <string name="nei">No</string>
     <string name="ingenInternett">This application requires internet access to function. Please make sure you have an internet connection and try again.</string>
     <string name="lukkApp">Close application</string>
+    <string name="favorittIkon">favorite icon</string>
+    <string name="nodnummer">IN CASE OF FIRE - CALL 110</string>
 
 
 </resources>
