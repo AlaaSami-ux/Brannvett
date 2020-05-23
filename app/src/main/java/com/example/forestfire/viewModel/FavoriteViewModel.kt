@@ -69,6 +69,17 @@ class FavoriteViewModel : ViewModel(){
             Log.d(TAG, "removed favorite. Size of favorites list: " + favorites.count())
             writeFile()
         }
+        if (favorites.containsValue(place)){
+            var keyToRemove: LatLng? = null
+            // iterate thorugh to find the key, value pair
+            for ((key, value) in favorites){
+                if (value == place){
+                    keyToRemove = key
+                }
+            }
+            favorites.remove(keyToRemove)
+            writeFile()
+        }
     }
 
     fun getFavorites(): Map<LatLng, String>{
