@@ -80,7 +80,7 @@ class SettingsFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 settingView.setLocale("nb", requireActivity())
                 Toast.makeText(activity, "Norsk", Toast.LENGTH_LONG).show()
             }
-            "Velg språk" -> {
+            getString(R.string.velgSpraak) -> {
                 onNothingSelected(parent)
             }
         }

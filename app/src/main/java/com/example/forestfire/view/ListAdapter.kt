@@ -15,6 +15,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.example.forestfire.R
+import com.example.forestfire.viewModel.FavoriteViewModel
+import com.example.forestfire.viewModel.MapsViewModel
 import com.example.forestfire.viewModel.fetchAPI.LocationForecastViewModel
 import com.google.android.gms.maps.model.LatLng
 import com.squareup.picasso.Picasso
@@ -23,7 +25,10 @@ import java.util.*
 
 class ListAdapter(var forecastMap : HashMap<LatLng?, List<LocationForecastViewModel.FavForecast>>,
                   var posDangerMap : HashMap<LatLng?, List<String>>,
-                  var favorites: MutableMap<LatLng, String>, var fragment: FavoritesFragment) :
+                  var favorites: MutableMap<LatLng, String>,
+                  var fragment: FavoritesFragment,
+                  var favoriteViewModel: FavoriteViewModel,
+                  var mapsViewModel: MapsViewModel) :
     RecyclerView.Adapter<ListAdapter.ViewHolder>()  {
 
     private var positions = favorites.keys // MutableSet of keys from favorites map
@@ -75,16 +80,16 @@ class ListAdapter(var forecastMap : HashMap<LatLng?, List<LocationForecastViewMo
             remove.setOnClickListener {
                 val builder = AlertDialog.Builder(itemView.rootView.context, R.style.CustomAlertDialog)
                 builder.setIcon(R.drawable.ic_remove_circle_black_24dp)
-                builder.setMessage("Ønsker du å slette " + valgtSted.text + " fra dine favoritter?")
-                builder.setNegativeButton("Nei", dialogClickListener)
-                builder.setPositiveButton("Ja", dialogClickListener)
+                builder.setMessage(fragment.requireContext().getString(R.string.onskerAaslette)
+                        + valgtSted.text + fragment.requireContext().getString(R.string.fraFavoritter))
+                builder.setNegativeButton(fragment.requireContext().getString(R.string.nei), dialogClickListener)
+                builder.setPositiveButton(fragment.requireContext().getString(R.string.ja), dialogClickListener)
                 val dialog =builder.create()
                 dialog.show()
                 val msgTxt = dialog.findViewById<View>(android.R.id.message)!! as TextView
                 msgTxt.setTextColor(Color.GRAY)
             }
             valgtSted.text = place
-            Log.d("ListAdapter Adresse", place)
 
             vaer_text1.text = "${forecastList?.get(0)?.temperature}°"
             Picasso.with(applicationContext)
@@ -148,6 +153,7 @@ class ListAdapter(var forecastMap : HashMap<LatLng?, List<LocationForecastViewMo
     }
 
     fun removeItem(ll: LatLng){
-        favorites.remove(ll)
+        favoriteViewModel.removeFavorite(ll, mapsViewModel.getAddressFromLocation(ll.latitude, ll.longitude))
+        favorites = favoriteViewModel.favorites
     }
 }

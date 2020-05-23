@@ -51,7 +51,8 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:layout_weight="1"
-                        android:layout_gravity="center_vertical">
+                        android:layout_gravity="center_vertical"
+                        tools:ignore="UseCompoundDrawables">
 
                         <ImageView
                             android:id="@+id/weather_icon"
@@ -67,7 +68,7 @@
                             android:layout_gravity="center|center_horizontal"
                             android:textSize="16sp"
                             android:textStyle="bold"
-                            android:textColor="@color/DingGrey" />
+                            android:textColor="@color/DingGrey"/>
                     </LinearLayout>
 
                     <!-- Vindstyrke og symbol -->
@@ -97,8 +98,7 @@
                             android:layout_gravity="center|center_horizontal"
                             android:textSize="16sp"
                             android:textStyle="bold"
-                            android:textColor="@color/DingGrey"
-                            android:text="5 m/s"/>
+                            android:textColor="@color/DingGrey"/>
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -135,13 +135,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|top"
                 android:contentDescription="@string/swipeUpArrow"
-                android:src="@drawable/ic_keyboard_arrow_up_lille_24dp"
+                android:src="@drawable/ic_keyboard_arrow_up_black_24dp"
                 android:textStyle="bold" />
-
-            <!--<TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/up"/>-->
 
                 <include
                     android:id="@+id/favoritt"

@@ -1,42 +1,35 @@
 package com.example.forestfire.view
 
+import android.app.AlertDialog
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.widget.ImageButton
-import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.cardview.widget.CardView
+import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.fragment.app.FragmentTransaction
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import com.example.forestfire.R
-import com.example.forestfire.viewModel.FavoriteViewModel
-import com.example.forestfire.viewModel.MapsViewModel
 import com.example.forestfire.viewModel.fetchAPI.FireDataViewModel
 import com.example.forestfire.viewModel.fetchAPI.LocationForecastViewModel
 import com.example.forestfire.viewModel.fetchAPI.StationInfoViewModel
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.libraries.places.widget.AutocompleteSupportFragment
+import com.google.android.gms.common.ConnectionResult
+import com.google.android.gms.common.GooglePlayServicesUtil
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import java.io.FileInputStream
-import java.io.IOException
-import java.io.ObjectInputStream
-import java.io.ObjectOutputStream
+
 
 class MainActivity : AppCompatActivity() {
 
-    val TAG = "MainActivity"
-    val CHANNEL_ID = "com.example.forestfire.view.channel1"
-    var notificationManager : NotificationManager? = null
+    private val TAG = "MainActivity"
+    private val CHANNEL_ID = "com.example.forestfire.view.channel1"
+    private var notificationManager: NotificationManager? = null
 
     // objekter til fragments
     private lateinit var homeFragment: MapsFragment
@@ -44,11 +37,42 @@ class MainActivity : AppCompatActivity() {
     lateinit var infoFragment: InfoFragment
     lateinit var settingsFragment: SettingsFragment
 
-    // API viewmodels
-    private val fireViewModel : FireDataViewModel by viewModels { FireDataViewModel.InstanceCreator()}
-    private val stationInfoViewModel : StationInfoViewModel by viewModels { StationInfoViewModel.InstanceCreator()}
-    private val forecastViewModel : LocationForecastViewModel by viewModels { LocationForecastViewModel.InstanceCreator() }
+    fun isOnline(): Boolean{
+        val connectivityManager =
+            this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
+        if (connectivityManager != null) {
+            val capabilities =
+                connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+            if (capabilities != null) {
+                when {
+                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> {
+                        Log.i("Internet", "NetworkCapabilities.TRANSPORT_CELLULAR")
+                        return true
+                    }
+                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> {
+                        Log.i("Internet", "NetworkCapabilities.TRANSPORT_WIFI")
+                        return true
+                    }
+                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> {
+                        Log.i("Internet", "NetworkCapabilities.TRANSPORT_ETHERNET")
+                        return true
+                    }
+                }
+            }
+        }
+        return false
+    }
 
+    fun showNoConnectionDialog(){
+        Log.d(TAG, "viser prøv igjen dialog")
+        val builder = androidx.appcompat.app.AlertDialog.Builder(this, R.style.CustomAlertDialog)
+        builder.setMessage(getString(R.string.ingenInternett))
+        builder.setPositiveButton(getString(R.string.lukkApp)) { _, _ ->
+            ActivityCompat.finishAffinity(this)
+        }
+        val dialog =builder.create()
+        dialog.show()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,6 +80,11 @@ class MainActivity : AppCompatActivity() {
 
         // bottom navigation bar
         val nav: BottomNavigationView = findViewById(R.id.menu)
+
+        // API viewmodels
+        val fireViewModel: FireDataViewModel by viewModels { FireDataViewModel.InstanceCreator() }
+        val stationInfoViewModel: StationInfoViewModel by viewModels { StationInfoViewModel.InstanceCreator() }
+        val forecastViewModel: LocationForecastViewModel by viewModels { LocationForecastViewModel.InstanceCreator() }
 
         if (savedInstanceState == null) {
             homeFragment = MapsFragment(stationInfoViewModel, fireViewModel, forecastViewModel)
@@ -68,17 +97,19 @@ class MainActivity : AppCompatActivity() {
 
         // når vi trykker på noe i menyen blir dette kalt
         nav.setOnNavigationItemSelectedListener { item ->
-            when(item.itemId){
-                R.id.home ->{
-                    homeFragment = MapsFragment(stationInfoViewModel, fireViewModel, forecastViewModel)
+            when (item.itemId) {
+                R.id.home -> {
+                    homeFragment =
+                        MapsFragment(stationInfoViewModel, fireViewModel, forecastViewModel)
                     supportFragmentManager
                         .beginTransaction()
                         .replace(R.id.frame_layout, homeFragment)
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         .commit()
                 }
-                R.id.favorites ->{
-                    favoriteFragment = FavoritesFragment(stationInfoViewModel, fireViewModel, forecastViewModel)
+                R.id.favorites -> {
+                    favoriteFragment =
+                        FavoritesFragment(stationInfoViewModel, fireViewModel, forecastViewModel)
                     supportFragmentManager
                         .beginTransaction()
                         .replace(R.id.frame_layout, favoriteFragment)
@@ -86,7 +117,7 @@ class MainActivity : AppCompatActivity() {
                         .commit()
                 }
 
-                R.id.info ->{
+                R.id.info -> {
                     infoFragment = InfoFragment()
                     supportFragmentManager
                         .beginTransaction()
@@ -94,7 +125,7 @@ class MainActivity : AppCompatActivity() {
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         .commit()
                 }
-                R.id.settings ->{
+                R.id.settings -> {
                     settingsFragment =
                         SettingsFragment()
                     supportFragmentManager
@@ -107,6 +138,7 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+
 
         /*// hente favoritter fra internal storage
         try {
@@ -147,7 +179,8 @@ class MainActivity : AppCompatActivity() {
     // --------------------------------------- Notification ---------------------------------------
     fun vis_Varsel() {//lage varsligs metode
         val notificationId = 55
-        val draTilResultat = Intent(this, this::class.java) // gå til aktivitet etter å trykke på varsling
+        val draTilResultat =
+            Intent(this, this::class.java) // gå til aktivitet etter å trykke på varsling
         val pendingIntent = PendingIntent
             .getActivity(this, 0, draTilResultat, PendingIntent.FLAG_UPDATE_CURRENT)
             .apply { Intent.FLAG_ACTIVITY_CLEAR_TASK }
