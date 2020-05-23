@@ -5,18 +5,14 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.content.res.Resources
-import android.os.Bundle
 import android.util.DisplayMetrics
-import android.util.Log
 import android.widget.Switch
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
-import com.example.forestfire.view.MainActivity
-import com.example.forestfire.view.SettingsFragment
 import java.util.*
 
-
+@Suppress("DEPRECATION")
 class SettingsViewModel: ViewModel() {
 
 
@@ -46,8 +42,8 @@ class SettingsViewModel: ViewModel() {
         val res: Resources = activ.resources
         val dm: DisplayMetrics = res.displayMetrics
         val conf: Configuration = res.configuration
-        conf.locale = myLocale
-        res.updateConfiguration(conf, dm)
+        conf.locale = myLocale // deprecated in API 25. this is API 23
+        res.updateConfiguration(conf, dm) // deprecated in API 25. this is API 23
         val refresh = Intent(activ, activ::class.java)
         activ.finish()
         activ.startActivity(refresh)

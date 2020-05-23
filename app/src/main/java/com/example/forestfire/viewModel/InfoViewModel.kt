@@ -1,28 +1,14 @@
 package com.example.forestfire.viewModel
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.DialogInterface
-import android.content.res.Resources
 import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.Drawable
-import android.media.Image
-import android.os.Build
-import android.text.Html
 import android.view.View
 import android.widget.TextView
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.content.res.ResourcesCompat
-import androidx.core.view.marginLeft
 import androidx.lifecycle.ViewModel
-import com.example.forestfire.R
 import com.example.forestfire.R.*
-import com.example.forestfire.R.color.*
 import com.example.forestfire.R.drawable.*
-import kotlinx.android.synthetic.main.fragment_settings2.view.*
 
 class InfoViewModel : ViewModel() {
 
@@ -36,7 +22,7 @@ class InfoViewModel : ViewModel() {
        // builder.setIcon(drawable.ic_baalicon)
         builder.setCustomTitle(text)
         builder.setMessage(string.baalInfo)
-        builder.setPositiveButton("OK",{ dialogInterface: DialogInterface, i: Int -> })
+        builder.setPositiveButton("OK") { _: DialogInterface, _: Int -> }
         val dialog =builder.create()
         dialog.show()
         val msgTxt = dialog.findViewById<View>(android.R.id.message)!! as TextView
@@ -56,7 +42,7 @@ class InfoViewModel : ViewModel() {
       //  builder.setIcon(drawable.ic_glassflaskericon)
         builder.setCustomTitle(text)
         builder.setMessage(string.glassInfo)
-        builder.setPositiveButton("OK",{ dialogInterface: DialogInterface, i: Int -> })
+        builder.setPositiveButton("OK") { _: DialogInterface, _: Int -> }
         val dialog =builder.create()
         dialog.show()
         val msgTxt = dialog.findViewById<View>(android.R.id.message)!! as TextView
@@ -77,7 +63,7 @@ class InfoViewModel : ViewModel() {
       //  builder.setIcon(drawable.ic_engangsgrill_ny_boks)
         builder.setCustomTitle(text)
         builder.setMessage(string.engangsgrillInfo)
-        builder.setPositiveButton("OK",{ dialogInterface: DialogInterface, i: Int -> })
+        builder.setPositiveButton("OK") { _: DialogInterface, _: Int -> }
         val dialog =builder.create()
         dialog.show()
         val msgTxt = dialog.findViewById<View>(android.R.id.message)!! as TextView
@@ -98,7 +84,7 @@ class InfoViewModel : ViewModel() {
         //builder.setIcon(drawable.ic_lyn_ny)
         builder.setCustomTitle(text)
         builder.setMessage(string.lynInfo)
-        builder.setPositiveButton("OK",{ dialogInterface: DialogInterface, i: Int -> })
+        builder.setPositiveButton("OK") { _: DialogInterface, _: Int -> }
         val dialog =builder.create()
         dialog.show()
         val msgTxt = dialog.findViewById<View>(android.R.id.message)!! as TextView
@@ -119,7 +105,7 @@ class InfoViewModel : ViewModel() {
         //builder.setIcon(drawable.ic_soppelcontainer)
         builder.setCustomTitle(text)
         builder.setMessage(string.avfallInfo)
-        builder.setPositiveButton("OK",{ dialogInterface: DialogInterface, i: Int -> })
+        builder.setPositiveButton("OK") { _: DialogInterface, _: Int -> }
         val dialog =builder.create()
         dialog.show()
         val msgTxt = dialog.findViewById<View>(android.R.id.message)!! as TextView
@@ -142,7 +128,7 @@ class InfoViewModel : ViewModel() {
         builder.setCustomTitle(text)
         builder.setMessage(string.verktaayInfo)
 
-        builder.setPositiveButton("OK",{ dialogInterface: DialogInterface, i: Int -> })
+        builder.setPositiveButton("OK") { _: DialogInterface, _: Int -> }
         val dialog =builder.create()
         dialog.show()
         val msgTxt = dialog.findViewById<View>(android.R.id.message)!! as TextView

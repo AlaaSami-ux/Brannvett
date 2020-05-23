@@ -1,6 +1,5 @@
 package com.example.forestfire.view
 
-import android.content.Context
 import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
@@ -32,9 +31,7 @@ import com.google.android.libraries.places.api.model.RectangularBounds
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
-import java.io.*
 import java.util.*
-import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
 

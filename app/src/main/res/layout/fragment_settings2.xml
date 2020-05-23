@@ -19,14 +19,11 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="#7F74AF"
-            android:orientation="vertical"
-            android:weightSum="1">
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/border2"
                 android:orientation="horizontal"
                 android:weightSum="2"
                 tools:ignore="NestedWeights">
@@ -61,13 +58,11 @@
             android:paddingBottom="15dp"
             android:orientation="vertical"
             android:showDividers="none"
-            android:background="@drawable/border"
-            android:weightSum="1">
+            android:background="@drawable/border">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:orientation="horizontal"
                 android:baselineAligned="false"
                 tools:ignore="NestedWeights"
@@ -87,7 +82,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_language_black_24dp"
-                        android:contentDescription="@string/bilde" />
+                        android:contentDescription="@string/spraak" />
 
                 </RelativeLayout>
 
@@ -152,15 +147,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="0.2"
-            android:layout_marginStart="15dp"
-            tools:ignore="NestedWeights">
+            android:layout_marginStart="15dp">
 
             <ImageView
                 android:id="@+id/imageView4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_brightness_3_black_24dp"
-                android:contentDescription="@string/bilde" />
+                android:contentDescription="@string/morkModus"/>
 
         </RelativeLayout>
 
@@ -196,75 +190,6 @@
             </LinearLayout>
         </LinearLayout>
 
-        <!--
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="@drawable/border"
-            android:orientation="vertical"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:weightSum="1">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:orientation="horizontal"
-                android:weightSum="3"
-                android:baselineAligned="false"
-                tools:ignore="NestedWeights">
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="0.2"
-                    tools:ignore="NestedWeights">
-
-                    <ImageView
-                        android:id="@+id/imageView5"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/ic_temperature"
-                        android:contentDescription="@string/bilde" />
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1.4"
-                    android:layout_gravity="center_vertical">
-
-                    <TextView
-                        android:id="@+id/tempratur"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="10dp"
-                        android:gravity="center"
-                        android:text="@string/temperatur"
-                        android:textSize="20sp" />
-
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1.4"
-                    android:layout_gravity="center_vertical">
-
-                    <Spinner
-                        android:id="@+id/spinnerTemp"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:entries="@array/tempratur" />
-
-                </RelativeLayout>
-            </LinearLayout>
-        </LinearLayout>
-        -->
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -297,7 +222,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_notifications_active_black_24dp"
-                        android:contentDescription="@string/bilde" />
+                        android:contentDescription="@string/varsling" />
 
                 </RelativeLayout>
 

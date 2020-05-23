@@ -4,7 +4,6 @@
     <string name="title_activity_maps">Map</string>
     <string name="info">Info</string>
     <string name="bilde">Image</string>
-    <string name="ved_brann_ring_110">IN CASE OF FIRE - CALL 110</string>
     <string name="baal">" Campfire "</string>
     <string name="engangsgrill">" Disposable Grill "</string>
     <string name="glassflasker">" Glass Bottles "</string>
@@ -15,7 +14,8 @@
     <string name="spraak">Language</string>
     <string name="morkModus">Dark Mode</string>
     <string name="varsling">Notification</string>
-    <string name="tillat_varsling">"Allowed notification "</string>
+    <string name="tillat_varsling">"Allow notification "</string>
+
 
     <string name="glassInfo">"A shattered glass bottle can potentially start a wildfire with help from the sun, which can develop into a forest fire. \n\nMake sure to always take your garbage home with you!"</string>
     <string name="engangsgrillInfo">"When using a disposable grill you should always make sure that it is placed on an even and non-flammable surface. \n\nMake sure that it is properly put out, and always dispose of it in a container specifically made for disposable grills."</string>
@@ -26,29 +26,29 @@
 
 
     <!-- Fare tekst på kortet nederst på hovedside -->
-    <string name="hoyFare">DANGEROUS</string>
-    <string name="middelsFare">RISKY</string>
-    <string name="lavFare">SAFE</string>
+    <string name="hoyFare">HIGH DANGER INDEX</string>
+    <string name="middelsFare">MEDIUM DANGER INDEX</string>
+    <string name="lavFare">LOW DANGER INDEX</string>
 
-    <string name="swipeUpArrow">icon symbolizing swipe up</string>
+    <string name="swipeUpArrow">swipe up</string>
     <string name="infoOmBrannfareNivaaer">"\nThe numbers indicating the danger index are provided by The Norwegian Meteorological Institute, and are calculated with regards to rainfall, humidity and temperature. \nIt is important to be extra cautious when the index signals a high risk."</string>
 
     <string name="vaerIkon">icon showing the weather</string>
 
-    <string name="brannfareIkonForside">icon showing todays danger index</string>
+    <string name="brannfareIkonForside">icon showing today"'"s danger index</string>
     <string name="vaerIdag">WEATHER TODAY</string>
 
     <string name="tilbake">Go back</string>
     <string name="toppBildeFragment">Descriptive image filling top of page</string>
-    <string name="plussIkon">Add button</string>
+    <string name="plussIkon">Add favorite</string>
     <string name="mineSteder">My places</string>
     <string name="ingenFavoritter">You don\'t have any favorites</string>
-    <string name="brannfareLevels">low danger 0 to 30. Medium danger 31 to 60. great danger over 60</string>
+    <string name="brannfareLevels">Low danger 0 to 30. Medium danger 31 to 60. High danger over 60</string>
     <string name="brannfare">danger index icon</string>
     <string name="temperatur">temperature</string>
     <string name="switchKnapp">switch</string>
-    <string name="swipeDownArrow">icon symbolizing swipe down</string>
-    <string name="vaerIdagIkon">icon showing todays weather</string>
+    <string name="swipeDownArrow">swipe down</string>
+    <string name="vaerIdagIkon">icon showing today"'"s weather</string>
     <string name="inkluderVarsling">slide to the right to include warning for lower danger index</string>
     <string name="hoyBrannfare">high danger index</string>
     <string name="middelsBrannfare">medium danger index</string>
@@ -77,6 +77,9 @@
     <string name="nei">No</string>
     <string name="ingenInternett">This application requires internet access to function. Please make sure you have an internet connection and try again.</string>
     <string name="lukkApp">Close application</string>
+    <string name="favorittIkon">favorite icon</string>
+    <string name="nodnummer">IN CASE OF FIRE - CALL 110</string>
+    <string name="setting_ikon">Setting icon</string>
 
 
 </resources>

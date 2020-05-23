@@ -2,10 +2,8 @@ package com.example.forestfire.viewModel
 
 
 import android.content.Context
-import android.os.Environment
 import android.util.Log
 import android.widget.ImageButton
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
 import com.example.forestfire.R
 import com.google.android.gms.maps.model.LatLng
@@ -23,17 +21,6 @@ class FavoriteViewModel : ViewModel(){
     var favnames: MutableList<String> = ArrayList() // list of names
     fun setContext(c: Context){
         context = c
-    }
-
-    fun buttonClick(btn1: ImageButton, btn2: ImageButton){
-        Log.d(TAG, "favorite button clicked")
-        if (!btnclicked){
-            btn1.setBackgroundResource(R.drawable.ic_favorite_black_24dp)
-            btn2.setBackgroundResource(R.drawable.ic_favorite_black_24dp)
-        } else {
-            btn1.setBackgroundResource(R.drawable.ic_favorite_border_black_24dp)
-            btn2.setBackgroundResource(R.drawable.ic_favorite_border_black_24dp)
-        }
     }
 
     fun setBtnUnClicked(btn1: ImageButton, btn2: ImageButton){
@@ -98,9 +85,13 @@ class FavoriteViewModel : ViewModel(){
             val oisName = ObjectInputStream(fisName)
 
             favlat.clear(); favlong.clear(); favnames.clear()
+            @Suppress("UNCHECKED_CAST")
             favlat = oisLat.readObject() as ArrayList<Double>
+            @Suppress("UNCHECKED_CAST")
             favlong = oisLong.readObject() as ArrayList<Double>
+            @Suppress("UNCHECKED_CAST")
             favnames = oisName.readObject() as ArrayList<String>
+
             savedFavoritesToHashMap()
             Log.d(TAG, "hentet favoritter fra minnet")
             Log.d(TAG, "antall favoritter: " + favorites.size)
@@ -164,8 +155,8 @@ class FavoriteViewModel : ViewModel(){
         }
     }
 
-    fun savedFavoritesToHashMap(){
-        var i: Int = 0
+    private fun savedFavoritesToHashMap(){
+        var i = 0
         val savedFavorites: MutableMap<LatLng, String> = mutableMapOf()
         favnames.forEach {
             val key = LatLng(favlat[i], favlong[i])

@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Grill og Chill</string>
     <string name="title_activity_maps">Map</string>
     <string name="info">Info</string>
     <string name="bilde">bilde</string>
-    <string name="ved_brann_ring_110">VED BRANN - RING 110</string>
     <string name="baal">" Bål "</string>
     <string name="engangsgrill">" Engangsgrill "</string>
     <string name="glassflasker">" Glassflasker "</string>
@@ -15,16 +14,16 @@
     <string name="spraak">Språk</string>
     <string name="morkModus">Mørk modus</string>
     <string name="brannfareIkonForside">ikon som viser dagens brannfare på valgt sted</string>
-    <string name="swipeUpArrow">ikon som symboliserer sveip opp</string>
+    <string name="swipeUpArrow">sveip opp</string>
     <string name="vaerIdag">VÆRET I DAG</string>
 
     <string name="tilbake">Gå tilbake</string>
     <string name="toppBildeFragment">deskriptivt bilde som fyller toppen av siden</string>
     <string name="ingenFavoritter">Du har ingen favoritter</string>
     <string name="mineSteder">Mine steder</string>
-    <string name="plussIkon">legg til knapp</string>
+    <string name="plussIkon">legg til favoritt</string>
     <string name="vaerIkon">ikon som viser været</string>
-    <string name="swipeDownArrow">ikon som symboliserer sveip ned</string>
+    <string name="swipeDownArrow">sveip ned</string>
     <string name="switchKnapp">Switch</string>
     <string name="temperatur">Temperatur</string>
 
@@ -34,10 +33,10 @@
     <string name="verktaayInfo">"Bruk av verktøy som har åpen flamme, eller som slår gnister kan være svært brannfarlig. Det er viktig å være obs på dette, og ta de forholdsreglene som trengs. \n\nGjør alltid en vurdering, og utsett heller arbeidet hvis det er fare for skogbrann."</string>
     <string name="avfallInfo">"Bruk alltid en avfallscontainer som er for engangsgrill etter at du er ferdig med å bruke den. Ofte finnes det en oversikt over hvilke parker eller området som har disse på kommunen sine nettsider. \n\nTenk før du kaster!"</string>
     <string name="brannfare">brannfare ikon</string>
-    <string name="brannfareLevels">lav brannfare 0 til 30. middels brannfare 30 til 60. høy brannfare over 60</string>
+    <string name="brannfareLevels">Lav brannfare 0 til 30. Middels brannfare 31 til 60. Høy brannfare over 60</string>
     <string name="vaerIdagIkon">ikon som viser dagens vær</string>
 
-    <string name="tillat_varsling">"Allowed notification "</string>
+    <string name="tillat_varsling">Tillat varsling</string>
 
 
     <!-- Fare tekst på kortet nederst på hovedside -->
@@ -74,8 +73,10 @@
     <string name="fraFavoritter">" fra dine favoritter?"</string>
     <string name="ja">Ja</string>
     <string name="nei">Nei</string>
-    <string name="ingenInternett">Denne applikasjonen trenger tilgang til internett for å fungere. Sørg for at du er koblet til internett og prøv igjen.</string>
+    <string name="ingenInternett" tools:ignore="Typos">Denne applikasjonen trenger tilgang til internett for å fungere. Sørg for at du er koblet til internett og prøv igjen.</string>
     <string name="lukkApp">Lukk applikasjon</string>
-
+    <string name="favorittIkon">favorittikon</string>
+    <string name="nodnummer">VED BRANN - RING 110</string>
+    <string name="setting_ikon">Ikon for innstillinger</string>
 
 </resources>
