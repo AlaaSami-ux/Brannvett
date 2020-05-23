@@ -5,12 +5,12 @@
     <string name="info">Info</string>
     <string name="bilde">Image</string>
     <string name="ved_brann_ring_110">IN CASE OF FIRE - CALL 110</string>
-    <string name="baal">Campfire</string>
-    <string name="engangsgrill">"Disposable Grill"</string>
-    <string name="glassflasker">Glass Bottles</string>
-    <string name="lyn">Lightning</string>
-    <string name="avfallscontainer">Waste Container</string>
-    <string name="verktoy">Tools</string>
+    <string name="baal">" Campfire "</string>
+    <string name="engangsgrill">" Disposable Grill "</string>
+    <string name="glassflasker">" Glass Bottles "</string>
+    <string name="lyn">" Lightning "</string>
+    <string name="avfallscontainer">" Waste Containers "</string>
+    <string name="verktoy">" Tools "</string>
     <string name="instillinger">Settings</string>
     <string name="spraak">Language</string>
     <string name="morkModus">Dark Mode</string>
@@ -31,7 +31,7 @@
     <string name="lavFare">SAFE</string>
 
     <string name="swipeUpArrow">icon symbolizing swipe up</string>
-    <string name="infoOmBrannfareNivaaer">The numbers indicating the danger index are provided by The Norwegian Meteorological Institute, and are calculated with regards to rainfall, humidity and temperature. \nIt is important to be extra cautious when the index signals a high risk.</string>
+    <string name="infoOmBrannfareNivaaer">"\nThe numbers indicating the danger index are provided by The Norwegian Meteorological Institute, and are calculated with regards to rainfall, humidity and temperature. \nIt is important to be extra cautious when the index signals a high risk."</string>
 
     <string name="vaerIkon">icon showing the weather</string>
 

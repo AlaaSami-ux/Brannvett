@@ -2,16 +2,25 @@ package com.example.forestfire.viewModel.settings
 
 import android.app.Activity
 import android.content.Context
-import android.content.SharedPreferences
+import android.content.Intent
 import android.content.res.Configuration
+import android.content.res.Resources
+import android.os.Bundle
+import android.util.DisplayMetrics
+import android.util.Log
 import android.widget.Switch
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
+import com.example.forestfire.view.MainActivity
+import com.example.forestfire.view.SettingsFragment
 import java.util.*
+
 
 class SettingsViewModel: ViewModel() {
 
+
+    // lage en mørk mode metode
     @Suppress("UNUSED_ANONYMOUS_PARAMETER")
      fun darkModeSwitch(s: Switch, activ: FragmentActivity?) {
         val sharedPrefEdit =
@@ -31,32 +40,16 @@ class SettingsViewModel: ViewModel() {
         }
     }
 
-
-
-
-
-     fun setLocate(Lang: String, activ: Activity) {
-        val locale = Locale(Lang)
-        Locale.setDefault(locale)
-        val config = Configuration()
-
-        config.locale = locale // deprecated in API 24. This is API 23
-        activ.baseContext?.resources?.updateConfiguration( // deprecated in API 25. this is API 23
-            config,
-            activ.baseContext.resources.displayMetrics
-        )
-
-        val editor = activ.getSharedPreferences("Settings", Context.MODE_PRIVATE)?.edit()
-        editor?.putString("Spraak", Lang)
-        editor?.apply()
-    }
-
-
-    fun loadLocale(activ: Activity){
-        val pref : SharedPreferences? = activ.getSharedPreferences("Settings", Context.MODE_PRIVATE)
-        val language : String? = pref?.getString("Spraak","")
-        if (language != null) {
-            setLocate(language,activ)
-        }
+        //lage en språk metode (engelsk og norsk)
+    fun setLocale(lang: String, activ: Activity) {
+        val myLocale = Locale(lang)
+        val res: Resources = activ.resources
+        val dm: DisplayMetrics = res.displayMetrics
+        val conf: Configuration = res.configuration
+        conf.locale = myLocale
+        res.updateConfiguration(conf, dm)
+        val refresh = Intent(activ, activ::class.java)
+        activ.finish()
+        activ.startActivity(refresh)
     }
 }

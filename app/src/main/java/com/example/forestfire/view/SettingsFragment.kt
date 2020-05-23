@@ -1,9 +1,9 @@
 package com.example.forestfire.view
 
-import android.content.Context
-import android.content.SharedPreferences
+
 import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +14,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.forestfire.R
 import com.example.forestfire.viewModel.settings.SettingsViewModel
-import java.util.*
 
 
 class SettingsFragment : Fragment(), AdapterView.OnItemSelectedListener {
@@ -23,22 +22,37 @@ class SettingsFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private lateinit var switch: Switch
     private var settingView: SettingsViewModel = SettingsViewModel()
 
+
+    /*  override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        if (savedInstanceState != null){
+            savedInstanceState.getString("Spinn","")
+        }
+    }
+
+   */
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+
         // Inflate the layout for this fragment
         root = inflater.inflate(R.layout.fragment_settings2, container, false)
-        settingView.loadLocale(requireActivity())
 
+        spinner = root.findViewById(R.id.spinner2)
+        switch = root.findViewById(R.id.darkSwitch)
+
+        if (savedInstanceState != null){
+            spinner.setSelection(savedInstanceState.getInt("Spinneren", 0))
+        }
 
         // kaller på dark, lys mode metoden
-        switch = root.findViewById(R.id.darkSwitch)
         settingView.darkModeSwitch(switch,activity)
 
         // bytte språk
-            spinner = root.findViewById(R.id.spinner2)
-            spinner.onItemSelectedListener = this
+        spinner.onItemSelectedListener = this
 
         return root
     }
@@ -57,21 +71,26 @@ class SettingsFragment : Fragment(), AdapterView.OnItemSelectedListener {
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        when (val selectedItem = parent?.getItemAtPosition(position).toString()) {
+        when (parent?.getItemAtPosition(position).toString()) {
             "English" -> {
-                settingView.setLocate("en",requireActivity())
-                // activity?.finish()
-                 //activity?.recreate()
-                Toast.makeText(activity, "Change the language from settings device to English", Toast.LENGTH_LONG).show()
+                settingView.setLocale("en", requireActivity())
+                Toast.makeText(activity, "English", Toast.LENGTH_LONG).show()
             }
             "Norsk" -> {
-                settingView.setLocate("nb",requireActivity())
-                // recreate(requireActivity())
-                Toast.makeText(activity, "Endre språk fra innstillingsenhet til Norsk", Toast.LENGTH_LONG).show()
+                settingView.setLocale("nb", requireActivity())
+                Toast.makeText(activity, "Norsk", Toast.LENGTH_LONG).show()
             }
             getString(R.string.velgSpraak) -> {
                 onNothingSelected(parent)
             }
         }
     }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        Log.d("FRAGMENT-A", "onSaveInstanceState")
+        super.onSaveInstanceState(outState)
+       outState.putInt("Spinneren", spinner.selectedItemPosition)
+        //outState.putString("spinn",spinner.selectedItemPosition.toString())
+    }
+
 }

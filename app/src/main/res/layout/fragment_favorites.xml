@@ -109,6 +109,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
                     android:text="@string/mineSteder"
+                    android:textColor="@color/purpleColor"
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:layout_marginStart="5dp"/>

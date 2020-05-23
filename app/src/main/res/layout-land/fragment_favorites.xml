@@ -74,9 +74,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="5"
+                android:layout_marginStart="10dp"
                 android:text="@string/mineSteder"
                 android:textColor="@color/purpleColor"
-                android:textSize="24sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView

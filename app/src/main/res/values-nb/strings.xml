@@ -5,12 +5,12 @@
     <string name="info">Info</string>
     <string name="bilde">bilde</string>
     <string name="ved_brann_ring_110">VED BRANN - RING 110</string>
-    <string name="baal">Bål</string>
-    <string name="engangsgrill">Engangsgrill</string>
-    <string name="glassflasker">Glassflasker</string>
-    <string name="lyn">Lyn</string>
-    <string name="avfallscontainer">Avfallscontainer</string>
-    <string name="verktoy">Verktøy</string>
+    <string name="baal">" Bål "</string>
+    <string name="engangsgrill">" Engangsgrill "</string>
+    <string name="glassflasker">" Glassflasker "</string>
+    <string name="lyn">" Lyn "</string>
+    <string name="avfallscontainer">" Avfallscontainer "</string>
+    <string name="verktoy">" Verktøy "</string>
     <string name="instillinger">Innstillinger</string>
     <string name="spraak">Språk</string>
     <string name="morkModus">Mørk modus</string>
@@ -59,7 +59,7 @@
     <string name="lav">Lav</string>
     <string name="middels">Middels</string>
     <string name="haay">Høy</string>
-    <string name="infoOmBrannfareNivaaer">"Tallene som indikerer hvor høyt farenivå det er, er hentet fra Meteorologisk Institutt, og beregnes etter nedbør, luftfuktighet og lufttemperatur. \n\nVed høy fare er det viktig å være ekstra påpasselig ved bruk av redskaper som kan utgjøre en potensiell risiko."</string>
+    <string name="infoOmBrannfareNivaaer">"\nTallene som indikerer hvor høyt farenivå det er, er hentet fra Meteorologisk Institutt, og beregnes etter nedbør, luftfuktighet og lufttemperatur. \n\nVed høy fare er det viktig å være ekstra påpasselig ved bruk av redskaper som kan utgjøre en potensiell risiko."</string>
     <string name="baalInfo">"I perioden 15. april til 15. september er det forbud mot å tenne bål, grill og engangsgrill i skog eller i nærheten av skog. \n\nNår du tenner bål er det alltid viktig å slukke skikkelig, og forsikre seg om at det er helt slukket før du drar."</string>
     <string name="finnerIkkeDinPos">Finner ikke din posisjon</string>
 
