@@ -85,16 +85,13 @@ class FavoriteViewModel : ViewModel(){
             val oisName = ObjectInputStream(fisName)
 
             favlat.clear(); favlong.clear(); favnames.clear()
-            //favlat = oisLat.readObject()
-            when(oisLat.readObject()){
-                is ArrayList<*> -> favlat = favlat as ArrayList<Double>
-            }
-            when(oisLong.readObject()){
-                is ArrayList<*> -> favlong = favlong as ArrayList<Double>
-            }
-            when(oisName.readObject()){
-                is ArrayList<*> -> favnames = favnames as ArrayList<String>
-            }
+            @Suppress("UNCHECKED_CAST")
+            favlat = oisLat.readObject() as ArrayList<Double>
+            @Suppress("UNCHECKED_CAST")
+            favlong = oisLong.readObject() as ArrayList<Double>
+            @Suppress("UNCHECKED_CAST")
+            favnames = oisName.readObject() as ArrayList<String>
+
             savedFavoritesToHashMap()
             Log.d(TAG, "hentet favoritter fra minnet")
             Log.d(TAG, "antall favoritter: " + favorites.size)
