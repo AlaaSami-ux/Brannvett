@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.DialogInterface
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -123,15 +124,17 @@ class ListAdapter(var forecastMap : HashMap<LatLng?, List<LocationForecastViewMo
         }
 
         private fun getTree(danger_index : Int) : Int{
-            val brann : Int
-            if(danger_index < 30){
-                brann = R.drawable.ic_brannfare_gronntre
-            }else if(danger_index in 30..60){
-                brann = R.drawable.ic_brannfare_gultre
-            }else {
-                brann = R.drawable.ic_brannfare_rodtre
+            return when {
+                danger_index < 30 -> {
+                    R.drawable.ic_brannfare_gronntre
+                }
+                danger_index in 30..60 -> {
+                    R.drawable.ic_brannfare_gultre
+                }
+                else -> {
+                    R.drawable.ic_brannfare_rodtre
+                }
             }
-            return brann
         }
     }
 
@@ -153,6 +156,7 @@ class ListAdapter(var forecastMap : HashMap<LatLng?, List<LocationForecastViewMo
 
     fun removeItem(ll: LatLng){
         favoriteViewModel.removeFavorite(ll, mapsViewModel.getAddressFromLocation(ll.latitude, ll.longitude))
-        favorites = favoriteViewModel.favorites
+        favorites = favoriteViewModel.getFavorites() as MutableMap<LatLng, String>
+        Log.d("ListAdapter", "antall favoritter etter removeItem: " + favorites.size)
     }
 }

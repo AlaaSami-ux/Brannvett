@@ -15,10 +15,11 @@ class FavoriteViewModel : ViewModel(){
     var btnclicked = false
     private lateinit var context: Context
 
-    var favorites: MutableMap<LatLng, String> = mutableMapOf()
-    var favlat: MutableList<Double> = ArrayList() // list of latitudes
-    var favlong: MutableList<Double> = ArrayList() // list of longitudes
-    var favnames: MutableList<String> = ArrayList() // list of names
+    private var favorites: MutableMap<LatLng, String> = mutableMapOf()
+    private var favlat: MutableList<Double> = ArrayList() // list of latitudes
+    private var favlong: MutableList<Double> = ArrayList() // list of longitudes
+    private var favnames: MutableList<String> = ArrayList() // list of names
+
     fun setContext(c: Context){
         context = c
     }
@@ -68,6 +69,11 @@ class FavoriteViewModel : ViewModel(){
             Log.d(TAG, "removed favorite. Size of favorites list: " + favorites.count())
             writeFile()
         }
+    }
+
+    fun getFavorites(): Map<LatLng, String>{
+        readFile()
+        return favorites
     }
 
     fun readFile() {
