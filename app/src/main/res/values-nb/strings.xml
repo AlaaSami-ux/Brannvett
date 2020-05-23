@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Grill og Chill</string>
     <string name="title_activity_maps">Map</string>
     <string name="info">Info</string>
@@ -74,8 +74,7 @@
     <string name="fraFavoritter">" fra dine favoritter?"</string>
     <string name="ja">Ja</string>
     <string name="nei">Nei</string>
-    <string name="ingenInternett">Denne applikasjonen trenger tilgang til internett for å fungere. Sørg for at du er koblet til internett og prøv igjen.</string>
+    <string name="ingenInternett" tools:ignore="Typos">Denne applikasjonen trenger tilgang til internett for å fungere. Sørg for at du er koblet til internett og prøv igjen.</string>
     <string name="lukkApp">Lukk applikasjon</string>
-
 
 </resources>

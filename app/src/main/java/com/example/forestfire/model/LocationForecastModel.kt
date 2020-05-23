@@ -1,6 +1,5 @@
 package com.example.forestfire.model
 
-import com.google.gson.annotations.SerializedName
 
 object LocationForecastModel{
     data class LocationForecastMain(

@@ -4,10 +4,6 @@ import java.io.Serializable
 
 object FireModel {
 
-    data class FireModel(
-        val dager : List<Dag>
-    )
-
     data class Dag (
         val locations: List<Location>
     )
