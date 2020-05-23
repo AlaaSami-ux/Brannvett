@@ -35,6 +35,7 @@
                 android:textSize="24sp"
                 tools:ignore="NestedWeights" />
         </LinearLayout>
+
         <!--
         Lager et linear layout med tre linear layouts inni.
         Det ytterste layoutet plasserer de tre neste under hveandre.

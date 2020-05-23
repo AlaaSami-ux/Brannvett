@@ -16,7 +16,7 @@
     <string name="avfallscontainer">Avfallscontainer</string>
     <string name="verktoy">Verktøy</string>
     <string name="instillinger">Innstillinger</string>
-    <string name="setting_ikon" translatable="false">setting ikon</string>
+    <string name="setting_ikon">Ikon for innstillinger</string>
     <string name="spraak">Språk</string>
     <string name="morkModus">Mørk modus</string>
 

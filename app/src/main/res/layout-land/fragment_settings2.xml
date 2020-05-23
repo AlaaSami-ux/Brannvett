@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.FavoritesFragment"
-    android:background="@color/whiteColor">
+    android:background="@color/whiteColor"
+    tools:context=".view.FavoritesFragment">
 
 
     <LinearLayout
@@ -66,9 +66,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:baselineAligned="false"
                 android:orientation="horizontal"
                 android:weightSum="3"
-                android:baselineAligned="false"
                 tools:ignore="NestedWeights">
 
 
@@ -83,24 +83,24 @@
                         android:id="@+id/imageView3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_language_black_24dp"
-                        android:contentDescription="@string/bilde" />
+                        android:contentDescription="@string/spraak"
+                        android:src="@drawable/ic_language_black_24dp" />
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1.4"
-                    android:layout_gravity="center_vertical">
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1.4">
 
                     <TextView
                         android:id="@+id/textView3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
+                        android:gravity="center|start"
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp"
-                        android:gravity="center|start"
                         android:text="@string/spraak"
                         android:textSize="20sp" />
 
@@ -109,8 +109,8 @@
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1.4"
-                    android:layout_gravity="center_vertical">
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1.4">
 
                     <Spinner
                         android:id="@+id/spinner2"
@@ -120,19 +120,86 @@
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:background="@drawable/border"
-        android:orientation="vertical"
-        android:weightSum="1">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:layout_weight="1"
+            android:background="@drawable/border"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:orientation="horizontal"
+                android:weightSum="3"
+                tools:ignore="NestedWeights">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="0.2"
+                    tools:ignore="NestedWeights">
+
+                    <ImageView
+                        android:id="@+id/imageView4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/morkModus"
+                        android:src="@drawable/ic_brightness_3_black_24dp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1.4"
+                    android:text="@string/switchKnapp">
+
+                    <TextView
+                        android:id="@+id/dark_mood"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:gravity="center|start"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:text="@string/morkModus"
+                        android:textSize="20sp" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1.4"
+                    android:text="@string/switchKnapp">
+
+
+                    <Switch
+                        android:id="@+id/darkSwitch"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginBottom="7dp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:text="@string/switchKnapp" />
+
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/border"
             android:baselineAligned="false"
             android:orientation="horizontal"
             android:weightSum="3"
@@ -146,189 +213,47 @@
                 tools:ignore="NestedWeights">
 
                 <ImageView
-                    android:id="@+id/imageView4"
+                    android:id="@+id/imageView6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_brightness_3_black_24dp"
-                    android:contentDescription="@string/bilde" />
+                    android:contentDescription="@string/varsling"
+                    android:src="@drawable/ic_notifications_active_black_24dp" />
+
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/switchKnapp"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1.4">
 
                 <TextView
-                    android:id="@+id/dark_mood"
+                    android:id="@+id/varsling"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
+                    android:gravity="start|center"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
-                    android:gravity="center|start"
-                    android:text="@string/morkModus"
+                    android:text="@string/varsling"
                     android:textSize="20sp" />
 
             </RelativeLayout>
 
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1.4"
-                    android:layout_marginStart="10dp"
-                    android:text="@string/switchKnapp">
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1.4">
 
-
-                    <Switch
-                        android:id="@+id/darkSwitch"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginBottom="7dp"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="10dp" />
-                        android:text="@string/switchKnapp" />
-
-                </RelativeLayout>
-             </LinearLayout>
+                <Switch
+                    android:id="@+id/varslingen"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp" />
+            </RelativeLayout>
         </LinearLayout>
 
-        <!--
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="@drawable/border"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:orientation="vertical"
-            android:weightSum="1">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:orientation="horizontal"
-                android:weightSum="3"
-                android:baselineAligned="false"
-                tools:ignore="NestedWeights">
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="0.2"
-                    tools:ignore="NestedWeights">
-
-                    <ImageView
-                        android:id="@+id/imageView5"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/ic_temperature"
-                        android:contentDescription="@string/bilde" />
-
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1.4"
-                    android:layout_gravity="center_vertical">
-
-                    <TextView
-                        android:id="@+id/tempratur"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="10dp"
-                        android:gravity="left|center"
-                        android:text="@string/temperatur"
-                        android:textSize="20sp"
-                        tools:ignore="RtlHardcoded" />
-
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1.4"
-                    android:layout_gravity="center_vertical">
-
-                    <Spinner
-                        android:id="@+id/spinnerTemp"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:entries="@array/tempratur" />
-
-                </RelativeLayout>
-            </LinearLayout>
-        </LinearLayout>
-        -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/border"
-            android:orientation="vertical"
-            android:weightSum="1">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:orientation="horizontal"
-                android:weightSum="3"
-                android:baselineAligned="false"
-                tools:ignore="NestedWeights">
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="0.2"
-                    tools:ignore="NestedWeights">
-
-                    <ImageView
-                        android:id="@+id/imageView6"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_notifications_active_black_24dp"
-                        android:contentDescription="@string/bilde" />
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1.4"
-                    android:layout_gravity="center_vertical">
-
-                    <TextView
-                        android:id="@+id/varsling"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="10dp"
-                        android:gravity="start|center"
-                        android:text="@string/varsling"
-                        android:textSize="20sp" />
-
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1.4"
-                    android:layout_gravity="center_vertical">
-
-                    <Switch
-                        android:id="@+id/varslingen"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp" />
-                </RelativeLayout>
-            </LinearLayout>
-        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -339,9 +264,9 @@
                 android:id="@+id/textView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:gravity="center_horizontal"
                 android:paddingTop="2dp"
-                android:layout_weight="1"
                 android:paddingBottom="20dp"
                 android:text="@string/inkluderVarsling"
                 android:textSize="18sp" />
@@ -382,47 +307,49 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_brannfare_rodtre"
-                    android:contentDescription="@string/hoyBrannfare"/>
+                    android:contentDescription="@string/hoyBrannfare"
+                    android:src="@drawable/ic_brannfare_rodtre" />
+
                 <TextView
                     android:id="@+id/textView5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="left|center"
                     android:layout_weight="1"
-                    android:text="Høy" />
+                    android:gravity="start|center"
+                    android:text="@string/haay" />
 
                 <ImageView
                     android:id="@+id/imageView8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_brannfare_gultre"
-                    android:contentDescription="@string/middelsBrannfare"/>
+                    android:contentDescription="@string/middelsBrannfare"
+                    android:src="@drawable/ic_brannfare_gultre" />
 
                 <TextView
                     android:id="@+id/textView6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="left|center"
                     android:layout_weight="1"
-                    android:text="Middels" />
+                    android:gravity="start|center"
+                    android:text="@string/middels" />
 
                 <ImageView
                     android:id="@+id/imageView9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="end"
                     android:layout_weight="1"
-                    android:layout_gravity="right"
-                    android:src="@drawable/ic_brannfare_gronntre"
-                    android:contentDescription="@string/lavBrannfare"/>
+                    android:contentDescription="@string/lavBrannfare"
+                    android:src="@drawable/ic_brannfare_gronntre" />
+
                 <TextView
                     android:id="@+id/textView7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="left|center"
                     android:layout_weight="1"
-                    android:text="Lav" />
+                    android:gravity="start|center"
+                    android:text="@string/lav" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
