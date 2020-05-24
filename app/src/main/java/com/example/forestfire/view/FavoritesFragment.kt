@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.forestfire.R
 import com.example.forestfire.viewModel.FavoriteViewModel
 import com.example.forestfire.viewModel.MapsViewModel
+import com.example.forestfire.viewModel.UnitSystemViewModel
 import com.example.forestfire.viewModel.fetchAPI.FireDataViewModel
 import com.example.forestfire.viewModel.fetchAPI.LocationForecastViewModel
 import com.example.forestfire.viewModel.fetchAPI.StationInfoViewModel
@@ -62,6 +63,7 @@ class FavoritesFragment(
 
     private lateinit var favoriteViewModel: FavoriteViewModel
     private lateinit var mapsViewModel: MapsViewModel
+    private lateinit var unitSystemViewModel: UnitSystemViewModel
     private lateinit var favorites: MutableMap<LatLng, String>
 
     private val fireViewModel = fireIndexViewModel
@@ -79,6 +81,10 @@ class FavoritesFragment(
         // tilgang til mapsViewModel
         mapsViewModel = activity?.run {
             ViewModelProviders.of(this)[MapsViewModel::class.java]
+        } ?: throw Exception("Invalid Activity")
+
+        unitSystemViewModel = activity?.run {
+            ViewModelProviders.of(this)[UnitSystemViewModel::class.java]
         } ?: throw Exception("Invalid Activity")
 
         favoriteViewModel.setContext(requireContext())
@@ -179,22 +185,22 @@ class FavoritesFragment(
             forecastViewModel.fetchForecastFavorites(favorites.keys.toList())
             forecastViewModel.forecastFavoritesLiveData.observe(
                 viewLifecycleOwner,
-                androidx.lifecycle.Observer { forecastMap ->
-                    if (forecastMap == null) return@Observer
+                androidx.lifecycle.Observer Forecast@{ forecastMap ->
+                    if (forecastMap == null) return@Forecast
                     Log.d("forecastViewModel ", "fetched Favs")
 
                     fireViewModel.fetchFireLocations()
                     fireViewModel.liveFireLocations.observe(
                         viewLifecycleOwner,
-                        androidx.lifecycle.Observer { dayList ->
-                            if (dayList == null) return@Observer
+                        androidx.lifecycle.Observer Locations@{ dayList ->
+                            if (dayList == null) return@Locations
                             Log.d("FireViewModel", "fetched all days")
 
                             stationViewModel.fetchData(dayList[0].locations)
                             stationViewModel.stationInfoLiveData.observe(
                                 viewLifecycleOwner,
-                                androidx.lifecycle.Observer {
-                                    if (it == null) return@Observer
+                                androidx.lifecycle.Observer Data@{
+                                    if (it == null) return@Data
                                     Log.d("stationViewModel", "Filling hashmap")
 
                                     stationViewModel.fetchFavDanger(
@@ -203,8 +209,8 @@ class FavoritesFragment(
                                     )
                                     stationViewModel.stationFavDangerLiveData.observe(
                                         viewLifecycleOwner,
-                                        androidx.lifecycle.Observer { posDangerMap ->
-                                            if (posDangerMap == null) return@Observer
+                                        androidx.lifecycle.Observer Danger@{ posDangerMap ->
+                                            if (posDangerMap == null) return@Danger
                                             Log.d("stationViewModel", "Fetched dangerlist of favs")
                                             initRecyclerView(forecastMap, posDangerMap)
                                         })
@@ -242,12 +248,13 @@ class FavoritesFragment(
         Log.d(TAG, "initRecyclerView")
         my_recycler_view.apply {
             layoutManager = LinearLayoutManager(requireActivity())
-            viewAdapter = ListAdapter(forecastMap,
+            viewAdapter = ListAdapter(requireContext(), forecastMap,
                 posDangerMap,
                 favorites,
                 this@FavoritesFragment,
                 favoriteViewModel,
-                mapsViewModel)
+                mapsViewModel,
+                unitSystemViewModel)
             if (favorites.count() > 0) {
                 noFavoritesTextBox.visibility = View.GONE
             }

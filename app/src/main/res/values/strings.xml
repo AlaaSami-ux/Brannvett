@@ -2,14 +2,7 @@
     <string name="app_name">Grill og Chill</string>
     <string name="title_activity_maps">Map</string>
 
-    <string-array name="spraak">
-        <item>Velg språk</item>
-        <item>Norsk</item>
-        <item>English</item>
-    </string-array>
-
-
-    <!-- tekster/navn/overskrifter -->
+    <!-- tekst/navn/overskrifter -->
     <string name="vaerIdag">VÆRET I DAG</string>
     <string name="mineSteder">Mine steder</string>
     <string name="ingenFavoritter">Du har ingen favoritter</string>
@@ -26,13 +19,11 @@
     <string name="avfallscontainer">" Avfallscontainer "</string>
     <string name="verktoy">" Verktøy "</string>
     <string name="instillinger">Innstillinger</string>
-    <string name="setting_ikon">Ikon for innstillinger</string>
-    <string name="spraak">Språk</string>
-    <string name="morkModus">Mørk modus</string>
     <string name="slett">Slett</string>
-    <string name="velgSpraak">Velg språk</string>
+    <string name="brannfareIkonForside">ikon som viser dagens brannfare på valgt sted</string>
 
-    <!-- info tekster -->
+
+    <!-- info tekst -->
     <string name="baalInfo">"I perioden 15. april til 15. september er det forbud mot å tenne bål, grill og engangsgrill i skog eller i nærheten av skog. \n\nNår du tenner bål er det alltid viktig å slukke skikkelig, og forsikre seg om at det er helt slukket før du drar."</string>
     <string name="glassInfo">"En knust glassflaske kan med hjelp av solen potensielt starte en gressbrann, som igjen kan utvikle seg til en skogbrann. \n\nTa alltid med deg søppelet ditt hjem igjen!"</string>
     <string name="engangsgrillInfo">"En engangsgrill skal alltid stå stødig på et underlag som ikke er brennbart, og husk alltid å bruke stativet som følger med. \n\nPass på at grillen er ordentlig slukket, og at du kaster den i en container for engangsgriller."</string>
@@ -44,19 +35,15 @@
 
 
     <!-- innstillinger -->
-    <string name="tillat_varsling">Tillatt Varsling</string>
-    <string name="varsling">Varsling</string>
     <string name="inkluderVarsling">Dra mot høyre for å inkludere varsling for lavere brannfare</string>
     <string name="hoyBrannfare">Høy brannfare</string>
     <string name="middelsBrannfare">Middels brannfare</string>
     <string name="lavBrannfare">Lav brannfare</string>
     <string name="lasterInn">LASTER INN..</string>
-    <string name="haay">Høy</string>
-    <string name="middels">Middels</string>
-    <string name="lav">Lav</string>
-    <string name="switchKnapp">Switch</string>
-    <string name="temperatur">Temperatur</string>
-
+    <string name="utseende">Utseende</string>
+    <string name="enheter">Enheter</string>
+    <string name="enhet">Enhet</string>
+    <string name="dark_mode">Dark Mode</string>
 
     <!-- dialog/toast-tekster -->
     <string name="onskerAaslette">Ønsker du å slette </string>
@@ -77,6 +64,7 @@
     <string name="fjernFavoritt">fjern favoritt</string>
     <string name="vindsymbol">vind symbol</string>
     <string name="toppBildeFragment">deskriptivt bilde som fyller toppen av siden</string>
+    <string name="setting_ikon">Ikon for innstillinger</string>
 
     <!-- knapper -->
     <string name="OK" translatable="false">OK</string>

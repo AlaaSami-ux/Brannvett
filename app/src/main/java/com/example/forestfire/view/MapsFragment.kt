@@ -21,9 +21,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.preference.PreferenceManager
 import com.example.forestfire.R
 import com.example.forestfire.viewModel.FavoriteViewModel
 import com.example.forestfire.viewModel.MapsViewModel
+import com.example.forestfire.viewModel.UnitSystemViewModel
 import com.example.forestfire.viewModel.fetchAPI.FireDataViewModel
 import com.example.forestfire.viewModel.fetchAPI.LocationForecastViewModel
 import com.example.forestfire.viewModel.fetchAPI.StationInfoViewModel
@@ -87,6 +89,7 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
     // the ViewModels for map and favorites
     private lateinit var mapsViewModel: MapsViewModel
     private lateinit var favoriteViewModel: FavoriteViewModel
+    private lateinit var unitSystemViewModel : UnitSystemViewModel
 
     private val forecastModel = forecastViewModel
     private val stationModel = stationInfoViewModel
@@ -103,6 +106,10 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
 
         favoriteViewModel = activity?.run {
             ViewModelProviders.of(this)[FavoriteViewModel::class.java]
+        } ?: throw Exception("Invalid Activity")
+
+        unitSystemViewModel = activity?.run{
+            ViewModelProviders.of(this)[UnitSystemViewModel::class.java]
         } ?: throw Exception("Invalid Activity")
 
         favoriteViewModel.setContext(requireContext())
@@ -464,11 +471,17 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
         forecastModel.locationForecastLiveData.observe(viewLifecycleOwner, Observer {
             if(it == null) return@Observer
 
-            // Temperatur og symbol
-            val temperature = it.product.time[0].location.temperature.value
+            val preference = PreferenceManager.getDefaultSharedPreferences(context)
+            val selectedUnit = preference.getString("key_unit_valg", "Metric")
 
-            requireView().findViewById<TextView>(R.id.w_deg).text = "$temperature \u2103" // \u2103 er koden for "grader celsius"
-          
+            if(selectedUnit == "Imperial"){
+                requireView().findViewById<TextView>(R.id.w_deg).text =
+                    "${unitSystemViewModel.toFahrenheit(it.product.time[0].location.temperature.value.toDouble())} \u2109"
+            }else{
+                requireView().findViewById<TextView>(R.id.w_deg).text =
+                    "${it.product.time[0].location.temperature.value} \u2103" // \u2103 er koden for "grader celsius"
+            }
+
             val id = it.product.time[1].location.symbol.number
             val img = requireView().findViewById<ImageView>(R.id.weather_icon)
             val url = "https://in2000-apiproxy.ifi.uio.no/weatherapi/weathericon/1.1?content_type=image%2Fpng&symbol=${id}"
@@ -481,7 +494,13 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
 
             // Vindstyrke
             if(resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT){
-                requireView().findViewById<TextView>(R.id.wind_text).text = "${it.product.time[0].location.windSpeed.mps} m/s"
+                if(selectedUnit == "Imperial"){
+                    requireView().findViewById<TextView>(R.id.wind_text).text =
+                        "${unitSystemViewModel.toMph(it.product.time[0].location.windSpeed.mps.toDouble())} mph"
+                }else {
+                    requireView().findViewById<TextView>(R.id.wind_text).text =
+                        "${it.product.time[0].location.windSpeed.mps} m/s"
+                }
             }
         })
 
@@ -514,28 +533,30 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
 
         // Starter med å hente været for de neste tre dagene for den gitte lokasjonen
         forecastModel.fetchThreeDayForecast(loc)
-        forecastModel.threeDayForecast.observe(viewLifecycleOwner, Observer { forecastList ->
-            if(forecastList == null) return@Observer
+        forecastModel.threeDayForecast.observe(viewLifecycleOwner, Observer Forecast@{ forecastList ->
+            if(forecastList == null) return@Forecast
 
             // Deretter må vi hente farevarsel (danger_index) for de tre neste dagene
             // Dette gjøres ved å hente alle lokasjonene som finnes i forestfireindex apiet ...
             fireModel.fetchFireLocations()
-            fireModel.liveFireLocations.observe(viewLifecycleOwner, Observer {dayList ->
-                if(dayList == null) return@Observer
+            fireModel.liveFireLocations.observe(viewLifecycleOwner, Observer Locations@{dayList ->
+                if(dayList == null) return@Locations
 
                 // ... for så å hente alle koordinatene til disse lokasjonene, og plassere de i et lokalt hashmap
                 // i StationInFoViewModel
                 stationModel.fetchData(dayList[0].locations)
-                stationModel.stationInfoLiveData.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-                    //stationModel.writeToFile(requireContext())
-
+                stationModel.stationInfoLiveData.observe(viewLifecycleOwner, Observer {
                     // og dermed kan vi hente farevarsel for tre dager. Metoden fetchThreeDayDanger tar inn et latlng objekt
                     // og søker i det lokale hashmappet i StationInfoViewModel for den stasjonen som ligger nærmest
                     // brukeren (latlon objektet). Den tar så in en liste av forestfireindex lokasjonene for alle dagene
                     // og bruker denne til å finne farevarsel for riktig stasjon
                     stationModel.fetchThreeDayDanger(loc, dayList)
-                    stationModel.stationThreeDayDanger.observe(viewLifecycleOwner, Observer {dangerList ->
-                        if(dangerList == null) return@Observer
+                    stationModel.stationThreeDayDanger.observe(viewLifecycleOwner, Observer Danger@{dangerList ->
+                        if(dangerList == null) return@Danger
+
+                        val preference = PreferenceManager.getDefaultSharedPreferences(context)
+                        val selectedUnit = preference.getString("key_unit_valg", "Metric")
+
 
                         // Plaserer først informasjon i kortet nederst på hovedskjermen
                         val fare_symbol = root.findViewById<ImageView>(R.id.fire_symbol)
@@ -567,12 +588,24 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
                         val vaer1 = stedinfo.findViewById<TextView>(R.id.vaer1)
                         val vaer_symbol1 = stedinfo.findViewById<ImageView>(R.id.vaer_symbol1)
 
-                        vaer1.text = "${forecastList[0].temperature}°"
+                        //Temperatur
+                        if(selectedUnit == "Imperial"){
+                            vaer1.text = "${forecastList[0].temperature?.toDouble()?.let { it1 ->
+                                unitSystemViewModel.toFahrenheit(
+                                    it1
+                                )
+                            }}°"
+                        }else {
+                            vaer1.text = "${forecastList[0].temperature}°"
+                        }
+
+                        //Værsymbol
                         Picasso.with(activity)
                             .load("https://in2000-apiproxy.ifi.uio.no/weatherapi/weathericon/1.1?content_type=image%2Fpng&symbol=${forecastList[0].symbol_id}")
                             .resize(60, 60)
                             .into(vaer_symbol1)
 
+                        //Brannfare informasjon
                         val brann1 = stedinfo.findViewById<TextView>(R.id.brann1)
                         val brann_symbol1 = stedinfo.findViewById<ImageView>(R.id.brann_symbol1)
                         brann1.text = dangerList[0]
@@ -583,12 +616,24 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
                         val vaer2 = stedinfo.findViewById<TextView>(R.id.vaer2)
                         val vaer_symbol2 = stedinfo.findViewById<ImageView>(R.id.vaer_symbol2)
 
-                        vaer2.text = "${forecastList[1].temperature}°"
+                        //Temperatur
+                        if(selectedUnit == "Imperial"){
+                            vaer2.text = "${forecastList[1].temperature?.toDouble()?.let { it1 ->
+                                unitSystemViewModel.toFahrenheit(
+                                    it1
+                                )
+                            }}°"
+                        } else {
+                            vaer2.text = "${forecastList[1].temperature}°"
+                        }
+
+                        //Værsymbol
                         Picasso.with(activity)
                             .load("https://in2000-apiproxy.ifi.uio.no/weatherapi/weathericon/1.1?content_type=image%2Fpng&symbol=${forecastList[1].symbol_id}")
                             .resize(60, 60)
                             .into(vaer_symbol2)
 
+                        //Brannfare informasjon
                         val brann2 = stedinfo.findViewById<TextView>(R.id.brann2)
                         val brann_symbol2 = stedinfo.findViewById<ImageView>(R.id.brann_symbol2)
 
@@ -601,12 +646,24 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
                         val vaer3 = stedinfo.findViewById<TextView>(R.id.vaer3)
                         val vaer_symbol3 = stedinfo.findViewById<ImageView>(R.id.vaer_symbol3)
 
-                        vaer3.text = "${forecastList[2].temperature}°"
+                        //Temperatur
+                        if(selectedUnit == "Imperial"){
+                            vaer3.text = "${forecastList[2].temperature?.toDouble()?.let { it1 ->
+                                unitSystemViewModel.toFahrenheit(
+                                    it1
+                                )
+                            }}°"
+                        }else {
+                            vaer3.text = "${forecastList[2].temperature}°"
+                        }
+
+                        //Værsymbol
                         Picasso.with(activity)
                             .load("https://in2000-apiproxy.ifi.uio.no/weatherapi/weathericon/1.1?content_type=image%2Fpng&symbol=${forecastList[2].symbol_id}")
                             .resize(60, 60)
                             .into(vaer_symbol3)
 
+                        //Brannfare informasjon
                         val brann3 = stedinfo.findViewById<TextView>(R.id.brann3)
                         val brann_symbol3 = stedinfo.findViewById<ImageView>(R.id.brann_symbol3)
 

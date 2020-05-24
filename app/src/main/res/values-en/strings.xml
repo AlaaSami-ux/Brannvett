@@ -2,6 +2,16 @@
 <resources>
     <string name="app_name">Grill og Chill</string>
     <string name="title_activity_maps">Map</string>
+
+    <!-- tekst/navn/overskrifter -->
+    <string name="vaerIdag">FORECAST</string>
+    <string name="hoyFare">HIGH DANGER INDEX</string>
+    <string name="middelsFare">MEDIUM DANGER INDEX</string>
+    <string name="lavFare">LOW DANGER INDEX</string>
+    <string name="utseende">Theme</string>
+    <string name="enheter">Units</string>
+    <string name="enhet">Unit</string>
+    <string name="dark_mode">Dark Mode</string>
     <string name="info">Info</string>
     <string name="bilde">Image</string>
     <string name="baal">" Campfire "</string>
@@ -11,75 +21,64 @@
     <string name="avfallscontainer">" Waste Containers "</string>
     <string name="verktoy">" Tools "</string>
     <string name="instillinger">Settings</string>
-    <string name="spraak">Language</string>
-    <string name="morkModus">Dark Mode</string>
-    <string name="varsling">Notification</string>
-    <string name="tillat_varsling">"Allow notification "</string>
+    <string name="lasterInn">LOADING..</string>
+    <string name="ingenFavoritter">You don\'t have any favorites</string>
+    <string name="nodnummer">IN CASE OF FIRE - CALL 110</string>
+    <string name="mineSteder">My places</string>
+    <string name="slett">Remove</string>
 
-
+    <!-- info tekst -->
     <string name="glassInfo">"A shattered glass bottle can potentially start a wildfire with help from the sun, which can develop into a forest fire. \n\nMake sure to always take your garbage home with you!"</string>
     <string name="engangsgrillInfo">"When using a disposable grill you should always make sure that it is placed on an even and non-flammable surface. \n\nMake sure that it is properly put out, and always dispose of it in a container specifically made for disposable grills."</string>
     <string name="lynInfo">"Did you know that lightning is the cause of a lot of forest fires in Norway every year? It can also linger in the ground for three days before igniting. \n\nAlways CALL 110 if you witness any sign of fire!"</string>
     <string name="verktaayInfo">"Using tools that has an open flame can be very dangerous. It is important to take precautions when dealing with these kind of tools. \n\nAlways make an assessment before using them, and if there is a high danger index, postpone it!"</string>
     <string name="avfallInfo">"Make sure that you always use a container specifically made for disposable grills when you are done using it. \n\nYou can often find a useful map of these on official websites."</string>
     <string name="baalInfo">"It is prohibited to light a fire, bbq og disposable grill in, or in close range of, the forest from the 15. April to the 15. September. \n\nWhen lightning a fire you should always make sure to properly put it out before leaving."</string>
-
-
-    <!-- Fare tekst på kortet nederst på hovedside -->
-    <string name="hoyFare">HIGH DANGER INDEX</string>
-    <string name="middelsFare">MEDIUM DANGER INDEX</string>
-    <string name="lavFare">LOW DANGER INDEX</string>
-
-    <string name="swipeUpArrow">swipe up</string>
     <string name="infoOmBrannfareNivaaer">"\nThe numbers indicating the danger index are provided by The Norwegian Meteorological Institute, and are calculated with regards to rainfall, humidity and temperature. \nIt is important to be extra cautious when the index signals a high risk."</string>
-
-    <string name="vaerIkon">icon showing the weather</string>
-
-    <string name="brannfareIkonForside">icon showing today"'"s danger index</string>
-    <string name="vaerIdag">WEATHER TODAY</string>
-
-    <string name="tilbake">Go back</string>
-    <string name="toppBildeFragment">Descriptive image filling top of page</string>
-    <string name="plussIkon">Add favorite</string>
-    <string name="mineSteder">My places</string>
-    <string name="ingenFavoritter">You don\'t have any favorites</string>
     <string name="brannfareLevels">Low danger 0 to 30. Medium danger 31 to 60. High danger over 60</string>
-    <string name="brannfare">danger index icon</string>
-    <string name="temperatur">temperature</string>
-    <string name="switchKnapp">switch</string>
-    <string name="swipeDownArrow">swipe down</string>
-    <string name="vaerIdagIkon">icon showing today"'"s weather</string>
+
+    <!-- innstillinger -->
     <string name="inkluderVarsling">slide to the right to include warning for lower danger index</string>
     <string name="hoyBrannfare">high danger index</string>
     <string name="middelsBrannfare">medium danger index</string>
     <string name="lavBrannfare">low danger index</string>
-    <string name="lasterInn">LOADING..</string>
-    <string name="fjernFavoritt">remove favorite</string>
 
+    <!-- dialog/toast-tekster -->
+    <string name="finnerIkkeDinPos">Cannot find your location</string>
+    <string name="ingenInternett">This application requires internet access to function. Please make sure you have an internet connection and try again.</string>
+    <string name="pupopfavoritt1">"Do you want to delete  "</string>
+    <string name="pupopfavoritt2">" from your favorites?"</string>
+    <string name="onskerAaslette">"Do you wish to remove "</string>
+    <string name="fraFavoritter">" from your favorites"</string>
+
+    <!-- ikoner/bilder -->
+    <string name="vaerIkon">icon showing the weather</string>
+    <string name="brannfareIkonForside">icon showing today"'"s danger index</string>
+    <string name="brannfare">danger index icon</string>
+    <string name="swipeUpArrow">swipe up</string>
+    <string name="swipeDownArrow">swipe down</string>
+    <string name="vaerIdagIkon">icon showing today"'"s weather</string>
+    <string name="fjernFavoritt">remove favorite</string>
+    <string name="toppBildeFragment">Descriptive image filling top of page</string>
+    <string name="vindsymbol">wind symbol</string>
+    <string name="favorittIkon">favorite icon</string>
+    <string name="setting_ikon">Setting icon</string>
+
+    <!-- knapper -->
+    <string name="ja">Yes</string>
+    <string name="nei">No</string>
     <string name="home">Home</string>
     <string name="favorites">Favorites</string>
     <string name="settings">Settings</string>
-    <string name="haay">High</string>
-    <string name="middels">Medium</string>
-    <string name="lav">Low</string>
-    <string name="finnerIkkeDinPos">Cannot find your location</string>
-
-    <string name="vindsymbol">wind symbol</string>
-
-    <string name="pupopfavoritt1">"Do you want to delete  "</string>
-    <string name="pupopfavoritt2">" from your favorites?"</string>
-
-    <string name="slett">Remove</string>
-    <string name="velgSpraak">Choose language</string>
-    <string name="onskerAaslette">"Do you wish to remove "</string>
-    <string name="fraFavoritter">" from your favorites"</string>
-    <string name="ja">Yes</string>
-    <string name="nei">No</string>
-    <string name="ingenInternett">This application requires internet access to function. Please make sure you have an internet connection and try again.</string>
+    <string name="tilbake">Go back</string>
+    <string name="plussIkon">Add favorite</string>
     <string name="lukkApp">Close application</string>
-    <string name="favorittIkon">favorite icon</string>
-    <string name="nodnummer">IN CASE OF FIRE - CALL 110</string>
-    <string name="setting_ikon">Setting icon</string>
+
+
+    <string-array name="unit_entries">
+        <item>Metric</item>
+        <item>Imperial</item>
+    </string-array>
 
 
 </resources>
