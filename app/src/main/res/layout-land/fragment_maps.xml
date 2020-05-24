@@ -65,7 +65,7 @@
                 android:layout_marginTop="30dp"
                 android:orientation="horizontal"
                 tools:ignore="UseCompoundDrawables">
-              
+
                 <!-- farevarsel ikon -->
                 <ImageView
                     android:id="@+id/fire_symbol"
@@ -79,6 +79,7 @@
                     android:id="@+id/fire_warning"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:text="@string/lasterInn"
                     android:textSize="18sp"
                     android:textStyle="bold" />
             </LinearLayout>

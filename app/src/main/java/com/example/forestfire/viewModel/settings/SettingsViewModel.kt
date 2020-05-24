@@ -10,10 +10,19 @@ import android.widget.Switch
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
+import androidx.preference.Preference
 import java.util.*
 
 @Suppress("DEPRECATION")
 class SettingsViewModel: ViewModel() {
+
+    fun setDarkMode(newValue : String){
+        if(newValue == "true"){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        }else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
+    }
 
 
     // lage en mørk mode metode

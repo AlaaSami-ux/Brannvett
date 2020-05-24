@@ -10,7 +10,9 @@ import android.net.NetworkCapabilities
 import android.os.Handler
 import android.util.Log
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
+import androidx.preference.PreferenceManager
 
 class SplashActivity : AppCompatActivity() {
 
@@ -54,6 +56,13 @@ class SplashActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        val darkmode = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("key_dark_mode_switch", false)
+        if(darkmode){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        }else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 

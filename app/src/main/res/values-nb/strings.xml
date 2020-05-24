@@ -2,8 +2,17 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Grill og Chill</string>
     <string name="title_activity_maps">Map</string>
-    <string name="info">Info</string>
+
+    <!-- tekst/navn/overskrifter -->
+    <string name="vaerIdag">VÆRET I DAG</string>
+    <string name="mineSteder">Mine steder</string>
+    <string name="ingenFavoritter">Du har ingen favoritter</string>
+    <string name="hoyFare">HØY FARE</string>
+    <string name="middelsFare">MIDDELS FARE</string>
+    <string name="lavFare">LAV FARE</string>
+    <string name="dato" translatable="false">%1$s/%2$s</string>
     <string name="bilde">bilde</string>
+    <string name="nodnummer">VED BRANN - RING 110</string>
     <string name="baal">" Bål "</string>
     <string name="engangsgrill">" Engangsgrill "</string>
     <string name="glassflasker">" Glassflasker "</string>
@@ -11,72 +20,62 @@
     <string name="avfallscontainer">" Avfallscontainer "</string>
     <string name="verktoy">" Verktøy "</string>
     <string name="instillinger">Innstillinger</string>
-    <string name="spraak">Språk</string>
-    <string name="morkModus">Mørk modus</string>
+    <string name="slett">Slett</string>
     <string name="brannfareIkonForside">ikon som viser dagens brannfare på valgt sted</string>
-    <string name="swipeUpArrow">sveip opp</string>
-    <string name="vaerIdag">VÆRET I DAG</string>
 
-    <string name="tilbake">Gå tilbake</string>
-    <string name="toppBildeFragment">deskriptivt bilde som fyller toppen av siden</string>
-    <string name="ingenFavoritter">Du har ingen favoritter</string>
-    <string name="mineSteder">Mine steder</string>
-    <string name="plussIkon">legg til favoritt</string>
-    <string name="vaerIkon">ikon som viser været</string>
-    <string name="swipeDownArrow">sveip ned</string>
-    <string name="switchKnapp">Switch</string>
-    <string name="temperatur">Temperatur</string>
-
+    <!-- info tekst -->
+    <string name="baalInfo">"I perioden 15. april til 15. september er det forbud mot å tenne bål, grill og engangsgrill i skog eller i nærheten av skog. \n\nNår du tenner bål er det alltid viktig å slukke skikkelig, og forsikre seg om at det er helt slukket før du drar."</string>
     <string name="glassInfo">"En knust glassflaske kan med hjelp av solen potensielt starte en gressbrann, som igjen kan utvikle seg til en skogbrann. \n\nTa alltid med deg søppelet ditt hjem igjen!"</string>
     <string name="engangsgrillInfo">"En engangsgrill skal alltid stå stødig på et underlag som ikke er brennbart, og husk alltid å bruke stativet som følger med. \n\nPass på at grillen er ordentlig slukket, og at du kaster den i en container for engangsgriller."</string>
-    <string name="lynInfo">"Visste du at lynnedslag starter mange branner i skog i Norge i løpet av året?  I tillegg kan det ligge og ulme i bakken i opptil tre dager før det antenner. \n\nAlltid meld ifra hvis du ser antydninger til skogbrann!"</string>
+    <string name="lynInfo">"Visste du at lynnedslag starter mange branner i skog i Norge i løpet av året? I tillegg kan det ligge og ulme i bakken i opptil tre dager før det antenner. \n\nAlltid meld ifra hvis du ser antydninger til skogbrann!"</string>
     <string name="verktaayInfo">"Bruk av verktøy som har åpen flamme, eller som slår gnister kan være svært brannfarlig. Det er viktig å være obs på dette, og ta de forholdsreglene som trengs. \n\nGjør alltid en vurdering, og utsett heller arbeidet hvis det er fare for skogbrann."</string>
     <string name="avfallInfo">"Bruk alltid en avfallscontainer som er for engangsgrill etter at du er ferdig med å bruke den. Ofte finnes det en oversikt over hvilke parker eller området som har disse på kommunen sine nettsider. \n\nTenk før du kaster!"</string>
-    <string name="brannfare">brannfare ikon</string>
     <string name="brannfareLevels">Lav brannfare 0 til 30. Middels brannfare 31 til 60. Høy brannfare over 60</string>
-    <string name="vaerIdagIkon">ikon som viser dagens vær</string>
-
-    <string name="tillat_varsling">Tillat varsling</string>
+    <string name="infoOmBrannfareNivaaer">"\nTallene som indikerer hvor høyt farenivå det er, er hentet fra Meteorologisk Institutt, og beregnes etter nedbør, luftfuktighet og lufttemperatur. \n\nVed høy fare er det viktig å være ekstra påpasselig ved bruk av redskaper som kan utgjøre en potensiell risiko."</string>
 
 
-    <!-- Fare tekst på kortet nederst på hovedside -->
-    <string name="hoyFare">HØY FARE</string>
-    <string name="middelsFare">MIDDELS FARE</string>
-    <string name="lavFare">LAV FARE</string>
-
-    <string name="varsling">Varsling</string>
+    <!-- innstillinger -->
     <string name="inkluderVarsling">Dra mot høyre for å inkludere varsling for lavere brannfare</string>
     <string name="hoyBrannfare">Høy brannfare</string>
     <string name="middelsBrannfare">Middels brannfare</string>
     <string name="lavBrannfare">Lav brannfare</string>
     <string name="lasterInn">LASTER INN..</string>
-    <string name="fjernFavoritt">fjern favoritt</string>
+    <string name="utseende">Utseende</string>
+    <string name="enheter">Enheter</string>
+    <string name="enhet">Enhet</string>
+    <string name="dark_mode">Dark Mode</string>
 
-    <string name="home">Hjem</string>
-    <string name="favorites">Favoritter</string>
-    <string name="settings">Innstillinger</string>
-    <string name="lav">Lav</string>
-    <string name="middels">Middels</string>
-    <string name="haay">Høy</string>
-    <string name="infoOmBrannfareNivaaer">"\nTallene som indikerer hvor høyt farenivå det er, er hentet fra Meteorologisk Institutt, og beregnes etter nedbør, luftfuktighet og lufttemperatur. \n\nVed høy fare er det viktig å være ekstra påpasselig ved bruk av redskaper som kan utgjøre en potensiell risiko."</string>
-    <string name="baalInfo">"I perioden 15. april til 15. september er det forbud mot å tenne bål, grill og engangsgrill i skog eller i nærheten av skog. \n\nNår du tenner bål er det alltid viktig å slukke skikkelig, og forsikre seg om at det er helt slukket før du drar."</string>
-    <string name="finnerIkkeDinPos">Finner ikke din posisjon</string>
-
-    <string name="vindsymbol">vind symbol</string>
-
+    <!-- dialog/toast-tekster -->
+    <string name="onskerAaslette">Ønsker du å slette </string>
+    <string name="fraFavoritter"> fra dine favoritter?</string>
     <string name="pupopfavoritt1">Ønsker du å slette</string>
     <string name="pupopfavoritt2">fra dine favoritter?</string>
+    <string name="ingenInternett" tools:ignore="Typos">Denne applikasjonen trenger tilgang til internett for å fungere. Sørg for at du er koblet til internett og prøv igjen.</string>
+    <string name="finnerIkkeDinPos">Finner ikke din posisjon</string>
 
-    <string name="slett">Slett</string>
-    <string name="velgSpraak">Velg språk</string>
-    <string name="onskerAaslette">"Ønsker du å slette "</string>
-    <string name="fraFavoritter">" fra dine favoritter?"</string>
+
+    <!-- ikoner/bilder -->
+    <string name="swipeUpArrow">sveip opp</string>
+    <string name="swipeDownArrow">sveip ned</string>
+    <string name="vaerIkon">ikon som viser vaeret</string>
+    <string name="brannfare">brannfare ikon</string>
+    <string name="vaerIdagIkon">ikon som viser dagens vær</string>
+    <string name="favorittIkon">favorittikon</string>
+    <string name="fjernFavoritt">fjern favoritt</string>
+    <string name="vindsymbol">vind symbol</string>
+    <string name="toppBildeFragment">deskriptivt bilde som fyller toppen av siden</string>
+    <string name="setting_ikon">Ikon for innstillinger</string>
+
+    <!-- knapper -->
+    <string name="OK" translatable="false">OK</string>
+    <string name="lukkApp">Lukk applikasjon</string>
     <string name="ja">Ja</string>
     <string name="nei">Nei</string>
-    <string name="ingenInternett" tools:ignore="Typos">Denne applikasjonen trenger tilgang til internett for å fungere. Sørg for at du er koblet til internett og prøv igjen.</string>
-    <string name="lukkApp">Lukk applikasjon</string>
-    <string name="favorittIkon">favorittikon</string>
-    <string name="nodnummer">VED BRANN - RING 110</string>
-    <string name="setting_ikon">Ikon for innstillinger</string>
+    <string name="plussIkon">legg til favoritt</string>
+    <string name="tilbake">Gå tilbake</string>
+    <string name="home">Hjem</string>
+    <string name="info">Info</string>
+    <string name="favorites">Favoritter</string>
+    <string name="settings">Innstillinger</string>
 
 </resources>

@@ -13,29 +13,33 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.forestfire.R
 import com.example.forestfire.viewModel.FavoriteViewModel
 import com.example.forestfire.viewModel.MapsViewModel
+import com.example.forestfire.viewModel.UnitSystemViewModel
 import com.example.forestfire.viewModel.fetchAPI.LocationForecastViewModel
 import com.google.android.gms.maps.model.LatLng
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.element.view.*
 import java.util.*
 
-class ListAdapter(var forecastMap : HashMap<LatLng?, List<LocationForecastViewModel.FavForecast>>,
+class ListAdapter(val context: Context,
+                  var forecastMap : HashMap<LatLng?, List<LocationForecastViewModel.FavForecast>>,
                   var posDangerMap : HashMap<LatLng?, List<String>>,
                   var favorites: MutableMap<LatLng, String>,
                   var fragment: FavoritesFragment,
                   var favoriteViewModel: FavoriteViewModel,
-                  var mapsViewModel: MapsViewModel) :
+                  var mapsViewModel: MapsViewModel,
+                  var unitSystemViewModel : UnitSystemViewModel) :
     RecyclerView.Adapter<ListAdapter.ViewHolder>()  {
 
     private var positions = favorites.keys // MutableSet of keys from favorites map
     private var places = favorites.values // MutableCollection of values from favorites map
 
-    class ViewHolder constructor(itemView: View, val adapter: ListAdapter,
-                                 val fragment: FavoritesFragment
+    class ViewHolder constructor(val context: Context, itemView: View, val adapter: ListAdapter,
+                                 val fragment: FavoritesFragment, val unitSystemViewModel : UnitSystemViewModel
     ) :
 
             RecyclerView.ViewHolder(itemView){
@@ -91,33 +95,80 @@ class ListAdapter(var forecastMap : HashMap<LatLng?, List<LocationForecastViewMo
             }
             valgtSted.text = place
 
-            vaer_text1.text = "${forecastList?.get(0)?.temperature}°"
+
+            val preference = PreferenceManager.getDefaultSharedPreferences(context)
+            val selectedUnit = preference.getString("key_unit_valg", "Metric")
+
+            //Dag 1
+
+            //Temperatur
+            if(selectedUnit == "Imperial"){
+                vaer_text1.text = "${forecastList?.get(0)?.temperature?.toDouble()?.let {
+                    unitSystemViewModel.toFahrenheit(
+                        it
+                    )
+                }}°"
+            }else {
+                vaer_text1.text = "${forecastList?.get(0)?.temperature}°"
+            }
+
+            //Værsymbol
             Picasso.with(applicationContext)
                 .load("https://in2000-apiproxy.ifi.uio.no/weatherapi/weathericon/1.1?content_type=image%2Fpng&symbol=${forecastList?.get(0)?.symbol_id}")
                 .resize(70, 70)
                 .into(vaer_symbol1)
 
+            //Brannfare informasjon
             brann_index1.text = dangerList?.get(0)
             var brann : Int = getTree(dangerList?.get(0)!!.toInt())
             brann_symbol1.setImageResource(brann)
 
 
-            vaer_text2.text = "${forecastList?.get(1)?.temperature}°"
+            //Dag 2
+
+            //Temperatur
+            if(selectedUnit == "Imperial"){
+                vaer_text2.text = "${forecastList?.get(1)?.temperature?.toDouble()?.let {
+                    unitSystemViewModel.toFahrenheit(
+                        it
+                    ) 
+                }}°"
+            }else {
+                vaer_text2.text = "${forecastList?.get(1)?.temperature}°"
+            }
+
+            //Værsymbol
             Picasso.with(applicationContext)
                 .load("https://in2000-apiproxy.ifi.uio.no/weatherapi/weathericon/1.1?content_type=image%2Fpng&symbol=${forecastList?.get(1)?.symbol_id}")
                 .resize(70, 70)
                 .into(vaer_symbol2)
 
+            //Brannfare informasjon
             brann_index2.text = dangerList[1]
             brann = getTree(dangerList[1].toInt())
             brann_symbol2.setImageResource(brann)
 
-            vaer_text3.text = "${forecastList?.get(2)?.temperature}°"
+
+            //Dag 3
+
+            //Temperatur
+            if(selectedUnit == "Imperial"){
+                vaer_text3.text = "${forecastList?.get(2)?.temperature?.toDouble()?.let {
+                    unitSystemViewModel.toFahrenheit(
+                        it
+                    )
+                }}°"
+            }else {
+                vaer_text3.text = "${forecastList?.get(2)?.temperature}°"
+            }
+
+            //Værsymbol
             Picasso.with(applicationContext)
                 .load("https://in2000-apiproxy.ifi.uio.no/weatherapi/weathericon/1.1?content_type=image%2Fpng&symbol=${forecastList?.get(2)?.symbol_id}")
                 .resize(70, 70)
                 .into(vaer_symbol3)
 
+            //Brannfare informasjon
             brann_index3.text = dangerList[2]
             brann = getTree(dangerList[2].toInt())
             brann_symbol3.setImageResource(brann)
@@ -139,7 +190,11 @@ class ListAdapter(var forecastMap : HashMap<LatLng?, List<LocationForecastViewMo
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.element, parent, false), this, fragment)
+        return ViewHolder(context,
+            LayoutInflater.from(parent.context).inflate(R.layout.element, parent, false),
+            this,
+            fragment,
+            unitSystemViewModel)
     }
 
     override fun getItemCount(): Int {
