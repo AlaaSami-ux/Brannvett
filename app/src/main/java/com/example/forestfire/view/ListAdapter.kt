@@ -13,7 +13,6 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
-import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.forestfire.R
 import com.example.forestfire.viewModel.FavoriteViewModel
@@ -95,8 +94,9 @@ class ListAdapter(val context: Context,
             }
             valgtSted.text = place
 
-
-            val preference = PreferenceManager.getDefaultSharedPreferences(context)
+            @Suppress("DEPRECATION")
+            // deprecated in API 29. this is API 23
+            val preference = android.preference.PreferenceManager.getDefaultSharedPreferences(context)
             val selectedUnit = preference.getString("key_unit_valg", "Metric")
 
             //Dag 1

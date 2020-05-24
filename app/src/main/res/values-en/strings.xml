@@ -46,7 +46,7 @@
     <!-- dialog/toast-tekster -->
     <string name="finnerIkkeDinPos">Cannot find your location</string>
     <string name="ingenInternett">This application requires internet access to function. Please make sure you have an internet connection and try again.</string>
-    <string name="pupopfavoritt1">"Do you want to delete  "</string>
+    <string name="pupopfavoritt1">"Do you want to remove  "</string>
     <string name="pupopfavoritt2">" from your favorites?"</string>
     <string name="onskerAaslette">"Do you wish to remove "</string>
     <string name="fraFavoritter">" from your favorites"</string>

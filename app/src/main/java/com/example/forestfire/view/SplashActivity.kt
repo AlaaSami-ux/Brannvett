@@ -12,12 +12,11 @@ import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
-import androidx.preference.PreferenceManager
 
 class SplashActivity : AppCompatActivity() {
 
     // loading time for splash screen
-    private val SPLASH_TIME_OUT:Long = 4000 //
+    private val SPLASH_TIME_OUT:Long = 2000 //
 
     fun isOnline(context: Context): Boolean {
         val connectivityManager =
@@ -56,7 +55,9 @@ class SplashActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val darkmode = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("key_dark_mode_switch", false)
+        @Suppress("DEPRECATION")
+        // deprecated in API 29. This is API 23
+        val darkmode = android.preference.PreferenceManager.getDefaultSharedPreferences(this).getBoolean("key_dark_mode_switch", false)
         if(darkmode){
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         }else {
