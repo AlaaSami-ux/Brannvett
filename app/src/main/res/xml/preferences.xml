@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:key="key_utseende"
+        android:title="@string/utseende">
+
+        <SwitchPreferenceCompat
+            android:key="key_dark_mode_switch"
+            android:title="@string/dark_mode"
+            android:defaultValue="false"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="key_units"
+        android:title="@string/enheter">
+
+        <DropDownPreference
+            android:key="key_unit_valg"
+            android:title="@string/enhet"
+            android:summary="%s"
+            android:entries="@array/unit_entries"
+            android:entryValues="@array/units" />
+    </PreferenceCategory>
+
+</PreferenceScreen>
