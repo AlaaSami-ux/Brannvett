@@ -98,6 +98,7 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d(TAG, "onCreate")
 
         // tilgang til mapsViewModel og favoriteViewModel
         mapsViewModel = activity?.run {
@@ -113,7 +114,6 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
         } ?: throw Exception("Invalid Activity")
 
         favoriteViewModel.setContext(requireContext())
-        Log.d(TAG, "context: " + requireContext())
 
         // sett activity, context og fusedLocation... i viewModel
         mapsViewModel.setActivity(requireActivity())
@@ -127,7 +127,6 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
         lastLocName = mapsViewModel.getLastUsedLocationName()
 
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
-
         mapsViewModel.getLocationPermission()
     }
 
@@ -136,6 +135,7 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Log.d(TAG, "onCreateview")
         // Inflate the layout for this fragment
         root =  inflater.inflate(R.layout.fragment_maps, container, false)
 
@@ -235,6 +235,8 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
         return root
     }
 
+
+
     override fun onClick(v: View){
         // called on favorite button click
         Log.d(TAG, "favorite button clicked")
@@ -271,7 +273,9 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
         mMap.setMinZoomPreference(10f) // jo lavere tall, jo lenger ut fra kartet kan man gå
         mMap.setMaxZoomPreference(20.0f) // hvor langt inn man kan zoome
         mMap.uiSettings.isZoomControlsEnabled = true
-        mMap.isMyLocationEnabled = true
+        if (mapsViewModel.isLocationGranted()){ // ikke vis min-posisjon knapp dersom posisjon ikke tillatt på enheten
+            mMap.isMyLocationEnabled = true
+        }
 
         // Åpne kartet på sist brukte posisjon
         mapsViewModel.moveCam(lastLoc)
@@ -295,7 +299,7 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
 
         mMap.setOnMyLocationButtonClickListener {
             Log.d(TAG, "My location button clicked")
-            if (checkConnection()){
+            if (checkConnection() && mapsViewModel.isLocationGranted()){
                 mFusedLocationProviderClient.lastLocation.addOnSuccessListener {
                     // fikk tak i sist kjente lokasjon
                     if(it != null && norge.contains(LatLng(it.latitude, it.longitude))){
