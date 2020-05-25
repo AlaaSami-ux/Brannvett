@@ -18,7 +18,7 @@ class SplashActivity : AppCompatActivity() {
     // loading time for splash screen
     private val SPLASH_TIME_OUT:Long = 2000 //
 
-    fun isOnline(context: Context): Boolean {
+    private fun isOnline(context: Context): Boolean {
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
         if (connectivityManager != null) {
@@ -44,7 +44,7 @@ class SplashActivity : AppCompatActivity() {
         return false
     }
 
-    fun showNoConnectionDialog(){
+    private fun showNoConnectionDialog(){
         val builder = AlertDialog.Builder(this, R.style.CustomAlertDialog)
         builder.setMessage(getString(R.string.ingenInternett))
         builder.setPositiveButton(getString(R.string.lukkApp)) { _, _ ->

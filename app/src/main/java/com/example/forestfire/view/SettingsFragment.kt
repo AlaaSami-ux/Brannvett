@@ -20,8 +20,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val dark_mode = findPreference<SwitchPreferenceCompat>("key_dark_mode_switch")
-        dark_mode?.onPreferenceChangeListener =
+        val darkmode = findPreference<SwitchPreferenceCompat>("key_dark_mode_switch")
+        darkmode?.onPreferenceChangeListener =
             Preference.OnPreferenceChangeListener{ _, newValue ->
                 settingVm.setDarkMode(newValue.toString())
                 true

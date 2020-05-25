@@ -1,6 +1,5 @@
 <resources >
     <string name="app_name">Grill og Chill</string>
-    <string name="title_activity_maps">Map</string>
 
     <!-- tekst/navn/overskrifter -->
     <string name="vaerIdag">VÆRET I DAG</string>
@@ -9,7 +8,6 @@
     <string name="hoyFare">HØY FARE</string>
     <string name="middelsFare">MIDDELS FARE</string>
     <string name="lavFare">LAV FARE</string>
-    <string name="dato" translatable="false">%1$s/%2$s</string>
     <string name="bilde">bilde</string>
     <string name="nodnummer">VED BRANN - RING 110</string>
     <string name="baal">" Bål "</string>
@@ -18,9 +16,7 @@
     <string name="lyn">" Lyn "</string>
     <string name="avfallscontainer">" Avfallscontainer "</string>
     <string name="verktoy">" Verktøy "</string>
-    <string name="instillinger">Innstillinger</string>
     <string name="slett">Slett</string>
-    <string name="brannfareIkonForside">ikon som viser dagens brannfare på valgt sted</string>
 
 
     <!-- info tekst -->
@@ -35,10 +31,6 @@
 
 
     <!-- innstillinger -->
-    <string name="inkluderVarsling">Dra mot høyre for å inkludere varsling for lavere brannfare</string>
-    <string name="hoyBrannfare">Høy brannfare</string>
-    <string name="middelsBrannfare">Middels brannfare</string>
-    <string name="lavBrannfare">Lav brannfare</string>
     <string name="lasterInn">LASTER INN..</string>
     <string name="utseende">Utseende</string>
     <string name="enheter">Enheter</string>
@@ -48,8 +40,6 @@
     <!-- dialog/toast-tekster -->
     <string name="onskerAaslette">"Ønsker du å slette "</string>
     <string name="fraFavoritter">" fra dine favoritter?"</string>
-    <string name="pupopfavoritt1">"Ønsker du å slette "</string>
-    <string name="pupopfavoritt2">" fra dine favoritter?"</string>
     <string name="ingenInternett">Denne applikasjonen trenger tilgang til internett for å fungere. Sørg for at du er koblet til internett og prøv igjen.</string>
     <string name="finnerIkkeDinPos">Finner ikke din posisjon</string>
 
@@ -59,15 +49,12 @@
     <string name="swipeDownArrow">sveip ned</string>
     <string name="vaerIkon">ikon som viser vaeret</string>
     <string name="brannfare">brannfare ikon</string>
-    <string name="vaerIdagIkon">ikon som viser dagens vær</string>
     <string name="favorittIkon">favorittikon</string>
     <string name="fjernFavoritt">fjern favoritt</string>
     <string name="vindsymbol">vind symbol</string>
     <string name="toppBildeFragment">deskriptivt bilde som fyller toppen av siden</string>
-    <string name="setting_ikon">Ikon for innstillinger</string>
 
     <!-- knapper -->
-    <string name="OK" translatable="false">OK</string>
     <string name="lukkApp">Lukk applikasjon</string>
     <string name="ja">Ja</string>
     <string name="nei">Nei</string>

@@ -20,8 +20,8 @@ import com.google.android.gms.maps.model.MarkerOptions
 import java.io.IOException
 import java.util.*
 
-class MapsViewModel(): ViewModel(){ //AndroidViewModel(app)
-    val TAG = "MapsViewModel"
+class MapsViewModel: ViewModel(){ //AndroidViewModel(app)
+    private val TAG = "MapsViewModel"
     private var DEFAULT_ZOOM = 15f
     private var MY_PERMISSIONS_REQUEST_FINE_LOCATION = 1
     private var MY_PERMISSIONS_REQUEST_COARSE_LOCATION = 1

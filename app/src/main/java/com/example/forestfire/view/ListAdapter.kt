@@ -25,41 +25,41 @@ import kotlinx.android.synthetic.main.element.view.*
 import java.util.*
 
 class ListAdapter(val context: Context,
-                  var forecastMap : HashMap<LatLng?, List<LocationForecastViewModel.FavForecast>>,
-                  var posDangerMap : HashMap<LatLng?, List<String>>,
-                  var favorites: MutableMap<LatLng, String>,
+                  private var forecastMap : HashMap<LatLng?, List<LocationForecastViewModel.FavForecast>>,
+                  private var posDangerMap : HashMap<LatLng?, List<String>>,
+                  private var favorites: MutableMap<LatLng, String>,
                   var fragment: FavoritesFragment,
-                  var favoriteViewModel: FavoriteViewModel,
-                  var mapsViewModel: MapsViewModel,
-                  var unitSystemViewModel : UnitSystemViewModel) :
+                  private var favoriteViewModel: FavoriteViewModel,
+                  private var mapsViewModel: MapsViewModel,
+                  private var unitSystemViewModel : UnitSystemViewModel) :
     RecyclerView.Adapter<ListAdapter.ViewHolder>()  {
 
     private var positions = favorites.keys // MutableSet of keys from favorites map
     private var places = favorites.values // MutableCollection of values from favorites map
 
-    class ViewHolder constructor(val context: Context, itemView: View, val adapter: ListAdapter,
-                                 val fragment: FavoritesFragment, val unitSystemViewModel : UnitSystemViewModel
+    class ViewHolder constructor(val context: Context, itemView: View, private val adapter: ListAdapter,
+                                 val fragment: FavoritesFragment, private val unitSystemViewModel : UnitSystemViewModel
     ) :
 
             RecyclerView.ViewHolder(itemView){
-        val valgtSted: TextView = itemView.valgtSted
+        private val valgtSted: TextView = itemView.valgtSted
 
-        val vaer_text1: TextView = itemView.vaer_text1
-        val vaer_symbol1 : ImageView = itemView.vaer_symbol1
-        val brann_index1 : TextView = itemView.brann_index1
-        val brann_symbol1 : ImageView = itemView.brann_symbol1
+        private val vaer_text1: TextView = itemView.vaer_text1
+        private val vaer_symbol1 : ImageView = itemView.vaer_symbol1
+        private val brann_index1 : TextView = itemView.brann_index1
+        private val brann_symbol1 : ImageView = itemView.brann_symbol1
 
-        val vaer_text2: TextView = itemView.vaer_text2
-        val vaer_symbol2 : ImageView = itemView.vaer_symbol2
-        val brann_index2 : TextView = itemView.brann_index2
-        val brann_symbol2 : ImageView = itemView.brann_symbol2
+        private val vaer_text2: TextView = itemView.vaer_text2
+        private val vaer_symbol2 : ImageView = itemView.vaer_symbol2
+        private val brann_index2 : TextView = itemView.brann_index2
+        private val brann_symbol2 : ImageView = itemView.brann_symbol2
 
-        val vaer_text3 : TextView = itemView.vaer_text3
-        val vaer_symbol3 : ImageView = itemView.vaer_symbol3
-        val brann_index3 : TextView = itemView.brann_index3
-        val brann_symbol3 : ImageView = itemView.brann_symbol3
+        private val vaer_text3 : TextView = itemView.vaer_text3
+        private val vaer_symbol3 : ImageView = itemView.vaer_symbol3
+        private val brann_index3 : TextView = itemView.brann_index3
+        private val brann_symbol3 : ImageView = itemView.brann_symbol3
 
-        val remove: ImageButton = itemView.remove
+        private val remove: ImageButton = itemView.remove
 
 
         @SuppressLint("SetTextI18n")

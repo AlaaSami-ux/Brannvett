@@ -11,8 +11,8 @@ import java.io.*
 
 class FavoriteViewModel : ViewModel(){
 
-    val TAG = "FavoriteViewModel"
-    var btnclicked = false
+    private val TAG = "FavoriteViewModel"
+    private var btnclicked = false
     private lateinit var context: Context
 
     private var favorites: MutableMap<LatLng, String> = mutableMapOf()
@@ -123,7 +123,7 @@ class FavoriteViewModel : ViewModel(){
         }
     }
 
-    fun writeFile() {
+    private fun writeFile() {
         favoritesToSerializable()
         // read hashmap to a file
         Log.d(TAG, "favlat.size: " + favlat.size)
@@ -160,7 +160,7 @@ class FavoriteViewModel : ViewModel(){
         }
     }
 
-    fun favoritesToSerializable(){
+    private fun favoritesToSerializable(){
         val favoritesPos = favorites.keys
         favlat.clear(); favlong.clear(); favnames.clear()
         favoritesPos.forEach {
