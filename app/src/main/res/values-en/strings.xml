@@ -28,14 +28,14 @@
     <string name="slett">Remove</string>
 
     <!-- info tekst -->
-    <string name="glassInfo">"A shattered glass bottle can potentially start a wildfire with help from the sun, which can develop into a forest fire. \n\nMake sure to always take your garbage home with you!"</string>
+    <string name="glassInfo">"With help from the sun a glass bottle can potentially start a wildfire, which can quickly evolve into a forest fire. \n\nMake sure you always bring your rubbish home!"</string>
     <string name="engangsgrillInfo">"When using a disposable grill you should always make sure that it is placed on an even and non-flammable surface. \n\nMake sure that it is properly put out, and always dispose of it in a container specifically made for disposable grills."</string>
-    <string name="lynInfo">"Did you know that lightning is the cause of a lot of forest fires in Norway every year? It can also linger in the ground for three days before igniting. \n\nAlways CALL 110 if you witness any sign of fire!"</string>
-    <string name="verktaayInfo">"Using tools that has an open flame can be very dangerous. It is important to take precautions when dealing with these kind of tools. \n\nAlways make an assessment before using them, and if there is a high danger index, postpone it!"</string>
-    <string name="avfallInfo">"Make sure that you always use a container specifically made for disposable grills when you are done using it. \n\nYou can often find a useful map of these on official websites."</string>
-    <string name="baalInfo">"It is prohibited to light a fire, bbq og disposable grill in, or in close range of, the forest from the 15. April to the 15. September. \n\nWhen lightning a fire you should always make sure to properly put it out before leaving."</string>
-    <string name="infoOmBrannfareNivaaer">"\nThe numbers indicating the danger index are provided by The Norwegian Meteorological Institute, and are calculated with regards to rainfall, humidity and temperature. \nIt is important to be extra cautious when the index signals a high risk."</string>
-    <string name="brannfareLevels">Low danger 0 to 30. Medium danger 31 to 60. High danger over 60</string>
+    <string name="lynInfo">"Did you know lightning is one of the main causes of forest fires in Norway? It can linger in the ground for up to three days before igniting. \n\nAlways CALL 110 if you witness any sign of fire!"</string>
+    <string name="verktaayInfo">"Using tools that has an open flame, or create sparks can be very dangerous. It is important to take precautions when dealing with these kind of tools. \n\nAlways make an assessment before using them, and if there is a high danger index, postpone it!"</string>
+    <string name="avfallInfo">"Make sure you always use a custom made container to throw away your used and unlit disposable grills. \n\nYou can often find useful maps of these containers on official council websites."</string>
+    <string name="baalInfo">"Between the 15th of April and the 15th of September it is prohibited to light a campfire, bbq or a disposable grill in or in close proximity to a forest.\n\nWhen lighting a fire you should always make sure to properly put it out before leaving it"</string>
+    <string name="infoOmBrannfareNivaaer">"\nThe numbers indicating the danger index are provided by The Norwegian Meteorological Institute, and are calculated with regards to rainfall, humidity and temperature. \n\nIt is important to be extra cautious when the index signals a high risk."</string>
+    <string name="brannfareLevels">Low danger 0 to 29. Medium danger 30 to 60. High danger over 60</string>
 
     <!-- innstillinger -->
     <string name="inkluderVarsling">slide to the right to include warning for lower danger index</string>
