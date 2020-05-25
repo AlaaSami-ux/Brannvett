@@ -145,4 +145,8 @@ class MapsViewModel(): ViewModel(){ //AndroidViewModel(app)
         Log.d(TAG, "mer info er $merInfoVises")
         return merInfoVises
     }
+
+    fun isLocationGranted(): Boolean{
+        return mLocationPermissionGranted
+    }
 }
