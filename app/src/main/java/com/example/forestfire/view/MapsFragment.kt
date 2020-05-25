@@ -499,10 +499,10 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
             // Vindstyrke
             if(resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT){
                 if(selectedUnit == "Imperial"){
-                    requireView().findViewById<TextView>(R.id.wind_text).text =
+                    root.findViewById<TextView>(R.id.wind_text)?.text =
                         "${unitSystemViewModel.toMph(it.product.time[0].location.windSpeed.mps.toDouble())} mph"
                 }else {
-                    requireView().findViewById<TextView>(R.id.wind_text).text =
+                    root.findViewById<TextView>(R.id.wind_text)?.text =
                         "${it.product.time[0].location.windSpeed.mps} m/s"
                 }
             }

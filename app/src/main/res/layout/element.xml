@@ -15,7 +15,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/favorittCard"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
             app:cardElevation="4dp"
@@ -28,6 +28,8 @@
                 android:layout_gravity="center"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
                 android:orientation="horizontal"
                 android:weightSum="10">
 
@@ -61,12 +63,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
+                            android:layout_marginBottom="2dp"
                             android:layout_weight="1"
                             android:weightSum="3">
 
                             <ImageView
                                 android:id="@+id/vaer_symbol1"
-                                android:layout_width="0dp"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:contentDescription="@string/vaerIkon"/>
@@ -82,7 +85,7 @@
                         <LinearLayout
                             android:layout_weight="1"
                             android:layout_width="wrap_content"
-                            android:layout_height="0dp"
+                            android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:weightSum="2">
 
@@ -119,12 +122,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
+                            android:layout_marginBottom="2dp"
                             android:layout_weight="1"
                             android:weightSum="3">
 
                             <ImageView
                                 android:id="@+id/vaer_symbol2"
-                                android:layout_width="0dp"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 tools:ignore="NestedWeights"
@@ -141,7 +145,7 @@
                         <LinearLayout
                             android:layout_weight="1"
                             android:layout_width="wrap_content"
-                            android:layout_height="0dp"
+                            android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:weightSum="2">
 
@@ -179,12 +183,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
+                            android:layout_marginBottom="2dp"
                             android:layout_weight="1"
                             android:weightSum="3">
 
                             <ImageView
                                 android:id="@+id/vaer_symbol3"
-                                android:layout_width="0dp"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 tools:ignore="NestedWeights"
@@ -201,7 +206,7 @@
                         <LinearLayout
                             android:layout_weight="1"
                             android:layout_width="wrap_content"
-                            android:layout_height="0dp"
+                            android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:weightSum="2">
 

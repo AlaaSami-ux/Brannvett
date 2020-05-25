@@ -115,7 +115,7 @@ class ListAdapter(val context: Context,
             //Værsymbol
             Picasso.with(applicationContext)
                 .load("https://in2000-apiproxy.ifi.uio.no/weatherapi/weathericon/1.1?content_type=image%2Fpng&symbol=${forecastList?.get(0)?.symbol_id}")
-                .resize(70, 70)
+                .resize(60, 60)
                 .into(vaer_symbol1)
 
             //Brannfare informasjon
@@ -140,7 +140,7 @@ class ListAdapter(val context: Context,
             //Værsymbol
             Picasso.with(applicationContext)
                 .load("https://in2000-apiproxy.ifi.uio.no/weatherapi/weathericon/1.1?content_type=image%2Fpng&symbol=${forecastList?.get(1)?.symbol_id}")
-                .resize(70, 70)
+                .resize(60, 60)
                 .into(vaer_symbol2)
 
             //Brannfare informasjon
@@ -165,7 +165,7 @@ class ListAdapter(val context: Context,
             //Værsymbol
             Picasso.with(applicationContext)
                 .load("https://in2000-apiproxy.ifi.uio.no/weatherapi/weathericon/1.1?content_type=image%2Fpng&symbol=${forecastList?.get(2)?.symbol_id}")
-                .resize(70, 70)
+                .resize(60, 60)
                 .into(vaer_symbol3)
 
             //Brannfare informasjon
