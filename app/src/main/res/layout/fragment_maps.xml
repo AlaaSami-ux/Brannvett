@@ -34,7 +34,6 @@
                     android:weightSum="4">
 
                     <TextView
-                        android:id="@+id/wtext"
                         android:layout_weight="1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -81,7 +80,6 @@
                         android:layout_marginTop="2dp">
 
                         <ImageView
-                            android:id="@+id/wind_symbol"
                             android:layout_gravity="center"
                             android:layout_width="22dp"
                             android:layout_height="22dp"
@@ -98,7 +96,8 @@
                             android:layout_gravity="center|center_horizontal"
                             android:textSize="16sp"
                             android:textStyle="bold"
-                            android:textColor="@color/DingGrey"/>
+                            android:textColor="@color/DingGrey"
+                            tools:ignore="InconsistentLayout" />
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>

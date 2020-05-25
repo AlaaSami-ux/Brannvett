@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Grill og Chill</string>
-    <string name="title_activity_maps">Map</string>
 
     <!-- tekst/navn/overskrifter -->
     <string name="vaerIdag">FORECAST</string>
@@ -20,7 +19,6 @@
     <string name="lyn">" Lightning "</string>
     <string name="avfallscontainer">" Waste Containers "</string>
     <string name="verktoy">" Tools "</string>
-    <string name="instillinger">Settings</string>
     <string name="lasterInn">LOADING..</string>
     <string name="ingenFavoritter">You don\'t have any favorites</string>
     <string name="nodnummer">IN CASE OF FIRE - CALL 110</string>
@@ -38,31 +36,22 @@
     <string name="brannfareLevels">Low danger 0 to 29. Medium danger 30 to 60. High danger over 60</string>
 
     <!-- innstillinger -->
-    <string name="inkluderVarsling">slide to the right to include warning for lower danger index</string>
-    <string name="hoyBrannfare">high danger index</string>
-    <string name="middelsBrannfare">medium danger index</string>
-    <string name="lavBrannfare">low danger index</string>
 
     <!-- dialog/toast-tekster -->
     <string name="finnerIkkeDinPos">Cannot find your location</string>
     <string name="ingenInternett">This application requires internet access to function. Please make sure you have an internet connection and try again.</string>
-    <string name="pupopfavoritt1">"Do you want to remove  "</string>
-    <string name="pupopfavoritt2">" from your favorites?"</string>
     <string name="onskerAaslette">"Do you want to remove  "</string>
     <string name="fraFavoritter">" from your favorites?"</string>
 
     <!-- ikoner/bilder -->
     <string name="vaerIkon">icon showing the weather</string>
-    <string name="brannfareIkonForside">icon showing today"'"s danger index</string>
     <string name="brannfare">danger index icon</string>
     <string name="swipeUpArrow">swipe up</string>
     <string name="swipeDownArrow">swipe down</string>
-    <string name="vaerIdagIkon">icon showing today"'"s weather</string>
     <string name="fjernFavoritt">remove favorite</string>
     <string name="toppBildeFragment">Descriptive image filling top of page</string>
     <string name="vindsymbol">wind symbol</string>
     <string name="favorittIkon">favorite icon</string>
-    <string name="setting_ikon">Setting icon</string>
 
     <!-- knapper -->
     <string name="ja">Yes</string>

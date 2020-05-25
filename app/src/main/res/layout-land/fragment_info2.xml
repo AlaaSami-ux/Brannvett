@@ -21,7 +21,6 @@
             android:weightSum="1">
 
             <TextView
-                android:id="@+id/branntw"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -73,7 +72,6 @@
                         android:contentDescription="@string/baal" />
 
                     <TextView
-                        android:id="@+id/baaltw"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/baal"
@@ -98,7 +96,6 @@
                         android:contentDescription="@string/engangsgrill" />
 
                     <TextView
-                        android:id="@+id/engangsgrilltw"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/engangsgrill"
@@ -123,7 +120,6 @@
                         android:contentDescription="@string/glassflasker" />
 
                     <TextView
-                        android:id="@+id/glasstw"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/glassflasker"
@@ -155,7 +151,6 @@
                         android:contentDescription="@string/lyn" />
 
                     <TextView
-                        android:id="@+id/lyntw"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/lyn"
@@ -180,7 +175,6 @@
                         android:contentDescription="@string/avfallscontainer" />
 
                     <TextView
-                        android:id="@+id/soppeltw"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/avfallscontainer"
@@ -205,7 +199,6 @@
                         android:contentDescription="@string/verktoy" />
 
                     <TextView
-                        android:id="@+id/verktoytw"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingTop="20dp"

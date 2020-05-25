@@ -21,7 +21,6 @@
             android:weightSum="2">
             <ImageView
                 android:layout_weight="2"
-                android:id="@+id/imageView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/compressed_skogbildet"
@@ -31,7 +30,6 @@
 
             <TextView
                 android:layout_weight="1"
-                android:id="@+id/branntw"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
@@ -79,7 +77,6 @@
                         android:src="@drawable/ic_baalicon" />
 
                     <TextView
-                        android:id="@+id/baaltw"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/baal"
@@ -106,7 +103,6 @@
                         android:contentDescription="@string/engangsgrill" />
 
                     <TextView
-                        android:id="@+id/engangsgrilltw"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/engangsgrill"
@@ -139,7 +135,6 @@
                         android:contentDescription="@string/glassflasker" />
 
                     <TextView
-                        android:id="@+id/glasstw"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/glass"
@@ -165,7 +160,6 @@
                         android:contentDescription="@string/lyn" />
 
                     <TextView
-                        android:id="@+id/lyntw"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/lyn"
@@ -200,7 +194,6 @@
                         android:contentDescription="@string/avfallscontainer" />
 
                     <TextView
-                        android:id="@+id/soppeltw"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/soppel"
@@ -226,7 +219,6 @@
                         android:contentDescription="@string/verktoy" />
 
                     <TextView
-                        android:id="@+id/verktoytw"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/verktoy"

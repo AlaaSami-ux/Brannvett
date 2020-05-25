@@ -16,13 +16,13 @@ import kotlin.collections.HashMap
 class LocationForecastViewModel(private val forecastService : LocationForecastService) : ViewModel(){
 
     val locationForecastLiveData = MutableLiveData<LocationForecastModel.LocationForecastMain>()
-    lateinit var forecastInfo : LocationForecastModel.LocationForecastMain
+    private lateinit var forecastInfo : LocationForecastModel.LocationForecastMain
 
-    var favMap = hashMapOf<LatLng?, List<FavForecast>>()
+    private var favMap = hashMapOf<LatLng?, List<FavForecast>>()
     val forecastFavoritesLiveData = MutableLiveData<HashMap<LatLng?, List<FavForecast>>>()
     val threeDayForecast = MutableLiveData<List<FavForecast>>()
 
-    lateinit var c : Calendar
+    private lateinit var c : Calendar
 
     fun fetchLocationForecast(latlon : LatLng?){
         val lat = latlon?.latitude

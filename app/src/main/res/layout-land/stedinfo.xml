@@ -41,7 +41,6 @@
         <!-- dette er den lille pilen som peker nedover for å
         symbolisere at man skal sveipe ned -->
         <ImageView
-            android:id="@+id/down"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|top"
@@ -66,7 +65,6 @@
                 android:weightSum="2">
                 <!-- Datoer og farevarsel -->
                 <LinearLayout
-                    android:id="@+id/datoOgFare"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_gravity="top|center_horizontal"
@@ -91,7 +89,7 @@
                         <TextView
                             android:id="@+id/dag1"
                             android:layout_width="wrap_content"
-                            android:layout_height="0dp"
+                            android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
                             android:textColor="@color/purpleColor"
