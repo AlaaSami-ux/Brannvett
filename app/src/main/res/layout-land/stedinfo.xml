@@ -159,12 +159,12 @@
                         <TextView
                             android:id="@+id/dag2"
                             android:layout_width="wrap_content"
-                            android:layout_height="0dp"
+                            android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
                             android:textColor="@color/purpleColor"
                             android:textSize="18sp"
-                            tools:ignore="NestedWeights"
+                            tools:ignore="InefficientWeight,NestedWeights"
                             android:layout_marginBottom="10dp"/>
 
                         <!-- Brannfare og vær -->
@@ -228,12 +228,12 @@
                         <TextView
                             android:id="@+id/dag3"
                             android:layout_width="wrap_content"
-                            android:layout_height="0dp"
+                            android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
                             android:textColor="@color/purpleColor"
                             android:textSize="18sp"
-                            tools:ignore="NestedWeights"
+                            tools:ignore="InefficientWeight,NestedWeights"
                             android:layout_marginBottom="10dp"/>
 
                         <!-- Brannfare og vær -->
