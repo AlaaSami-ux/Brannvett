@@ -567,12 +567,12 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
                         val fare_warning = root.findViewById<TextView>(R.id.fire_warning)
 
                         when {
-                            dangerList[0].toInt() <= 30 -> {
+                            dangerList[0].toInt() < 30 -> {
                                 fare_warning.setTextColor(ContextCompat.getColor(requireContext(), R.color.DangerGreen))
                                 fare_warning.text = getString(R.string.lavFare)
                                 fare_symbol.setImageResource(R.drawable.ic_fareicongraa)
                             }
-                            dangerList[0].toInt() in 31..59 -> {
+                            dangerList[0].toInt() in 30..60 -> {
                                 fare_warning.text = getString(R.string.middelsFare)
                                 fare_warning.setTextColor(ContextCompat.getColor(requireContext(), R.color.DangerOrange))
                                 fare_symbol.setImageResource(R.drawable.ic_fareiconrod)
