@@ -250,7 +250,7 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
         }
     }
 
-    override fun onMapReady(googleMap: GoogleMap) {
+    override fun onMapReady(googleMap: GoogleMap){
         Log.d(TAG, "onMapReady: map is ready")
         mMap = googleMap
         mapsViewModel.setMap(mMap)
