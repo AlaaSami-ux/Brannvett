@@ -247,6 +247,13 @@ class MapsFragment(
         return root
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (::mMap.isInitialized && mapsViewModel.isLocationGranted()){
+            mMap.isMyLocationEnabled = true
+        }
+    }
+
 
     override fun onClick(v: View) {
         // called on favorite button click
@@ -308,12 +315,11 @@ class MapsFragment(
 
         mMap.setOnMyLocationButtonClickListener {
             Log.d(TAG, "My location button clicked")
-            if (checkConnection() && mapsViewModel.isLocationGranted()) {
+            if (checkConnection()) {
                 mFusedLocationProviderClient.lastLocation.addOnSuccessListener {
                     // fikk tak i sist kjente lokasjon
                     if (it != null && norge.contains(LatLng(it.latitude, it.longitude))) {
                         deviceLoc = LatLng(it.latitude, it.longitude)
-
                         chosenNewPlace(
                             deviceLoc!!,
                             mapsViewModel.getAddressFromLocation(

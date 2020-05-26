@@ -88,7 +88,6 @@ class FavoritesFragment(
         } ?: throw Exception("Invalid Activity")
 
         favoriteViewModel.setContext(requireContext())
-        favoriteViewModel.readFile() // hent brukerens faovritter
     }
 
     override fun onCreateView(
@@ -102,7 +101,6 @@ class FavoritesFragment(
         if (!(activity as MainActivity).isOnline()) {
             (activity as MainActivity).showNoConnectionDialog()
         } else {
-
             favoriteViewModel.readFile() // hent brukerens faovritter
             favorites = favoriteViewModel.getFavorites() as MutableMap<LatLng, String>
             Log.d(TAG, "antall favoritter i onCreateView: " + favorites.size)
@@ -181,8 +179,9 @@ class FavoritesFragment(
             if (favorites.isNotEmpty()) {
                 noFavoritesTextBox.text = getString(R.string.lasterInn)
             }
+
             my_recycler_view = root.findViewById(R.id.my_recycler_view)
-            if ((activity as MainActivity).isOnline()) {
+            if ((activity as MainActivity).isOnline() && favorites.isNotEmpty()) {
                 forecastViewModel.fetchForecastFavorites(favorites.keys.toList())
                 forecastViewModel.forecastFavoritesLiveData.observe(
                     viewLifecycleOwner,
