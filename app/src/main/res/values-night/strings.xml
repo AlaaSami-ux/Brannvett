@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources >
     <string name="app_name">Grill og Chill</string>
-    <string name="title_activity_maps">Map</string>
     <string name="info">INFO</string>
-
-    <string name="dato" translatable="false">%1$s/%2$s</string>
 
 
     <string name="bilde">bilde</string>
@@ -14,8 +11,6 @@
     <string name="lyn">Lyn</string>
     <string name="avfallscontainer">Avfallscontainer</string>
     <string name="verktoy">Verktøy</string>
-    <string name="instillinger">Innstillinger</string>
-    <string name="setting_ikon">Ikon for innstillinger</string>
 
 
 </resources>

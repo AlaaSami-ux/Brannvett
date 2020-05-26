@@ -515,15 +515,14 @@ class MapsFragment(
                     .into(img)
 
 
-                // Vindstyrke
-                if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    if (selectedUnit == "Imperial") {
-                        requireView().findViewById<TextView>(R.id.wind_text).text =
-                            "${unitSystemViewModel.toMph(it.product.time[0].location.windSpeed.mps.toDouble())} mph"
-                    } else {
-                        requireView().findViewById<TextView>(R.id.wind_text).text =
-                            "${it.product.time[0].location.windSpeed.mps} m/s"
-                    }
+            // Vindstyrke
+            if(resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT){
+                if(selectedUnit == "Imperial"){
+                    root.findViewById<TextView>(R.id.wind_text)?.text =
+                        "${unitSystemViewModel.toMph(it.product.time[0].location.windSpeed.mps.toDouble())} mph"
+                }else {
+                    root.findViewById<TextView>(R.id.wind_text)?.text =
+                        "${it.product.time[0].location.windSpeed.mps} m/s"
                 }
             })
         }
@@ -597,7 +596,7 @@ class MapsFragment(
                                             root.findViewById<TextView>(R.id.fire_warning)
 
                                         when {
-                                            dangerList[0].toInt() <= 30 -> {
+                                            dangerList[0].toInt() < 30 -> {
                                                 fare_warning.setTextColor(
                                                     ContextCompat.getColor(
                                                         requireContext(),
@@ -607,7 +606,7 @@ class MapsFragment(
                                                 fare_warning.text = getString(R.string.lavFare)
                                                 fare_symbol.setImageResource(R.drawable.ic_fareicongraa)
                                             }
-                                            dangerList[0].toInt() in 31..59 -> {
+                                            dangerList[0].toInt() in 30..60 -> {
                                                 fare_warning.text = getString(R.string.middelsFare)
                                                 fare_warning.setTextColor(
                                                     ContextCompat.getColor(
@@ -735,6 +734,7 @@ class MapsFragment(
                                     })
                             })
                         })
+
                 })
         }
     }

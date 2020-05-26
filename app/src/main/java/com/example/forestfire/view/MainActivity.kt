@@ -23,8 +23,8 @@ class MainActivity : AppCompatActivity() {
     // objekter til fragments
     private lateinit var homeFragment: MapsFragment
     private lateinit var favoriteFragment: FavoritesFragment
-    lateinit var infoFragment: InfoFragment
-    lateinit var settingsFragment: SettingsFragment
+    private lateinit var infoFragment: InfoFragment
+    private lateinit var settingsFragment: SettingsFragment
 
     fun isOnline(): Boolean{
         val connectivityManager =

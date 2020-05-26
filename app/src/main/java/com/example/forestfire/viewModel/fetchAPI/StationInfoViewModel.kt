@@ -16,10 +16,10 @@ import kotlin.math.abs
 import kotlin.system.exitProcess
 
 class StationInfoViewModel(private val stationService : StationService) : ViewModel() {
-    var locCoorMap = mutableMapOf<FireModel.Location, StationInfoModel.Geometry>()
+    private var locCoorMap = mutableMapOf<FireModel.Location, StationInfoModel.Geometry>()
     var stationInfoLiveData = MutableLiveData<List<StationInfoModel.GeneralInformation>>()
 
-    var favMap = hashMapOf<LatLng?, List<String>>()
+    private var favMap = hashMapOf<LatLng?, List<String>>()
     var stationFavDangerLiveData = MutableLiveData<HashMap<LatLng?, List<String>>>()
 
     var stationThreeDayDanger = MutableLiveData<List<String>>()
