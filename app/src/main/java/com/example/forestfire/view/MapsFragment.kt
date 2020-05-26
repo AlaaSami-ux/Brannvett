@@ -524,7 +524,8 @@ class MapsFragment(
                     root.findViewById<TextView>(R.id.wind_text)?.text =
                         "${it.product.time[0].location.windSpeed.mps} m/s"
                 }
-            })
+            }
+        })
         }
     }
 
