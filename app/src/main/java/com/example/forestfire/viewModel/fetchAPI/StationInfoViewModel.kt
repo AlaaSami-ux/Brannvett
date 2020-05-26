@@ -43,6 +43,7 @@ class StationInfoViewModel(private val stationService : StationService) : ViewMo
                             val station = stationService.fetchStationData("SN${loc.id}")
                             stationList.add(station)
                             locCoorMap[loc] = station.data[0].geometry
+                            Log.d("Inside stationInfoVM", station.toString())
                         }
                     }
                     stationInfoLiveData.postValue(stationList)
