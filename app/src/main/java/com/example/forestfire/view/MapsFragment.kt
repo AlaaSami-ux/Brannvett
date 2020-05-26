@@ -47,11 +47,13 @@ import com.squareup.picasso.Picasso
 import java.util.*
 
 
-class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
-                     fireIndexViewModel : FireDataViewModel,
-                     forecastViewModel : LocationForecastViewModel ) : Fragment(),
+class MapsFragment(
+    stationInfoViewModel: StationInfoViewModel,
+    fireIndexViewModel: FireDataViewModel,
+    forecastViewModel: LocationForecastViewModel
+) : Fragment(),
     OnMapReadyCallback,
-    View.OnTouchListener, View.OnClickListener{
+    View.OnTouchListener, View.OnClickListener {
 
     val TAG = "MapsFragment"
     private var MIN_DISTANCE = 100
@@ -89,7 +91,7 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
     // the ViewModels for map and favorites
     private lateinit var mapsViewModel: MapsViewModel
     private lateinit var favoriteViewModel: FavoriteViewModel
-    private lateinit var unitSystemViewModel : UnitSystemViewModel
+    private lateinit var unitSystemViewModel: UnitSystemViewModel
 
     private val forecastModel = forecastViewModel
     private val stationModel = stationInfoViewModel
@@ -109,7 +111,7 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
             ViewModelProviders.of(this)[FavoriteViewModel::class.java]
         } ?: throw Exception("Invalid Activity")
 
-        unitSystemViewModel = activity?.run{
+        unitSystemViewModel = activity?.run {
             ViewModelProviders.of(this)[UnitSystemViewModel::class.java]
         } ?: throw Exception("Invalid Activity")
 
@@ -118,16 +120,14 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
         // sett activity, context og fusedLocation... i viewModel
         mapsViewModel.setActivity(requireActivity())
         mapsViewModel.setContext(requireContext())
-
-        // get users permission for location
         mapsViewModel.getLocationPermission()
 
         // MapsViewModel holder kontroll på sist besøkte sted
         lastLoc = mapsViewModel.getLastUsedLocation() // hente siste brukte posisjon
         lastLocName = mapsViewModel.getLastUsedLocationName()
 
-        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
-        mapsViewModel.getLocationPermission()
+        mFusedLocationProviderClient =
+            LocationServices.getFusedLocationProviderClient(requireContext())
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -137,7 +137,7 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
     ): View? {
         Log.d(TAG, "onCreateview")
         // Inflate the layout for this fragment
-        root =  inflater.inflate(R.layout.fragment_maps, container, false)
+        root = inflater.inflate(R.layout.fragment_maps, container, false)
 
         favoriteViewModel.readFile() // hente favorittene
 
@@ -146,13 +146,15 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
         wtext = root.findViewById(R.id.w_deg) // tekst på værkort
         slideUp = root.findViewById(R.id.slideUp) // kort nede, kan sveipes opp
         slideUp.setOnTouchListener(this)
-        swipeUp = root.findViewById(R.id.swipeUp) // kort som vises når sveipet opp. includer stedinfo
+        swipeUp =
+            root.findViewById(R.id.swipeUp) // kort som vises når sveipet opp. includer stedinfo
         swipeUp.setOnTouchListener(this)
         searchBox = root.findViewById(R.id.search_box) // søkeboks
         auto_search_bar = root.findViewById(R.id.autocomplete_fragment)
 
         valgtSted = root.findViewById(R.id.valgtSted) // tekst på cardView på forsiden
-        valgtSted2 = swipeUp.findViewById(R.id.valgtSted) // tekst på cardView når det er sveipet opp
+        valgtSted2 =
+            swipeUp.findViewById(R.id.valgtSted) // tekst på cardView når det er sveipet opp
         stedinfo = root.findViewById(R.id.swipeUp) // cardView som synes når man har sveipet opp
         favoriteBtn = root.findViewById(R.id.favoritt)      // favorittknapp cardView nede
         favoriteBtn2 = stedinfo.findViewById(R.id.favoritt) // favorittknapp cardView åpent
@@ -164,13 +166,16 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
         c = Calendar.getInstance()
 
         // sett datoer for to dager fremover
-        var dato = c.get(Calendar.DAY_OF_MONTH).toString() + "/" + (c.get(Calendar.MONTH)+1).toString()
+        var dato =
+            c.get(Calendar.DAY_OF_MONTH).toString() + "/" + (c.get(Calendar.MONTH) + 1).toString()
         dag1.text = dato
         c.roll(Calendar.DATE, 1)
-        dato = c.get(Calendar.DAY_OF_MONTH).toString() + "/" + (c.get(Calendar.MONTH)+1).toString()
+        dato =
+            c.get(Calendar.DAY_OF_MONTH).toString() + "/" + (c.get(Calendar.MONTH) + 1).toString()
         dag2.text = dato
         c.roll(Calendar.DATE, 1)
-        dato = c.get(Calendar.DAY_OF_MONTH).toString() + "/" + (c.get(Calendar.MONTH)+1).toString()
+        dato =
+            c.get(Calendar.DAY_OF_MONTH).toString() + "/" + (c.get(Calendar.MONTH) + 1).toString()
         dag3.text = dato
 
 
@@ -178,7 +183,7 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
         fillSwipeUpScreen(lastLoc)
 
         // Sjekke om sist brukte posisjon er en av favorittene til brukeren
-        if (favoriteViewModel.isFavorite(lastLoc, lastLocName)){
+        if (favoriteViewModel.isFavorite(lastLoc, lastLocName)) {
             favoriteViewModel.setBtnClicked(favoriteBtn, favoriteBtn2)
         }
 
@@ -187,7 +192,7 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
         favoriteBtn2.setOnClickListener(this)
 
 
-        if (mapsViewModel.getMerInfoVises()){
+        if (mapsViewModel.getMerInfoVises()) {
             swipeUp.visibility = View.VISIBLE
             slideUp.visibility = View.GONE
             searchBox.visibility = View.GONE
@@ -207,11 +212,14 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
         Places.createClient(requireContext())
 
         // initialize autocompleteFragment
-        autocompleteFragment = childFragmentManager.findFragmentById(R.id.autocomplete_fragment) as AutocompleteSupportFragment
-        autocompleteFragment.setPlaceFields(listOf(
-            Place.Field.NAME,
-            Place.Field.LAT_LNG
-        ))
+        autocompleteFragment =
+            childFragmentManager.findFragmentById(R.id.autocomplete_fragment) as AutocompleteSupportFragment
+        autocompleteFragment.setPlaceFields(
+            listOf(
+                Place.Field.NAME,
+                Place.Field.LAT_LNG
+            )
+        )
         // set bounds for the results
         autocompleteFragment.setLocationBias(RectangularBounds.newInstance(norge))
         autocompleteFragment.setCountries("NO")
@@ -221,11 +229,15 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
             override fun onPlaceSelected(place: Place) {
                 Log.i(TAG, "Place: " + place.name + ", " + place.latLng)
                 chosenNewPlace(place.latLng!!, place.name!!)
-                mapsViewModel.setLastUsedLocation(place.latLng!!, place.name!!) // Oppdaterer sist brukte lokasjon
+                mapsViewModel.setLastUsedLocation(
+                    place.latLng!!,
+                    place.name!!
+                ) // Oppdaterer sist brukte lokasjon
                 mapsViewModel.moveCam(place.latLng!!)
                 mapsViewModel.addMarker(place.latLng!!)
                 settValgtStedTekst(place.name!!)
             }
+
             override fun onError(status: Status) {
                 Log.i(TAG, "An error occurred: $status")
             }
@@ -236,12 +248,11 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
     }
 
 
-
-    override fun onClick(v: View){
+    override fun onClick(v: View) {
         // called on favorite button click
         Log.d(TAG, "favorite button clicked")
         favoriteViewModel.changeFavoriteBoolean()
-        if (favoriteViewModel.isBtnClicked()){ // hvis knappen er fylt med farge
+        if (favoriteViewModel.isBtnClicked()) { // hvis knappen er fylt med farge
             favoriteViewModel.addFavorite(lastLoc, valgtSted.text.toString())
             favoriteViewModel.setBtnClicked(favoriteBtn, favoriteBtn2)
         } else { // hvis knappen ikke er fylt med farge
@@ -250,7 +261,7 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
         }
     }
 
-    override fun onMapReady(googleMap: GoogleMap){
+    override fun onMapReady(googleMap: GoogleMap) {
         Log.d(TAG, "onMapReady: map is ready")
         mMap = googleMap
         mapsViewModel.setMap(mMap)
@@ -273,39 +284,46 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
         mMap.setMinZoomPreference(10f) // jo lavere tall, jo lenger ut fra kartet kan man gå
         mMap.setMaxZoomPreference(20.0f) // hvor langt inn man kan zoome
         mMap.uiSettings.isZoomControlsEnabled = true
-        if (mapsViewModel.isLocationGranted()){ // ikke vis min-posisjon knapp dersom posisjon ikke tillatt på enheten
+        if (mapsViewModel.isLocationGranted()) {
             mMap.isMyLocationEnabled = true
+        } else {
+            Toast.makeText(requireContext(), getString(R.string.posisjonAv), Toast.LENGTH_LONG)
+                .show()
         }
 
         // Åpne kartet på sist brukte posisjon
         mapsViewModel.moveCam(lastLoc)
         mapsViewModel.addMarker(lastLoc)
         settValgtStedTekst(lastLocName)
-        if (!checkConnection()){
-            exitDialog()
-        } else {displayWeather(lastLoc)}
+        displayWeather(lastLoc)
+
 
 
         mMap.setOnMapLongClickListener {
-            if (checkConnection()){
+            if (checkConnection()) {
                 chosenNewPlace(it, mapsViewModel.getAddressFromLocation(it.latitude, it.longitude))
                 mapsViewModel.addMarker(it)
                 getAddressFromLocation(it.latitude, it.longitude)
                 mapsViewModel.setLastUsedLocation(it)
                 displayWeather(it)
-            } else {exitDialog()}
+            }
         }
-
 
         mMap.setOnMyLocationButtonClickListener {
             Log.d(TAG, "My location button clicked")
-            if (checkConnection() && mapsViewModel.isLocationGranted()){
+            if (checkConnection() && mapsViewModel.isLocationGranted()) {
                 mFusedLocationProviderClient.lastLocation.addOnSuccessListener {
                     // fikk tak i sist kjente lokasjon
-                    if(it != null && norge.contains(LatLng(it.latitude, it.longitude))){
+                    if (it != null && norge.contains(LatLng(it.latitude, it.longitude))) {
                         deviceLoc = LatLng(it.latitude, it.longitude)
 
-                        chosenNewPlace(deviceLoc!!, mapsViewModel.getAddressFromLocation(deviceLoc!!.latitude, deviceLoc!!.longitude))
+                        chosenNewPlace(
+                            deviceLoc!!,
+                            mapsViewModel.getAddressFromLocation(
+                                deviceLoc!!.latitude,
+                                deviceLoc!!.longitude
+                            )
+                        )
                         mapsViewModel.moveCam(deviceLoc!!)
                         mapsViewModel.addMarker(deviceLoc!!)
                         getAddressFromLocation(deviceLoc!!.latitude, deviceLoc!!.longitude)
@@ -315,10 +333,14 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
                         fillSwipeUpScreen(deviceLoc!!)
 
                     } else {
-                        Toast.makeText(requireContext(), requireContext().getString(R.string.finnerIkkeDinPos), Toast.LENGTH_LONG).show()
+                        Toast.makeText(
+                            requireContext(),
+                            requireContext().getString(R.string.finnerIkkeDinPos),
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
                 }
-            } else {exitDialog()}
+            }
             true
         }
     }
@@ -332,19 +354,15 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
             .commit()
     }
 
-    private fun checkConnection(): Boolean{
+    private fun checkConnection(): Boolean {
         return (activity as MainActivity).isOnline()
     }
 
-    private fun exitDialog(){
-        (activity as MainActivity).showNoConnectionDialog()
-    }
-
-    private fun chosenNewPlace(latlng: LatLng, place: String){
+    private fun chosenNewPlace(latlng: LatLng, place: String) {
         lastLoc = latlng
         displayWeather(latlng)
         fillSwipeUpScreen(lastLoc)
-        if (favoriteViewModel.isFavorite(latlng, place)){
+        if (favoriteViewModel.isFavorite(latlng, place)) {
             favoriteViewModel.setBtnClicked(favoriteBtn, favoriteBtn2)
         } else {
             favoriteViewModel.setBtnUnClicked(favoriteBtn, favoriteBtn2)
@@ -356,7 +374,7 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
         settValgtStedTekst(sted)
     }
 
-    private fun settValgtStedTekst(place: String){
+    private fun settValgtStedTekst(place: String) {
         Log.d(TAG, "sett valgt sted til $place")
         valgtSted.text = place
         valgtSted2.text = place
@@ -374,13 +392,14 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
             MotionEvent.ACTION_UP -> {
                 Log.d(TAG, "Action was UP")
                 // swipe up
-                val shortAnimationDuration = resources.getInteger(android.R.integer.config_mediumAnimTime)
+                val shortAnimationDuration =
+                    resources.getInteger(android.R.integer.config_mediumAnimTime)
                 if (previousY > event.y && previousY - event.y > MIN_DISTANCE) {
                     if (v != null && v.id == R.id.slideUp) {
                         v.performClick()
                         mapsViewModel.setMerInfoVises(true)
                         // fade INN det store kortet og bort været og søkeboks
-                        swipeUp.apply{// fade INN det store kortet
+                        swipeUp.apply {// fade INN det store kortet
                             alpha = 0f
                             visibility = View.VISIBLE
                             animate()
@@ -390,7 +409,7 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
                         }
                         slideUp.animate() // fade UT det lille kortet
                             .alpha(0f)
-                            .setListener(object: AnimatorListenerAdapter(){
+                            .setListener(object : AnimatorListenerAdapter() {
                                 override fun onAnimationEnd(animation: Animator) {
                                     slideUp.visibility = View.GONE
                                 }
@@ -398,29 +417,29 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
                             .duration = (shortAnimationDuration.toLong())
                         weather.animate() // fade UT været
                             .alpha(0f)
-                            .setListener(object: AnimatorListenerAdapter(){
-                            override fun onAnimationEnd(animation: Animator) {
-                                slideUp.visibility = View.GONE
-                            }
+                            .setListener(object : AnimatorListenerAdapter() {
+                                override fun onAnimationEnd(animation: Animator) {
+                                    slideUp.visibility = View.GONE
+                                }
                             })
                             .duration = (shortAnimationDuration.toLong())
                         searchBox.animate() // fade UT søkeboks
                             .alpha(0f)
-                            .setListener(object: AnimatorListenerAdapter(){
-                            override fun onAnimationEnd(animation: Animator) {
-                                slideUp.visibility = View.GONE
-                            }
+                            .setListener(object : AnimatorListenerAdapter() {
+                                override fun onAnimationEnd(animation: Animator) {
+                                    slideUp.visibility = View.GONE
+                                }
                             })
                             .duration = (shortAnimationDuration.toLong())
                         auto_search_bar.visibility = View.GONE
                     }
-                } else if(previousY < event.y && event.y - previousY > MIN_DISTANCE){
-                    if (v != null && v.id == R.id.swipeUp){
+                } else if (previousY < event.y && event.y - previousY > MIN_DISTANCE) {
+                    if (v != null && v.id == R.id.swipeUp) {
                         v.performClick()
                         mapsViewModel.setMerInfoVises(false)
                         weather.visibility = View.VISIBLE
                         // fade INN det lille kortet og været
-                        slideUp.apply{ // fade INN det lille kortet
+                        slideUp.apply { // fade INN det lille kortet
                             alpha = 0f
                             visibility = View.VISIBLE
                             animate()
@@ -428,7 +447,7 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
                                 .setListener(null)
                                 .duration = (shortAnimationDuration.toLong())
                         }
-                        weather.apply{// fade INN vær
+                        weather.apply {// fade INN vær
                             alpha = 0f
                             visibility = View.VISIBLE
                             animate()
@@ -436,7 +455,7 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
                                 .setListener(null)
                                 .duration = (shortAnimationDuration.toLong())
                         }
-                        searchBox.apply{// fade INN søkeboks
+                        searchBox.apply {// fade INN søkeboks
                             alpha = 0f
                             visibility = View.VISIBLE
                             animate()
@@ -447,7 +466,7 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
 
                         swipeUp.animate() // fade UT det store kortet
                             .alpha(0f)
-                            .setListener(object: AnimatorListenerAdapter(){
+                            .setListener(object : AnimatorListenerAdapter() {
                                 override fun onAnimationEnd(animation: Animator) {
                                     swipeUp.visibility = View.GONE
                                 }
@@ -464,36 +483,36 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
     }
 
 
-
     @SuppressLint("SetTextI18n")
-    private fun displayWeather(location : LatLng) {
+    private fun displayWeather(location: LatLng) {
         // Denne metoden plasserer værdata i kortet som ligger øverst på hovedsiden
         val tag = "displayWeather"
         Log.d(tag, location.toString())
+        if (checkConnection()) {
+            forecastModel.fetchLocationForecast(location)
+            forecastModel.locationForecastLiveData.observe(viewLifecycleOwner, Observer {
+                if (it == null) return@Observer
 
-        forecastModel.fetchLocationForecast(location)
-        forecastModel.locationForecastLiveData.observe(viewLifecycleOwner, Observer {
-            if(it == null) return@Observer
+                val preference = PreferenceManager.getDefaultSharedPreferences(context)
+                val selectedUnit = preference.getString("key_unit_valg", "Metric")
 
-            val preference = PreferenceManager.getDefaultSharedPreferences(context)
-            val selectedUnit = preference.getString("key_unit_valg", "Metric")
+                if (selectedUnit == "Imperial") {
+                    requireView().findViewById<TextView>(R.id.w_deg).text =
+                        "${unitSystemViewModel.toFahrenheit(it.product.time[0].location.temperature.value.toDouble())} \u2109"
+                } else {
+                    requireView().findViewById<TextView>(R.id.w_deg).text =
+                        "${it.product.time[0].location.temperature.value} \u2103" // \u2103 er koden for "grader celsius"
+                }
 
-            if(selectedUnit == "Imperial"){
-                requireView().findViewById<TextView>(R.id.w_deg).text =
-                    "${unitSystemViewModel.toFahrenheit(it.product.time[0].location.temperature.value.toDouble())} \u2109"
-            }else{
-                requireView().findViewById<TextView>(R.id.w_deg).text =
-                    "${it.product.time[0].location.temperature.value} \u2103" // \u2103 er koden for "grader celsius"
-            }
+                val id = it.product.time[1].location.symbol.number
+                val img = requireView().findViewById<ImageView>(R.id.weather_icon)
+                val url =
+                    "https://in2000-apiproxy.ifi.uio.no/weatherapi/weathericon/1.1?content_type=image%2Fpng&symbol=${id}"
 
-            val id = it.product.time[1].location.symbol.number
-            val img = requireView().findViewById<ImageView>(R.id.weather_icon)
-            val url = "https://in2000-apiproxy.ifi.uio.no/weatherapi/weathericon/1.1?content_type=image%2Fpng&symbol=${id}"
-
-            Picasso.with(activity)
-                .load(url)
-                .resize(80,80)
-                .into(img)
+                Picasso.with(activity)
+                    .load(url)
+                    .resize(80, 80)
+                    .into(img)
 
 
             // Vindstyrke
@@ -505,16 +524,15 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
                     root.findViewById<TextView>(R.id.wind_text)?.text =
                         "${it.product.time[0].location.windSpeed.mps} m/s"
                 }
-            }
-        })
-
+            })
+        }
     }
 
 
-    private fun getTree(danger_index : Int) : Int{
+    private fun getTree(danger_index: Int): Int {
         // Metode for å hente riktig farge på treet som brukes som symbol for
         // danger_index (farevarsel, brannfarevarsel)
-        val brann : Int
+        val brann: Int
         brann = when {
             danger_index < 30 -> {
                 R.drawable.ic_brannfare_gronntre
@@ -531,153 +549,194 @@ class MapsFragment ( stationInfoViewModel : StationInfoViewModel,
 
 
     @SuppressLint("SetTextI18n")
-    private fun fillSwipeUpScreen(loc : LatLng){
+    private fun fillSwipeUpScreen(loc: LatLng) {
         // Her skal skjermen man swiper opp på hovedsiden fylles med informasjon, samt kortet
         // nederst på hovedsiden
 
         // Starter med å hente været for de neste tre dagene for den gitte lokasjonen
-        forecastModel.fetchThreeDayForecast(loc)
-        forecastModel.threeDayForecast.observe(viewLifecycleOwner, Observer Forecast@{ forecastList ->
-            if(forecastList == null) return@Forecast
+        if (checkConnection()) {
+            forecastModel.fetchThreeDayForecast(loc)
+            forecastModel.threeDayForecast.observe(
+                viewLifecycleOwner,
+                Observer Forecast@{ forecastList ->
+                    if (forecastList == null) return@Forecast
 
-            // Deretter må vi hente farevarsel (danger_index) for de tre neste dagene
-            // Dette gjøres ved å hente alle lokasjonene som finnes i forestfireindex apiet ...
-            fireModel.fetchFireLocations()
-            fireModel.liveFireLocations.observe(viewLifecycleOwner, Observer Locations@{dayList ->
-                if(dayList == null) return@Locations
+                    // Deretter må vi hente farevarsel (danger_index) for de tre neste dagene
+                    // Dette gjøres ved å hente alle lokasjonene som finnes i forestfireindex apiet ...
+                    fireModel.fetchFireLocations()
+                    fireModel.liveFireLocations.observe(
+                        viewLifecycleOwner,
+                        Observer Locations@{ dayList ->
+                            if (dayList == null) return@Locations
 
-                // ... for så å hente alle koordinatene til disse lokasjonene, og plassere de i et lokalt hashmap
-                // i StationInFoViewModel
-                stationModel.fetchData(dayList[0].locations)
-                stationModel.stationInfoLiveData.observe(viewLifecycleOwner, Observer {
-                    // og dermed kan vi hente farevarsel for tre dager. Metoden fetchThreeDayDanger tar inn et latlng objekt
-                    // og søker i det lokale hashmappet i StationInfoViewModel for den stasjonen som ligger nærmest
-                    // brukeren (latlon objektet). Den tar så in en liste av forestfireindex lokasjonene for alle dagene
-                    // og bruker denne til å finne farevarsel for riktig stasjon
-                    stationModel.fetchThreeDayDanger(loc, dayList)
-                    stationModel.stationThreeDayDanger.observe(viewLifecycleOwner, Observer Danger@{dangerList ->
-                        if(dangerList == null) return@Danger
+                            // ... for så å hente alle koordinatene til disse lokasjonene, og plassere de i et lokalt hashmap
+                            // i StationInFoViewModel
+                            stationModel.fetchData(dayList[0].locations)
+                            stationModel.stationInfoLiveData.observe(viewLifecycleOwner, Observer {
+                                // og dermed kan vi hente farevarsel for tre dager. Metoden fetchThreeDayDanger tar inn et latlng objekt
+                                // og søker i det lokale hashmappet i StationInfoViewModel for den stasjonen som ligger nærmest
+                                // brukeren (latlon objektet). Den tar så in en liste av forestfireindex lokasjonene for alle dagene
+                                // og bruker denne til å finne farevarsel for riktig stasjon
+                                stationModel.fetchThreeDayDanger(loc, dayList)
+                                stationModel.stationThreeDayDanger.observe(
+                                    viewLifecycleOwner,
+                                    Observer Danger@{ dangerList ->
+                                        if (dangerList == null) return@Danger
 
-                        val preference = PreferenceManager.getDefaultSharedPreferences(context)
-                        val selectedUnit = preference.getString("key_unit_valg", "Metric")
-
-
-                        // Plaserer først informasjon i kortet nederst på hovedskjermen
-                        val fare_symbol = root.findViewById<ImageView>(R.id.fire_symbol)
-                        val fare_warning = root.findViewById<TextView>(R.id.fire_warning)
-
-                        when {
-                            dangerList[0].toInt() < 30 -> {
-                                fare_warning.setTextColor(ContextCompat.getColor(requireContext(), R.color.DangerGreen))
-                                fare_warning.text = getString(R.string.lavFare)
-                                fare_symbol.setImageResource(R.drawable.ic_fareicongraa)
-                            }
-                            dangerList[0].toInt() in 30..60 -> {
-                                fare_warning.text = getString(R.string.middelsFare)
-                                fare_warning.setTextColor(ContextCompat.getColor(requireContext(), R.color.DangerOrange))
-                                fare_symbol.setImageResource(R.drawable.ic_fareiconrod)
-                            }
-                            else -> {
-                                fare_warning.text = getString(R.string.hoyFare)
-                                fare_warning.setTextColor(ContextCompat.getColor(requireContext(), R.color.DangerRed))
-                                fare_symbol.setImageResource(R.drawable.ic_fareiconrod)
-                            }
-                        }
+                                        val preference =
+                                            PreferenceManager.getDefaultSharedPreferences(context)
+                                        val selectedUnit =
+                                            preference.getString("key_unit_valg", "Metric")
 
 
-                        // Plasserer deretter informasjon inne i stedinfo.xml siden som er korresponderende
-                        // xml layot med swipe-up skjermen
+                                        // Plaserer først informasjon i kortet nederst på hovedskjermen
+                                        val fare_symbol =
+                                            root.findViewById<ImageView>(R.id.fire_symbol)
+                                        val fare_warning =
+                                            root.findViewById<TextView>(R.id.fire_warning)
 
-                        // Dag 1
-                        val vaer1 = stedinfo.findViewById<TextView>(R.id.vaer1)
-                        val vaer_symbol1 = stedinfo.findViewById<ImageView>(R.id.vaer_symbol1)
-
-                        //Temperatur
-                        if(selectedUnit == "Imperial"){
-                            vaer1.text = "${forecastList[0].temperature?.toDouble()?.let { it1 ->
-                                unitSystemViewModel.toFahrenheit(
-                                    it1
-                                )
-                            }}°"
-                        }else {
-                            vaer1.text = "${forecastList[0].temperature}°"
-                        }
-
-                        //Værsymbol
-                        Picasso.with(activity)
-                            .load("https://in2000-apiproxy.ifi.uio.no/weatherapi/weathericon/1.1?content_type=image%2Fpng&symbol=${forecastList[0].symbol_id}")
-                            .resize(60, 60)
-                            .into(vaer_symbol1)
-
-                        //Brannfare informasjon
-                        val brann1 = stedinfo.findViewById<TextView>(R.id.brann1)
-                        val brann_symbol1 = stedinfo.findViewById<ImageView>(R.id.brann_symbol1)
-                        brann1.text = dangerList[0]
-                        var brann : Int = getTree(dangerList[0].toInt()) //henter riktig farge på treet som brukes som symbol på danger_index
-                        brann_symbol1.setImageResource(brann)
-
-                        // Dag 2
-                        val vaer2 = stedinfo.findViewById<TextView>(R.id.vaer2)
-                        val vaer_symbol2 = stedinfo.findViewById<ImageView>(R.id.vaer_symbol2)
-
-                        //Temperatur
-                        if(selectedUnit == "Imperial"){
-                            vaer2.text = "${forecastList[1].temperature?.toDouble()?.let { it1 ->
-                                unitSystemViewModel.toFahrenheit(
-                                    it1
-                                )
-                            }}°"
-                        } else {
-                            vaer2.text = "${forecastList[1].temperature}°"
-                        }
-
-                        //Værsymbol
-                        Picasso.with(activity)
-                            .load("https://in2000-apiproxy.ifi.uio.no/weatherapi/weathericon/1.1?content_type=image%2Fpng&symbol=${forecastList[1].symbol_id}")
-                            .resize(60, 60)
-                            .into(vaer_symbol2)
-
-                        //Brannfare informasjon
-                        val brann2 = stedinfo.findViewById<TextView>(R.id.brann2)
-                        val brann_symbol2 = stedinfo.findViewById<ImageView>(R.id.brann_symbol2)
-
-                        brann = getTree(dangerList[1].toInt())
-                        brann2.text = dangerList[1]
-                        brann_symbol2.setImageResource(brann)
+                                        when {
+                                            dangerList[0].toInt() < 30 -> {
+                                                fare_warning.setTextColor(
+                                                    ContextCompat.getColor(
+                                                        requireContext(),
+                                                        R.color.DangerGreen
+                                                    )
+                                                )
+                                                fare_warning.text = getString(R.string.lavFare)
+                                                fare_symbol.setImageResource(R.drawable.ic_fareicongraa)
+                                            }
+                                            dangerList[0].toInt() in 30..60 -> {
+                                                fare_warning.text = getString(R.string.middelsFare)
+                                                fare_warning.setTextColor(
+                                                    ContextCompat.getColor(
+                                                        requireContext(),
+                                                        R.color.DangerOrange
+                                                    )
+                                                )
+                                                fare_symbol.setImageResource(R.drawable.ic_fareiconrod)
+                                            }
+                                            else -> {
+                                                fare_warning.text = getString(R.string.hoyFare)
+                                                fare_warning.setTextColor(
+                                                    ContextCompat.getColor(
+                                                        requireContext(),
+                                                        R.color.DangerRed
+                                                    )
+                                                )
+                                                fare_symbol.setImageResource(R.drawable.ic_fareiconrod)
+                                            }
+                                        }
 
 
-                        // Dag 3
-                        val vaer3 = stedinfo.findViewById<TextView>(R.id.vaer3)
-                        val vaer_symbol3 = stedinfo.findViewById<ImageView>(R.id.vaer_symbol3)
+                                        // Plasserer deretter informasjon inne i stedinfo.xml siden som er korresponderende
+                                        // xml layot med swipe-up skjermen
 
-                        //Temperatur
-                        if(selectedUnit == "Imperial"){
-                            vaer3.text = "${forecastList[2].temperature?.toDouble()?.let { it1 ->
-                                unitSystemViewModel.toFahrenheit(
-                                    it1
-                                )
-                            }}°"
-                        }else {
-                            vaer3.text = "${forecastList[2].temperature}°"
-                        }
+                                        // Dag 1
+                                        val vaer1 = stedinfo.findViewById<TextView>(R.id.vaer1)
+                                        val vaer_symbol1 =
+                                            stedinfo.findViewById<ImageView>(R.id.vaer_symbol1)
 
-                        //Værsymbol
-                        Picasso.with(activity)
-                            .load("https://in2000-apiproxy.ifi.uio.no/weatherapi/weathericon/1.1?content_type=image%2Fpng&symbol=${forecastList[2].symbol_id}")
-                            .resize(60, 60)
-                            .into(vaer_symbol3)
+                                        //Temperatur
+                                        if (selectedUnit == "Imperial") {
+                                            vaer1.text =
+                                                "${forecastList[0].temperature?.toDouble()
+                                                    ?.let { it1 ->
+                                                        unitSystemViewModel.toFahrenheit(
+                                                            it1
+                                                        )
+                                                    }}°"
+                                        } else {
+                                            vaer1.text = "${forecastList[0].temperature}°"
+                                        }
 
-                        //Brannfare informasjon
-                        val brann3 = stedinfo.findViewById<TextView>(R.id.brann3)
-                        val brann_symbol3 = stedinfo.findViewById<ImageView>(R.id.brann_symbol3)
+                                        //Værsymbol
+                                        Picasso.with(activity)
+                                            .load("https://in2000-apiproxy.ifi.uio.no/weatherapi/weathericon/1.1?content_type=image%2Fpng&symbol=${forecastList[0].symbol_id}")
+                                            .resize(60, 60)
+                                            .into(vaer_symbol1)
 
-                        brann = getTree(dangerList[2].toInt())
-                        brann3.text = dangerList[2]
-                        brann_symbol3.setImageResource(brann)
-                    })
+                                        //Brannfare informasjon
+                                        val brann1 = stedinfo.findViewById<TextView>(R.id.brann1)
+                                        val brann_symbol1 =
+                                            stedinfo.findViewById<ImageView>(R.id.brann_symbol1)
+                                        brann1.text = dangerList[0]
+                                        var brann: Int =
+                                            getTree(dangerList[0].toInt()) //henter riktig farge på treet som brukes som symbol på danger_index
+                                        brann_symbol1.setImageResource(brann)
+
+                                        // Dag 2
+                                        val vaer2 = stedinfo.findViewById<TextView>(R.id.vaer2)
+                                        val vaer_symbol2 =
+                                            stedinfo.findViewById<ImageView>(R.id.vaer_symbol2)
+
+                                        //Temperatur
+                                        if (selectedUnit == "Imperial") {
+                                            vaer2.text =
+                                                "${forecastList[1].temperature?.toDouble()
+                                                    ?.let { it1 ->
+                                                        unitSystemViewModel.toFahrenheit(
+                                                            it1
+                                                        )
+                                                    }}°"
+                                        } else {
+                                            vaer2.text = "${forecastList[1].temperature}°"
+                                        }
+
+                                        //Værsymbol
+                                        Picasso.with(activity)
+                                            .load("https://in2000-apiproxy.ifi.uio.no/weatherapi/weathericon/1.1?content_type=image%2Fpng&symbol=${forecastList[1].symbol_id}")
+                                            .resize(60, 60)
+                                            .into(vaer_symbol2)
+
+                                        //Brannfare informasjon
+                                        val brann2 = stedinfo.findViewById<TextView>(R.id.brann2)
+                                        val brann_symbol2 =
+                                            stedinfo.findViewById<ImageView>(R.id.brann_symbol2)
+
+                                        brann = getTree(dangerList[1].toInt())
+                                        brann2.text = dangerList[1]
+                                        brann_symbol2.setImageResource(brann)
+
+
+                                        // Dag 3
+                                        val vaer3 = stedinfo.findViewById<TextView>(R.id.vaer3)
+                                        val vaer_symbol3 =
+                                            stedinfo.findViewById<ImageView>(R.id.vaer_symbol3)
+
+                                        //Temperatur
+                                        if (selectedUnit == "Imperial") {
+                                            vaer3.text =
+                                                "${forecastList[2].temperature?.toDouble()
+                                                    ?.let { it1 ->
+                                                        unitSystemViewModel.toFahrenheit(
+                                                            it1
+                                                        )
+                                                    }}°"
+                                        } else {
+                                            vaer3.text = "${forecastList[2].temperature}°"
+                                        }
+
+                                        //Værsymbol
+                                        Picasso.with(activity)
+                                            .load("https://in2000-apiproxy.ifi.uio.no/weatherapi/weathericon/1.1?content_type=image%2Fpng&symbol=${forecastList[2].symbol_id}")
+                                            .resize(60, 60)
+                                            .into(vaer_symbol3)
+
+                                        //Brannfare informasjon
+                                        val brann3 = stedinfo.findViewById<TextView>(R.id.brann3)
+                                        val brann_symbol3 =
+                                            stedinfo.findViewById<ImageView>(R.id.brann_symbol3)
+
+                                        brann = getTree(dangerList[2].toInt())
+                                        brann3.text = dangerList[2]
+                                        brann_symbol3.setImageResource(brann)
+                                    })
+                            })
+                        })
+
                 })
-            })
-        })
+        }
     }
 }
 

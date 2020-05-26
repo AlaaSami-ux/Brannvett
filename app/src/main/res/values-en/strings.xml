@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Grill og Chill</string>
+    <string name="app_name">Brannvett</string>
+    <string name="title_activity_maps">Map</string>
 
     <!-- tekst/navn/overskrifter -->
     <string name="vaerIdag">FORECAST</string>
@@ -68,6 +69,7 @@
         <item>Metric</item>
         <item>Imperial</item>
     </string-array>
+    <string name="posisjonAv">You need to turn on location services in your settings</string>
 
 
 </resources>

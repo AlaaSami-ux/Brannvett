@@ -1,5 +1,6 @@
 <resources >
-    <string name="app_name">Grill og Chill</string>
+    <string name="app_name">Brannvett</string>
+    <string name="title_activity_maps">Map</string>
 
     <!-- tekst/navn/overskrifter -->
     <string name="vaerIdag">VÆRET I DAG</string>
@@ -42,6 +43,7 @@
     <string name="fraFavoritter">" fra dine favoritter?"</string>
     <string name="ingenInternett">Denne applikasjonen trenger tilgang til internett for å fungere. Sørg for at du er koblet til internett og prøv igjen.</string>
     <string name="finnerIkkeDinPos">Finner ikke din posisjon</string>
+    <string name="posisjonAv">Du må skru på posisjonstjenester i dine innstillinger</string>
 
 
     <!-- ikoner/bilder -->
