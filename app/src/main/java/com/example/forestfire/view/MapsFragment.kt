@@ -286,9 +286,6 @@ class MapsFragment(
         mMap.uiSettings.isZoomControlsEnabled = true
         if (mapsViewModel.isLocationGranted()) {
             mMap.isMyLocationEnabled = true
-        } else {
-            Toast.makeText(requireContext(), getString(R.string.posisjonAv), Toast.LENGTH_LONG)
-                .show()
         }
 
         // Åpne kartet på sist brukte posisjon
