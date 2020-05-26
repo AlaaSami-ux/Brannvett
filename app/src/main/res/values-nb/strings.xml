@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name">Grill og Chill</string>
+    <string name="app_name">Brannvett</string>
     <string name="title_activity_maps">Map</string>
 
     <!-- tekst/navn/overskrifter -->
@@ -76,5 +76,6 @@
     <string name="info">Info</string>
     <string name="favorites">Favoritter</string>
     <string name="settings">Innstillinger</string>
+    <string name="posisjonAv">Du må skru på posisjonstjenester i dine innstillinger</string>
 
 </resources>

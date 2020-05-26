@@ -182,42 +182,47 @@ class FavoritesFragment(
                 noFavoritesTextBox.text = getString(R.string.lasterInn)
             }
             my_recycler_view = root.findViewById(R.id.my_recycler_view)
-            forecastViewModel.fetchForecastFavorites(favorites.keys.toList())
-            forecastViewModel.forecastFavoritesLiveData.observe(
-                viewLifecycleOwner,
-                androidx.lifecycle.Observer Forecast@{ forecastMap ->
-                    if (forecastMap == null) return@Forecast
-                    Log.d("forecastViewModel ", "fetched Favs")
+            if ((activity as MainActivity).isOnline()) {
+                forecastViewModel.fetchForecastFavorites(favorites.keys.toList())
+                forecastViewModel.forecastFavoritesLiveData.observe(
+                    viewLifecycleOwner,
+                    androidx.lifecycle.Observer Forecast@{ forecastMap ->
+                        if (forecastMap == null) return@Forecast
+                        Log.d("forecastViewModel ", "fetched Favs")
 
-                    fireViewModel.fetchFireLocations()
-                    fireViewModel.liveFireLocations.observe(
-                        viewLifecycleOwner,
-                        androidx.lifecycle.Observer Locations@{ dayList ->
-                            if (dayList == null) return@Locations
-                            Log.d("FireViewModel", "fetched all days")
+                        fireViewModel.fetchFireLocations()
+                        fireViewModel.liveFireLocations.observe(
+                            viewLifecycleOwner,
+                            androidx.lifecycle.Observer Locations@{ dayList ->
+                                if (dayList == null) return@Locations
+                                Log.d("FireViewModel", "fetched all days")
 
-                            stationViewModel.fetchData(dayList[0].locations)
-                            stationViewModel.stationInfoLiveData.observe(
-                                viewLifecycleOwner,
-                                androidx.lifecycle.Observer Data@{
-                                    if (it == null) return@Data
-                                    Log.d("stationViewModel", "Filling hashmap")
+                                stationViewModel.fetchData(dayList[0].locations)
+                                stationViewModel.stationInfoLiveData.observe(
+                                    viewLifecycleOwner,
+                                    androidx.lifecycle.Observer Data@{
+                                        if (it == null) return@Data
+                                        Log.d("stationViewModel", "Filling hashmap")
 
-                                    stationViewModel.fetchFavDanger(
-                                        favorites.keys.toList(),
-                                        dayList
-                                    )
-                                    stationViewModel.stationFavDangerLiveData.observe(
-                                        viewLifecycleOwner,
-                                        androidx.lifecycle.Observer Danger@{ posDangerMap ->
-                                            if (posDangerMap == null) return@Danger
-                                            Log.d("stationViewModel", "Fetched dangerlist of favs")
-                                            initRecyclerView(forecastMap, posDangerMap)
-                                        })
-                                })
+                                        stationViewModel.fetchFavDanger(
+                                            favorites.keys.toList(),
+                                            dayList
+                                        )
+                                        stationViewModel.stationFavDangerLiveData.observe(
+                                            viewLifecycleOwner,
+                                            androidx.lifecycle.Observer Danger@{ posDangerMap ->
+                                                if (posDangerMap == null) return@Danger
+                                                Log.d(
+                                                    "stationViewModel",
+                                                    "Fetched dangerlist of favs"
+                                                )
+                                                initRecyclerView(forecastMap, posDangerMap)
+                                            })
+                                    })
 
-                        })
-                })
+                            })
+                    })
+            }
         }
         return root
     }
@@ -248,13 +253,15 @@ class FavoritesFragment(
         Log.d(TAG, "initRecyclerView")
         my_recycler_view.apply {
             layoutManager = LinearLayoutManager(requireActivity())
-            viewAdapter = ListAdapter(requireContext(), forecastMap,
+            viewAdapter = ListAdapter(
+                requireContext(), forecastMap,
                 posDangerMap,
                 favorites,
                 this@FavoritesFragment,
                 favoriteViewModel,
                 mapsViewModel,
-                unitSystemViewModel)
+                unitSystemViewModel
+            )
             if (favorites.count() > 0) {
                 noFavoritesTextBox.visibility = View.GONE
             }

@@ -49,6 +49,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+        showNoConnectionDialog()
         return false
     }
 
@@ -62,6 +63,7 @@ class MainActivity : AppCompatActivity() {
         val dialog =builder.create()
         dialog.show()
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
