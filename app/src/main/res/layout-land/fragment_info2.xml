@@ -75,7 +75,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/baal"
-                        android:paddingTop="20dp"
+                        android:paddingTop="15dp"
                         android:layout_centerHorizontal="true"
                         android:textSize="18sp"
                         android:text="@string/baal"/>
@@ -99,7 +99,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/engangsgrill"
-                        android:paddingTop="20dp"
+                        android:paddingTop="15dp"
                         android:layout_centerHorizontal="true"
                         android:textSize="18sp"
                         android:text="@string/engangsgrill" />
@@ -123,7 +123,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/glassflasker"
-                        android:paddingTop="20dp"
+                        android:paddingTop="15dp"
                         android:layout_centerHorizontal="true"
                         android:textSize="18sp"
                         android:layout_below="@id/glass" />
@@ -154,8 +154,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/lyn"
-                        android:layout_below="@id/lyn"
-                        android:paddingTop="20dp"
+                        android:layout_below="@+id/lyn"
+                        android:paddingTop="15dp"
                         android:layout_centerHorizontal="true"
                         android:textSize="18sp" />
                 </RelativeLayout>
@@ -179,7 +179,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/avfallscontainer"
                         android:layout_below="@id/soppel"
-                        android:paddingTop="20dp"
+                        android:paddingTop="15dp"
                         android:layout_centerHorizontal="true"
                         android:textSize="18sp" />
                 </RelativeLayout>
@@ -201,7 +201,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingTop="20dp"
+                        android:paddingTop="15dp"
                         android:layout_centerHorizontal="true"
                         android:textSize="18sp"
                         android:layout_below="@id/verktoy"
