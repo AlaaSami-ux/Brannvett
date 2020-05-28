@@ -281,7 +281,7 @@ class MapsFragment(
         )
 
         mMap.setPadding(0, top.toInt(), 0, bot.toInt()) // padding (left, top, right, bottom)
-        mMap.setMinZoomPreference(10f) // jo lavere tall, jo lenger ut fra kartet kan man gå
+        mMap.setMinZoomPreference(5f) // jo lavere tall, jo lenger ut fra kartet kan man gå
         mMap.setMaxZoomPreference(20.0f) // hvor langt inn man kan zoome
         mMap.uiSettings.isZoomControlsEnabled = true
         if (mapsViewModel.isLocationGranted()) {
