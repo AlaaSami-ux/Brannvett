@@ -3,7 +3,7 @@
 
     <string-array name="unit_entries">
         <item>Metrisk</item>
-        <item>Imperial</item>
+        <item>Imperisk</item>
     </string-array>
 
     <string-array name="units">
