@@ -14,4 +14,5 @@
         <item name="colorPrimary">@color/purpleColor</item>
         <item name="android:textColorSecondary">@color/quantum_grey</item>
     </style>
+
 </resources>
