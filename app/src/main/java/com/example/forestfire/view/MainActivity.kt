@@ -79,18 +79,6 @@ class MainActivity : AppCompatActivity() {
         val stationInfoViewModel: StationInfoViewModel by viewModels { StationInfoViewModel.InstanceCreator() }
         val forecastViewModel: LocationForecastViewModel by viewModels { LocationForecastViewModel.InstanceCreator() }
 
-
-        val pos = LatLng(59.9139, 10.7522)
-        forecastViewModel.fetchLocationForecast(pos)
-        forecastViewModel.locationForecastLiveData.observe(this, Observer {
-            //Tester om temperaturen stemmer
-            val equal = testData(13.0, it.product.time[0].location.temperature.value)
-            if(equal == 0){
-                Log.d("MainActivityTest", "Expected and recieved value is the same")
-            }
-        })
-
-
         if (savedInstanceState == null) {
             homeFragment = MapsFragment(stationInfoViewModel, fireViewModel, forecastViewModel)
             supportFragmentManager
@@ -143,6 +131,17 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+
+        //Eksempel på en unit test som tester været for Oslo
+        val pos = LatLng(59.9139, 10.7522)
+        forecastViewModel.fetchLocationForecast(pos)
+        forecastViewModel.locationForecastLiveData.observe(this, Observer {
+            //Tester om temperaturen stemmer
+            val equal = testData(13.0, it.product.time[0].location.temperature.value)
+            if(equal == 0){
+                Log.d("MainActivityTest", "Expected and recieved value is the same")
+            }
+        })
     }
 
 
