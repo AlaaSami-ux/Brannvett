@@ -32,7 +32,7 @@ class StationInfoViewModel(private val stationService : StationService) : ViewMo
         // nærmeste posisjon til et gitt latlng objekt.
         try{
             if(locCoorMap.isEmpty()){
-                Log.d("Inside stationInfoVM", "fetching data")
+                Log.d("StationInfoViewModel", "fetching data from frost")
                 viewModelScope.launch {
                     val stationList = mutableListOf<StationInfoModel.GeneralInformation>()
                     for(loc in locList){
@@ -43,7 +43,6 @@ class StationInfoViewModel(private val stationService : StationService) : ViewMo
                             val station = stationService.fetchStationData("SN${loc.id}")
                             stationList.add(station)
                             locCoorMap[loc] = station.data[0].geometry
-                            Log.d("Inside stationInfoVM", station.toString())
                         }
                     }
                     stationInfoLiveData.postValue(stationList)
@@ -79,7 +78,6 @@ class StationInfoViewModel(private val stationService : StationService) : ViewMo
         viewModelScope.launch {
             for(pos in posisjonsListe){
                 val bestLoc = findBestLoc(pos)
-                Log.d("Fav danger StationVM", "bestLoc = " + bestLoc.name + " pos: " + pos.toString())
                 val dangerList = mutableListOf<String>()
                 for(dag in dagListe){
                     for(loc in dag.locations){

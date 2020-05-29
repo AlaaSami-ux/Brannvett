@@ -1,6 +1,0 @@
-View package/folder README:
-
-What am I allowed to create in this package?
-    - Only activities and/or fragments that directly impacts
-        the UI of the app shall reside in this folder/package.
-

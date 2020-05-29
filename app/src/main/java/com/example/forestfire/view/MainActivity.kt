@@ -9,10 +9,12 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.Observer
 import com.example.forestfire.R
 import com.example.forestfire.viewModel.fetchAPI.FireDataViewModel
 import com.example.forestfire.viewModel.fetchAPI.LocationForecastViewModel
 import com.example.forestfire.viewModel.fetchAPI.StationInfoViewModel
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
@@ -77,6 +79,18 @@ class MainActivity : AppCompatActivity() {
         val stationInfoViewModel: StationInfoViewModel by viewModels { StationInfoViewModel.InstanceCreator() }
         val forecastViewModel: LocationForecastViewModel by viewModels { LocationForecastViewModel.InstanceCreator() }
 
+
+        val pos = LatLng(59.9139, 10.7522)
+        forecastViewModel.fetchLocationForecast(pos)
+        forecastViewModel.locationForecastLiveData.observe(this, Observer {
+            //Tester om temperaturen stemmer
+            val equal = testData(13.0, it.product.time[0].location.temperature.value)
+            if(equal == 0){
+                Log.d("MainActivityTest", "Expected and recieved value is the same")
+            }
+        })
+
+
         if (savedInstanceState == null) {
             homeFragment = MapsFragment(stationInfoViewModel, fireViewModel, forecastViewModel)
             supportFragmentManager
@@ -129,5 +143,11 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+    }
+
+
+    private fun<T> testData(expected : T, got : T) : Int{
+        //Returnerer 0 dersom objektene er like
+        return expected.toString().compareTo(got.toString())
     }
 }
